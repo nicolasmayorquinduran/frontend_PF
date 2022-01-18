@@ -1,12 +1,22 @@
+import React from 'react';
 import { GlobalStyle } from "./globalStyles";
+import { Provider } from 'react-redux';
+import DetailsProduct from "./components/DetailsProduct/DetailsProduct.jsx";
 
 function App() {
   return (
-    <div className="App">
-      <GlobalStyle />
-      <h1>Lok APP</h1>
-      {/* Poner aquí los compenentes que se van a enrutar */}
-    </div>
+    <Provider>
+      
+      <div className = "App">
+      
+        <GlobalStyle />
+        
+        {/* Poner aquí los compenentes que se van a enrutar */}
+        <h1>{ DetailsProduct }</h1>
+      
+      </div>
+
+    </Provider>
   );
 }
 
