@@ -32,3 +32,22 @@ export function getProductsByName(nameProduc){
     }
   }
 }
+
+
+export function detailsProduct (id) {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get(`http://localhost:3001/products/${id}`)
+
+      return dispatch(
+        {
+          type: TYPES.PRODUCT_DITAILS,
+          payload: json.data
+        }
+      );
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+};
