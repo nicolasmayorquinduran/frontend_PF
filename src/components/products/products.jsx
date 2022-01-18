@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../../redux/actions/products";
-import SearchBar from "../SearchBar/SearchBar";
 import { Container } from "../../globalStyles";
+import SearchBar from "../SearchBar/SearchBar";
+import Product from "./product";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const Products = () => {
       <SearchBar />
       <Container>
         {allProducts.map((p) => (
-          <p>{p.name}</p>
+          <Product name={p.name} img={p.img} price={p.price} />
         ))}
       </Container>
     </div>

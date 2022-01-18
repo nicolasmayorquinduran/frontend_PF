@@ -7,8 +7,7 @@ function App() {
     <div className="App">
       <GlobalStyle />
       <h1>Lok APP</h1>
-      <ProductsDetail />
-      {/* <Products /> */}
+      <Products />
     </div>
   );
 }
