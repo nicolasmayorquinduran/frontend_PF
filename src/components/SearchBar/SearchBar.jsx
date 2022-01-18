@@ -4,7 +4,7 @@ import { useDipatch } from "react-redux";
 
 export default function SearchBar() {
   const dispatch = useDipatch();
-  cons[(name, setName)] = useState("");
+  const [name, setName] = useState("");
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -15,7 +15,4 @@ export default function SearchBar() {
     e.preventDefault();
     dispatch();
   }
-}
-
-  );
 }
