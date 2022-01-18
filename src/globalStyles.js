@@ -1,3 +1,7 @@
+import { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -6,8 +10,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+`;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+export const Container = styled.div`
+  background: red;
+`;
+export const Children = styled.div`
+  background: red;
+`;
