@@ -4,7 +4,7 @@ import { getProducts } from "../../redux/actions/products";
 
 function SearchBar() {
   const dispatch = useDispatch();
-  const[name, setName] = useState("");
+  const [nameProduc, setName] = useState("");
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -13,7 +13,7 @@ function SearchBar() {
 
   function handleSubmite(e) {
     e.preventDefault();
-    dispatch(getProducts(name));
+    dispatch(getProducts(nameProduc));
   }
 
   return (
