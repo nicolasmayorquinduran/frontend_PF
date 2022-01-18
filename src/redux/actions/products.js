@@ -14,3 +14,20 @@ export function getProducts() {
       .catch((error) => console.log(error));
   };
 }
+
+
+export function detailsProduct(id) {
+  return function (dispatch) {
+    return axios
+      .get(`http://localhost:3001/products/${id}`)
+      .then((response) =>
+        dispatch({
+          type: TYPES.PRODUCT_DETAILS,
+          payload: response.data,
+        })
+      )
+      .catch((error) => console.log(error));
+  };
+}
+
+
