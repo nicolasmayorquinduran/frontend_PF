@@ -1,21 +1,15 @@
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import { Children } from "../../globalStyles";
 
-import React from 'react'
-
-const Product = ({ id, name, price, img, category }) => {
+const Product = ({ id, name, price, img }) => {
   return (
-    <div>
-      <Link to={`/products/${id}`}>
-        <img src={img} alt="Producto" />
-      </Link>
-      <Link to={`/products/${id}`}>
-        <h2>{name}</h2>
-      </Link>
-      <Link to={`/products/${id}`}>
-        <h3>{price}</h3>
-      </Link>
-    </div>
-  )
-}
+    <Children>
+      <img src={img} alt="Producto" />
+      <h2>{name}</h2>
+      <h3>{price}</h3>
+    </Children>
+  );
+};
 
-export default Product
+export default Product;
