@@ -1,7 +1,7 @@
 import axios from "axios";
 import { TYPES } from "./types.js";
 
-export function getActivities() {
+export function getProducts() {
   return function (dispatch) {
     return axios
       .get("http://localhost:3001/products")
