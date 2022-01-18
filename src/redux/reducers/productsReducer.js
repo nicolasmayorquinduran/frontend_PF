@@ -12,9 +12,17 @@ function productsReducer(state = initialState, action) {
         products: action.payload,
       };
 
+      case TYPES.GET_PRODUCTS_BY_NAME:
+        return{
+          ...state,
+          products:action.payload
+        }
+
     default:
       return state;
   }
 }
 
 export default productsReducer;
+
+

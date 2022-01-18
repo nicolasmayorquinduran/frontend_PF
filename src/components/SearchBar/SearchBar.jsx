@@ -1,10 +1,9 @@
-import React from "react";
 import { useState } from "react";
-import { useDipatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
-export default function SearchBar() {
-  const dispatch = useDipatch();
-  cons[(name, setName)] = useState("");
+const SearchBar = () => {
+  const dispatch = useDispatch();
+  const [name, setName] = useState("");
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -15,4 +14,7 @@ export default function SearchBar() {
     e.preventDefault();
     dispatch();
   }
-}
+  return <div></div>;
+};
+
+export default SearchBar;

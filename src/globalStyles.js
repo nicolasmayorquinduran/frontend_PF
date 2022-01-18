@@ -12,9 +12,5 @@ body {
 }
 `;
 
-export const Container = styled.div`
-  background: red;
-`;
-export const Children = styled.div`
-  background: red;
-`;
+export const Container = styled.div``;
+export const Children = styled.div``;
