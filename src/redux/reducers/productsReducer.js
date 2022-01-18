@@ -20,7 +20,7 @@ function productsReducer(state = initialState, action) {
         }
 
       // console.log("Producto detallado:", action.payload);
-      case TYPES.PRODUCT_DITAILS:
+      case TYPES.PRODUCT_DETAILS:
         return {
           ...state,
           productsDetails: action.payload
