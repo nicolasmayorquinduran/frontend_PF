@@ -1,7 +1,16 @@
 import "./App.css";
+import {Routes, Route} from 'react-router-dom'
+
+
 
 function App() {
-  return <div className="App">Lok App</div>;
+  return 
+  <div className="App">Lok App
+    <Routes>
+      <Route />
+    </Routes>
+  </div>;
+
 }
 
 export default App;
