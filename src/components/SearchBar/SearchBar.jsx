@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import {getProductsByName} from '../../redux/actions/products'
 
-const SearchBar = () => {
+export default function SearchBar() {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
+  cons[nameProduc, setName] = useState("");
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -12,9 +13,29 @@ const SearchBar = () => {
 
   function handleSubmite(e) {
     e.preventDefault();
-    dispatch();
+    dispatch(getProductsByName(nameProduc));
   }
-  return <div></div>;
-};
+
+  return (
+    <div className="container-searchBar">
+      <input
+        className="input-search"
+        type="text"
+        placeholder="Buscar..."
+        onChange={(e) => handleInputChange(e)}
+      />
+      <button
+        className="btn-Search"
+        type="submit"
+        onClick={(e) => handleSubmite(e)}
+      >
+        Buscar
+      </button>
+    </div>
+  );
+}
+
+
 
 export default SearchBar;
+

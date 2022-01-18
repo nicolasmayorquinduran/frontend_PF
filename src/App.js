@@ -1,5 +1,5 @@
 import { GlobalStyle } from "./globalStyles";
-import Products from "./components/products/products";
+import Products from './components/products/products'
 
 function App() {
   return (
