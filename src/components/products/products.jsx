@@ -14,7 +14,7 @@ const Products = () => {
     <div>
       <SearchBar />
       <Container>
-        {allProducts.map((p) => (
+        {allProducts.filter((p) => (
           <p>{p.name}</p>
         ))}
       </Container>

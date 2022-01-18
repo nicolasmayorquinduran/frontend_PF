@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { getProductsByName } from "../../redux/actions/products";
+import { getProducts } from "../../redux/actions/products";
 
 function SearchBar() {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ function SearchBar() {
 
   function handleSubmite(e) {
     e.preventDefault();
-    // dispatch(getProductsByName(nameProduc));
+    dispatch(getProducts(nameProduc));
   }
 
   return (
