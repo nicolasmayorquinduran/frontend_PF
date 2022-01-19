@@ -1,18 +1,25 @@
+import React from "react";
 import { GlobalStyle } from "./globalStyles";
-import {Routes, Route} from 'react-router-dom';
-import Products from './components/products/products'
-import AdminCat from "./components/AdminCategory/AdminCategories";
-
+import Products from "./components/users/products/products";
+import ProductsDetail from "./components/users/ProductDetails/ProductDetails";
+import StyleRules from "./components/styleRules/Index";
+import NavBar from './components/users/navBar/navBar'
+import AdminCat from "./components/Admin/AdminCategory/AdminCategories";
+import { Route, Routes } from "react-router-dom";
 function App() {
   return (
-    <div className="App">
-      {/* <GlobalStyle />
-      <h1>Lok APP</h1>
-      <Products /> */}
-      <AdminCat/>
-      {/* <Routes>
-        <Route exact path="/adminCategories" element={<AdminCat/>} />
-      </Routes> */}
+    <div className = "App">
+       <GlobalStyle />
+      <StyleRules />
+      <NavBar /> 
+      <Routes>
+        <Route exact path='/' element={<Products/>} />          
+        <Route exact path='/detail' element={<ProductsDetail/>}/>
+        <Route exact path='/admin/categories' element={<AdminCat/>} />
+        <Route/>
+        <Route/>
+      </Routes>
+      {/* <h1>Lok APP</h1> */}
     </div>
   );
 }

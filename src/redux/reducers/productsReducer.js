@@ -2,7 +2,7 @@ import { TYPES } from "../actions/types.js";
 
 const initialState = {
   products: [],
-  productsDetails: {},
+  productsDetails: [],
 };
 
 function productsReducer(state = initialState, action) {
@@ -19,8 +19,9 @@ function productsReducer(state = initialState, action) {
           products:action.payload
         }
 
-      // console.log("Producto detallado:", action.payload);
-      case TYPES.PRODUCT_DITAILS:
+      
+      case TYPES.PRODUCT_DETAILS:
+        console.log("Producto detallado:", action.payload);
         return {
           ...state,
           productsDetails: action.payload

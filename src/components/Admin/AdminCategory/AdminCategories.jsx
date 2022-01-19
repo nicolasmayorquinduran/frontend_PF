@@ -1,6 +1,6 @@
 import React,{ useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getCategories} from "../../redux/actions/categories"
+import {getCategories} from "../../../redux/actions/categories"
 import s from "./AdminCategories.module.css"
 
 export default function AdminCat () {
