@@ -1,6 +1,7 @@
 import axios from "axios";
 import { TYPES } from "./types.js";
 
+
 export function getProducts() {
   return function (dispatch) {
     return axios
@@ -15,10 +16,11 @@ export function getProducts() {
   };
 }
 
+
 export function detailsProduct() {
   return function (dispatch) {
     return axios
-      .get(`http://localhost:3001/products/3`)
+      .get(`http://localhost:3001/productsDetails/id`)
       .then((response) => {
         return dispatch({
           type: TYPES.PRODUCT_DETAILS,
