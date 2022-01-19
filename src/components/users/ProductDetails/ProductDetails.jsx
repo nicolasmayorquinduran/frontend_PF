@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { detailsProduct } from "../../redux/actions/products";
+import { Link, useParams } from "react-router-dom";
+import { detailsProduct } from "../../../redux/actions/products";
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
