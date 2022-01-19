@@ -13,8 +13,14 @@ body {
 `;
 
 export const Container = styled.div`
-  background: red;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 `;
 export const Children = styled.div`
-  background: red;
+  width: 23%;
+  @media (max-width: 700px);
+   {
+    width: 48%;
+  }
 `;
