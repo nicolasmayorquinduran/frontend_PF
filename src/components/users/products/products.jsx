@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getProducts } from "../../../redux/actions/products";
-import { Container } from "../../../globalStyles";
-import SearchBar from "../SearchBar/SearchBar";
-import Product from "./product";
-import Paginado from '../Paginado/Paginado.jsx';
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getProducts } from '../../../redux/actions/products'
+import { Container } from '../../../globalStyles'
+import SearchBar from '../SearchBar/SearchBar'
+import Product from './product'
+import { Category, Select, Selected } from './Style'
+
 
 
 const Products = () => {
-  const dispatch = useDispatch();
-  const allProducts = useSelector((store) => store.productsReducer.products);
-  useEffect(() => dispatch(getProducts()), [dispatch]);
-
+  const dispatch = useDispatch()
+  useEffect(() => dispatch(getProducts()), [dispatch])
+  const allProducts = useSelector(store => store.productsReducer.products)
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(9);
   const indexOfLastProduct = currentPage*productsPerPage;
@@ -19,13 +19,11 @@ const Products = () => {
   const currentProduct = allProducts.slice(indexOfFirstProduct,indexOfLastProduct);
   const paginado = (pageNumber)=>{setCurrentPage(pageNumber)};
 
-  console.log(allProducts);
-
   return (
     <div>
       <SearchBar />
-      <div>
-        <select name="" id="">
+      <Category>
+        <Select name="" id="">
           <option value="">Category</option>
           <option value="">Shoes</option>
           <option value="">Jeans</option>
@@ -33,28 +31,17 @@ const Products = () => {
           <option value="">Women Clothing</option>
           <option value="">Men Clothing</option>
           <option value="">Lingerie</option>
-        </select>
-      </div>
-      <div>
-        <button>Shoes</button>
-        <button>Jeans</button>
-        <button>Dresses</button>
-        <button>Lingerie</button>
-      </div>
+        </Select>
+        <Selected>Shoes</Selected>
+        <Selected>Jeans</Selected>
+        <Selected>Dresses</Selected>
+        <Selected>Lingerie</Selected>
+      </Category>
+
       <Container>
-      {
-        currentProduct?.map(product=>{
-          return(
-            <div>
-              <Product 
-               img={product.img}
-               name={product.name}
-               price={product.price} 
-              />
-            </div>
-          )
-        })
-      }
+        {allProducts.map(p => (
+          <Product name={p.name} img={p.img} price={p.price} />
+        ))}
       </Container>
       <Paginado 
         productsPerPage={productsPerPage}
