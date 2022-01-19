@@ -1,9 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProducts } from '../../../redux/actions/products'
 import { Container } from '../../../globalStyles'
 import SearchBar from '../SearchBar/SearchBar'
 import Product from './product'
+import Paginado from '../Paginado/Paginado.jsx'
 import { Category, Select, Selected } from './Style'
 
 
@@ -39,10 +40,21 @@ const Products = () => {
       </Category>
 
       <Container>
-        {allProducts.map(p => (
-          <Product name={p.name} img={p.img} price={p.price} />
-        ))}
+      {
+        currentProduct?.map(product=>{
+          return(
+            <div>
+              <Product 
+               img={product.img}
+               name={product.name}
+               price={product.price} 
+              />
+            </div>
+          )
+        })
+      }
       </Container>
+      
       <Paginado 
         productsPerPage={productsPerPage}
         allProducts={allProducts.length}
