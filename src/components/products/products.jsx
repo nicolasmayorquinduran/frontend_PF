@@ -7,7 +7,7 @@ import Product from "./product";
 
 const Products = () => {
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getProducts()));
+  useEffect(() => dispatch(getProducts()), [dispatch]);
   const allProducts = useSelector((store) => store.productsReducer.products);
   console.log(allProducts);
 

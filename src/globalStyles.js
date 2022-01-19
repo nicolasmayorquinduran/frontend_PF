@@ -12,5 +12,15 @@ body {
 }
 `;
 
-export const Container = styled.div``;
-export const Children = styled.div``;
+export const Container = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+`;
+export const Children = styled.div`
+  width: 23%;
+  @media (max-width: 700px);
+   {
+    width: 48%;
+  }
+`;
