@@ -68,6 +68,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  text-align: center;
 `;
 
 export const Children = styled.div`
