@@ -16,10 +16,9 @@ function App() {
         <Route exact path='/' element={<Products/>} />          
         <Route exact path='/detail' element={<ProductsDetail/>}/>
         <Route exact path='/admin/categories' element={<AdminCat/>} />
-        <Route/>
-        <Route/>
+        <Route exact path='/ruta1' element />
+        <Route exact path='/ruta2' element />
       </Routes>
-      {/* <h1>Lok APP</h1> */}
     </div>
   );
 }
