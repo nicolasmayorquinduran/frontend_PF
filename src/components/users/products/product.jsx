@@ -6,12 +6,12 @@ const Product = ({ id, name, price, img }) => {
   return (
     <Children>
 
-      <Link to = "/detail/id" >
+      <Link to = "/detail" >
         <img src={img} alt="Producto" />
+        <h2>{name}</h2>
       </Link>
       
       
-      <h2>{name}</h2>
       <h4>{price}</h4>
     </Children>
   );
