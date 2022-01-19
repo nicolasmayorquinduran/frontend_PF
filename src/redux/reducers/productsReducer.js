@@ -2,6 +2,7 @@ import { TYPES } from "../actions/types.js";
 
 const initialState = {
   products: [],
+  productsDetails: {},
 };
 
 function productsReducer(state = initialState, action) {
@@ -16,6 +17,13 @@ function productsReducer(state = initialState, action) {
         return{
           ...state,
           products:action.payload
+        }
+
+      // console.log("Producto detallado:", action.payload);
+      case TYPES.PRODUCT_DITAILS:
+        return {
+          ...state,
+          productsDetails: action.payload
         }
 
     default:
