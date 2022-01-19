@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {getProductsByName} from '../../redux/actions/products'
+import {detailsProduct} from '../../redux/actions/products'
 
 export default function SearchBar() {
   const dispatch = useDispatch();
-  cons[nameProduc, setName] = useState("");
+  const[nameProduc, setName] = useState("");
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -13,7 +13,7 @@ export default function SearchBar() {
 
   function handleSubmite(e) {
     e.preventDefault();
-    dispatch(getProductsByName(nameProduc));
+    dispatch(detailsProduct(nameProduc));
   }
 
   return (
@@ -37,5 +37,4 @@ export default function SearchBar() {
 
 
 
-export default SearchBar;
 

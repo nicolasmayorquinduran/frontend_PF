@@ -12,7 +12,7 @@ export default function ProductDetails () {
     const { id } = useParams();
 
     useEffect(() => {
-        dispatch(getDetails(id))
+        dispatch(detailsProduct(id))
     }, [dispatch, id]);
 
 
