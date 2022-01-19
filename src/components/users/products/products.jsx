@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getProducts } from "../../redux/actions/products";
-import { Container } from "../../globalStyles";
+import { getProducts } from "../../../redux/actions/products";
+import { Container } from "../../../globalStyles";
 import SearchBar from "../SearchBar/SearchBar";
 import Product from "./product";
 
