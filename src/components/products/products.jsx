@@ -6,10 +6,10 @@ import SearchBar from "../SearchBar/SearchBar";
 import Product from "./product";
 
 const Products = () => {
-  const dispatch = useDispatch()
-  useEffect(() => dispatch(getProducts()))
-  const allProducts = useSelector(store => store.productsReducer.products)
-  console.log(allProducts)
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(getProducts()), [dispatch]);
+  const allProducts = useSelector((store) => store.productsReducer.products);
+  console.log(allProducts);
 
   return (
     <div>
