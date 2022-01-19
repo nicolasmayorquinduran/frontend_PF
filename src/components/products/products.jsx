@@ -11,15 +11,13 @@ const Products = () => {
   const allProducts = useSelector((store) => store.productsReducer.products);
   useEffect(() => dispatch(getProducts()), [dispatch]);
 
-  //Estados locales para el paginado
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(9);
   const indexOfLastProduct = currentPage*productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProduct = allProducts.slice(indexOfFirstProduct,indexOfLastProduct);
   const paginado = (pageNumber)=>{setCurrentPage(pageNumber)};
-  //----------------------------------------------------------------------------------
-  
+
   console.log(allProducts);
 
   return (
