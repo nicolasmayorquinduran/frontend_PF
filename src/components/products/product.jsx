@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Children } from "../../globalStyles";
 
 const Product = ({ id, name, price, img }) => {

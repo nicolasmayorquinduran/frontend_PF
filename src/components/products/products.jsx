@@ -18,6 +18,7 @@ const Products = () => {
         {allProducts.map((p) => (
           <Product name={p.name} img={p.img} price={p.price} />
         ))}
+      {/* <ProductDetails /> */}
       </Container>
     </div>
   );
