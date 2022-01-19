@@ -1,9 +1,11 @@
 import React from "react";
 import { GlobalStyle } from "./globalStyles";
+
 import Products from "./components/users/products/products";
 import ProductsDetail from "./components/users/ProductDetails/ProductDetails";
 import StyleRules from "./components/styleRules/Index";
 import NavBar from './components/users/navBar/navBar'
+
 function App() {
   return (
     <div className = "App">

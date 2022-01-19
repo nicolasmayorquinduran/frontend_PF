@@ -5,7 +5,12 @@ import { Children } from "../../../globalStyles";
 const Product = ({ id, name, price, img }) => {
   return (
     <Children>
-      <img src={img} alt="Producto" />
+
+      <Link to = "/detail/id" >
+        <img src={img} alt="Producto" />
+      </Link>
+      
+      
       <h2>{name}</h2>
       <h4>{price}</h4>
     </Children>
