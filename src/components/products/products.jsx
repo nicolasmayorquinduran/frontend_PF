@@ -6,11 +6,9 @@ import SearchBar from "../SearchBar/SearchBar";
 import Product from "./product";
 
 const Products = () => {
-  const dispatch = useDispatch()
-  useEffect(() => dispatch(getProducts()))
-  const allProducts = useSelector(store => store.productsReducer.products)
-  console.log(allProducts)
-
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(getProducts()), [dispatch]);
+  const allProducts = useSelector((store) => store.productsReducer.products);
   return (
     <div>
       <SearchBar />
@@ -35,6 +33,7 @@ const Products = () => {
         {allProducts.map((p) => (
           <Product name={p.name} img={p.img} price={p.price} />
         ))}
+      {/* <ProductDetails /> */}
       </Container>
     </div>
   )
