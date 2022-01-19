@@ -11,7 +11,7 @@ function App() {
   return (
     <div className = "App">
       <GlobalStyle />
-      <NavBar /> 
+      <NavBar />
       <Routes>
         <Route exact path='/styleRules' element={<StyleRules/>} />
         <Route exact path='/' element={<Products/>} />          
