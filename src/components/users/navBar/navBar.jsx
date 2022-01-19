@@ -1,28 +1,37 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { LoginButton } from "../Login/Login";
+import { LogoutButton } from "../Login/Logout";
+import { Profile } from "../Login/Profile";
+import { useAuth0 } from "@auth0/auth0-react";
+import { NavBarMenu } from "./navBarMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
-
 import "./navbar.css";
 
 const NavBar = () => {
+  const { isAuthenticated } = useAuth0();
+
   return (
     <div className="navbarContainer">
-      <Link id="navLink" to="/">
-        <FontAwesomeIcon icon={faBars} />
-      </Link>
+      <NavBarMenu />
       <Link id="navLink" to="/">
         <FontAwesomeIcon icon={faSearch} />
       </Link>
       <div className="vacio"></div>
       <h1>Henry LooK</h1>
       <div className="vacio"></div>
-      <Link id="navLink" to="/">
-        <FontAwesomeIcon icon={faUser} />
-      </Link>
+      {isAuthenticated ? (
+        <div className="logged">
+          <Profile />
+          <LogoutButton />
+        </div>
+      ) : (
+        <div>
+          <LoginButton />
+        </div>
+      )}
       <Link id="navLink" to="/">
         <FontAwesomeIcon icon={faCartPlus} />
       </Link>

@@ -9,6 +9,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #F8F9FB;
 }
+h1, h2, h3, h4, h5, h6, p, img{
+  margin:0;
+}
 h4, h5, h6 {
    font-weight: lighter;
 }
@@ -25,7 +28,7 @@ h4 {
     font-size: 30px;
 }
 h5 {
-    font-size: 28px;
+    font-size: 20px;
 }
 h6 {
     font-size: 20px;
@@ -72,16 +75,15 @@ export const Container = styled.div`
 `;
 
 export const Children = styled.div`
-  @media (min-width: 1100px);
-   {
-    max-width: 31%;
+  width: 23%;
+  margin-top: 50px;
+  @media only screen and (max-width: 1100px) and (min-width: 700px) {
+    width: 48%;
   }
-  @media (min-width: 900px);
-   {
-    max-width: 48%;
+  @media only screen and (max-width: 699px) and (min-width: 0px) {
+    width: 98%;
   }
-  @media (max-width: 700px);
-   {
-    max-width: 98%;
+  img {
+    width: 100%;
   }
 `;
