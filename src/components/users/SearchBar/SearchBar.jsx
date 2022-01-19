@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getProducts } from "../../redux/actions/products";
+import { getProducts } from "../../../redux/actions/products";
 
 function SearchBar() {
   const dispatch = useDispatch();

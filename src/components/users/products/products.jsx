@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getProducts } from "../../redux/actions/products";
-import { Container } from "../../globalStyles";
-
+import { getProducts } from "../../../redux/actions/products";
+import { Container } from "../../../globalStyles";
+import SearchBar from "../SearchBar/SearchBar";
 import Product from "./product";
 import Paginado from '../Paginado/Paginado.jsx';
+
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,24 @@ const Products = () => {
 
   return (
     <div>
+      <SearchBar />
+      <div>
+        <select name="" id="">
+          <option value="">Category</option>
+          <option value="">Shoes</option>
+          <option value="">Jeans</option>
+          <option value="">Dresses</option>
+          <option value="">Women Clothing</option>
+          <option value="">Men Clothing</option>
+          <option value="">Lingerie</option>
+        </select>
+      </div>
+      <div>
+        <button>Shoes</button>
+        <button>Jeans</button>
+        <button>Dresses</button>
+        <button>Lingerie</button>
+      </div>
       <Container>
       {
         currentProduct?.map(product=>{
@@ -43,7 +62,7 @@ const Products = () => {
         paginado={paginado}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Products;
+export default Products

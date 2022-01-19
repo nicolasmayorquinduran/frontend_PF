@@ -1,18 +1,20 @@
+import React from "react";
 import { GlobalStyle } from "./globalStyles";
-import ProductsDetail from "./components/ProductDetails/ProductDetails";
 
-import SearchBar from './components/SearchBar/SearchBar.jsx';
-import Products from './components/products/products.jsx';
-
-
+import Products from "./components/users/products/products";
+import ProductsDetail from "./components/users/ProductDetails/ProductDetails";
+import StyleRules from "./components/styleRules/Index";
+import NavBar from './components/users/navBar/navBar'
 
 function App() {
   return (
-    <div className="App">
+    <div className = "App">
       <GlobalStyle />
+      <NavBar />
       <h1>Lok APP</h1>
-      <SearchBar />
+      <StyleRules />
       <Products />
+      <ProductsDetail />
     </div>
   );
 }
