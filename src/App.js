@@ -1,5 +1,6 @@
 import { GlobalStyle } from "./globalStyles";
-import Products from './components/products/products'
+import Products from "./components/products/products";
+import ProductsDetail from "./components/ProductDetails/ProductDetails";
 
 function App() {
   return (
