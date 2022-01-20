@@ -12,7 +12,9 @@ function AdminUsers() {
   console.log(allUsers);
   return (
     <div>
-      <table className="users">
+      <form></form>
+
+      <table className="usersList">
         <thead>
           <tr>
             <th>Foto</th>

@@ -1,14 +1,14 @@
-.users {
+.usersList {
   width: 100%;
 }
-.users th {
+.usersList th {
   width: 25%;
 }
-.users img {
+.usersList img {
   width: 45%;
   margin: auto;
 }
-.users td,
-.users th {
+.usersList td,
+.usersList th {
   text-align: center;
 }
