@@ -1,5 +1,5 @@
 import React from "react";
-import "./Admin/index.css";
+import "./index.css";
 import { useState } from "react";
 
 import AdminCategories from "./AdminCategory/AdminCategories";

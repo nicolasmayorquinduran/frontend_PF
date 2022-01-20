@@ -1,16 +1,16 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Category = styled.div`
   display: inline-block;
   align-contents: center;
   text-align: center;
-`
+`;
 
 export const Select = styled.select`
   border-radius: 5px;
   font-weight: 600;
   margin-left: 5rem;
-`
+`;
 export const Selected = styled.button`
   margin: 1rem;
   height: 2rem;
@@ -23,8 +23,8 @@ export const Selected = styled.button`
     color: white;
     transition: 1s;
   }
-`
-export const containerImage = styled.div`
+`;
+export const ContainerImage = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
@@ -35,4 +35,4 @@ export const containerImage = styled.div`
   .icon :hover {
     visibility: visible;
   }
-`
+`;
