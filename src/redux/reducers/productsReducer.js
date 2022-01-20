@@ -4,6 +4,7 @@ const initialState = {
   products: [],
   search: "",
   productsDetails: [],
+  panelAdmin: []
 };
 
 function productsReducer(state = initialState, action) {
@@ -20,12 +21,18 @@ function productsReducer(state = initialState, action) {
         search: action.payload,
       };
 
-    case TYPES.PRODUCT_DETAILS:
-      console.log("Producto detallado:", action.payload);
-      return {
-        ...state,
-        productsDetails: action.payload,
-      };
+      case TYPES.PRODUCT_DETAILS:
+        return {
+          ...state,
+          productsDetails: action.payload
+        }
+
+
+      case TYPES.GET_PRODUCTS_ADM:
+        return {
+          ...state,
+          panelAdmin: action.payload
+        }
 
     default:
       return state;

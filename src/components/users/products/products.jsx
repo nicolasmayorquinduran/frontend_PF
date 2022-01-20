@@ -12,11 +12,9 @@ const Products = () => {
   useEffect(() => dispatch(getProducts()), [dispatch]);
   const searchProducts = useSelector((store) => store.productsReducer.search);
   let allProducts = useSelector((store) => store.productsReducer.products);
-  console.log(allProducts);
   allProducts = allProducts.filter((p) =>
     p.name.toLowerCase().includes(searchProducts.toLowerCase())
   );
-  console.log(allProducts);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(9);
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -28,7 +26,7 @@ const Products = () => {
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
+  console.log(currentProduct);
   return (
     <div>
       <SearchBar />

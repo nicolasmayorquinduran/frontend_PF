@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { LoginButton } from "../Login/Login";
 import { LogoutButton } from "../Login/Logout";
 import { Profile } from "../Login/Profile";
@@ -33,6 +34,9 @@ export const NavBarUser = () => {
                 <LogoutButton />
               </DropdownItem>
               <DropdownItem>Ver profile</DropdownItem>
+              <DropdownItem>
+                <Link to="/admin">Ver Admin</Link>
+              </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>
