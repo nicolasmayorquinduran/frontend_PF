@@ -1,0 +1,26 @@
+.ranking {
+  display: flex;
+  position: relative;
+  width: 30%;
+  margin: auto;
+  height: 20px;
+}
+.ranking div {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  font-size: 13px;
+}
+.path {
+  background-color: #f8f9fb;
+  z-index: 10;
+  opacity: 0.7;
+  right: 0;
+}
+
+.stars {
+  display: flex;
+  justify-content: space-between;
+}

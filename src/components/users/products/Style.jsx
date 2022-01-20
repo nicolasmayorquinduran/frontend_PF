@@ -1,6 +1,4 @@
-import styled from "styled-components"
-
-
+import styled from 'styled-components'
 
 export const Category = styled.div`
   display: inline-block;
@@ -21,6 +19,19 @@ export const Selected = styled.button`
   padding-bottom: 2rem;
   &:hover {
     background: grey;
-    color:white;
+    color: white;
   }
 `
+export const containerImage = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+ .icon {
+   position: relative;
+   visibility: hidden;
+ }
+ .icon :hover{
+   visibility: visible;
+ }
+`
+

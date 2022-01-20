@@ -1,18 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Children } from "../../../globalStyles";
-
-const Product = ({ id, name, price, img }) => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import "./styles.css";
+const Product = ({ id, name, price, img, ranking }) => {
+  ranking = 20 * (5 - ranking);
   return (
     <Children>
-
-      <Link to = "/detail/id" >
+      <Link to="/detail">
         <img src={img} alt="Producto" />
+        <h5>{name}</h5>
       </Link>
-      
-      
-      <h2>{name}</h2>
-      <h4>{price}</h4>
+      <strong>{`$${price}`}</strong>
+      <div className="ranking">
+        <div style={{ width: `${ranking}%` }} className="path"></div>
+        <div className="stars">
+          <FontAwesomeIcon icon={faStar} />
+          <FontAwesomeIcon icon={faStar} />
+          <FontAwesomeIcon icon={faStar} />
+          <FontAwesomeIcon icon={faStar} />
+          <FontAwesomeIcon icon={faStar} />
+        </div>
+      </div>
     </Children>
   );
 };

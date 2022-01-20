@@ -5,27 +5,27 @@ import { Container } from '../../../globalStyles'
 import SearchBar from '../SearchBar/SearchBar'
 import Product from './product'
 import Paginado from '../Paginado/Paginado.jsx'
-import { Category, Select, Selected } from './Style'
+import { capa, Category, containerImage, Select, Selected } from './Style'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+
+
 
 
 const Products = () => {
   const dispatch = useDispatch()
   const allProducts = useSelector(store => store.productsReducer.products)
-  useEffect(() => dispatch(getProducts()), [dispatch])
-
-  const [currentPage, setCurrentPage] = useState(1)
-  const [productsPerPage, setProductsPerPage] = useState(9)
-  const indexOfLastProduct = currentPage * productsPerPage
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(9);
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProduct = allProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
-  )
-  const paginado = pageNumber => {
-    setCurrentPage(pageNumber)
-  }
-
-  console.log(allProducts)
+  );
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div>
@@ -47,16 +47,17 @@ const Products = () => {
       </Category>
 
       <Container>
-        {currentProduct?.map(product => {
+        {currentProduct?.map((product) => {
           return (
-            <div>
-              <Product
-                img={product.img}
-                name={product.name}
-                price={product.price}
-              />
-            </div>
-          )
+            <Product>
+              <containerImage  img={product.img}>                
+                  <FontAwesomeIcon className='icon' icon={faCartPlus}/>
+              </containerImage>
+              name={product.name}
+              price={product.price}
+              ranking={product.ranking}
+              </Product> 
+          );
         })}
       </Container>
       <Paginado
@@ -65,7 +66,7 @@ const Products = () => {
         paginado={paginado}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;
