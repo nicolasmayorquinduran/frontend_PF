@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {getCategories} from "../../../redux/actions/categories"
 import s from "./AdminCategories.module.css"
 
-export default function AdminCat () {
+function AdminCat () {
   // const categories = useSelector(state => state.categoryReducer.categories);
   const categories = ["Calzado", "Jeans", "Dresses", "Women Clothing", "Men Clothing", "Lingerie",]
   const dispatch = useDispatch();
@@ -33,3 +33,5 @@ export default function AdminCat () {
     </>
   )
 }
+
+export default AdminCat
