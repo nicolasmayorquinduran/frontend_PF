@@ -4,9 +4,8 @@ import Products from "./components/users/products/products";
 import ProductsDetail from "./components/users/ProductDetails/ProductDetails";
 import StyleRules from "./components/styleRules/Index";
 import NavBar from "./components/users/navBar/navBar";
-import AdminCat from "./components/Admin/AdminCategory/AdminCategories";
 import { Route, Routes } from "react-router-dom";
-
+import Admin from "./components/admin";
 
 function App() {
   return (
@@ -17,8 +16,7 @@ function App() {
         <Route exact path="/styleRules" element={<StyleRules />} />
         <Route exact path="/" element={<Products />} />
         <Route exact path="/detail" element={<ProductsDetail />} />
-        <Route exact path="/admin/categories" element={<AdminCat />} />
-        
+        <Route exact path="/admin" element={<Admin />} />
       </Routes>
     </div>
   );
