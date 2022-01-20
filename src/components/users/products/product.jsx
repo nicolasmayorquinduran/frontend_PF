@@ -8,8 +8,10 @@ const Product = ({ id, name, price, img, ranking }) => {
   ranking = 20 * (5 - ranking);
   return (
     <Children>
-      <img src={img} alt="Producto" />
-      <h5>{name}</h5>
+      <Link to="/detail">
+        <img src={img} alt="Producto" />
+        <h5>{name}</h5>
+      </Link>
       <strong>{`$${price}`}</strong>
       <div className="ranking">
         <div style={{ width: `${ranking}%` }} className="path"></div>
