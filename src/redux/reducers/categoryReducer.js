@@ -4,6 +4,7 @@ import {
 
 const initialState = {
   categories: [],
+  allCategories: [],
 };
 
 export default function categoryReducer(state = initialState, action) {
@@ -11,6 +12,9 @@ export default function categoryReducer(state = initialState, action) {
     case TYPES.GET_CATEGORIES:
       console.log('hola')
       return {
+        ...state,
+        categories: action.payload,
+        allCategories: action.payload
         };
 
     case TYPES.EDIT_CATEGORIES:
@@ -23,6 +27,14 @@ export default function categoryReducer(state = initialState, action) {
         ...state
       }
         
+    // case TYPES.BY_CATEGORY:
+    //   const categoriesAll = state.allCategories
+    //   const categoryFilter = action.payload === 'All'?
+    //   categoriesAll : categoriesAll.filter(e=>e != action.payload)
+    //   return {
+    //     ...state,
+    //     categories: categoryFilter
+    //   }
       
 
       default:

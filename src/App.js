@@ -4,7 +4,7 @@ import Products from "./components/users/products/products";
 import ProductsDetail from "./components/users/ProductDetails/ProductDetails";
 import StyleRules from "./components/styleRules/Index";
 import NavBar from "./components/users/navBar/navBar";
-import AdminCat from "./components/admin/AdminCategory/AdminCategories";
+import AdminCat from "./components/Admin/AdminCategory/AdminCategories";
 import { Route, Routes } from "react-router-dom";
 
 function App() {

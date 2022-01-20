@@ -6,14 +6,18 @@ import SearchBar from '../SearchBar/SearchBar'
 import Product from './product'
 import Paginado from '../Paginado/Paginado.jsx'
 import { Category, Select, Selected } from './Style'
+import { getCategories,
+         // byCategory
+ } from '../../../../src/redux/actions/categories.js'
 
 
 
 
 const Products = () => {
   const dispatch = useDispatch()
-  useEffect(() => dispatch(getProducts()), [dispatch])
   const allProducts = useSelector(store => store.productsReducer.products)
+  const allCategories = useSelector(store=>store.categoryReducer.categories)
+  useEffect(() => dispatch(getProducts(), getCategories()), [dispatch])
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(9);
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -26,18 +30,16 @@ const Products = () => {
     setCurrentPage(pageNumber);
   };
 
+
   return (
     <div>
       <SearchBar />
       <Category>
-        <Select name="" id="">
-          <option value="">Category</option>
-          <option value="">Shoes</option>
-          <option value="">Jeans</option>
-          <option value="">Dresses</option>
-          <option value="">Women Clothing</option>
-          <option value="">Men Clothing</option>
-          <option value="">Lingerie</option>
+        <Select >
+          <option value="All">All</option>         
+          {allCategories?.map((cat)=>{
+          <option value={cat}>{cat}</option>
+          })}
         </Select>
         <Selected>Shoes</Selected>
         <Selected>Jeans</Selected>
