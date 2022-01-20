@@ -28,3 +28,4 @@ export function deleteCategories(id) {
   /*aca iria la action para eliminar 
     una categroia*/
 }
+

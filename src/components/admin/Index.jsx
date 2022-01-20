@@ -11,7 +11,6 @@ import AdminProducts from "./AdminProducts/AdminProducts";
 
 function Index() {
   const [local, setLocal] = useState("");
-  console.log(local);
 
   function handleClick(e) {
     return setLocal(e.target.name);
@@ -44,7 +43,7 @@ function Index() {
       <div>
         {(local === "a" && <AdminProducts />) ||
           (local === "b" && <AdminrOrders />) ||
-          (local ==="c" && <AdminCategories />) ||
+          (local === "c" && <AdminCategories />) ||
           (local === "d" && <AdminUsers />)}
       </div>
     </div>

@@ -1,34 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import "./navbar.css";
 import { useDispatch } from "react-redux";
-import { getProducts } from "../../../redux/actions/products";
+import { searchProducts } from "../../../redux/actions/products";
 
 export const NavBarSearch = () => {
   const [searchBar, setSearchBar] = useState(true);
+  const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
 
   const showHideSearchBar = () => {
     setSearchBar(!searchBar);
   };
 
-  const dispatch = useDispatch();
-  const [nameProduc, setName] = useState("");
+  useEffect(() => dispatch(searchProducts(search), [search]));
+
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   dispatch(search);
+  // }
 
   function handleInputChange(e) {
     e.preventDefault();
-    setName(e.target.value);
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    dispatch(getProducts(nameProduc));
-  }
-
-  function submitAndChange(e) {
-    showHideSearchBar();
-    handleSubmit(e);
+    setSearch(e.target.value);
   }
 
   return (
@@ -37,20 +33,17 @@ export const NavBarSearch = () => {
         <FontAwesomeIcon onClick={showHideSearchBar} icon={faSearch} />
       ) : (
         <div class="search">
-          <FontAwesomeIcon
-            type="submit"
-            onClick={submitAndChange}
-            icon={faSearch}
-          />
-          <div>
-            <form>
+          <form onChange={handleInputChange}>
+            <FontAwesomeIcon type="submit" icon={faSearch} />
+            <div>
               <input
-                type="search"
-                placeholder="Search Here"
-                onChange={(e) => handleInputChange(e)}
+                type="text"
+                placeholder="Buscar..."
+                onChange={handleInputChange}
+                value={search}
               />
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       )}
     </div>
