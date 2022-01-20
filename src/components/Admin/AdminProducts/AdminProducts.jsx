@@ -6,7 +6,7 @@ import { getProductsPanelAdm } from "../../../redux/actions/products.js";
 TAREA: Componente panel de administrador, donde se puede agregar
 un producto al estado gobal de redux para que se añada a la página 
 que renderiza los productos.
-*/
+*/ 
 
 const AdminProducts = () => {
 
