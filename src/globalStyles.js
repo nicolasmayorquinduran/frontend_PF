@@ -63,7 +63,14 @@ label {
     font-size: 20px;
     font-weight: bold;
 }
-  
+  a {
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover {
+  color: #9E005D
+}
 
 `;
 
