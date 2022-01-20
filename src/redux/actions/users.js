@@ -14,3 +14,10 @@ export function getUsers() {
       .catch((error) => console.log(error));
   };
 }
+
+export function postUser(payload) {
+  return async function(dispatch){
+      const info = await axios.post("http://localhost:3001/postAccount", payload)
+      return info
+  }
+}
