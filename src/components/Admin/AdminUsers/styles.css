@@ -1,0 +1,14 @@
+.users {
+  width: 100%;
+}
+.users th {
+  width: 25%;
+}
+.users img {
+  width: 45%;
+  margin: auto;
+}
+.users td,
+.users th {
+  text-align: center;
+}
