@@ -5,28 +5,22 @@ import { Container } from '../../../globalStyles'
 import SearchBar from '../SearchBar/SearchBar'
 import Product from './product'
 import Paginado from '../Paginado/Paginado.jsx'
-import { capa, Category, containerImage, Select, Selected } from './Style'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
-import { Link } from 'react-router-dom'
-
-
-
+import { Category, Select, Selected } from './Style'
 
 const Products = () => {
   const dispatch = useDispatch()
   const allProducts = useSelector(store => store.productsReducer.products)
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(9);
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const [currentPage, setCurrentPage] = useState(1)
+  const [productsPerPage, setProductsPerPage] = useState(9)
+  const indexOfLastProduct = currentPage * productsPerPage
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage
   const currentProduct = allProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
-  );
-  const paginado = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  )
+  const paginado = pageNumber => {
+    setCurrentPage(pageNumber)
+  }
 
   return (
     <div>
@@ -48,17 +42,15 @@ const Products = () => {
       </Category>
 
       <Container>
-        {currentProduct?.map((product) => {
+        {currentProduct?.map(product => {
           return (
             <Product>
-              <containerImage  img={product.img}>                
-                  <Link to={'/'}><FontAwesomeIcon className='icon' icon={faCartPlus}/> </Link> 
-              </containerImage>
+              img={product.img}
               name={product.name}
               price={product.price}
               ranking={product.ranking}
-              </Product> 
-          );
+            </Product>
+          )
         })}
       </Container>
       <Paginado
@@ -67,7 +59,7 @@ const Products = () => {
         paginado={paginado}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Products;
+export default Products
