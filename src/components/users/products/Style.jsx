@@ -1,5 +1,7 @@
 import styled from "styled-components"
 
+
+
 export const Category = styled.div`
   display: inline-block;
   align-contents: center;

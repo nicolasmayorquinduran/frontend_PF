@@ -1,17 +1,32 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProducts } from '../../../redux/actions/products'
 import { Container } from '../../../globalStyles'
 import SearchBar from '../SearchBar/SearchBar'
 import Product from './product'
+import Paginado from '../Paginado/Paginado.jsx'
 import { Category, Select, Selected } from './Style'
-
 
 
 const Products = () => {
   const dispatch = useDispatch()
-  useEffect(() => dispatch(getProducts()), [dispatch])
   const allProducts = useSelector(store => store.productsReducer.products)
+  useEffect(() => dispatch(getProducts()), [dispatch])
+
+  const [currentPage, setCurrentPage] = useState(1)
+  const [productsPerPage, setProductsPerPage] = useState(9)
+  const indexOfLastProduct = currentPage * productsPerPage
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage
+  const currentProduct = allProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  )
+  const paginado = pageNumber => {
+    setCurrentPage(pageNumber)
+  }
+
+  console.log(allProducts)
+
   return (
     <div>
       <SearchBar />
@@ -32,11 +47,23 @@ const Products = () => {
       </Category>
 
       <Container>
-        {allProducts.map(p => (
-          <Product name={p.name} img={p.img} price={p.price} />
-        ))}
-        {/* <ProductDetails /> */}
+        {currentProduct?.map(product => {
+          return (
+            <div>
+              <Product
+                img={product.img}
+                name={product.name}
+                price={product.price}
+              />
+            </div>
+          )
+        })}
       </Container>
+      <Paginado
+        productsPerPage={productsPerPage}
+        allProducts={allProducts.length}
+        paginado={paginado}
+      />
     </div>
   )
 }
