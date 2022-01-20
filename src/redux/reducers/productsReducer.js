@@ -3,6 +3,7 @@ import { TYPES } from "../actions/types.js";
 const initialState = {
   products: [],
   productsDetails: [],
+  panelAdmin: []
 };
 
 function productsReducer(state = initialState, action) {
@@ -19,12 +20,16 @@ function productsReducer(state = initialState, action) {
           products:action.payload
         }
 
-      
       case TYPES.PRODUCT_DETAILS:
-        console.log("Producto detallado:", action.payload);
         return {
           ...state,
           productsDetails: action.payload
+        }
+
+      case TYPES.GET_PRODUCTS_PANEL_ADM:
+        return {
+          ...state,
+          panelAdmin: action.payload
         }
 
     default:
