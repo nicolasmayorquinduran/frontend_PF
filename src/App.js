@@ -5,7 +5,7 @@ import ProductsDetail from "./components/users/ProductDetails/ProductDetails";
 import StyleRules from "./components/styleRules/Index";
 import NavBar from "./components/users/navBar/navBar";
 import { Route, Routes } from "react-router-dom";
-import Admin from "./components/admin";
+import Admin from "./components/Admin/Index";
 
 function App() {
   return (
