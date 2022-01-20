@@ -97,5 +97,5 @@ const AdminProducts = () => {
 };
 
 
-export default PanelProducts;
+export default AdminProducts;
 
