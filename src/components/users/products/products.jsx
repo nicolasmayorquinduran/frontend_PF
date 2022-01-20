@@ -7,24 +7,20 @@ import Product from './product'
 import Paginado from '../Paginado/Paginado.jsx'
 import { Category, Select, Selected } from './Style'
 
-
-
-
 const Products = () => {
   const dispatch = useDispatch()
-  useEffect(() => dispatch(getProducts()), [dispatch])
   const allProducts = useSelector(store => store.productsReducer.products)
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(9);
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const [currentPage, setCurrentPage] = useState(1)
+  const [productsPerPage, setProductsPerPage] = useState(9)
+  const indexOfLastProduct = currentPage * productsPerPage
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage
   const currentProduct = allProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
-  );
-  const paginado = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  )
+  const paginado = pageNumber => {
+    setCurrentPage(pageNumber)
+  }
 
   return (
     <div>
@@ -46,15 +42,15 @@ const Products = () => {
       </Category>
 
       <Container>
-        {currentProduct?.map((product) => {
+        {currentProduct?.map(product => {
           return (
-            <Product
+            <Product>
               img={product.img}
               name={product.name}
               price={product.price}
               ranking={product.ranking}
-            />
-          );
+            </Product>
+          )
         })}
       </Container>
       <Paginado
@@ -63,7 +59,7 @@ const Products = () => {
         paginado={paginado}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Products;
+export default Products
