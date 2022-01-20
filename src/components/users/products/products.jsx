@@ -39,10 +39,10 @@ const Products = () => {
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
   function handleFilterCategories(e){
     setFilter(e.target.value)
   }
+
   return (
     <div>
       <SearchBar />
