@@ -26,7 +26,7 @@ const Products = () => {
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  console.log(currentProduct);
+  // console.log(currentProduct);
   return (
     <div>
       <SearchBar />
