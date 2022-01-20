@@ -2,6 +2,7 @@ import { TYPES } from "../actions/types.js";
 
 const initialState = {
   products: [],
+  allProducts: [],
   productsDetails: [],
 };
 
@@ -11,6 +12,7 @@ function productsReducer(state = initialState, action) {
       return {
         ...state,
         products: action.payload,
+        allProducts: action.payload
       };
 
       case TYPES.GET_PRODUCTS_BY_NAME:

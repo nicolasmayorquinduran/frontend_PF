@@ -29,9 +29,3 @@ export function deleteCategories(id) {
     una categroia*/
 }
 
-// export function byCategory(payload) {
-//   return{
-//     type: TYPES.BY_CATEGORY,
-//     payload
-//   }
-// }
