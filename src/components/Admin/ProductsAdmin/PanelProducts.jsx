@@ -9,7 +9,7 @@ que renderiza los productos.
 */
 
 
-const PanelProductsAdmin = () => {
+const ProductsAdmin = () => {
 
     return (
         <div>

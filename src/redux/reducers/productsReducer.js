@@ -26,7 +26,7 @@ function productsReducer(state = initialState, action) {
           productsDetails: action.payload
         }
 
-      case TYPES.GET_PRODUCTS_PANEL_ADM:
+      case TYPES.GET_PRODUCTS_ADM:
         return {
           ...state,
           panelAdmin: action.payload

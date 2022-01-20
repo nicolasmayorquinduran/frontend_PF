@@ -33,7 +33,7 @@ export function detailsProduct() {
 
 
 // FALTA CREAR RUTA DEL BACK:
-export function getProductsPanelAdm () {
+export function getProductsAdm () {
   return function (dispatch) {
     return axios.get("")
       .then((response) => {
