@@ -11,7 +11,9 @@ export default function categoryReducer(state = initialState, action) {
     case TYPES.GET_CATEGORIES:
       console.log('hola')
       return {
-        };
+        ...state,
+        categories: action.payload
+        }
 
     case TYPES.EDIT_CATEGORIES:
       return {
@@ -21,9 +23,7 @@ export default function categoryReducer(state = initialState, action) {
     case TYPES.DELETE_CATEGORIES:
       return{
         ...state
-      }
-        
-      
+      }    
 
       default:
         return initialState;

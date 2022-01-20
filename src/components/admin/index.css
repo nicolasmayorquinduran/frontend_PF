@@ -2,11 +2,13 @@ body {
     background-color: #f9f9fc;
     padding: 150px;
     font-family: Arial;
+    
   }
 
   #menu {
     background-color: #f7f5f6;
     border-bottom: solid 2px #bb056f;
+    margin-top: 2px;
   }
 
   #menu ul {

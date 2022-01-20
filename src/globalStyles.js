@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;
-  padding: 0;
+  padding: 0 !important;
   font-family: 'Work Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
