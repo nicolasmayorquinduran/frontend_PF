@@ -1,11 +1,11 @@
-import React from "react";
-import { GlobalStyle } from "./globalStyles";
-import Products from "./components/users/products/products";
-import ProductsDetail from "./components/users/ProductDetails/ProductDetails";
-import StyleRules from "./components/styleRules/Index";
-import NavBar from "./components/users/navBar/navBar";
-import AdminCat from "./components/admin/AdminCategory/AdminCategories";
-import { Route, Routes } from "react-router-dom";
+import React from 'react'
+import { GlobalStyle } from './globalStyles'
+import Products from './components/users/products/products'
+import ProductsDetail from './components/users/ProductDetails/ProductDetails'
+import StyleRules from './components/styleRules/Index'
+import NavBar from './components/users/navBar/navBar'
+import { Route, Routes } from 'react-router-dom'
+import AdminCat from './components/Admin/AdminCategory/AdminCategories'
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <Route exact path="/admin/categories" element={<AdminCat />} />
       </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

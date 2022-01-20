@@ -8,6 +8,7 @@ import Paginado from '../Paginado/Paginado.jsx'
 import { capa, Category, containerImage, Select, Selected } from './Style'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { Link } from 'react-router-dom'
 
 
 
@@ -51,7 +52,7 @@ const Products = () => {
           return (
             <Product>
               <containerImage  img={product.img}>                
-                  <FontAwesomeIcon className='icon' icon={faCartPlus}/>
+                  <Link to={'/'}><FontAwesomeIcon className='icon' icon={faCartPlus}/> </Link> 
               </containerImage>
               name={product.name}
               price={product.price}
