@@ -9,7 +9,7 @@ que renderiza los productos.
 */
 
 
-const ProductsAdmin = () => {
+const AdminProducts = () => {
 
     return (
         <div>
