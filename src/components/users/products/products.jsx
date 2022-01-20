@@ -9,16 +9,22 @@ import { Category, Select, Selected } from './Style'
 
 
 
+
 const Products = () => {
   const dispatch = useDispatch()
   useEffect(() => dispatch(getProducts()), [dispatch])
   const allProducts = useSelector(store => store.productsReducer.products)
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(9);
-  const indexOfLastProduct = currentPage*productsPerPage;
+  const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProduct = allProducts.slice(indexOfFirstProduct,indexOfLastProduct);
-  const paginado = (pageNumber)=>{setCurrentPage(pageNumber)};
+  const currentProduct = allProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div>
@@ -40,28 +46,24 @@ const Products = () => {
       </Category>
 
       <Container>
-      {
-        currentProduct?.map(product=>{
-          return(
-            <div>
-              <Product 
-               img={product.img}
-               name={product.name}
-               price={product.price} 
-              />
-            </div>
-          )
-        })
-      }
+        {currentProduct?.map((product) => {
+          return (
+            <Product
+              img={product.img}
+              name={product.name}
+              price={product.price}
+              ranking={product.ranking}
+            />
+          );
+        })}
       </Container>
-      
-      <Paginado 
+      <Paginado
         productsPerPage={productsPerPage}
         allProducts={allProducts.length}
         paginado={paginado}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;
