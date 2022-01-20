@@ -10,7 +10,11 @@ import { Category, Select, Selected } from "./Style";
 const Products = () => {
   const dispatch = useDispatch();
   useEffect(() => dispatch(getProducts()), [dispatch]);
-  const allProducts = useSelector((store) => store.productsReducer.products);
+  const searchProducts = useSelector((store) => store.productsReducer.search);
+  let allProducts = useSelector((store) => store.productsReducer.products);
+  allProducts = allProducts.filter((p) =>
+    p.name.toLowerCase().includes(searchProducts.toLowerCase())
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(9);
   const indexOfLastProduct = currentPage * productsPerPage;
