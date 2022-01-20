@@ -1,7 +1,6 @@
 import axios from "axios";
 import { TYPES } from "./types.js";
 
-
 export function getProducts() {
   return function (dispatch) {
     return axios
@@ -16,6 +15,14 @@ export function getProducts() {
   };
 }
 
+export function searchProducts(search) {
+  return function (dispatch) {
+    return dispatch({
+      type: TYPES.GET_PRODUCTS_BY_NAME,
+      payload: search,
+    });
+  };
+}
 
 export function detailsProduct() {
   return function (dispatch) {
