@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+
 import { detailsProduct } from "../../../redux/actions/products";
 
 export default function ProductDetails() {
+  
   const dispatch = useDispatch();
+  
   useEffect(() => dispatch(detailsProduct()), [dispatch]);
+  
   const product = useSelector((store) => store.productsReducer.productsDetails);
+  
   console.log(product);
 
   return (
@@ -18,18 +22,28 @@ export default function ProductDetails() {
           product.hasOwnProperty('id') ? 
             <div>
               {" "}
-              IMGENES
+              IMGENES:
               <img src={product.images[0].img1} alt="Not found" />
               <img src={product.images[1].img2} alt="Not found" />
               <img src={product.images[2].img3} alt="Not found" />
               <img src={product.images[3].img4} alt="Not found" />
-              <p> {product.nameProduc} </p>
-              <p> {product.productType} </p>
+              <p> {product.name} </p>
+              <p> {product.type} </p>
               <p> {product.price} </p>
               <p> {product.description} </p>
-            
+
               {" "}
-              REVIEWS
+              TALLES:
+              <p>{product.size[0].name}, {product.size[0].qty}</p>
+              <p>{product.size[1].name}, {product.size[1].qty}</p>
+              <p>{product.size[2].name}, {product.size[2].qty}</p>
+              <p>{product.size[3].name}, {product.size[3].qty}</p>
+              <p>{product.size[4].name}, {product.size[4].qty}</p>
+              <p>{product.size[5].name}, {product.size[5].qty}</p>
+
+
+              {" "}
+              REVIEWS:
               <p>{product.reviews[0].usuario}</p>
               <p>{product.reviews[0].timestamps}</p>
               <p>{product.reviews[0].comment}</p>
@@ -41,11 +55,11 @@ export default function ProductDetails() {
               <p>{product.reviews[2].comment}</p>
             
               {" "}
-              INFO ADICIONAL
-              <p>{product.Additional_Information[0].manufacturer}</p>
-              <p>{product.Additional_Information[0].fit}</p>
-              <p>{product.Additional_Information[0].lining_material}</p>
-              <p>{product.Additional_Information[0].Occasion}</p>
+              INFO ADICIONAL:
+              <p>{product.additional_information[0].manufacturer}</p>
+              <p>{product.additional_information[0].fit}</p>
+              <p>{product.additional_information[0].lining_material}</p>
+              <p>{product.additional_information[0].ocasion}</p>
             
               <p> {product.description} </p>
 
