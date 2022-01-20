@@ -20,7 +20,7 @@ export const NavBarMenu = () => {
   };
 
   const showAllProducts = () => {
-    alert("hacer función para ir a ver los productos");
+    alert("hacer función para ir a ver los productos filtrados");
   };
 
   return (
@@ -30,15 +30,24 @@ export const NavBarMenu = () => {
           <FontAwesomeIcon icon={faBars} />
         </DropdownToggle>
         <DropdownMenu>
-          <DropdownItem onClick={() => showAllProducts()}>
-            Ver todos los productos
+          <DropdownItem>
+            <a href="/">Home</a>
+          </DropdownItem>
+          <DropdownItem>
+            <a href="/">Ver todos los productos</a>
           </DropdownItem>
           <DropdownItem divider />
           <DropdownItem header>Categorías</DropdownItem>
           <DropdownItem divider />
-          <DropdownItem>Categoría 1</DropdownItem>
-          <DropdownItem>Categoría 2</DropdownItem>
-          <DropdownItem>Categoría 3</DropdownItem>
+          <DropdownItem onClick={() => showAllProducts()}>
+            Categoría 1
+          </DropdownItem>
+          <DropdownItem onClick={() => showAllProducts()}>
+            Categoría 2
+          </DropdownItem>
+          <DropdownItem onClick={() => showAllProducts()}>
+            Categoría 3
+          </DropdownItem>
         </DropdownMenu>
       </Dropdown>
     </div>
