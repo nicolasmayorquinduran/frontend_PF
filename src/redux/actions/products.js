@@ -30,3 +30,17 @@ export function detailsProduct() {
       .catch((error) => console.log(error));
   };
 }
+
+
+// FALTA CREAR RUTA DEL BACK:
+export function getProductsAdm () {
+  return function (dispatch) {
+    return axios.get("")
+      .then((response) => {
+        return dispatch({
+        type: TYPES.GET_PRODUCTS_PANEL_ADM,
+        payload: response.data
+      })
+    }).catch ((error) => console.error(error))
+  }
+};
