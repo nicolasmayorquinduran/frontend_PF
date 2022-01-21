@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductsPanelAdm } from "../../../redux/actions/products.js";
+import { postProductsAdm } from "../../../redux/actions/products.js";
 
 /*
 TAREA: Componente panel de administrador, donde se puede agregar

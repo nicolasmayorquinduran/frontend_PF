@@ -30,7 +30,7 @@ function productsReducer(state = initialState, action) {
         }
 
 
-      case TYPES.GET_PRODUCTS_ADM:
+      case TYPES.POST_PRODUCTS_ADM:
         return {
           ...state,
           panelAdmin: action.payload
