@@ -12,7 +12,6 @@ import AdminOrders from "./AdminOrders/AdminOrders"; */
 /* componente prestacional del administrador con un menú de opciones disponibles (productos, pedidos, categorías y usuarios), debe renderizar determinado componente según la pestaña que se clickee */
 
 function Index() {
-  
   const [local, setLocal] = useState("");
 
   function handleClick(e) {
