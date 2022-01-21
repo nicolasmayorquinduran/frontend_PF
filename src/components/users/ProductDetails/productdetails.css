@@ -1,0 +1,47 @@
+.bigImg {
+  display: flex;
+  justify-content: center;
+  height: 52vh;
+}
+
+.bigImg img {
+  height: 50vh;
+}
+
+#categories {
+  font-style: italic;
+}
+
+.imgAndDetail {
+  display: inline-flex;
+  width: 99.9vw;
+  height: 80vh;
+}
+
+.imgContainer {
+  width: 49vw;
+  height: 70vh;
+}
+
+#price {
+  font-weight: bold;
+  color: #9f005d;
+}
+
+.productDetail {
+  width: 49vw;
+  padding-left: 1vw;
+  padding-top: 3vh;
+}
+
+.smallImg {
+  display: inline-flex;
+  width: 48vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  justify-content: space-around;
+}
+
+.smallImg img {
+  height: 12vw;
+}
