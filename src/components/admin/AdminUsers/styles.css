@@ -1,0 +1,14 @@
+.usersList {
+  width: 100%;
+}
+.usersList th {
+  width: 25%;
+}
+.usersList img {
+  width: 45%;
+  margin: auto;
+}
+.usersList td,
+.usersList th {
+  text-align: center;
+}

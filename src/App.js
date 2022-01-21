@@ -3,24 +3,23 @@ import { GlobalStyle } from "./globalStyles";
 import Products from "./components/users/products/products";
 import ProductsDetail from "./components/users/ProductDetails/ProductDetails";
 import StyleRules from "./components/styleRules/Index";
-import NavBar from './components/users/navBar/navBar'
-import AdminCat from "./components/Admin/AdminCategory/AdminCategories";
+import NavBar from "./components/users/navBar/navBar";
 import { Route, Routes } from "react-router-dom";
+import Admin from "./components/admin/Index";
+
 function App() {
   return (
-    <div className = "App">
+    <div className="App">
       <GlobalStyle />
-      {/* <StyleRules /> */}
-      <NavBar /> 
+      <NavBar />
       <Routes>
-        <Route exact path='/' element={<Products/>} />          
-        <Route exact path='/detail' element={<ProductsDetail/>}/>
-        <Route exact path='/admin/categories' element={<AdminCat/>} />
-        <Route exact path='/ruta1' element />
-        <Route exact path='/ruta2' element />
+        <Route exact path="/styleRules" element={<StyleRules />} />
+        <Route exact path="/" element={<Products />} />
+        <Route exact path="/detail" element={<ProductsDetail />} />
+        <Route exact path="/admin" element={<Admin />} />
       </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

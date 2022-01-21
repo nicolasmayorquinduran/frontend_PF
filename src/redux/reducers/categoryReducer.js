@@ -1,6 +1,4 @@
-import {
-  TYPES
-} from "../actions/types.js";
+import { TYPES } from "../actions/types.js";
 
 const initialState = {
   categories: [],
@@ -9,24 +7,22 @@ const initialState = {
 export default function categoryReducer(state = initialState, action) {
   switch (action.type) {
     case TYPES.GET_CATEGORIES:
-      console.log('hola')
       return {
-        };
+        ...state,
+        categories: action.payload,
+      };
 
     case TYPES.EDIT_CATEGORIES:
       return {
-        ...state
-      }
+        ...state,
+      };
 
     case TYPES.DELETE_CATEGORIES:
-      return{
-        ...state
-      }
-        
-      
+      return {
+        ...state,
+      };
 
-      default:
-        return initialState;
+    default:
+      return initialState;
   }
 }
-

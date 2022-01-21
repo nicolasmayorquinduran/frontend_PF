@@ -1,42 +1,108 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../../../redux/actions/products";
 import { Container } from "../../../globalStyles";
-import SearchBar from "../SearchBar/SearchBar";
 import Product from "./product";
+import Paginado from "../Paginado/Paginado.jsx";
+import Filters from "../../filters/Filters";
+import {
+  filterClothingTipe,
+  filterPrice,
+  filterRanking,
+  filterAlph,
+} from "../../filters/logicFunctionFilters";
+import { getCategories } from "../../../../src/redux/actions/categories.js";
+import { filterByCategory } from "../../../../src/redux/actions/products.js";
 
 const Products = () => {
+  const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(9);
+  const [filter, setFilter] = useState({
+    clothingType: "",
+    price: "",
+    ranking: "",
+    alph: "",
+  });
+
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getProducts()), [dispatch]);
-  const allProducts = useSelector((store) => store.productsReducer.products);
+
+  useEffect(() => {
+    dispatch(getProducts());
+    dispatch(getCategories());
+  }, [dispatch, search]);
+
+  let allProducts = useSelector((store) =>
+    store.productsReducer.products.filter((p) =>
+      p.name.toLowerCase().includes(search.toLowerCase())
+    )
+  );
+
+  allProducts = filterAlph(
+    filterRanking(
+      filterPrice(
+        filterClothingTipe(allProducts, filter.clothingType),
+        filter.price
+      ),
+      filter.ranking
+    ),
+    filter.alph
+  );
+
+  console.log(allProducts);
+  const allCategories = useSelector(
+    (store) => store.categoryReducer.categories
+  );
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProduct = allProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handleSearch = (e) => setSearch(e.target.value);
+
   return (
     <div>
-      <SearchBar />
-      <div>
-        <select name="" id="">
-          <option value="">Category</option>
-          <option value="">Shoes</option>
-          <option value="">Jeans</option>
-          <option value="">Dresses</option>
-          <option value="">Women Clothing</option>
-          <option value="">Men Clothing</option>
-          <option value="">Lingerie</option>
-        </select>
-      </div>
-      <div>
-        <button>Shoes</button>
-        <button>Jeans</button>
-        <button>Dresses</button>
-        <button>Lingerie</button>
-      </div>
-      <Container>
-        {allProducts.map((p) => (
-          <Product name={p.name} img={p.img} price={p.price} />
-        ))}
-      {/* <ProductDetails /> */}
-      </Container>
-    </div>
-  )
-}
+      <input
+        id="search"
+        type="text"
+        placeholder="Nombre producto"
+        onChange={handleSearch}
+      />
 
-export default Products
+      <Filters
+        filter={filter}
+        setFilter={setFilter}
+        clothingType={allCategories}
+        price={["Mayor", "Menor"]}
+        ranking={["Mayor", "Menor"]}
+        alph={["A > z", "Z > a"]}
+      />
+
+      <Container>
+        {currentProduct?.map((product) => {
+          return (
+            <Product
+              img={product.img}
+              name={product.name}
+              price={product.price}
+              ranking={product.ranking}
+            />
+          );
+        })}
+      </Container>
+      <Paginado
+        productsPerPage={productsPerPage}
+        allProducts={allProducts.length}
+        paginado={paginado}
+      />
+    </div>
+  );
+};
+
+export default Products;
