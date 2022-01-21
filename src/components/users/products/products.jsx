@@ -2,34 +2,49 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../../../redux/actions/products";
 import { Container } from "../../../globalStyles";
-import SearchBar from "../SearchBar/SearchBar";
 import Product from "./product";
 import Paginado from "../Paginado/Paginado.jsx";
+import Filters from "../../filters/Filters";
+import {
+  filterClothingTipe,
+  filterPrice,
+  filterRanking,
+  filterAlph,
+} from "../../filters/logicFunctionFilters";
 import { Category, Select, Selected } from "./Style";
 import { getCategories } from "../../../../src/redux/actions/categories.js";
 import { filterByCategory } from "../../../../src/redux/actions/products.js";
 
 const Products = () => {
+  const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(9);
+  const [filter, setFilter] = useState({
+    clothingType: "",
+    price: "",
+    ranking: "",
+    alph: "",
+  });
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getCategories());
-  }, [dispatch]);
+  }, [dispatch, search]);
 
-  let allProducts = useSelector((store) => store.productsReducer.products);
-  const searchProducts = useSelector((store) => store.productsReducer.search);
+  let allProducts = useSelector((store) =>
+    store.productsReducer.products.filter((p) =>
+      p.name.toLowerCase().includes(search.toLowerCase())
+    )
+  );
+
+  // allProducts = filterClothingTipe(allProducts);
 
   const allCategories = useSelector(
     (store) => store.categoryReducer.categories
   );
-  const [filter, setFilter] = useState("");
-  allProducts = allProducts.filter((e) => e.category.includes(filter));
-  allProducts = allProducts.filter((p) =>
-    p.name.toLowerCase().includes(searchProducts.toLowerCase())
-  );
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(9);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProduct = allProducts.slice(
@@ -40,19 +55,25 @@ const Products = () => {
     setCurrentPage(pageNumber);
   };
 
-  function handleFilterCategories(e) {
-    setFilter(e.target.value);
-  }
+  const handleSearch = (e) => setSearch(e.target.value);
+
   return (
     <div>
-      <SearchBar />
-      <Category>
-        <Select onChange={(e) => handleFilterCategories(e)}>
-          <option value="All">All</option>
-          {allCategories &&
-            allCategories.map((cat) => <option value={cat}>{cat}</option>)}
-        </Select>
-      </Category>
+      <input
+        id="search"
+        type="text"
+        placeholder="Nombre producto"
+        onChange={handleSearch}
+      />
+
+      <Filters
+        filter={filter}
+        setFilter={setFilter}
+        clothingType={allCategories}
+        price={["Mayor", "Menor"]}
+        ranking={["Mayor", "Menor"]}
+        alph={["A > z", "Z > a"]}
+      />
 
       <Container>
         {currentProduct?.map((product) => {
