@@ -67,7 +67,7 @@ const Products = () => {
   const handleSearch = (e) => setSearch(e.target.value);
 
   return (
-    <div>
+    <div className="products">
       <input
         id="search"
         type="text"
@@ -96,6 +96,7 @@ const Products = () => {
           );
         })}
       </Container>
+
       <Paginado
         productsPerPage={productsPerPage}
         allProducts={allProducts.length}
