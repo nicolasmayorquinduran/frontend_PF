@@ -10,7 +10,7 @@ function App() {
   return (
     <div className = "App">
       <GlobalStyle />
-      <StyleRules />
+      {/* <StyleRules /> */}
       <NavBar /> 
       <Routes>
         <Route exact path='/' element={<Products/>} />          
