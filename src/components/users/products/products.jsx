@@ -1,19 +1,32 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getProducts } from "../../../redux/actions/products";
-import { Container, Category, SelectCategory, Selected } from "../../../globalStyles";
-import SearchBar from "../SearchBar/SearchBar";
-import Product from "./product";
-import Paginado from "../Paginado/Paginado.jsx";
+
+import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getProducts } from '../../../redux/actions/products'
+import { Container } from '../../../globalStyles'
+import SearchBar from '../SearchBar/SearchBar'
+import Product from './product'
+import Paginado from '../Paginado/Paginado.jsx'
+import { Category, Select, Selected } from './Style'
+import { getCategories } from '../../../../src/redux/actions/categories.js'
+import { filterByCategory } from '../../../../src/redux/actions/products.js'
+
 
 const Products = () => {
-  const dispatch = useDispatch();
-  useEffect(() => dispatch(getProducts()), [dispatch]);
-  const searchProducts = useSelector((store) => store.productsReducer.search);
-  let allProducts = useSelector((store) => store.productsReducer.products);
-  allProducts = allProducts.filter((p) =>
+  const dispatch = useDispatch()
+  let allProducts = useSelector(store => store.productsReducer.products)
+    const searchProducts = useSelector((store) => store.productsReducer.search);
+
+  const allCategories = useSelector(store=>store.categoryReducer.categories)
+  const [filter, setFilter] = useState("")
+  allProducts = allProducts.filter(e=>e.category.includes(filter))
+   allProducts = allProducts.filter((p) =>
     p.name.toLowerCase().includes(searchProducts.toLowerCase())
   );
+  useEffect(()=>{
+    dispatch(getProducts())
+    dispatch(getCategories())
+  }, [dispatch])  
+
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(9);
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -25,25 +38,21 @@ const Products = () => {
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  console.log(currentProduct);
+  function handleFilterCategories(e){
+    setFilter(e.target.value)
+  }
+
   return (
     <div>
       <SearchBar />
       <Category>
-        <SelectCategory name="" id="">
-          <option value="">Category</option>
-          <option value="">Shoes</option>
-          <option value="">Jeans</option>
-          <option value="">Dresses</option>
-          <option value="">Women Clothing</option>
-          <option value="">Men Clothing</option>
-          <option value="">Lingerie</option>
-        </SelectCategory>
-        <Selected>Shoes</Selected>
-        <Selected>Jeans</Selected>
-        <Selected>Dresses</Selected>
-        <Selected>Lingerie</Selected>
-      </Category>
+        <Select onChange={e=>handleFilterCategories(e)}>
+          <option value="All">All</option>         
+          {allCategories && allCategories.map(cat=>(
+          <option value={cat}>{cat}</option>
+            ))}
+        </Select>
+        </Category>
 
       <Container>
         {currentProduct?.map((product) => {
