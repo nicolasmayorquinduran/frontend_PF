@@ -1,5 +1,5 @@
 import React from "react";
-import { UseLocalStorage } from "../LocalStorage/UseLocalStorage";
+import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 
 export default function Cart({product}) {
     const [cart, setCart] = UseLocalStorage('products', [])
