@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProducts } from '../../../redux/actions/products'
@@ -8,8 +9,6 @@ import Paginado from '../Paginado/Paginado.jsx'
 import { Category, Select, Selected } from './Style'
 import { getCategories } from '../../../../src/redux/actions/categories.js'
 import { filterByCategory } from '../../../../src/redux/actions/products.js'
-
-
 
 
 const Products = () => {
@@ -53,8 +52,7 @@ const Products = () => {
           <option value={cat}>{cat}</option>
             ))}
         </Select>
-        
-      </Category>
+        </Category>
 
       <Container>
         {currentProduct?.map((product) => {
