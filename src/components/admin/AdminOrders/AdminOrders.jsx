@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 
-function AdminOrders() {
-  return <div></div>;
-}
+import { orderAdmin } from "../../../redux/actions/orderAdmin";
 
-export default AdminOrders;
+export const AdminOrders = () => {
+  return;
+  <div></div>;
+};
