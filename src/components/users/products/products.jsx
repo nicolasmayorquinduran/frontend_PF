@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../../../redux/actions/products";
-import { Container } from "../../../globalStyles";
+import { Container, Category, SelectCategory, Selected } from "../../../globalStyles";
 import SearchBar from "../SearchBar/SearchBar";
 import Product from "./product";
 import Paginado from "../Paginado/Paginado.jsx";
-import { Category, Select, Selected } from "./Style";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -31,7 +30,7 @@ const Products = () => {
     <div>
       <SearchBar />
       <Category>
-        <Select name="" id="">
+        <SelectCategory name="" id="">
           <option value="">Category</option>
           <option value="">Shoes</option>
           <option value="">Jeans</option>
@@ -39,7 +38,7 @@ const Products = () => {
           <option value="">Women Clothing</option>
           <option value="">Men Clothing</option>
           <option value="">Lingerie</option>
-        </Select>
+        </SelectCategory>
         <Selected>Shoes</Selected>
         <Selected>Jeans</Selected>
         <Selected>Dresses</Selected>

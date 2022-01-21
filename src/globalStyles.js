@@ -95,3 +95,27 @@ export const Children = styled.div`
     width: 100%;
   }
 `;
+export const Category = styled.div`
+  display: inline-block;
+  align-contents: center;
+  text-align: center;
+`;
+
+export const SelectCategory = styled.select`
+  border-radius: 5px;
+  font-weight: 600;
+  margin-left: 5rem;
+`;
+export const Selected = styled.button`
+  margin: 1rem;
+  height: 2rem;
+  border-radius: 5px;
+  text-align: center;
+  padding-bottom: 2rem;
+  box-shadow: 2px 2px 3px black;
+  &:hover {
+    background: grey;
+    color: white;
+    transition: 1s;
+  }
+`;
