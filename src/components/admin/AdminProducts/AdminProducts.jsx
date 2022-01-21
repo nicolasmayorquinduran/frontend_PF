@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductsPanelAdm } from "../../../redux/actions/products.js";
+import { postProductsAdm } from "../../../redux/actions/products.js";
 
 /*
 TAREA: Componente panel de administrador, donde se puede agregar
@@ -8,9 +8,13 @@ un producto al estado gobal de redux para que se añada a la página
 que renderiza los productos.
 */ 
 
+const redux = [];
+
+
 const AdminProducts = () => {
 
   const categories = useSelector((state) => state.categoryReducer);
+  const dispatch = useDispatch()
 
   const [count, setCount] = useState(0);
 
@@ -65,9 +69,8 @@ const AdminProducts = () => {
 
   // SUBMIT:
   function handleSubmit(event) {
-    event.preventDefault();
-    
-    // dispatch(postProducts(input))
+    // event.preventDefault();
+    dispatch(postProductsAdm(products))
     
     setProducts (
       {
@@ -84,7 +87,7 @@ const AdminProducts = () => {
   return (
     <div>
     
-      <form onSubmit={handleSubmit}> 
+      <form onClick={handleSubmit}> 
         
         <div>
           <h3> Portada </h3>

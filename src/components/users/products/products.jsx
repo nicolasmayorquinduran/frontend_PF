@@ -11,7 +11,6 @@ import {
   filterRanking,
   filterAlph,
 } from "../../filters/logicFunctionFilters";
-import { Category, Select, Selected } from "./Style";
 import { getCategories } from "../../../../src/redux/actions/categories.js";
 import { filterByCategory } from "../../../../src/redux/actions/products.js";
 
