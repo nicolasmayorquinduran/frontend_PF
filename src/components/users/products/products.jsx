@@ -38,8 +38,18 @@ const Products = () => {
     )
   );
 
-  // allProducts = filterClothingTipe(allProducts);
+  allProducts = filterAlph(
+    filterRanking(
+      filterPrice(
+        filterClothingTipe(allProducts, filter.clothingType),
+        filter.price
+      ),
+      filter.ranking
+    ),
+    filter.alph
+  );
 
+  console.log(allProducts);
   const allCategories = useSelector(
     (store) => store.categoryReducer.categories
   );

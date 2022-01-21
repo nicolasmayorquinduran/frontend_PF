@@ -15,28 +15,28 @@ const Filters = ({
   return (
     <>
       <select name="clothingType" id="clothingType" onChange={handleFilters}>
-        <option>Tipo de prenda</option>
+        <option value="">Tipo de prenda</option>
         {clothingType.map((el) => (
           <option value={el}>{el}</option>
         ))}
       </select>
 
       <select name="price" id="price" onChange={handleFilters}>
-        <option>Precio</option>
+        <option value="">Precio</option>
         {price.map((el) => (
           <option value={el}>{el}</option>
         ))}
       </select>
 
       <select name="clothingType" id="ranking" onChange={handleFilters}>
-        <option>Ranking</option>
+        <option value="">Ranking</option>
         {ranking.map((el) => (
           <option value={el}>{el}</option>
         ))}
       </select>
 
       <select name="alph" id="alph" onChange={handleFilters}>
-        <option>Orden alfabético</option>
+        <option value="">Orden alfabético</option>
         {alph.map((el) => (
           <option value={el}>{el}</option>
         ))}
