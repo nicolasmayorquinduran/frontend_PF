@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { detailsProduct } from "../../../redux/actions/products";
 import "./productdetails.css";
+import Cart from "../Cart/Cart";
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
@@ -76,6 +77,7 @@ export default function ProductDetails() {
           <p>{product.additional_information[0].lining_material}</p>
           <p>{product.additional_information[0].ocasion}</p>
           <p> {product.description} </p>
+          <Cart product={product} />
         </div>
       ) : (
         <h3> Error 404 Not Found </h3>

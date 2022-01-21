@@ -19,7 +19,7 @@ function App() {
         <Route exact path="/admin" element={<Admin />} />
       </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
