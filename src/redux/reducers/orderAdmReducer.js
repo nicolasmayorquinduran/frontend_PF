@@ -1,10 +1,10 @@
 import { TYPES } from "../actions/types";
 
 const initialState = {
-  orders: [],
+  orders: {},
 };
 
-export default function ordersAdminReducer(state = initialState, action) {
+function orderAdmReducer(state = initialState, action) {
   switch (action.type) {
     case TYPES.ORDER_ADMIN:
       return {
@@ -15,3 +15,5 @@ export default function ordersAdminReducer(state = initialState, action) {
       return initialState;
   }
 }
+
+export default orderAdmReducer;
