@@ -8,6 +8,7 @@ import AdminProducts from "./AdminProducts/AdminProducts";
 import Products from "../users/products/products";
 import AdminOrders from "./AdminOrders/AdminOrders";
 
+/* import Products from "../users/products/products";*/
 /* componente prestacional del administrador con un menú de opciones disponibles (productos, pedidos, categorías y usuarios), debe renderizar determinado componente según la pestaña que se clickee */
 
 function Index() {
