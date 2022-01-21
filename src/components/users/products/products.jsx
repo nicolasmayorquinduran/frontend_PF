@@ -9,8 +9,6 @@ import { getCategories } from '../../../../src/redux/actions/categories.js'
 import { filterByCategory } from '../../../../src/redux/actions/products.js'
 
 
-
-
 const Products = () => {
   const dispatch = useDispatch()
   let allProducts = useSelector(store => store.productsReducer.products)
@@ -52,8 +50,7 @@ const Products = () => {
           <option value={cat}>{cat}</option>
             ))}
         </SelectCategory>
-        
-      </Category>
+        </Category>
 
       <Container>
         {currentProduct?.map((product) => {

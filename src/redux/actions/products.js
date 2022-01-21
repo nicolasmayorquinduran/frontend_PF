@@ -40,14 +40,11 @@ export function detailsProduct() {
 
 
 // FALTA CREAR RUTA DEL BACK:
-export function getProductsAdm () {
+export function postProductsAdm (newProduct) {
   return function (dispatch) {
-    return axios.get("")
-      .then((response) => {
-        return dispatch({
-        type: TYPES.GET_PRODUCTS_PANEL_ADM,
-        payload: response.data
-      })
-    }).catch ((error) => console.error(error))
+    return dispatch({
+      type: TYPES.POST_PRODUCTS_ADM,
+      payload: newProduct
+    })
   }
 };
