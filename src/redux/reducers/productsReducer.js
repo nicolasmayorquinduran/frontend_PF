@@ -33,7 +33,7 @@ function productsReducer(state = initialState, action) {
       case TYPES.POST_PRODUCTS_ADM:
         return {
           ...state,
-          panelAdmin: action.payload
+          allProducts: [...state.allProducts, action.payload]
         }
 
     default:

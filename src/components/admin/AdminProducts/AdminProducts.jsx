@@ -8,6 +8,9 @@ un producto al estado gobal de redux para que se añada a la página
 que renderiza los productos.
 */ 
 
+const redux = [];
+
+
 const AdminProducts = () => {
 
   const categories = useSelector((state) => state.categoryReducer);
@@ -65,9 +68,8 @@ const AdminProducts = () => {
 
   // SUBMIT:
   function handleSubmit(event) {
-    event.preventDefault();
-    
-    // dispatch(postProducts(input))
+    // event.preventDefault();
+    dispatch(postProductsAdm(products))
     
     setProducts (
       {
@@ -84,7 +86,7 @@ const AdminProducts = () => {
   return (
     <div>
     
-      <form onSubmit={handleSubmit}> 
+      <form onClick={handleSubmit}> 
         
         <div>
           <h3> Portada </h3>
