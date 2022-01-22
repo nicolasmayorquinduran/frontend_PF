@@ -29,6 +29,7 @@ export function detailsProduct() {
     return axios
       .get(`http://localhost:3001/productsDetails/id`)
       .then((response) => {
+        console.log('RESPONSE',response.data)
         return dispatch({
           type: TYPES.PRODUCT_DETAILS,
           payload: response.data,

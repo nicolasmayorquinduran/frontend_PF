@@ -49,7 +49,7 @@ const Products = () => {
     filter.alph
   );
 
-  console.log(allProducts);
+
   const allCategories = useSelector(
     (store) => store.categoryReducer.categories
   );
@@ -88,6 +88,7 @@ const Products = () => {
         {currentProduct?.map((product) => {
           return (
             <Product
+              id={product.id}
               img={product.img}
               name={product.name}
               price={product.price}
