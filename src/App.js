@@ -6,6 +6,7 @@ import StyleRules from "./components/styleRules/Index";
 import NavBar from "./components/users/navBar/navBar";
 import { Route, Routes } from "react-router-dom";
 import Admin from "./components/admin/Index";
+import Footer from "./components/users/Footer/Footer";
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
         <Route exact path="/detail" element={<ProductsDetail />} />
         <Route exact path="/admin" element={<Admin />} />
       </Routes>
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
