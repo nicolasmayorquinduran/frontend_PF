@@ -14,11 +14,12 @@ import s from './Cart.module.css'
 
 export default function Cart({product}) {
     const [cart, setCart] = UseLocalStorage('products', [])
-    console.log(cart)
+    console.log("CART", cart)
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const products = useSelector(state => state.productsReducer.products);
     const User = JSON.parse(localStorage.getItem("user"));
+    console.log("USUARIO",User)
     const idUser = !User?null:User.idUser;
 
     // useEffect(() => {

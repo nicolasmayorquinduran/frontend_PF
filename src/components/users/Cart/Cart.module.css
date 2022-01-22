@@ -58,17 +58,14 @@ h1{
 }
 
 .btn{
-  background-color: #FFD803;
   width: 200px;
   height: 45px;
-  border: solid 1px gray;
   border-radius: 15px;
   margin-top: 20px;
-  font: black bold;
+  font-weight: bold;
 }
 .btn:hover{
-   background-color:rgb(192, 198, 204) ;
-   border:solid 1px #2e2e2c;
+   
    
 }
 
