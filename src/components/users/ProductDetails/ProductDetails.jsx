@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
-import { detailsProduct } from "../../../redux/actions/products";
+import { detailsProduct,getProducts } from "../../../redux/actions/products";
 import "./productdetails.css";
 import Cart from "../Cart/Cart";
+import { useParams } from "react-router-dom";
+import { formatMoney } from "accounting";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function ProductDetails() {
+  const {id}=useParams()
   const dispatch = useDispatch();
+  const product = useSelector((store) => store.productsReducer.products.find(e=>e.id == id));
+  useEffect(() =>{
+      dispatch(getProducts())
+      dispatch(detailsProduct())
+    },[dispatch]
+  );
+  console.log("PRODUCTO FILTRADO",product)
+  const handleAddCart = ()=>{
+    dispatch()
+  }
 
   const [changeInfo, setChangeInfo] = useState("Comentarios");
 
@@ -45,6 +59,7 @@ export default function ProductDetails() {
               </div>
 
               <div className="smallImg">
+
                 {product.images.map((image, index) => (
                   <img
                     src={image}
@@ -55,10 +70,12 @@ export default function ProductDetails() {
                 ))}
               </div>
             </div>
+
             <div className="productDetail">
-              <h3> {product.name} </h3>
-              <h3 id="price"> {product.price} </h3>
-              <br></br>
+              <h2> {product.name} </h2>
+              <h3 id="price"> {formatMoney(product.price) } </h3>
+              <input type="number" name="qty"/>
+              <br></br>   
               <div id="categoriesContainer">
                 <h6 id="categories"> Categories: </h6>
                 {product.type}

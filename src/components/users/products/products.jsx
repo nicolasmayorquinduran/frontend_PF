@@ -38,7 +38,6 @@ const Products = () => {
     filterClothingType(allProducts, filter.clothingType),
     filter.sort
   );
-
   const allCategories = useSelector(
     (store) => store.categoryReducer.categories
   );
@@ -77,6 +76,7 @@ const Products = () => {
         {currentProduct?.map((product) => {
           return (
             <Product
+              id={product.id}
               img={product.img}
               name={product.name}
               price={product.price}

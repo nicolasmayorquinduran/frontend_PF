@@ -10,12 +10,12 @@ const Product = ({ id, name, price, img, ranking }) => {
     <Children className="father">
       <div className="father">
         <div className="card">
-          <Link to="/detail">
+          <Link to={`/detail/${id}`}>
             <div className="eye">
               <FontAwesomeIcon className="iconEye" icon={faEye} />{" "}
             </div>
           </Link>
-          <Link to="/detail">
+          <Link to={`/detail/${id}`}>
             <img src={img} alt="Producto" />
             <h5>{name}</h5>
           </Link>
