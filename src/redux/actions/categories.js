@@ -5,7 +5,6 @@ import {
 
 export function getCategories() {
   return async function (dispatch) {
-    console.log('hola')
     try {
       const info = await axios.get("http://localhost:3001/categories")
       return dispatch({

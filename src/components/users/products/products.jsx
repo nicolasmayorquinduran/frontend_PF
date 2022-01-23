@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { getProducts } from '../../../redux/actions/products'
-import { Container, Category, SelectCategory } from '../../../globalStyles'
-import SearchBar from '../SearchBar/SearchBar'
-import Product from './product'
-import Paginado from '../Paginado/Paginado.jsx'
-import { getCategories } from '../../../../src/redux/actions/categories.js'
-import { filterByCategory } from '../../../../src/redux/actions/products.js'
-
-=======
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../../../redux/actions/products";
@@ -18,14 +6,13 @@ import Product from "./product";
 import Paginado from "../Paginado/Paginado.jsx";
 import Filters from "../../filters/Filters";
 import {
-  filterClothingTipe,
+  filterClothingType,
   filterPrice,
   filterRanking,
   filterAlph,
 } from "../../filters/logicFunctionFilters";
 import { getCategories } from "../../../../src/redux/actions/categories.js";
 import { filterByCategory } from "../../../../src/redux/actions/products.js";
->>>>>>> 78dcf18bc15907f7b51f325ad4026b394daf1801
 
 const Products = () => {
   const [search, setSearch] = useState("");
@@ -33,9 +20,7 @@ const Products = () => {
   const [productsPerPage, setProductsPerPage] = useState(9);
   const [filter, setFilter] = useState({
     clothingType: "",
-    price: "",
-    ranking: "",
-    alph: "",
+    sort: "",
   });
 
   const dispatch = useDispatch();
@@ -51,8 +36,9 @@ const Products = () => {
     )
   );
 
-  // allProducts = filterClothingTipe(allProducts);
+  // allProducts = filterClothingType(allProducts);
 
+  console.log(allProducts);
   const allCategories = useSelector(
     (store) => store.categoryReducer.categories
   );
@@ -71,7 +57,6 @@ const Products = () => {
 
   return (
     <div>
-<<<<<<< HEAD
       <SearchBar />
       <Category>
         <SelectCategory onChange={e=>handleFilterCategories(e)}>
@@ -81,7 +66,7 @@ const Products = () => {
             ))}
         </SelectCategory>
         </Category>
-=======
+    <div className="products">
       <input
         id="search"
         type="text"
@@ -97,7 +82,6 @@ const Products = () => {
         ranking={["Mayor", "Menor"]}
         alph={["A > z", "Z > a"]}
       />
->>>>>>> 78dcf18bc15907f7b51f325ad4026b394daf1801
 
       <Container>
         {currentProduct?.map((product) => {
@@ -111,6 +95,7 @@ const Products = () => {
           );
         })}
       </Container>
+
       <Paginado
         productsPerPage={productsPerPage}
         allProducts={allProducts.length}

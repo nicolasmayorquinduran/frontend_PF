@@ -1,3 +1,14 @@
+.additionalData {
+  display: inline-flex;
+  justify-content: space-around;
+  width: 80vw;
+}
+
+/* .additionalDescription {
+  margin-left: 5vw;
+  margin-right: 5vw;
+} */
+
 .bigImg {
   display: flex;
   justify-content: center;
@@ -8,8 +19,25 @@
   height: 50vh;
 }
 
-#categories {
+#categoriesContainer {
   font-style: italic;
+}
+
+#categories {
+  display: inline-flex;
+}
+
+#comments {
+}
+
+#description {
+  width: 40vw;
+  font-style: italic;
+}
+
+#hr {
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 
 .imgAndDetail {
@@ -21,6 +49,7 @@
 .imgContainer {
   width: 49vw;
   height: 70vh;
+  margin-left: 3vw;
 }
 
 #price {
@@ -28,10 +57,45 @@
   color: #9f005d;
 }
 
+.productAbout {
+  width: 99.9vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
 .productDetail {
   width: 49vw;
   padding-left: 1vw;
   padding-top: 3vh;
+}
+
+.reviewContainer {
+  display: flex;
+  width: 80vw;
+  height: 11vw;
+}
+
+.reviewData {
+  padding-left: 2vw;
+}
+
+.reviewDivider {
+  display: inline-flex;
+}
+
+.reviewUser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid #9f005d;
+  border-radius: 50%;
+  width: 9vw;
+  height: 9vw;
+  font-size: 2.5vmax;
+}
+
+.selectDeploy button {
+  margin-right: 2vw;
 }
 
 .smallImg {
@@ -44,4 +108,22 @@
 
 .smallImg img {
   height: 12vw;
+}
+
+#talles {
+  display: inline-flex;
+}
+
+#talles p {
+  padding-left: 2vw;
+}
+
+#talles p:hover {
+  text-decoration-line: underline;
+  color: #9f005d;
+}
+
+#timeStamps {
+  font-style: italic;
+  color: #9f005d;
 }

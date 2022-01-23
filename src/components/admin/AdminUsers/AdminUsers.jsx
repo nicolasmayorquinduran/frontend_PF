@@ -12,7 +12,40 @@ function AdminUsers() {
   console.log(allUsers);
   return (
     <div>
-      <form></form>
+      <div>
+        <form className="formUser">
+          <div className="imageUser"></div>
+
+          <div className="formName">
+            <label htmlFor="name">Nombre</label>
+            <input id="" type="text" />
+          </div>
+
+          <div className="formCorreo">
+            <label htmlFor="name">Correo</label>
+            <input id="" type="email" />
+          </div>
+
+          <div className="formPais">
+            <label htmlFor="name">Pais</label>
+            <input id="" type="text" />
+          </div>
+
+          <div className="formCiudad">
+            <label htmlFor="name">Ciudad/ Provincia</label>
+            <input id="" type="text" />
+          </div>
+
+          <div className="formDireccion">
+            <label htmlFor="name">Dirección</label>
+            <input id="" type="text" />
+          </div>
+
+          <div className="formBoton">
+            <button>Guardar</button>
+          </div>
+        </form>
+      </div>
 
       <table className="usersList">
         <thead>
