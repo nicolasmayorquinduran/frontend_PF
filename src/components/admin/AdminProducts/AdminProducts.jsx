@@ -14,6 +14,7 @@ const redux = [];
 const AdminProducts = () => {
 
   const categories = useSelector((state) => state.categoryReducer);
+  const dispatch = useDispatch()
 
   const [count, setCount] = useState(0);
 
