@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postProductsAdm } from "../../../redux/actions/products.js";
 import { getCategories } from "../../../../src/redux/actions/categories.js";
 import { getProducts } from "../../../redux/actions/products.js";
-
+import s from "./AdminProduct.module.css"
 
 const AdminProducts = () => {
 
@@ -111,24 +111,24 @@ const AdminProducts = () => {
          
           <h3> Portada </h3>
 
-          <div>
+          <div className={s.imgPortada}>
             <img src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp" width="200px" height="300px" alt="img not found" />
-            <button>
+            <button className={s.buttonEditImg}>
               <img src="" alt="" />
             </button>
 
             <img src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp" width="200px" height="300px" alt="img not found" />
-            <button>
+            <button className={s.buttonEditImg} >
               <img src="" alt="" />
             </button>
 
             <img src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp" width="200px" height="300px" alt="img not found" />
-            <button>
+            <button className={s.buttonEditImg}>
               <img src="" alt="" />
             </button>
 
             <img src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp" width="200px" height="300px" alt="img not found" />
-            <button>
+            <button className={s.buttonEditImg}>
               <img src="" alt="" />
             </button>
           </div>

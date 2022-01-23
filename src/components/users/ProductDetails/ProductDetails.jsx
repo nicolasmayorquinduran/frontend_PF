@@ -1,43 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { detailsProduct,getProducts } from "../../../redux/actions/products";
-import "./productdetails.css";
-import Cart from "../Cart/Cart";
-import { useParams } from "react-router-dom";
-import { formatMoney } from "accounting";
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { detailsProduct, getProducts } from '../../../redux/actions/products'
+import './productdetails.css'
+import Cart from '../Cart/Cart'
+import { useParams } from 'react-router-dom'
+import { formatMoney } from 'accounting'
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function ProductDetails() {
-  const {id}=useParams()
-  const dispatch = useDispatch();
-  const product = useSelector((store) => store.productsReducer.products.find(e=>e.id == id));
-  useEffect(() =>{
-      dispatch(getProducts())
-      dispatch(detailsProduct())
-    },[dispatch]
-  );
-  console.log("PRODUCTO FILTRADO",product)
-  const handleAddCart = ()=>{
+  const { id } = useParams()
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getProducts())
+    dispatch(detailsProduct())
+  }, [dispatch])
+  console.log('PRODUCTO FILTRADO', product)
+  const handleAddCart = () => {
     dispatch()
   }
 
-  const [changeInfo, setChangeInfo] = useState("Comentarios");
+  const [changeInfo, setChangeInfo] = useState('Comentarios')
 
-  useEffect(() => dispatch(detailsProduct()), [dispatch]);
+  useEffect(() => dispatch(detailsProduct()), [dispatch])
+  const product = useSelector(store =>
+    store.productsReducer.products.find(e => e.id == id)
+  )
 
-  const product = useSelector((store) => store.productsReducer.productsDetails);
-
-  const [bigImage, setBigImage] = useState(0);
+  const [bigImage, setBigImage] = useState(0)
 
   function onClick(e) {
-    e.preventDefault();
-    setChangeInfo(e.target.value);
+    e.preventDefault()
+    setChangeInfo(e.target.value)
   }
 
   function onImage(e) {
-    e.preventDefault();
-    setBigImage(e.target.id);
+    e.preventDefault()
+    setBigImage(e.target.id)
   }
 
   // console.log(product);
@@ -45,7 +44,7 @@ export default function ProductDetails() {
   return (
     <div>
       <hr id="hr"></hr>
-      {product.hasOwnProperty("id") ? (
+      {product.hasOwnProperty('id') ? (
         <div>
           <div className="imgAndDetail">
             <div className="imgContainer">
@@ -59,7 +58,6 @@ export default function ProductDetails() {
               </div>
 
               <div className="smallImg">
-
                 {product.images.map((image, index) => (
                   <img
                     src={image}
@@ -73,9 +71,9 @@ export default function ProductDetails() {
 
             <div className="productDetail">
               <h2> {product.name} </h2>
-              <h3 id="price"> {formatMoney(product.price) } </h3>
-              <input type="number" name="qty"/>
-              <br></br>   
+              <h3 id="price"> {formatMoney(product.price)} </h3>
+              <input type="number" name="qty" />
+              <br></br>
               <div id="categoriesContainer">
                 <h6 id="categories"> Categories: </h6>
                 {product.type}
@@ -87,12 +85,12 @@ export default function ProductDetails() {
               <br></br>
               <div id="talles">
                 <h6>Talles:</h6>
-                {product.size.map((s) => {
+                {product.size.map(s => {
                   return (
                     <div key={s.name}>
                       <p>{s.name}</p>
                     </div>
-                  );
+                  )
                 })}
               </div>
               <br></br>
@@ -104,15 +102,15 @@ export default function ProductDetails() {
           <div className="productAbout">
             <div className="selectDeploy">
               <button onClick={onClick} value="Comentarios">
-                Comentarios:{" "}
+                Comentarios:{' '}
               </button>
               <button onClick={onClick} value="Adicional">
                 Información Adicional:
               </button>
             </div>
             <hr></hr>
-            {changeInfo === "Comentarios" ? (
-              product.reviews.map((p) => {
+            {changeInfo === 'Comentarios' ? (
+              product.reviews.map(p => {
                 return (
                   <div key={p.usuario} className="reviewContainer">
                     <div className="reviewDivider">
@@ -125,7 +123,7 @@ export default function ProductDetails() {
                       </div>
                     </div>
                   </div>
-                );
+                )
               })
             ) : (
               <div id="additionalDescription">
@@ -146,5 +144,5 @@ export default function ProductDetails() {
         <h3> Error 404 Not Found </h3>
       )}
     </div>
-  );
+  )
 }
