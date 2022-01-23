@@ -56,17 +56,7 @@ const Products = () => {
   const handleSearch = (e) => setSearch(e.target.value);
 
   return (
-    <div>
-      <SearchBar />
-      <Category>
-        <SelectCategory onChange={e=>handleFilterCategories(e)}>
-          <option value="All">All</option>         
-          {allCategories && allCategories.map(cat=>(
-          <option value={cat}>{cat}</option>
-            ))}
-        </SelectCategory>
-        </Category>
-    <div className="products">
+      <div className="products">
       <input
         id="search"
         type="text"
