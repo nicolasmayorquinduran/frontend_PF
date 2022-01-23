@@ -14,17 +14,17 @@ export default function ProductDetails() {
 
   const product = useSelector((store) => store.productsReducer.productsDetails);
 
-  // const [bigImage, setBigImage] = useState("");
+  const [bigImage, setBigImage] = useState(0);
 
   function onClick(e) {
     e.preventDefault();
     setChangeInfo(e.target.value);
   }
 
-  // function onImage(e) {
-  //   e.preventDefault();
-  //   setBigImage(e.target.value);
-  // }
+  function onImage(e) {
+    e.preventDefault();
+    setBigImage(e.target.id);
+  }
 
   // console.log(product);
 
@@ -36,33 +36,23 @@ export default function ProductDetails() {
           <div className="imgAndDetail">
             <div className="imgContainer">
               <div className="bigImg">
-                <img src={product.images[0].img1} alt="Not found" />
+                {product.images.map(
+                  (image, index) =>
+                    index == bigImage && (
+                      <img src={image} id={index} alt={`clothes for men`} />
+                    )
+                )}
               </div>
+
               <div className="smallImg">
-                <img
-                  // onClick={onImage}
-                  // value={product.images[0].img1}
-                  src={product.images[0].img1}
-                  alt="Not found"
-                />
-                <img
-                  // onClick={onImage}
-                  // value={product.images[1].img2}
-                  src={product.images[1].img2}
-                  alt="Not found"
-                />
-                <img
-                  // onClick={onImage}
-                  // value={product.images[2].img3}
-                  src={product.images[2].img3}
-                  alt="Not found"
-                />
-                <img
-                  // onClick={onImage}
-                  // value={product.images[3].img4}
-                  src={product.images[3].img4}
-                  alt="Not found"
-                />
+                {product.images.map((image, index) => (
+                  <img
+                    src={image}
+                    onClick={onImage}
+                    id={index}
+                    alt={`clothes for men`}
+                  />
+                ))}
               </div>
             </div>
             <div className="productDetail">

@@ -25,29 +25,23 @@ const Filters = ({
       </Children>
 
       <Children>
-        <select name="price" id="price" onChange={handleFilters}>
-          <option value="">Precio</option>
-          {price.map((el) => (
-            <option value={el}>{el}</option>
-          ))}
-        </select>
-      </Children>
-
-      <Children>
-        <select name="clothingType" id="ranking" onChange={handleFilters}>
-          <option value="">Ranking</option>
-          {ranking.map((el) => (
-            <option value={el}>{el}</option>
-          ))}
-        </select>
-      </Children>
-
-      <Children>
-        <select name="alph" id="alph" onChange={handleFilters}>
-          <option value="">Orden alfabético</option>
-          {alph.map((el) => (
-            <option value={el}>{el}</option>
-          ))}
+        <select id="sort" onChange={handleFilters}>
+          <option value="">Ordenar por:</option>
+          <optgroup label="precio">
+            {price.map((el) => (
+              <option value={el}>{el}</option>
+            ))}
+          </optgroup>
+          <optgroup label="ranking">
+            {ranking.map((el) => (
+              <option value={el}>{el}</option>
+            ))}
+          </optgroup>
+          <optgroup label="orden alfabético">
+            {alph.map((el) => (
+              <option value={el}>{el}</option>
+            ))}
+          </optgroup>
         </select>
       </Children>
     </Container>

@@ -6,7 +6,7 @@ import Product from "./product";
 import Paginado from "../Paginado/Paginado.jsx";
 import Filters from "../../filters/Filters";
 import {
-  filterClothingTipe,
+  filterClothingType,
   filterPrice,
   filterRanking,
   filterAlph,
@@ -20,9 +20,7 @@ const Products = () => {
   const [productsPerPage, setProductsPerPage] = useState(9);
   const [filter, setFilter] = useState({
     clothingType: "",
-    price: "",
-    ranking: "",
-    alph: "",
+    sort: "",
   });
 
   const dispatch = useDispatch();
@@ -38,16 +36,7 @@ const Products = () => {
     )
   );
 
-  allProducts = filterAlph(
-    filterRanking(
-      filterPrice(
-        filterClothingTipe(allProducts, filter.clothingType),
-        filter.price
-      ),
-      filter.ranking
-    ),
-    filter.alph
-  );
+  // allProducts = filterClothingType(allProducts);
 
   console.log(allProducts);
   const allCategories = useSelector(
