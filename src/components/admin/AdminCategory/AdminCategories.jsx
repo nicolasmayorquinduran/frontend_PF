@@ -1,23 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../../../redux/actions/categories";
+import {
+  addCategories,
+  deleteCategories,
+  getCategories,
+} from "../../../redux/actions/categories";
 import "./adminCategories.css";
 
 function AdminCat() {
-  // const categories = useSelector(state => state.categoryReducer.categories);
-  const categories = [
-    "Calzado",
-    "Jeans",
-    "Dresses",
-    "Women Clothing",
-    "Men Clothing",
-    "Lingerie",
-  ];
+  const categories = useSelector(
+    (state) =>
+      (state.categoryReducer.filterCategories.length &&
+        state.categoryReducer.filterCategories) ||
+      state.categoryReducer.categories
+  );
+  // const [categories, setCategories] = useState(DBcategories);
+  // console.log(categories);
+  const [newCategory, setNewCategory] = useState("");
+
   const dispatch = useDispatch();
-  console.log("CATEGORIES STATE ===", categories);
-  // useEffect(() => dispatch(getCategories()));
-  const handleDeteleCategory = () => {
-    alert("CATEGORY DELETED SUCCESFULLY");
+  useEffect(() => dispatch(getCategories()), [dispatch]);
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    dispatch(setNewCategory(e.target.value));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addCategories(e.target.id));
+  };
+
+  const handleDeteleCategory = (e) => {
+    e.preventDefault();
+    dispatch(deleteCategories(e.target.id));
   };
 
   return (
@@ -27,12 +43,18 @@ function AdminCat() {
           <div>
             <h5>Nueva categoría: </h5>
           </div>
-          <div>
-            <input type="text" placeholder="Nombre..."></input>
-          </div>
-          <div>
-            <button id="createButton">Crear</button>
-          </div>
+          <form id={newCategory} onSubmit={handleSubmit}>
+            <div>
+              <input
+                type="text"
+                placeholder="Nombre..."
+                onChange={handleChange}
+              ></input>
+            </div>
+            <div>
+              <button>Crear</button>
+            </div>
+          </form>
         </div>
         <div className="categoriesContainer">
           <h5>Categorías creadas: </h5>
@@ -41,7 +63,11 @@ function AdminCat() {
               return (
                 <div className="catCard">
                   <label className="catLabel">{c}</label>
-                  <label className="deleteBtn" onClick={handleDeteleCategory}>
+                  <label
+                    className="deleteBtn"
+                    id={c}
+                    onClick={handleDeteleCategory}
+                  >
                     X
                   </label>
                 </div>
