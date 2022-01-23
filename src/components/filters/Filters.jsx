@@ -16,7 +16,7 @@ const Filters = ({
   return (
     <Container>
       <Children>
-        <select name="clothingType" id="clothingType" onChange={handleFilters}>
+        <select id="clothingType" onChange={handleFilters}>
           <option value="">Tipo de prenda</option>
           {clothingType.map((el) => (
             <option value={el}>{el}</option>
