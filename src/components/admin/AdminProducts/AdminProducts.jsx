@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postProductsAdm } from "../../../redux/actions/products.js";
 import { getCategories } from "../../../../src/redux/actions/categories.js";
-import { allProducts } from "../../../redux/actions/products.js"
+import { getProducts } from "../../../redux/actions/products.js";
 
 
 const AdminProducts = () => {
@@ -10,10 +10,15 @@ const AdminProducts = () => {
   const dispatch = useDispatch()
   
   useEffect(() => {
-    dispatch(getCategories())
+    dispatch(getCategories());
+    dispatch(getProducts());
   }, [dispatch]);
 
   const categorie = useSelector((state) => state.categoryReducer.categories);
+  let productsAll = useSelector((state) => state.productsReducer.allProducts);
+ 
+  productsAll = productsAll.slice(0, 8);
+  console.log("SLICE", productsAll);
 
   const [count, setCount] = useState(0);
 
@@ -103,18 +108,31 @@ const AdminProducts = () => {
       <form onSubmit={handleSubmit}> 
         
         <div>
+         
           <h3> Portada </h3>
-          <img src="" alt="" />
-          <button></button>
 
-          <img src="" alt="" />
-          <button></button>
+          <div>
+            <img src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp" width="200px" height="300px" alt="img not found" />
+            <button>
+              <img src="" alt="" />
+            </button>
 
-          <img src="" alt="" />
-          <button></button>
+            <img src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp" width="200px" height="300px" alt="img not found" />
+            <button>
+              <img src="" alt="" />
+            </button>
 
-          <img src="" alt="" />
-          <button></button>
+            <img src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp" width="200px" height="300px" alt="img not found" />
+            <button>
+              <img src="" alt="" />
+            </button>
+
+            <img src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp" width="200px" height="300px" alt="img not found" />
+            <button>
+              <img src="" alt="" />
+            </button>
+          </div>
+          
         </div>
 
 
@@ -138,59 +156,26 @@ const AdminProducts = () => {
 
 
         <div>
-          <h3> Todos los productos </h3>
-          <select name="" id="">
-            Filtros
-          </select>
-        </div>
-
-
-        <div>
           <h3> Stock </h3>
           <button onClick={handleSubtractOne}>-1</button>
             <p>{products.stock}</p>
           <button onClick={handleAddOne}>+1</button>
         </div>
 
-
         <div>
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
+          {
+            productsAll?.map((image) => (
+              <div>
+                <img src={image.img} width="200px" height="300px" alt="img not found" />
+                <button>
+                  <img src="" alt="" />
+                </button>
+              </div>
+            ))
+          }
         </div>
       
-            
-
       </form >
-
-      <div>
-        <h3> Ultimas Compras </h3>
-        <h4> Comprador </h4>
-        <h5> Pepito Perez </h5>
-        <h5> Vendido el 15 de enero de 2021 </h5>
-        <h5> Pepito Perez </h5>
-        <h5> Vendido el 15 de enero de 2021 </h5>
-      </div>
 
     </div>
   );
