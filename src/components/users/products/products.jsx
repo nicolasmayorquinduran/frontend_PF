@@ -7,9 +7,7 @@ import Paginado from "../Paginado/Paginado.jsx";
 import Filters from "../../filters/Filters";
 import {
   filterClothingType,
-  filterPrice,
-  filterRanking,
-  filterAlph,
+  filterSort,
 } from "../../filters/logicFunctionFilters";
 import { getCategories } from "../../../../src/redux/actions/categories.js";
 import { filterByCategory } from "../../../../src/redux/actions/products.js";
@@ -36,9 +34,11 @@ const Products = () => {
     )
   );
 
-  // allProducts = filterClothingType(allProducts);
+  allProducts = filterSort(
+    filterClothingType(allProducts, filter.clothingType),
+    filter.sort
+  );
 
-  console.log(allProducts);
   const allCategories = useSelector(
     (store) => store.categoryReducer.categories
   );
@@ -68,8 +68,8 @@ const Products = () => {
         filter={filter}
         setFilter={setFilter}
         clothingType={allCategories}
-        price={["Mayor", "Menor"]}
-        ranking={["Mayor", "Menor"]}
+        price={["Mayor precio", "Menor precio"]}
+        ranking={["Mayor ranking", "Menor ranking"]}
         alph={["A > z", "Z > a"]}
       />
 
