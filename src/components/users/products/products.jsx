@@ -6,10 +6,8 @@ import Product from "./product";
 import Paginado from "../Paginado/Paginado.jsx";
 import Filters from "../../filters/Filters";
 import {
-  filterClothingTipe,
-  filterPrice,
-  filterRanking,
-  filterAlph,
+  filterClothingType,
+  filterSort,
 } from "../../filters/logicFunctionFilters";
 import { getCategories } from "../../../../src/redux/actions/categories.js";
 import { filterByCategory } from "../../../../src/redux/actions/products.js";
@@ -20,9 +18,7 @@ const Products = () => {
   const [productsPerPage, setProductsPerPage] = useState(9);
   const [filter, setFilter] = useState({
     clothingType: "",
-    price: "",
-    ranking: "",
-    alph: "",
+    sort: "",
   });
 
   const dispatch = useDispatch();
@@ -38,18 +34,10 @@ const Products = () => {
     )
   );
 
-  allProducts = filterAlph(
-    filterRanking(
-      filterPrice(
-        filterClothingTipe(allProducts, filter.clothingType),
-        filter.price
-      ),
-      filter.ranking
-    ),
-    filter.alph
+  allProducts = filterSort(
+    filterClothingType(allProducts, filter.clothingType),
+    filter.sort
   );
-
-
   const allCategories = useSelector(
     (store) => store.categoryReducer.categories
   );
@@ -67,7 +55,7 @@ const Products = () => {
   const handleSearch = (e) => setSearch(e.target.value);
 
   return (
-    <div>
+    <div className="products">
       <input
         id="search"
         type="text"
@@ -79,8 +67,8 @@ const Products = () => {
         filter={filter}
         setFilter={setFilter}
         clothingType={allCategories}
-        price={["Mayor", "Menor"]}
-        ranking={["Mayor", "Menor"]}
+        price={["Mayor precio", "Menor precio"]}
+        ranking={["Mayor ranking", "Menor ranking"]}
         alph={["A > z", "Z > a"]}
       />
 
@@ -97,6 +85,7 @@ const Products = () => {
           );
         })}
       </Container>
+
       <Paginado
         productsPerPage={productsPerPage}
         allProducts={allProducts.length}

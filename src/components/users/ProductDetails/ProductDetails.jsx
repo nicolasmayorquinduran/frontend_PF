@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { detailsProduct,getProducts } from "../../../redux/actions/products";
 import "./productdetails.css";
@@ -22,25 +22,52 @@ export default function ProductDetails() {
     dispatch()
   }
 
+  const [changeInfo, setChangeInfo] = useState("Comentarios");
 
- 
+  useEffect(() => dispatch(detailsProduct()), [dispatch]);
+
+  const product = useSelector((store) => store.productsReducer.productsDetails);
+
+  const [bigImage, setBigImage] = useState(0);
+
+  function onClick(e) {
+    e.preventDefault();
+    setChangeInfo(e.target.value);
+  }
+
+  function onImage(e) {
+    e.preventDefault();
+    setBigImage(e.target.id);
+  }
+
+  // console.log(product);
 
   return (
     <div>
-      <hr></hr>
-        <div className='container'>
-
-          <div className="imgDetail">
-
+      <hr id="hr"></hr>
+      {product.hasOwnProperty("id") ? (
+        <div>
+          <div className="imgAndDetail">
             <div className="imgContainer">
               <div className="bigImg">
-                <img src={product.img} alt="big" />
+                {product.images.map(
+                  (image, index) =>
+                    index == bigImage && (
+                      <img src={image} id={index} alt={`clothes for men`} />
+                    )
+                )}
               </div>
+
               <div className="smallImg">
-                <img id='s' src={product.img} alt="small" />
-                <img id='s' src={product.img} alt="small" />
-                <img id='s' src={product.img} alt="small" />
-                <img id='s' src={product.img} alt="small" />
+
+                {product.images.map((image, index) => (
+                  <img
+                    src={image}
+                    onClick={onImage}
+                    id={index}
+                    alt={`clothes for men`}
+                  />
+                ))}
               </div>
             </div>
 
@@ -48,36 +75,76 @@ export default function ProductDetails() {
               <h2> {product.name} </h2>
               <h3 id="price"> {formatMoney(product.price) } </h3>
               <input type="number" name="qty"/>
+              <br></br>   
+              <div id="categoriesContainer">
+                <h6 id="categories"> Categories: </h6>
+                {product.type}
+              </div>
               <br></br>
-              <h4 id="categories"> Category: {product.category} </h4>
-              <h4>Size:  {product.detail.size}</h4>
-              <h4>Color: {product.detail.color.toLowerCase()}</h4>
-              <h4>Cloth Type: {product.additionalInformation[0].lining_material}</h4>
-              <h4>Manufacturer: {product.additionalInformation[0].manufacturer}</h4>
-              <h4>Fit: {product.additionalInformation[0].fit}</h4>
-              <button img={product.img} name={product.name} price={product.price}>
-                Add to cart <FontAwesomeIcon icon={faCartPlus} />
-              </button>
+              <br></br>
+              <br></br>
+              <p id="description"> {product.description} </p>
+              <br></br>
+              <div id="talles">
+                <h6>Talles:</h6>
+                {product.size.map((s) => {
+                  return (
+                    <div key={s.name}>
+                      <p>{s.name}</p>
+                    </div>
+                  );
+                })}
+              </div>
+              <br></br>
+              <br></br>
+              <br></br>
+              <Cart product={product} />
             </div>
           </div>
-
-          <div className='review'>
-              <h4>REVIEWS</h4>
-              <br/>
-              <br/>
-              {(product.reviews.map(r=>{
-                return(
-                  <div>
-                    <h4>{r.usuario}</h4>
-                    <div>
-                      <p>{r.timestamps}</p>
-                      <p>{r.comment}</p>
+          <div className="productAbout">
+            <div className="selectDeploy">
+              <button onClick={onClick} value="Comentarios">
+                Comentarios:{" "}
+              </button>
+              <button onClick={onClick} value="Adicional">
+                Información Adicional:
+              </button>
+            </div>
+            <hr></hr>
+            {changeInfo === "Comentarios" ? (
+              product.reviews.map((p) => {
+                return (
+                  <div key={p.usuario} className="reviewContainer">
+                    <div className="reviewDivider">
+                      <div className="reviewUser">
+                        <p>{p.usuario}</p>
+                      </div>
+                      <div className="reviewData">
+                        <p id="timeStamps">Publicado el {p.timestamps}</p>
+                        <p>{p.comment}</p>
+                      </div>
                     </div>
                   </div>
-                )
-              }))}
+                );
+              })
+            ) : (
+              <div id="additionalDescription">
+                <p> {product.description} </p>
+                <div className="additionalData">
+                  <p>
+                    Made in {product.additional_information[0].manufacturer}
+                  </p>
+                  <p>{product.additional_information[0].fit}</p>
+                  <p>{product.additional_information[0].lining_material}</p>
+                  <p>{product.additional_information[0].ocasion}</p>
+                </div>
+              </div>
+            )}
           </div>
-        </div> 
+        </div>
+      ) : (
+        <h3> Error 404 Not Found </h3>
+      )}
     </div>
   );
 }

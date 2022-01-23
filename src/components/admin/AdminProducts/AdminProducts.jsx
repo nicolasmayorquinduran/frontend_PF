@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postProductsAdm } from "../../../redux/actions/products.js";
-
-/*
-TAREA: Componente panel de administrador, donde se puede agregar
-un producto al estado gobal de redux para que se añada a la página 
-que renderiza los productos.
-*/ 
-
-const redux = [];
+import { getCategories } from "../../../../src/redux/actions/categories.js";
+import { getProducts } from "../../../redux/actions/products.js";
 
 
 const AdminProducts = () => {
 
-  const categories = useSelector((state) => state.categoryReducer);
   const dispatch = useDispatch()
+  
+  useEffect(() => {
+    dispatch(getCategories());
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  const categorie = useSelector((state) => state.categoryReducer.categories);
+  let productsAll = useSelector((state) => state.productsReducer.allProducts);
+ 
+  productsAll = productsAll.slice(0, 8);
+  console.log("SLICE", productsAll);
 
   const [count, setCount] = useState(0);
+
 
   // INITIAL STATE:
   const [products, setProducts] = useState(
@@ -28,11 +33,12 @@ const AdminProducts = () => {
         "https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_2-470x632.jpg",
         "https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21-470x632.jpg"
       ],
-      category: "",
-      stock: 1,
+      category: categorie,
+      stock: count,
       precio: "",
     }
   );
+
 
   // INPUTS:
   function handleChange(event) {
@@ -46,25 +52,37 @@ const AdminProducts = () => {
   
   };
 
+
   function handleSubmitCategory(event) {
     setProducts(
       {
         ...products,
-        category: event.target.value,
+        category: [...products.category, event.target.value],
       }
     )
 
     event.preventDefault();  
   };
 
+
   /* ---------------- COUNTER STOCK ---------------- */
   const handleSubtractOne = () => {
-    setCount(count - 1);
-  }
+
+    products.stock >= 0 && 
+    setProducts(
+      {
+        ...products, stock: products.stock -1
+      }
+    )
+  };
 
   const handleAddOne = () => {
-    setCount(count + 1);
-  }
+    setProducts(
+      {
+        ...products, stock: products.stock +1
+      }
+    )
+  };
   /* ------------------------------------------------ */
 
   // SUBMIT:
@@ -87,22 +105,36 @@ const AdminProducts = () => {
   return (
     <div>
     
-      <form onClick={handleSubmit}> 
+      <form onSubmit={handleSubmit}> 
         
         <div>
+         
           <h3> Portada </h3>
-          <img src="" alt="" />
-          <button></button>
 
-          <img src="" alt="" />
-          <button></button>
+          <div>
+            <img src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp" width="200px" height="300px" alt="img not found" />
+            <button>
+              <img src="" alt="" />
+            </button>
 
-          <img src="" alt="" />
-          <button></button>
+            <img src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp" width="200px" height="300px" alt="img not found" />
+            <button>
+              <img src="" alt="" />
+            </button>
 
-          <img src="" alt="" />
-          <button></button>
+            <img src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp" width="200px" height="300px" alt="img not found" />
+            <button>
+              <img src="" alt="" />
+            </button>
+
+            <img src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp" width="200px" height="300px" alt="img not found" />
+            <button>
+              <img src="" alt="" />
+            </button>
+          </div>
+          
         </div>
+
 
         <div>
           <h3> Nombre </h3>
@@ -112,66 +144,38 @@ const AdminProducts = () => {
           <input onChange={handleChange} type='Number' min="0" name="price" value={products.price} autoComplete="off" required />
         </div>
 
+
         <div>
           <h3> Categorías </h3>
-          <select name="category" onChange = {handleSubmitCategory} >
+          <select onClick={handleSubmitCategory} name="category" autoComplete="off" required >
             {
-              categories.map((p, i) => (
-                <option key={i} value={p.id}>{p.name}</option>
-              ))
+              categorie?.map((c) => <option> {c} </option>)
             }
           </select>
         </div>
 
+
         <div>
-          <p> Stock </p>
+          <h3> Stock </h3>
           <button onClick={handleSubtractOne}>-1</button>
+            <p>{products.stock}</p>
           <button onClick={handleAddOne}>+1</button>
         </div>
 
         <div>
-          <h3> Todos los productos </h3>
-          <select name="" id="">
-            Filtros
-          </select>
-        </div>
-
-        <div>
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
-
-          <img src="" alt="" />
-          <button></button>
+          {
+            productsAll?.map((image) => (
+              <div>
+                <img src={image.img} width="200px" height="300px" alt="img not found" />
+                <button>
+                  <img src="" alt="" />
+                </button>
+              </div>
+            ))
+          }
         </div>
       
       </form >
-
-      <div>
-        <h3> Ultimas Compras </h3>
-        <h4> Comprador </h4>
-        <h5> Pepito Perez </h5>
-        <h5> Vendido el 15 de enero de 2021 </h5>
-        <h5> Pepito Perez </h5>
-        <h5> Vendido el 15 de enero de 2021 </h5>
-      </div>
 
     </div>
   );
