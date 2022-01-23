@@ -1,4 +1,4 @@
-export const filterClothingTipe = (all, filter) =>
+export const filterClothingType = (all, filter) =>
   filter.length ? all.filter((product) => product.category === filter) : all;
 
 export const filterPrice = (all, filter) =>
