@@ -12,10 +12,13 @@ const NavBar = () => {
     <div className="navbarContainer">
       <NavBarMenu />
       <div className="logoLok">
-        <img src={logoLok} alt="LooK" />
+        <Link to='/'>
+          <img src={logoLok} alt="LooK" />
+        </Link>
+        
       </div>
       <NavBarUser />
-      <Link id="navLink" to="/">
+      <Link id="navLink" to="/cart">
         <FontAwesomeIcon icon={faCartPlus} />
       </Link>
     </div>
