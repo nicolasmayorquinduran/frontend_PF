@@ -22,8 +22,10 @@ export default function ProductDetails() {
   );
 
   console.log('CARRITO',cart)
-
-  const [changeInfo, setChangeInfo] = useState("Comentarios");
+  let [changeInfo, setChangeInfo] = useState("");
+  const handleChangeInfo = (e)=>{
+    changeInfo = e.target.value
+  }
 
   const handleAddSize = (e)=>{
     product.size = e.target.value
@@ -95,10 +97,10 @@ export default function ProductDetails() {
           </div>
           <div className="productAbout">
             <div className="selectDeploy">
-              <button value="Comentarios">
-                Comentarios:{" "}
+              <button onClick={()=>handleChangeInfo} value="Comentarios">
+                Comentarios:
               </button>
-              <button value="Adicional">
+              <button onClick={()=>handleChangeInfo} value="Adicional">
                 Información Adicional:
               </button>
             </div>
@@ -121,14 +123,13 @@ export default function ProductDetails() {
               })
             ) : (
               <div id="additionalDescription">
-                <p> {product.description} </p>
                 <div className="additionalData">
                   <p>
-                    Made in {product.additional_information[0].manufacturer}
+                    Made in {product.additionalInformation[0].manufacturer}
                   </p>
-                  <p>{product.additional_information[0].fit}</p>
-                  <p>{product.additional_information[0].lining_material}</p>
-                  <p>{product.additional_information[0].ocasion}</p>
+                  <p>{product.additionalInformation[0].fit}</p>
+                  <p>{product.additionalInformation[0].lining_material}</p>
+                  <p>{product.additionalInformation[0].ocasion}</p>
                 </div>
               </div>
             )}
