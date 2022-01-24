@@ -1,4 +1,4 @@
-.card {
+.cardAdmin {
   display: inline-block;
   width: 300px;
   height: 250px;
@@ -96,12 +96,11 @@
 .stock p {
   text-align: center;
   font-size: 24px;
-  
 }
-.editImage{
-    display: grid;
-    grid-template-columns: .5fr .5fr;
-    column-gap: 15px;
-    padding: 5px;
-    margin-left: 20px;
+.editImage {
+  display: grid;
+  grid-template-columns: 0.5fr 0.5fr;
+  column-gap: 15px;
+  padding: 5px;
+  margin-left: 20px;
 }
