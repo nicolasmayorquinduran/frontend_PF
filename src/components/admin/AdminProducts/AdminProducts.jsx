@@ -26,10 +26,14 @@ const AdminProducts = () => {
     category: "",
   });
 
-  console.log(selected, !!selected.name.length);
   return (
     <div>
-      {selected.name.length ? <EditProduct /> : <NewProduct />}
+      {selected.name.length ? (
+        <EditProduct product={selected} />
+      ) : (
+        <NewProduct />
+      )}
+
       <div className="Container">
         <div
           className="card"
