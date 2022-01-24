@@ -22,7 +22,7 @@ export const NavBarUser = () => {
   };
 
   return (
-    <div>
+    <>
       {isAuthenticated ? (
         <div className="logged">
           <Dropdown isOpen={dropdown} toggle={openCloseDropdown}>
@@ -45,6 +45,6 @@ export const NavBarUser = () => {
           <LoginButton />
         </div>
       )}
-    </div>
+    </>
   );
 };
