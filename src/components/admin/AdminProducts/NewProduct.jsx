@@ -81,46 +81,14 @@ const NewProduct = () => {
       <div>
         <h3> Agregar Producto </h3>
 
-        <div>
+        <div className="AddPhoto">
           <img
             src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
             width="200px"
             height="300px"
             alt="img not found"
           />
-          <button>
-            <img src="" alt="" />
-          </button>
-
-          <img
-            src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-            width="200px"
-            height="300px"
-            alt="img not found"
-          />
-          <button>
-            <img src="" alt="" />
-          </button>
-
-          <img
-            src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-            width="200px"
-            height="300px"
-            alt="img not found"
-          />
-          <button>
-            <img src="" alt="" />
-          </button>
-
-          <img
-            src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-            width="200px"
-            height="300px"
-            alt="img not found"
-          />
-          <button>
-            <img src="" alt="" />
-          </button>
+          <FontAwesomeIcon icon={faPlusSquare} />
         </div>
       </div>
 

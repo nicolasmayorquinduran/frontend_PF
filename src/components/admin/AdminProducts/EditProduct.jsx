@@ -1,173 +1,125 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { postProductsAdm } from "../../../redux/actions/products";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenSquare, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPenSquare,
+  faPlusSquare,
+  faWindowClose,
+} from "@fortawesome/free-solid-svg-icons";
 
-const EditProduct = () => {
-  const dispatch = useDispatch();
+const EditProduct = ({ product }) => {
+  const [edited, setEdited] = useState({
+    name: product.name,
+    price: product.price,
+    ranking: product.ranking,
+    img: product.img,
+    categories: [product.category],
+  });
   const categories = useSelector((state) => state.categoryReducer.categories);
 
-  const [count, setCount] = useState(0);
+  console.log(edited);
 
-  // INITIAL STATE:
-  const [products, setProducts] = useState({
-    name: "",
-    img: [
-      "https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_4-470x632.jpg",
-      "https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_3-470x632.jpg",
-      "https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_2-470x632.jpg",
-      "https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21-470x632.jpg",
-    ],
-    category: [],
-    stock: count,
-    precio: "",
-  });
-
-  // INPUTS:
-  function handleChange(event) {
-    setProducts({
-      ...products,
-      [event.target.name]: event.target.value,
-    });
-  }
-
-  function handleSubmitCategory(event) {
-    setProducts({
-      ...products,
-      category: [...products.category, event.target.value],
-    });
-
-    event.preventDefault();
-  }
-
-  /* ---------------- COUNTER STOCK ---------------- */
-  const handleSubtractOne = () => {
-    products.stock >= 0 &&
-      setProducts({
-        ...products,
-        stock: products.stock - 1,
-      });
+  const handleEdited = (e) => {
+    Array.isArray(edited[e.target.id])
+      ? edited[e.target.id].includes(e.target.value)
+        ? setEdited({
+            ...edited,
+            [e.target.id]: [
+              ...edited[e.target.id].filter((c) => c != e.target.value),
+            ],
+          })
+        : e.target.value.length &&
+          setEdited({
+            ...edited,
+            [e.target.id]: [...edited[e.target.id], e.target.value],
+          })
+      : setEdited({ ...edited, [e.target.id]: e.target.value });
+    console.log(`name: ${e.target.value}`);
   };
 
-  const handleAddOne = () => {
-    setProducts({
-      ...products,
-      stock: products.stock + 1,
-    });
-  };
-  /* ------------------------------------------------ */
-
-  // SUBMIT:
-  function handleSubmit(event) {
-    // event.preventDefault();
-    dispatch(postProductsAdm(products));
-
-    setProducts({
-      name: "",
-      img: [
-        "https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_4-470x632.jpg",
-        "https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_3-470x632.jpg",
-        "https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_2-470x632.jpg",
-        "https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21-470x632.jpg",
-      ],
-      category: [],
-      stock: "",
-      precio: "",
-    });
-  }
   return (
-    <form className="new" onSubmit={handleSubmit}>
-      <div>
-        <h3> Agregar Producto </h3>
+    <>
+      <form className="new">
+        <h3> Editar Producto </h3>
 
-        <div>
-          <img
-            src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-            width="200px"
-            height="300px"
-            alt="img not found"
-          />
-          <button>
-            <img src="" alt="" />
-          </button>
-
-          <img
-            src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-            width="200px"
-            height="300px"
-            alt="img not found"
-          />
-          <button>
-            <img src="" alt="" />
-          </button>
-
-          <img
-            src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-            width="200px"
-            height="300px"
-            alt="img not found"
-          />
-          <button>
-            <img src="" alt="" />
-          </button>
-
-          <img
-            src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-            width="200px"
-            height="300px"
-            alt="img not found"
-          />
-          <button>
-            <img src="" alt="" />
-          </button>
+        <div className="coverImage">
+          <img src={edited.img} />
+          <FontAwesomeIcon icon={faPenSquare} />
         </div>
-      </div>
-
-      <div>
+        <div className="extraImages">
+          <img
+            src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
+            width="200px"
+            height="300px"
+            alt="img not found"
+          />
+          <FontAwesomeIcon icon={faPlusSquare} />
+        </div>
         <h3> Nombre </h3>
         <input
-          onChange={handleChange}
+          id="name"
+          value={edited.name}
           type="text"
           name="name"
-          value={products.name}
           autoComplete="off"
+          onChange={handleEdited}
           required
         />
-
         <h3> Precio </h3>
         <input
-          onChange={handleChange}
+          id="price"
+          value={edited.price}
           type="Number"
           min="0"
           name="price"
-          value={products.price}
           autoComplete="off"
+          onChange={handleEdited}
           required
         />
-      </div>
 
-      <div>
-        <h3> Categorías </h3>
-        <select
-          onClick={handleSubmitCategory}
-          name="category"
-          autoComplete="off"
-          required
-        >
-          {categories.map((c) => (
-            <option> {c} </option>
+        <div>
+          <select
+            id="categories"
+            autoComplete="off"
+            required
+            onChange={handleEdited}
+          >
+            <option value=""> Seleccionar categorías</option>
+            {categories.map((c) => (
+              <option id={c}> {c} </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="categories">
+          <label>Categoría(s) del producto</label>
+          {edited.categories.map((category) => (
+            <div>
+              <label>{category}</label>
+              <FontAwesomeIcon
+                icon={faWindowClose}
+                id="categories"
+                onClick={(e) =>
+                  edited[e.target.id].includes(category)
+                    ? setEdited({
+                        ...edited,
+                        [e.target.id]: [
+                          ...edited[e.target.id].filter((c) => c != category),
+                        ],
+                      })
+                    : category.length &&
+                      setEdited({
+                        ...edited,
+                        [e.target.id]: [...edited[e.target.id], category],
+                      })
+                }
+              />
+            </div>
           ))}
-        </select>
-      </div>
-
-      <div>
-        <h3> Stock </h3>
-        <button onClick={handleSubtractOne}>-1</button>
-        <p>{products.stock}</p>
-        <button onClick={handleAddOne}>+1</button>
-      </div>
-    </form>
+        </div>
+      </form>
+    </>
   );
 };
 
