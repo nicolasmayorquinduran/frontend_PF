@@ -12,29 +12,45 @@ import s from './Cart.module.css'
 
         
 
-export default function Cart({product}) {
+export default function Cart() {
     const [cart, setCart] = UseLocalStorage('products', [])
-    console.log("CART", cart)
-    const dispatch = useDispatch();
-    const navigate = useNavigate()
-    const products = useSelector(state => state.productsReducer.products);
+    console.log(cart)
     const User = JSON.parse(localStorage.getItem("user"));
-    console.log("USUARIO",User)
     const idUser = !User?null:User.idUser;
 
     // useEffect(() => {
     //     dispatch(getProductsCartUser(idUser)); 
     // }, [dispatch]);  
-
-    const handleDeleteItem = (idproduct) => {
-        //e.preventDefault()
-        // dispatch(deleteItemFromCart(idproduct, idUser))
+    const handleDeleteItem= (e)=>{
+        cart.map(e=>e.id !== "3")
+        console.log("eliminado", cart)
         Swal.fire({
             icon: 'success',
-            text: 'Producto eliminado correctamente!',
+            text: 'Producto eliminado!',
             showConfirmButton: false,
             timer: 3000
           })
+    }
+
+    const deleteAllCart = (e)=>{
+        e.preventDefault()
+        localStorage.clear()
+        Swal.fire({
+            icon: 'success',
+            text: 'Carriro eliminado!',
+            showConfirmButton: false,
+            timer: 3000
+          })
+    }
+
+    function getTotalAmount (){
+        let prices=0;
+        let qtys = 0;
+        prices += cart.map(e=>Number(e.price))
+        console.log(prices)
+        qtys += cart.map(e=>Number(e.price))
+        let total = prices * qtys
+        return total
     }
 
     // const handlerChangeAmount = (product,idUser,e) => {
@@ -70,12 +86,7 @@ export default function Cart({product}) {
     //     dispatch(function que limpia el carrito)
     // }
 
-    // id
-    // name
-    // price
-    // img
-    // category
-    const columns=[
+      const columns=[
         {
             name: "Image",   
             grow: 0,
@@ -96,20 +107,19 @@ export default function Cart({product}) {
 
         {
             name: "Quantity",
-            selector: row => <input name="amount" type="number" min={1} max={row.stock} value={row.amount} onChange={console.log('handlerChangeAmount')}></input>//row.amount,
+            selector: row => <input name="amount" type="number" min={1} max={100} value={row.qty} onChange={console.log('handlerChangeAmount')}></input>//row.amount,
             //sortable: true
         },
 
         {
             name:"Amount",
-            selector:row => formatMoney(row.price * row.amount),
+            selector:row => formatMoney(row.price * row.qty),
             sortable: true
         },
 
         {
             cell: row => {
-            console.log("table data",row.id)
-            return <abbr title="Delete Item"><button className={s.btnDel} onClick={()=>handleDeleteItem()}><FontAwesomeIcon icon={faTrashAlt}/></button></abbr>},
+            return <abbr title="Delete Item"><button className={s.btnDel} id={row.id} onClick={handleDeleteItem} ><FontAwesomeIcon icon={faTrashAlt}/></button></abbr>},
             ignoreRowClick: true,
             allowFlow: true,
             button: true 
@@ -125,13 +135,12 @@ export default function Cart({product}) {
     } 
     return (
       <>
-        <button onClick={() => setCart([...cart, product])}>Add to cart</button>
         <div className={s.container}>
         <DataTable 
             className={s.table}
             title ={<h1>My Shopping Cart</h1>} 
             columns = {columns}
-            data = {products}
+            data = {cart}
             pagination
             paginationComponentOptions = {optionPagination}
             actions
@@ -139,7 +148,7 @@ export default function Cart({product}) {
         </div>
             <div>
                     <div className={s.amount}>
-                       Total Amount: {formatMoney(products?.reduce((a, c) => a + c.price*c.amount,0))}
+                       Total Amount: {getTotalAmount()}
                         
                     </div>
             </div>
@@ -149,7 +158,7 @@ export default function Cart({product}) {
             {idUser? 
                 <button className={s.btn}><Link to='/checkout/x' onClick={console.log('handleGoToCheckOut')}><span>GO TO CHECKOUT</span></Link></button>
                 : null}
-                <button className={s.btn} onClick={console.log('handleClearCart')}>CLEAR ALL CART</button>  
+                <button className={s.btn} onClick={deleteAllCart}>CLEAR ALL CART</button>  
 
             </div>                         
     </>
