@@ -1,0 +1,107 @@
+.card {
+  display: inline-block;
+  width: 300px;
+  height: 250px;
+  padding: 5px;
+  margin: 10px;
+  border: none;
+  box-shadow: 2px 2px 2px grey;
+  font-size: 10px;
+}
+
+.cardsProducts {
+  display: flex;
+  flex-direction: row;
+  font-size: 10px;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.cardData {
+  display: grid;
+  grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr;
+  text-align: center;
+  padding: 5px;
+  align-items: center;
+}
+.cardData .price {
+  font-size: 28px;
+}
+.cardData h5 {
+  font-size: 20px;
+}
+.cardData .category {
+  font-size: 20px;
+}
+.iconCard {
+  width: 50px;
+  height: 50px;
+}
+.crearNuevo {
+  font-size: 26px;
+  text-align: center;
+  align-items: center;
+}
+/* ////////NEW PRODUCT////////// */
+
+.new {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 30px;
+}
+.new h3 {
+  margin-left: 100px;
+  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.AddPhoto img {
+  margin-left: 100px;
+  position: relative;
+}
+.AddPhoto .icon {
+  position: absolute;
+  z-index: 10;
+}
+
+.formNew {
+  display: grid;
+  grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr;
+}
+.formNew h3 {
+  margin-left: 0%;
+  font-size: 24px;
+  font-weight: 600;
+}
+.nombrePrecio input {
+  width: 300px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px grey;
+  margin-bottom: 5px;
+}
+.categorias select {
+  width: 300px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px grey;
+  margin-bottom: 5px;
+}
+.stock {
+  display: grid;
+  grid-template-columns: 0.1fr 0.1fr 0.1fr;
+}
+.stock button {
+  width: auto;
+}
+.stock p {
+  text-align: center;
+  font-size: 24px;
+  
+}
+.editImage{
+    display: grid;
+    grid-template-columns: .5fr .5fr;
+    column-gap: 15px;
+    padding: 5px;
+    margin-left: 20px;
+}

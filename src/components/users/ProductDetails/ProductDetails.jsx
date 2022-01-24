@@ -24,13 +24,13 @@ export default function ProductDetails() {
   const [bigImage, setBigImage] = useState(0);
 
   function onClick(e) {
-    e.preventDefault();
-    setChangeInfo(e.target.value);
+    e.preventDefault()
+    setChangeInfo(e.target.value)
   }
 
   function onImage(e) {
-    e.preventDefault();
-    setBigImage(e.target.id);
+    e.preventDefault()
+    setBigImage(e.target.id)
   }
 
   // console.log(product);
@@ -38,7 +38,7 @@ export default function ProductDetails() {
   return (
     <div>
       <hr id="hr"></hr>
-      {product.hasOwnProperty("id") ? (
+      {product.hasOwnProperty('id') ? (
         <div>
           <div className="imgAndDetail">
             <div className="imgContainer">
@@ -79,12 +79,12 @@ export default function ProductDetails() {
               <br></br>
               <div id="talles">
                 <h6>Talles:</h6>
-                {product.size.map((s) => {
+                {product.size.map(s => {
                   return (
                     <div key={s.name}>
                       <p>{s.name}</p>
                     </div>
-                  );
+                  )
                 })}
               </div>
               <br></br>
@@ -96,15 +96,15 @@ export default function ProductDetails() {
           <div className="productAbout">
             <div className="selectDeploy">
               <button onClick={onClick} value="Comentarios">
-                Comentarios:{" "}
+                Comentarios:{' '}
               </button>
               <button onClick={onClick} value="Adicional">
                 Información Adicional:
               </button>
             </div>
             <hr></hr>
-            {changeInfo === "Comentarios" ? (
-              product.reviews.map((p) => {
+            {changeInfo === 'Comentarios' ? (
+              product.reviews.map(p => {
                 return (
                   <div key={p.usuario} className="reviewContainer">
                     <div className="reviewDivider">
@@ -117,7 +117,7 @@ export default function ProductDetails() {
                       </div>
                     </div>
                   </div>
-                );
+                )
               })
             ) : (
               <div id="additionalDescription">
@@ -138,5 +138,5 @@ export default function ProductDetails() {
         <h3> Error 404 Not Found </h3>
       )}
     </div>
-  );
+  )
 }
