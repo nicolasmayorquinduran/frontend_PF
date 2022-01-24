@@ -62,7 +62,7 @@ const AdminProducts = () => {
         </div>
         {productsAll.map(product => (
           <div
-            className="card"
+            className="cardAdmin"
             onClick={() =>
               setSelected({
                 name: product.name,
