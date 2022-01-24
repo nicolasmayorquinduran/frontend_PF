@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { formatMoney } from "accounting";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 
 export default function ProductDetails() {
@@ -14,8 +15,9 @@ export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const product = useSelector((store) =>
-    store.productsReducer.products.find((e) => e.id == id)
+  store.productsReducer.products.find((e) => e.id == id)
   );
+  product.ranking = Math.random(1,5);
 
   useEffect(() => {
     dispatch(getProducts());
@@ -24,7 +26,7 @@ export default function ProductDetails() {
 
   console.log("CARRITO", cart);
 
-  const [changeInfo, setChangeInfo] = useState("Comentarios");
+  const [changeInfo, setChangeInfo] = useState("");
   const handleAddSize = (e) => {
     product.size = e.target.value;
     console.log(product);
@@ -50,7 +52,7 @@ export default function ProductDetails() {
       <div>
         <hr id="hr"></hr>
         {product.hasOwnProperty("id") ? (
-          <div>
+          <div className="container">
             <div className="imgAndDetail">
               <div className="imgContainer">
                 <div className="bigImg">
@@ -66,28 +68,30 @@ export default function ProductDetails() {
 
               <div className="productDetail">
                 <h2> {product.name} </h2>
+                <div className="ranking">
+                  <div style={{ width:  `${product.ranking}%` }} className="path"></div>
+                  <div className="stars">
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                  </div>
+                </div>
+                  <br></br>
                 <h3 id="price"> {formatMoney(product.price)} </h3>
-                <input
-                  onChange={handleAddQty}
-                  placeholder={1}
-                  type="number"
-                  min={1}
-                  max={20}
-                  name="qty"
-                />
+                
                 <br></br>
                 <div id="categoriesContainer">
-                  <h6 id="categories"> Categories: </h6>
-                  {product.type}
+                  <h6 id="categories"> Category: </h6>
+                  {product.category}
                 </div>
-                <br></br>
-                <br></br>
                 <br></br>
                 <p id="description"> {product.description} </p>
                 <br></br>
                 <div id="talles">
                   <h6>Talles:</h6>
-                  <select id="size" onChange={handleAddSize}>
+                  <select className="size" id="size" onChange={handleAddSize}>
                     <option value="XS">X-Small</option>
                     <option value="S">Small</option>
                     <option value="M">Medium</option>
@@ -97,9 +101,18 @@ export default function ProductDetails() {
                   </select>
                 </div>
                 <br></br>
-                <br></br>
-                <br></br>
-                <button onClick={handleAddCart}>Add to cart</button>
+                <div>
+                  <input
+                    onChange={handleAddQty}
+                    className="qty"
+                    placeholder={1}
+                    type="number"
+                    min={1}
+                    max={20}
+                    name="qty"
+                  />
+                  <button className="add" onClick={handleAddCart}>Add to cart</button>
+                </div>
               </div>
             </div>
             <div className="productAbout">
@@ -107,7 +120,7 @@ export default function ProductDetails() {
                 <button onClick={onClick} value="Comentarios">
                   Comentarios:{" "}
                 </button>
-                <button value="Adicional">Información Adicional:</button>
+                <button onClick={onClick}value="Adicional">Información Adicional:</button>
               </div>
               <hr></hr>
               {changeInfo === "Comentarios" ? (
@@ -131,11 +144,11 @@ export default function ProductDetails() {
                   <p> {product.description} </p>
                   <div className="additionalData">
                     <p>
-                      Made in {product.additional_information[0].manufacturer}
+                      Made in {product.additionalInformation[0].manufacturer}
                     </p>
-                    <p>{product.additional_information[0].fit}</p>
-                    <p>{product.additional_information[0].lining_material}</p>
-                    <p>{product.additional_information[0].ocasion}</p>
+                    <p>Fit: {product.additionalInformation[0].fit}</p>
+                    <p>Material: {product.additionalInformation[0].lining_material}</p>
+                    <p>Ocasion: {product.additionalInformation[0].Occasion}</p>
                   </div>
                 </div>
               )}
