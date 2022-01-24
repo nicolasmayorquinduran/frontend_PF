@@ -40,6 +40,7 @@ export default function ProductDetails() {
 
   const handleAddCart = (e) => {
     setCart([...cart, product]);
+  }
     function onClick(e) {
       e.preventDefault();
       setChangeInfo(e.target.value);
@@ -146,4 +147,4 @@ export default function ProductDetails() {
       </div>
     );
   };
-}
+
