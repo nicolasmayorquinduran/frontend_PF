@@ -29,6 +29,8 @@ function AdminCat() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addCategories(e.target.id));
+    setNewCategory("");
+    document.getElementById("inputCategory").value = "";
   };
 
   const handleDeteleCategory = (e) => {
@@ -49,6 +51,7 @@ function AdminCat() {
                 type="text"
                 placeholder="Nombre..."
                 onChange={handleChange}
+                id="inputCategory"
               ></input>
             </div>
             <div>
