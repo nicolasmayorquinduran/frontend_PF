@@ -26,6 +26,7 @@ const Products = () => {
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getCategories());
+    setCurrentPage(1);
   }, [dispatch, search]);
 
   let allProducts = useSelector((store) =>
@@ -55,7 +56,7 @@ const Products = () => {
   const handleSearch = (e) => setSearch(e.target.value);
 
   return (
-      <div className="products">
+    <div className="products">
       <input
         id="search"
         type="text"

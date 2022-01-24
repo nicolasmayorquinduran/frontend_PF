@@ -46,9 +46,9 @@ export default function Cart() {
     function getTotalAmount (){
         let prices=0;
         let qtys = 0;
-        prices += cart.map(e=>Number(e.price))
+        prices += Number(cart.map(e=>e.price))
         console.log(prices)
-        qtys += cart.map(e=>Number(e.price))
+        qtys += Number(cart.map(e=>e.price))
         let total = prices * qtys
         return total
     }
@@ -136,9 +136,9 @@ export default function Cart() {
     return (
       <>
         <div className={s.container}>
+        <h1>Shopping Cart</h1>
         <DataTable 
-            className={s.table}
-            title ={<h1>My Shopping Cart</h1>} 
+            className={s.table} 
             columns = {columns}
             data = {cart}
             pagination
@@ -154,11 +154,11 @@ export default function Cart() {
             </div>
               
             <div className={s.btn_container}>
-                <button className={s.btn}><Link to='/'><span>GO MORE SHOP</span></Link></button>
-            {idUser? 
-                <button className={s.btn}><Link to='/checkout/x' onClick={console.log('handleGoToCheckOut')}><span>GO TO CHECKOUT</span></Link></button>
-                : null}
+                <button className={s.btn}><Link to='/'><span>GO SHOP MORE</span></Link></button>
+            {/* {idUser?  */}
                 <button className={s.btn} onClick={deleteAllCart}>CLEAR ALL CART</button>  
+                <button className={s.btn}><Link to='/checkout'><span>GO TO CHECKOUT</span></Link></button>
+                {/* : null} */}
 
             </div>                         
     </>

@@ -1,27 +1,26 @@
-import React from 'react';
-import './Paginado.css';
+import { useEffect } from 'react'
+import './Paginado.css'
 
 //-----------------------------------------------------------------------------------------------------------------
 
-const Paginado =({productsPerPage,allProducts,paginado})=>{
-  const pageNumbers=[];
-  
-  for(let i=1; i<=Math.ceil(allProducts/productsPerPage); i++){
+const Paginado = ({ productsPerPage, allProducts, paginado }) => {
+  const pageNumbers = []
+
+  for (let i = 1; i <= Math.ceil(allProducts / productsPerPage); i++) {
     pageNumbers.push(i)
   }
-  return(
+  return (
     <nav>
-      <ul className='paginado'>
-        {
-          pageNumbers && pageNumbers.map(number=>(
-          <li className='number' key={number}>
-            <button onClick={()=>paginado(number)}>{number}</button>
-          </li>
-          ))  
-        }
-      </ul> 
+      <ul className="paginado">
+        {pageNumbers &&
+          pageNumbers.map(number => (
+            <li className="number" key={number}>
+              <button onClick={() => paginado(number)}>{number}</button>
+            </li>
+          ))}
+      </ul>
     </nav>
   )
 }
 
-export default Paginado; 
+export default Paginado
