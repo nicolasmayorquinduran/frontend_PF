@@ -14,7 +14,6 @@ const AdminOrders = () => {
   useEffect(() => dispatch(orderAdmin()), [dispatch]);
 
   const order = useSelector((state) => state.orderAdmReducer.orders);
-  console.log(order);
 
   return (
     <div className="principal-container">
