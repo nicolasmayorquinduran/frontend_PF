@@ -36,7 +36,7 @@ const AdminProducts = () => {
 
       <div className="Container">
         <div
-          className="card"
+          className="cardAdmin"
           onClick={() =>
             setSelected({
               name: '',
