@@ -1,0 +1,78 @@
+.card {
+  display: inline-block;
+  width: 300px;
+  height: 250px;
+  padding: 5px;
+  margin: 10px;
+  border: none;
+  box-shadow: 2px 2px 2px grey;
+  font-size: 10px;
+}
+
+.cardsProducts {
+  display: flex;
+  flex-direction: row;
+  font-size: 10px;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.cardData {
+  display: grid;
+  grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr;
+  text-align: center;
+  padding: 5px;
+  align-items: center;
+}
+.cardData .price {
+  font-size: 28px;
+}
+.cardData h5 {
+  font-size: 20px;
+}
+.cardData .category {
+  font-size: 20px;
+}
+.iconCard {
+  width: 50px;
+  height: 50px;
+}
+.crearNuevo {
+  font-size: 26px;
+  text-align: center;
+  align-items: center;
+}
+/* ////////NEW PRODUCT////////// */
+
+.new{
+    display:inline;
+}
+
+.agregarImg{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    padding: 5px;
+}
+.agregarImg img{
+    position: relative;
+    width: 200px;
+    height: 300px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.buttonImg{
+    width: 50px;
+    height: 50px;
+}
+.agregarImg button{
+    width: 50px;
+    height: 50px;
+}
+.formNew{
+    display: grid;
+    grid-template-rows: .5fr .5fr .5fr .5fr;
+    align-items: flex-end;
+    margin-right: 0%;
+}

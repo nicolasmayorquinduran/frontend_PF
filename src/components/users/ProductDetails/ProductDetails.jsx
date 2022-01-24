@@ -1,33 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { detailsProduct, getProducts } from '../../../redux/actions/products'
-import './productdetails.css'
-import Cart from '../Cart/Cart'
-import { useParams } from 'react-router-dom'
-import { formatMoney } from 'accounting'
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { detailsProduct, getProducts } from "../../../redux/actions/products";
+import "./productdetails.css";
+import Cart from "../Cart/Cart";
+import { useParams } from "react-router-dom";
+import { formatMoney } from "accounting";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function ProductDetails() {
-  const { id } = useParams()
-  const dispatch = useDispatch()
+  const { id } = useParams();
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getProducts())
-    dispatch(detailsProduct())
-  }, [dispatch])
-  console.log('PRODUCTO FILTRADO', product)
-  const handleAddCart = () => {
-    dispatch()
-  }
+    dispatch(getProducts());
+    dispatch(detailsProduct());
+  }, [dispatch]);
 
-  const [changeInfo, setChangeInfo] = useState('Comentarios')
+  const [changeInfo, setChangeInfo] = useState("Comentarios");
+  const product = useSelector((store) =>
+    store.productsReducer.products.find((e) => e.id == id)
+  );
 
-  useEffect(() => dispatch(detailsProduct()), [dispatch])
-  const product = useSelector(store =>
-    store.productsReducer.products.find(e => e.id == id)
-  )
-
-  const [bigImage, setBigImage] = useState(0)
+  const [bigImage, setBigImage] = useState(0);
 
   function onClick(e) {
     e.preventDefault()
