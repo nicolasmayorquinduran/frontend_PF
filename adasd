@@ -1,0 +1,264 @@
+[33mcommit 9e8fcafb4274da4c6271c0428154dc3afb13e4ad[m[33m ([m[1;36mHEAD -> [m[1;32mCart[m[33m, [m[1;31morigin/Cart[m[33m)[m
+Author: ElianZK <elianh2015@gmail.com>
+Date:   Sun Jan 23 19:09:24 2022 -0300
+
+    pre merging origin/dev
+
+[33mcommit 8f1792bbaef93a49ce8f0815b6a1ab035a2db05e[m
+Author: ElianZK <elianh2015@gmail.com>
+Date:   Sat Jan 22 19:05:43 2022 -0300
+
+    creando actions para cart
+
+[33mcommit c8f575c30874f3e1de1c46406e211c92efc6f067[m
+Author: ElianZK <elianh2015@gmail.com>
+Date:   Sat Jan 22 14:35:19 2022 -0300
+
+    detail, carrito y link a home page
+
+[33mcommit 994f7660ad876698750acaf77cb27e99b12415d9[m
+Author: ElianZK <elianh2015@gmail.com>
+Date:   Sat Jan 22 00:38:26 2022 -0300
+
+    rute de detalle arregleada
+
+[33mcommit bb6ae7d1fdb6b8fcd96b280d0bcaf5606c706142[m
+Merge: 3dca0dc1 10961c84
+Author: ElianZK <elianh2015@gmail.com>
+Date:   Fri Jan 21 19:51:37 2022 -0300
+
+    merged with dev
+
+[33mcommit 3dca0dc1859fe517f05594f0adda8f8310c810e1[m
+Author: ElianZK <elianh2015@gmail.com>
+Date:   Fri Jan 21 19:48:17 2022 -0300
+
+    pre merging with dev
+
+[33mcommit 10961c845d930ab0be363f20395ebffded86cabb[m
+Merge: b158165f c85c18ee
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 13:11:04 2022 -0500
+
+    Merge pull request #69 from nicolasmayorquinduran/ele
+    
+    Vista modificacion de usuario en admin-index
+
+[33mcommit c85c18eeade5957d2ae42b88f6449ce87d937e8a[m
+Merge: bf2d579e b158165f
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 13:10:54 2022 -0500
+
+    Merge branch 'dev' into ele
+
+[33mcommit b158165fb51f2b4795602892dd5433dd1b54bc06[m
+Merge: 78dcf18b 5bb6143b
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 12:49:31 2022 -0500
+
+    Merge pull request #70 from nicolasmayorquinduran/adminUsers
+    
+    align de eye and add link on products component
+
+[33mcommit 5bb6143be81fdd85875376f8f2a375efc103b418[m
+Author: nicolasmayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 12:48:50 2022 -0500
+
+    align de eye and add link on products component
+
+[33mcommit bf2d579e0f0d6b5bcc0fbd8699098253b1597d81[m
+Author: elecalderon1501 <elecalderon.ec@gmail.com>
+Date:   Fri Jan 21 14:36:18 2022 -0300
+
+    Vista usuario a modificar en Admin-index
+
+[33mcommit 78dcf18bc15907f7b51f325ad4026b394daf1801[m
+Merge: fe712a6b 0c232275
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 12:29:10 2022 -0500
+
+    Merge pull request #68 from nicolasmayorquinduran/Cart
+    
+    Agrego boton de add cart
+
+[33mcommit 0c2322757d065bb98c3d79774b3f01ddf82510c2[m
+Author: unknown <msosa89@outlook.com>
+Date:   Fri Jan 21 14:27:08 2022 -0300
+
+    Agrego boton de add cart
+
+[33mcommit fe712a6b71209189885e2f63ec19a0d99ab889ce[m
+Merge: ed06cc2d 9632c9df
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 11:56:50 2022 -0500
+
+    Merge pull request #67 from nicolasmayorquinduran/Cart
+    
+    Componentes Cart y LocalStorage
+
+[33mcommit 9632c9df7948fddf6b508a278008095c5d53e232[m
+Author: unknown <msosa89@outlook.com>
+Date:   Fri Jan 21 13:55:38 2022 -0300
+
+    Componentes Cart y LocalStorage
+
+[33mcommit ed06cc2db6d1b6c6097c7e98c681f6fcd71f2dd7[m
+Merge: f70a85e5 c63e1629
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 11:37:48 2022 -0500
+
+    Merge pull request #66 from nicolasmayorquinduran/adminUsers
+    
+    Admin users
+
+[33mcommit c63e16293a771f06701815d2559f00283ea098e0[m
+Merge: c9c229e2 f70a85e5
+Author: nicolasmayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 11:37:03 2022 -0500
+
+    buggs resolutions
+
+[33mcommit d4a39935954bbdf21a30a68e5a6b99f85d4f0f50[m
+Merge: bc463553 09aea5a0
+Author: elecalderon1501 <elecalderon.ec@gmail.com>
+Date:   Fri Jan 21 13:30:39 2022 -0300
+
+    Correccion error en products
+
+[33mcommit c9c229e2f6c65a2851c7ecd9c07d66e0856c51db[m
+Author: nicolasmayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 11:29:45 2022 -0500
+
+    filter component creation with functionality
+
+[33mcommit f70a85e5e90d7f70c3d6fd42e69027b247290cd4[m
+Merge: 66d684fa 4b4b710f
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 10:45:39 2022 -0500
+
+    Merge pull request #64 from nicolasmayorquinduran/NavBar
+    
+    Admin import bug fixed
+
+[33mcommit 4b4b710f72312f1aee6ee89cd7c41690c51b61f3[m
+Author: etchepared <etcheparede@gmail.com>
+Date:   Fri Jan 21 12:43:58 2022 -0300
+
+    Admin import bug fixed
+
+[33mcommit 66d684fa26ff11d72a7191ee31e835cd638dc46b[m
+Merge: 3b9142b1 a0ee9686
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 10:14:35 2022 -0500
+
+    Merge pull request #63 from nicolasmayorquinduran/OrderAdmin
+    
+    Se generan actions, reducer y componente adminOrders, En el component…
+
+[33mcommit a0ee96861108870e2f8a59a8cce253c3d8e527e7[m
+Merge: 6a5838da 3b9142b1
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 10:14:27 2022 -0500
+
+    Merge branch 'dev' into OrderAdmin
+
+[33mcommit 6a5838da63e06a557502ad9b0b91972b691a8495[m
+Author: jonaScriptCPU33 <jonascript.cpu@gmail.com>
+Date:   Fri Jan 21 10:12:37 2022 -0500
+
+    Se generan actions, reducer y componente adminOrders, En el componente queda pendiente el renderizaado de el diseño. En el cual estoy trabajando
+
+[33mcommit 3b9142b1adae7ebfcb842ac149aaa7164ed646d2[m
+Merge: 09aea5a0 582dfe94
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 10:06:04 2022 -0500
+
+    Merge pull request #62 from nicolasmayorquinduran/PanelAdminProduct
+    
+    agrego dispatch
+
+[33mcommit 582dfe94d28fd2ffdc98a506e8b19024a8c92f90[m
+Author: Ignacio <ignaciogrillocaimary@gmail.com>
+Date:   Fri Jan 21 12:03:46 2022 -0300
+
+    agrego dispatch
+
+[33mcommit bc463553fbc0cb6967dbb3ee42e2d6331974158a[m
+Merge: ca4addbd 517d4bed
+Author: elecalderon1501 <elecalderon.ec@gmail.com>
+Date:   Fri Jan 21 11:49:36 2022 -0300
+
+    Correcion en nombres de archivos de estilos
+
+[33mcommit 09aea5a0c3b2e7d722771b8e503460158ba181b9[m
+Merge: fc6654d5 dc61af98
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 09:48:10 2022 -0500
+
+    Merge pull request #60 from nicolasmayorquinduran/PanelAdminProduct
+    
+    panel admin product
+
+[33mcommit fc6654d533089730791f40d576e89604f24313ef[m
+Merge: 517d4bed 340b5af6
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 09:47:51 2022 -0500
+
+    Merge pull request #61 from nicolasmayorquinduran/ele
+    
+    Eye in Product
+
+[33mcommit 340b5af6d4e82ef3fa70923d5660478241688275[m
+Merge: ca4addbd 517d4bed
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Fri Jan 21 09:47:43 2022 -0500
+
+    Merge branch 'dev' into ele
+
+[33mcommit dc61af98b3d50b23a06ce5cb42c9ad9e3097dc1d[m
+Author: Ignacio <ignaciogrillocaimary@gmail.com>
+Date:   Fri Jan 21 11:44:43 2022 -0300
+
+    panel admin product 2°
+
+[33mcommit ca4addbd41ca66fd5dd25436879cefe4fa343e0d[m
+Author: elecalderon1501 <elecalderon.ec@gmail.com>
+Date:   Fri Jan 21 11:34:58 2022 -0300
+
+    Eye in Product
+
+[33mcommit f67974a5ce0f5cd9216593d58fd8d3c0afaa9d72[m
+Author: Ignacio <ignaciogrillocaimary@gmail.com>
+Date:   Fri Jan 21 11:10:04 2022 -0300
+
+    panel admin product
+
+[33mcommit 517d4bed913a6fe341b3ad669ee28c79d3cc0f03[m
+Merge: b9045e4d ac76ff02
+Author: nicolas mayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Thu Jan 20 17:55:01 2022 -0500
+
+    Merge pull request #59 from nicolasmayorquinduran/NavBar
+    
+    productdetails.css created
+
+[33mcommit ac76ff021bd13b038051c29e43c61042f000d518[m
+Merge: 75da352e b9045e4d
+Author: etchepared <88214684+etchepared@users.noreply.github.com>
+Date:   Thu Jan 20 19:46:19 2022 -0300
+
+    Merge branch 'dev' into NavBar
+
+[33mcommit 75da352e7cf8af4e3385832b1a98ea9fb04730a3[m
+Author: etchepared <etcheparede@gmail.com>
+Date:   Thu Jan 20 19:44:49 2022 -0300
+
+    productdetails.css created
+
+[33mcommit 325aaf05228a00b8e3662f85160577ecfa1c78f5[m
+Author: nicolasmayorquin <nicolasmayorquinduran@gmail.com>
+Date:   Thu Jan 20 17:36:23 2022 -0500
+
+    change positions code lines
+
+[33mcommit b9045e4d4
