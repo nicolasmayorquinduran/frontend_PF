@@ -1,0 +1,7 @@
+.paginado {
+  display: inline-block;
+  align-items: flex-start;
+}
+.paginado button {
+  width: 10vh;
+}

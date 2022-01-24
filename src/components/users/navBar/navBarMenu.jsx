@@ -24,7 +24,7 @@ export const NavBarMenu = () => {
   };
 
   return (
-    <div>
+    <>
       <Dropdown isOpen={dropdown} toggle={openCloseDropdown} size="lg">
         <DropdownToggle className="dropdownButton">
           <FontAwesomeIcon icon={faBars} />
@@ -50,6 +50,6 @@ export const NavBarMenu = () => {
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-    </div>
+    </>
   );
 };

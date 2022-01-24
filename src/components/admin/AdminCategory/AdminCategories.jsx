@@ -28,11 +28,17 @@ function AdminCat() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-     if(categories.includes(e.target.id)){
+
+     if(!e.target.id){
+      alert('Debes crear categoria')
+      } else if(categories.includes(e.target.id)){
       alert('esta categoría ya existe')
       } else {
         dispatch(addCategories(e.target.id))
       }   
+
+    setNewCategory("");
+    document.getElementById("inputCategory").value = "";
   };
 
   const handleDeteleCategory = (e) => {
@@ -53,6 +59,7 @@ function AdminCat() {
                 type="text"
                 placeholder="Nombre..."
                 onChange={handleChange}
+                id="inputCategory"
               ></input>
             </div>
             <div>
