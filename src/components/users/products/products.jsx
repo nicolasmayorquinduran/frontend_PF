@@ -34,7 +34,7 @@ const Products = () => {
       p.name.toLowerCase().includes(search.toLowerCase())
     )
   );
-
+  allProducts = allProducts.concat((useSelector((store) => store.productsReducer.newProducts)))
   allProducts = filterSort(
     filterClothingType(allProducts, filter.clothingType),
     filter.sort
