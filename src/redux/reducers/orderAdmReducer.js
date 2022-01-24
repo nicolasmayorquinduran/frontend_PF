@@ -1,7 +1,7 @@
 import { TYPES } from "../actions/types";
 
 const initialState = {
-  orders: {},
+  orders: [],
 };
 
 function orderAdmReducer(state = initialState, action) {

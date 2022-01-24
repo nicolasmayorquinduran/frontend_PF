@@ -4,9 +4,9 @@ export const filterClothingType = (all, filter) =>
 export const filterSort = (all, filter) => {
   switch (filter) {
     case "Mayor precio":
-      return all.sort((a, b) => (a.price >= b.price ? 1 : -1));
+      return all.sort((a, b) => (Number(a.price) >= Number(b.price) ? -1 : 1));
     case "Menor precio":
-      return all.sort((a, b) => (a.price >= b.price ? 1 : -1));
+      return all.sort((a, b) => (Number(a.price) >= Number(b.price) ? 1 : -1));
     case "Mayor ranking":
       return all.sort((a, b) => (a.ranking >= b.ranking ? -1 : 1));
     case "Menor ranking":

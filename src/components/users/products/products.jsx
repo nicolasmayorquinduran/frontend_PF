@@ -55,7 +55,7 @@ const Products = () => {
   const handleSearch = (e) => setSearch(e.target.value);
 
   return (
-    <div className="products">
+      <div className="products">
       <input
         id="search"
         type="text"
