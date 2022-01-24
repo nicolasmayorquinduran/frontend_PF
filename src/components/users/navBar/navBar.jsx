@@ -17,11 +17,12 @@ const NavBar = () => {
           <img src={logoLok} alt="LooK" />
         </Link>
       </div>
-
-      <NavBarUser />
-      <Link id="navLink" to="/cart">
-        <FontAwesomeIcon icon={faCartPlus} />
-      </Link>
+      <div>
+        <NavBarUser />
+        <Link id="navLink" to="/cart">
+          <FontAwesomeIcon icon={faCartPlus} />
+        </Link>
+      </div>
     </div>
   );
 };

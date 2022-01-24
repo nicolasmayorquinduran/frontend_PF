@@ -41,7 +41,12 @@ const AdminOrders = () => {
                 <th>
                   <a>Id:</a>
                   <br />
-                  <h6> {el.products.map(el => <li>{el.id}</li>)}</h6>
+                  <h6>
+                    {" "}
+                    {el.products.map((el) => (
+                      <li>{el.id}</li>
+                    ))}
+                  </h6>
                 </th>
                 <th>
                   <a>Producto: </a>
@@ -73,7 +78,12 @@ const AdminOrders = () => {
                 <th>
                   <a>Total Compra:</a>
                   <br />
-                   <h6>${el.products.map(el => (<li>{el.price}</li>))}</h6> 
+                  <h6>
+                    $
+                    {el.products.map((el) => (
+                      <li>{el.price}</li>
+                    ))}
+                  </h6>
                 </th>
                 <th>
                   <a>Ver Detalle:</a>
@@ -94,5 +104,3 @@ const AdminOrders = () => {
 };
 
 export default AdminOrders;
-
-

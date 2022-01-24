@@ -26,7 +26,7 @@
 
 .navbarContainer {
   display: inline-flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100vw !important;
   height: 16vh;
@@ -43,10 +43,6 @@
   font-size: 4vh;
 }
 
-.searchContainer {
-  display: inline-flex;
-}
-
 .search {
   display: inline-flex;
 }
@@ -55,6 +51,6 @@
   width: 10vw;
 }
 
-.vacio {
-  width: 0vw;
+.searchContainer {
+  display: inline-flex;
 }
