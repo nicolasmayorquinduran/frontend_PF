@@ -28,13 +28,21 @@ function AdminCat() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addCategories(e.target.id));
+
+     if(!e.target.id){
+      alert('Debes crear categoria')
+      } else if(categories.includes(e.target.id)){
+      alert('esta categoría ya existe')
+      } else {
+        dispatch(addCategories(e.target.id))
+      }   
+
     setNewCategory("");
     document.getElementById("inputCategory").value = "";
   };
 
   const handleDeteleCategory = (e) => {
-    e.preventDefault();
+    e.preventDefault();    
     dispatch(deleteCategories(e.target.id));
   };
 
@@ -66,13 +74,13 @@ function AdminCat() {
               return (
                 <div className="catCard">
                   <label className="catLabel">{c}</label>
-                  <label
+                  <button
                     className="deleteBtn"
                     id={c}
                     onClick={handleDeteleCategory}
                   >
                     X
-                  </label>
+                  </button>
                 </div>
               );
             })}
