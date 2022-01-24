@@ -13,15 +13,10 @@ const NewProduct = () => {
   // INITIAL STATE:
   const [products, setProducts] = useState({
     name: '',
-    img: [
-      'https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_4-470x632.jpg',
-      'https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_3-470x632.jpg',
-      'https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_2-470x632.jpg',
-      'https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21-470x632.jpg',
-    ],
+    img: 'https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_4-470x632.jpg',
     category: [],
     stock: count,
-    precio: '',
+    price: '',
   })
 
   // INPUTS:
@@ -42,7 +37,8 @@ const NewProduct = () => {
   }
 
   /* ---------------- COUNTER STOCK ---------------- */
-  const handleSubtractOne = () => {
+  const handleSubtractOne = (e) => {
+    e.preventDefault()
     products.stock >= 0 &&
       setProducts({
         ...products,
@@ -50,7 +46,8 @@ const NewProduct = () => {
       })
   }
 
-  const handleAddOne = () => {
+  const handleAddOne = (e) => {
+    e.preventDefault()
     setProducts({
       ...products,
       stock: products.stock + 1,
@@ -60,9 +57,8 @@ const NewProduct = () => {
 
   // SUBMIT:
   function handleSubmit(event) {
-    // event.preventDefault();
+    event.preventDefault();
     dispatch(postProductsAdm(products))
-
     setProducts({
       name: '',
       img: [
@@ -73,8 +69,9 @@ const NewProduct = () => {
       ],
       category: [],
       stock: '',
-      precio: '',
+      price: '',
     })
+
   }
   return (
     <form className="new" onSubmit={handleSubmit}>
@@ -144,6 +141,9 @@ const NewProduct = () => {
           </div>
           <div>
             <button onClick={handleAddOne}>+1</button>
+          </div>
+          <div>
+            <button type='submit'>Create</button>
           </div>
         </div>
         </div>
