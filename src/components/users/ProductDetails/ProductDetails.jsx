@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { detailsProduct,getProducts } from "../../../redux/actions/products";
+import { detailsProduct, getProducts } from "../../../redux/actions/products";
 import "./productdetails.css";
 import Cart from "../Cart/Cart";
 import { useParams } from "react-router-dom";
@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 
 export default function ProductDetails() {
+
   const [cart, setCart] = UseLocalStorage('products', [])
   const {id}=useParams()
   const dispatch = useDispatch();
@@ -24,12 +25,10 @@ export default function ProductDetails() {
   console.log('CARRITO',cart)
 
   const [changeInfo, setChangeInfo] = useState("Comentarios");
-
   const handleAddSize = (e)=>{
     product.size = e.target.value
     console.log(product)
   }
-
   const handleAddQty = (e)=>{
     if (!product.qty) {
       product.qty = 1
@@ -41,13 +40,17 @@ export default function ProductDetails() {
 
   const handleAddCart = (e)=>{
     setCart([...cart, product])
+  function onClick(e) {
+    e.preventDefault()
+    setChangeInfo(e.target.value)
   }
+  
 
 
   return (
     <div>
       <hr id="hr"></hr>
-      {product.hasOwnProperty("id") ? (
+      {product.hasOwnProperty('id') ? (
         <div>
           <div className="imgAndDetail">
             <div className="imgContainer">
@@ -95,16 +98,16 @@ export default function ProductDetails() {
           </div>
           <div className="productAbout">
             <div className="selectDeploy">
-              <button value="Comentarios">
-                Comentarios:{" "}
+              <button onClick={onClick} value="Comentarios">
+                Comentarios:{' '}
               </button>
               <button value="Adicional">
                 Información Adicional:
               </button>
             </div>
             <hr></hr>
-            {changeInfo === "Comentarios" ? (
-              product.reviews.map((p) => {
+            {changeInfo === 'Comentarios' ? (
+              product.reviews.map(p => {
                 return (
                   <div key={p.usuario} className="reviewContainer">
                     <div className="reviewDivider">
@@ -117,7 +120,7 @@ export default function ProductDetails() {
                       </div>
                     </div>
                   </div>
-                );
+                )
               })
             ) : (
               <div id="additionalDescription">
@@ -138,5 +141,5 @@ export default function ProductDetails() {
         <h3> Error 404 Not Found </h3>
       )}
     </div>
-  );
+  )
 }

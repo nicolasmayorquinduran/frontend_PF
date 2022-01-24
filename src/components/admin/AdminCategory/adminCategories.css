@@ -4,12 +4,6 @@
   padding-bottom: 2vh;
 }
 
-.container {
-  background-color: rgb(234, 72, 255);
-  width: 500px;
-  height: 80%;
-}
-
 .categoriesContainer {
   /* display: flex;
   flex-direction: column;
@@ -23,8 +17,8 @@
   align-items: center;
   background-color: gray;
   border: solid grey;
-  margin: 1vw;
-  height: 3vw;
+  margin: 1vh 1vw 1vh 1vw;
+  height: 3vh;
   color: whitesmoke;
 }
 
@@ -43,11 +37,12 @@
 }
 
 .deleteBtn {
+  align-self: flex-end;
   background: none;
   width: 2vw;
-  height: 2.8vw;
+  height: 3vh;
   font-weight: bolder;
-  font-size: larger;
+  font-size: 2.8vh;
   direction: rtl;
 }
 
