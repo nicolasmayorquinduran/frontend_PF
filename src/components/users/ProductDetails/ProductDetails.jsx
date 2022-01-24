@@ -102,10 +102,10 @@ export default function ProductDetails() {
           </div>
           <div className="productAbout">
             <div className="selectDeploy">
-              <button  value="Comentarios">
+              <button onClick={onClick} value="Comentarios">
                 Comentarios:{' '}
               </button>
-              <button  value="Adicional">
+              <button onClick={onClick} value="Adicional">
                 Información Adicional:
               </button>
             </div>
