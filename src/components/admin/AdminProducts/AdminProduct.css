@@ -44,35 +44,64 @@
 }
 /* ////////NEW PRODUCT////////// */
 
-.new{
-    display:inline;
+.new {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 30px;
+}
+.new h3 {
+  margin-left: 100px;
+  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 600;
 }
 
-.agregarImg{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    padding: 5px;
+.AddPhoto img {
+  margin-left: 100px;
+  position: relative;
 }
-.agregarImg img{
-    position: relative;
-    width: 200px;
-    height: 300px;
-    margin: 5px;
-    padding: 5px;
+.AddPhoto .icon {
+  position: absolute;
+  z-index: 10;
 }
 
-.buttonImg{
-    width: 50px;
-    height: 50px;
+.formNew {
+  display: grid;
+  grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr;
 }
-.agregarImg button{
-    width: 50px;
-    height: 50px;
+.formNew h3 {
+  margin-left: 0%;
+  font-size: 24px;
+  font-weight: 600;
 }
-.formNew{
+.nombrePrecio input {
+  width: 300px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px grey;
+  margin-bottom: 5px;
+}
+.categorias select {
+  width: 300px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px grey;
+  margin-bottom: 5px;
+}
+.stock {
+  display: grid;
+  grid-template-columns: 0.1fr 0.1fr 0.1fr;
+}
+.stock button {
+  width: auto;
+}
+.stock p {
+  text-align: center;
+  font-size: 24px;
+  
+}
+.editImage{
     display: grid;
-    grid-template-rows: .5fr .5fr .5fr .5fr;
-    align-items: flex-end;
-    margin-right: 0%;
+    grid-template-columns: .5fr .5fr;
+    column-gap: 15px;
+    padding: 5px;
+    margin-left: 20px;
 }

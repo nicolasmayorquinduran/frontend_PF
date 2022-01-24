@@ -81,67 +81,21 @@ const NewProduct = () => {
       <div>
         <h3> Agregar Producto </h3>
 
-        <div className="agregarImg">
-          <div >
-            <img
-              src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-              width="200px"
-              height="300px"
-              alt="img not found"
-            />
-            <div className='buttonImg'>
-              <button>
-                <img src="" alt="" />
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <img
-              src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-              width="200px"
-              height="300px"
-              alt="img not found"
-            />
-            <div className='buttonImg'>
-              <button>
-                <img src="" alt="" />
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <img
-              src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-              width="200px"
-              height="300px"
-              alt="img not found"
-            />
-            <div className='buttonImg'>
-              <button>
-                <img src="" alt="" />
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <img
-              src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-              width="200px"
-              height="300px"
-              alt="img not found"
-            />
-            <div className='buttonImg'>
-              <button>
-                <img src="" alt="" />
-              </button>
-            </div>
+        <div className="AddPhoto">
+          <img
+            src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
+            width="200px"
+            height="300px"
+            alt="img not found"
+          />
+          <div className="icon">
+            <FontAwesomeIcon icon={faPlusSquare} />
           </div>
         </div>
       </div>
 
-      <div className='formNew' >
-        <div>
+      <div className="formNew">
+        <div className="nombrePrecio">
           <h3> Nombre </h3>
           <input
             onChange={handleChange}
@@ -164,7 +118,7 @@ const NewProduct = () => {
           />
         </div>
 
-        <div>
+        <div className="categorias">
           <h3> Categorías </h3>
           <select
             onClick={handleSubmitCategory}
@@ -178,11 +132,20 @@ const NewProduct = () => {
           </select>
         </div>
 
-        <div>
+        <div >
           <h3> Stock </h3>
-          <button onClick={handleSubtractOne}>-1</button>
-          <p>{products.stock}</p>
-          <button onClick={handleAddOne}>+1</button>
+        <div className="stock">
+        <div>
+            <button onClick={handleSubtractOne}>-1</button>
+          </div>
+
+          <div>
+            <p>{products.stock}</p>
+          </div>
+          <div>
+            <button onClick={handleAddOne}>+1</button>
+          </div>
+        </div>
         </div>
       </div>
     </form>
