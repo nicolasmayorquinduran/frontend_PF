@@ -12,9 +12,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 250px;
-  border: 3px solid black;
-  border-radius: 5px;
+  width: 300px;
+  margin-left: 20px;
 }
 
 .imgContainer{
@@ -27,8 +26,10 @@
 
 .bigImg img {
   
-  height: 80%;
+  height: 400px;
   width: 100%;
+  border: 3px solid black;
+  border-radius: 5px;
 }
 
 #categoriesContainer {
@@ -39,8 +40,7 @@
   display: inline-flex;
 }
 
-#comments {
-}
+
 
 #description {
   width: 40vw;
@@ -53,15 +53,17 @@
 }
 
 .imgAndDetail {
-  display: inline-flex;
-  width: 99.9vw;
-  height: 80vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 500px;
+  height: 500px;
 }
 
 .imgContainer {
-  width: 49vw;
-  height: 70vh;
-  margin-left: 3vw;
+  width: 500px;
+  height: 500px;
+  margin-right: 3vw;
 }
 
 #price {
@@ -117,15 +119,16 @@
   display:flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 7px;
+  margin: 5px;
 }
 
-.smallImg #s {
+.smallImg img {
+  height: 100px;
+  width: 90%;
   border: 2px solid black;
-  border-radius: 3px;
-  height: 12vw;
-  margin: 3px;
+  border-radius: 5px;
 }
+
 
 #talles {
   display: inline-flex;
@@ -143,4 +146,33 @@
 #timeStamps {
   font-style: italic;
   color: #9f005d;
+}
+
+.stars{
+  margin-left: -180px;
+  margin-top:20px ;
+  margin-bottom:20px ;
+}
+
+.qty{
+  width: 70px;
+  height: 40px;
+
+}
+
+.add{
+  width: 130px;
+  margin-left:10px ;
+  height: 40px;
+  margin-top: 3px;
+
+}
+.size{
+  width: 130px;
+margin-left:10px ;
+height: 40px;
+}
+.container{
+  display: flex;
+  flex-direction: column;
 }

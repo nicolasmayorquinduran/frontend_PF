@@ -5,7 +5,8 @@ const initialState = {
   allProducts: [],
   search: "",
   productsDetails: [],
-  panelAdmin: []
+  panelAdmin: [],
+  newProducts: []
 };
 
 function productsReducer(state = initialState, action) {
@@ -33,7 +34,7 @@ function productsReducer(state = initialState, action) {
       case TYPES.POST_PRODUCTS_ADM:
         return {
           ...state,
-          allProducts: [...state.allProducts, action.payload]
+          newProducts: [...state.newProducts, action.payload]
         }
 
     default:

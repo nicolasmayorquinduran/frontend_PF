@@ -1,7 +1,53 @@
 .principal-container {
-  display: flex; 
-  flex-wrap:wrap ;
+  display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
-  
 }
 
+.principal-container ul .status{
+  display: flex;
+  flex-direction: column;
+}
+
+.principal-container ul .user{
+  display: flex;
+  flex-direction: column;
+}
+
+.principal-container ul .id{
+  display: flex;
+  flex-direction: column;
+}
+
+.principal-container ul .product{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.principal-container ul .cantidad{
+  display: flex;
+  flex-direction: column;
+}
+
+.principal-container ul .totalProduct{
+  display: flex;
+  flex-direction: column;
+}
+
+.principal-container ul .totalcompra{
+  display: flex;
+  flex-direction: column;
+}
+
+.principal-container ul .ojo{
+  display: flex;
+  flex-direction: column;
+}
+
+.container-titulos{
+  display: inline-flex;
+  justify-content: space-around;
+
+
+}
