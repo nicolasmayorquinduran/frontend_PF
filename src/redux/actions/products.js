@@ -24,10 +24,10 @@ export function searchProducts(search) {
   };
 }
 
-export function detailsProduct() {
+export function detailsProduct(id) {
   return function (dispatch) {
     return axios
-      .get(`http://localhost:3001/productsDetails/id`)
+      .get(`http://localhost:3001/products?id=${id}`)
       .then((response) => {
         return dispatch({
           type: TYPES.PRODUCT_DETAILS,
@@ -94,3 +94,4 @@ export function deleteAllCart({cartId}){
       })
     }
 }
+

@@ -15,14 +15,14 @@ export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const product = useSelector((store) =>
-  store.productsReducer.products.find((e) => e.id == id)
+  store.productsReducer.productsDetails
   );
   product.ranking = Math.random(1,5);
 
   useEffect(() => {
     dispatch(getProducts());
-    dispatch(detailsProduct());
-  }, [dispatch]);
+    dispatch(detailsProduct(id));
+  }, [dispatch,id]);
 
   console.log("CARRITO", cart);
 

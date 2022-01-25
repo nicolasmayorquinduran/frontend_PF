@@ -4,50 +4,47 @@
   flex-direction: column;
 }
 
-.principal-container ul .status{
+.principal-container ul .status {
   display: flex;
   flex-direction: column;
 }
 
-.principal-container ul .user{
+.principal-container ul .user {
   display: flex;
   flex-direction: column;
 }
 
-.principal-container ul .id{
+.principal-container ul .id {
   display: flex;
   flex-direction: column;
 }
 
-.principal-container ul .product{
+.principal-container ul .product {
   display: flex;
   flex-direction: column;
 }
 
-
-.principal-container ul .cantidad{
+.principal-container ul .cantidad {
   display: flex;
   flex-direction: column;
 }
 
-.principal-container ul .totalProduct{
+.principal-container ul .totalProduct {
   display: flex;
   flex-direction: column;
 }
 
-.principal-container ul .totalcompra{
+.principal-container ul .totalcompra {
   display: flex;
   flex-direction: column;
 }
 
-.principal-container ul .ojo{
+.principal-container ul .ojo {
   display: flex;
   flex-direction: column;
 }
 
-.container-titulos{
+.container-titulos {
   display: inline-flex;
   justify-content: space-around;
-
-
 }
