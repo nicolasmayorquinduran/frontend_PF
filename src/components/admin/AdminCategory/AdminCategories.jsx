@@ -8,12 +8,7 @@ import {
 import "./adminCategories.css";
 
 function AdminCat() {
-  const categories = useSelector(
-    (state) =>
-      (state.categoryReducer.filterCategories.length &&
-        state.categoryReducer.filterCategories) ||
-      state.categoryReducer.categories
-  );
+  const categories = useSelector((state) => state.categoryReducer.categories);
   // const [categories, setCategories] = useState(DBcategories);
   // console.log(categories);
   const [newCategory, setNewCategory] = useState("");
@@ -29,20 +24,20 @@ function AdminCat() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-     if(!e.target.id){
-      alert('Debes crear categoria')
-      } else if(categories.includes(e.target.id)){
-      alert('esta categoría ya existe')
-      } else {
-        dispatch(addCategories(e.target.id))
-      }   
+    if (!e.target.id) {
+      alert("Debes crear categoria");
+    } else if (categories.includes(e.target.id)) {
+      alert("esta categoría ya existe");
+    } else {
+      dispatch(addCategories(e.target.id));
+    }
 
     setNewCategory("");
     document.getElementById("inputCategory").value = "";
   };
 
   const handleDeteleCategory = (e) => {
-    e.preventDefault();    
+    e.preventDefault();
     dispatch(deleteCategories(e.target.id));
   };
 
@@ -73,10 +68,10 @@ function AdminCat() {
             {categories?.map((c) => {
               return (
                 <div className="catCard">
-                  <label className="catLabel">{c}</label>
+                  <label className="catLabel">{c.name}</label>
                   <button
                     className="deleteBtn"
-                    id={c}
+                    id={c.name}
                     onClick={handleDeteleCategory}
                   >
                     X
