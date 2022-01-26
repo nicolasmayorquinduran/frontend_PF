@@ -31,7 +31,11 @@ const Products = () => {
     setCurrentPage(1);
   }, [dispatch, search]);
 
-  let allProducts = useSelector((store) => store.productsReducer.products);
+  let allProducts = useSelector((store) =>
+    store.productsReducer.products.filter((p) =>
+      p.name.toLowerCase().includes(search.toLowerCase())
+    )
+  );
 
   allProducts = filterSort(
     filterClothingType(allProducts, filter.clothingType),
