@@ -9,7 +9,6 @@
   font-size: 10px;
 }
 
-
 .cardsProducts {
   display: flex;
   flex-direction: row;
@@ -104,4 +103,45 @@
   padding: 5px;
   margin-left: 20px;
   font-size: 5vh;
+}
+
+.AddPhoto {
+  position: relative;
+}
+
+.AddPhoto .icon {
+  position: absolute;
+  left: 245px;
+  bottom: -4px;
+  color: #9e005d;
+}
+
+.AddPhoto div {
+  position: absolute;
+}
+
+.icon svg {
+  font-size: 60px;
+}
+
+.Container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.cardsProducts {
+  width: 19%;
+  display: flex;
+  flex-direction: row;
+  font-size: 10px;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.cardsProducts img {
+  width: 50%;
+}
+
+.cardData {
+  width: 50%;
 }
