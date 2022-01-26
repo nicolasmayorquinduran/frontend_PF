@@ -24,8 +24,9 @@ const Products = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProducts());
     dispatch(getCategories());
+    dispatch(getProducts());
+    dispatch(getProducts());
     setCurrentPage(1);
   }, [dispatch, search]);
 
@@ -34,7 +35,9 @@ const Products = () => {
       p.name.toLowerCase().includes(search.toLowerCase())
     )
   );
-  allProducts = allProducts.concat((useSelector((store) => store.productsReducer.newProducts)))
+  allProducts = allProducts.concat(
+    useSelector((store) => store.productsReducer.newProducts)
+  );
   allProducts = filterSort(
     filterClothingType(allProducts, filter.clothingType),
     filter.sort

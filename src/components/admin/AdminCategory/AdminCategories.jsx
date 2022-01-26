@@ -30,9 +30,9 @@ function AdminCat() {
     e.preventDefault();
 
      if(!e.target.id){
-      alert('Debes crear categoria')
+        alert('Debes crear categoria')
       } else if(categories.includes(e.target.id)){
-      alert('esta categoría ya existe')
+        alert('esta categoría ya existe')
       } else {
         dispatch(addCategories(e.target.id))
       }   
