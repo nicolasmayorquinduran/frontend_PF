@@ -1,15 +1,7 @@
 import { useState } from "react";
 import { Container, Children } from "../../globalStyles";
 
-const Filters = ({
-  clothingType,
-  price,
-  ranking,
-  alph,
-  filter,
-  setFilter,
-  handle,
-}) => {
+const Filters = ({ clothingType, price, ranking, alph, filter, setFilter }) => {
   const handleFilters = (e) => {
     setFilter({ ...filter, [e.target.id]: e.target.value });
   };
@@ -18,9 +10,9 @@ const Filters = ({
       <Children>
         <select id="clothingType" onChange={handleFilters}>
           <option value="">Tipo de prenda</option>
-          {clothingType.map((el) => (
+          {/* {clothingType.map((el) => (
             <option value={el}>{el}</option>
-          ))}
+          ))} */}
         </select>
       </Children>
 

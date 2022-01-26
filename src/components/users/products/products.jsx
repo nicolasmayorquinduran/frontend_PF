@@ -27,17 +27,12 @@ const Products = () => {
     dispatch(getCategories());
     dispatch(getProducts());
     dispatch(getProducts());
+    dispatch(getCategories());
     setCurrentPage(1);
   }, [dispatch, search]);
 
-  let allProducts = useSelector((store) =>
-    store.productsReducer.products.filter((p) =>
-      p.name.toLowerCase().includes(search.toLowerCase())
-    )
-  );
-  allProducts = allProducts.concat(
-    useSelector((store) => store.productsReducer.newProducts)
-  );
+  let allProducts = useSelector((store) => store.productsReducer.products);
+
   allProducts = filterSort(
     filterClothingType(allProducts, filter.clothingType),
     filter.sort
@@ -57,7 +52,7 @@ const Products = () => {
   };
 
   const handleSearch = (e) => setSearch(e.target.value);
-
+  console.log(allCategories);
   return (
     <div className="products">
       <input
@@ -75,13 +70,12 @@ const Products = () => {
         ranking={["Mayor ranking", "Menor ranking"]}
         alph={["A > z", "Z > a"]}
       />
-
       <Container>
         {currentProduct?.map((product) => {
           return (
             <Product
               id={product.id}
-              img={product.img}
+              img={product.img[0]}
               name={product.name}
               price={product.price}
               ranking={product.ranking}
