@@ -76,23 +76,28 @@ const NewProduct = () => {
   return (
     <form className="new" onSubmit={handleSubmit}>
       <div>
-        <h3> Agregar Producto </h3>
+         
+         <h3> Agregar Producto </h3>
 
         <div className="AddPhoto">
+
           <img
             src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
             width="200px"
             height="300px"
             alt="img not found"
           />
+
           <div className="icon">
             <FontAwesomeIcon icon={faPlusSquare} />
           </div>
+
         </div>
       </div>
 
       <div className="formNew">
-        <div className="nombrePrecio">
+
+        <div className="nombre">
           <h3> Nombre </h3>
           <input
             onChange={handleChange}
@@ -101,9 +106,11 @@ const NewProduct = () => {
             value={products.name}
             autoComplete="off"
             required
-          />
+          />          
+        </div>
 
-          <h3> Precio </h3>
+        <div className='precio'>
+        <h3> Precio </h3>
           <input
             onChange={handleChange}
             type="Number"
@@ -142,11 +149,12 @@ const NewProduct = () => {
           <div>
             <button onClick={handleAddOne}>+1</button>
           </div>
-          <div>
+          
+        </div>
+        </div>
+        <div className='create'>
             <button type='submit'>Create</button>
           </div>
-        </div>
-        </div>
       </div>
     </form>
   )
