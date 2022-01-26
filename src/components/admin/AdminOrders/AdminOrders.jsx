@@ -28,7 +28,7 @@ const AdminOrders = () => {
         <div>Total Compra:</div>
         <div>Ver Detalle:</div>
       </div>
-      {order != undefined || order.length ? (
+      {order !== undefined || order.length ? (
         order.map((el) => {
           return (
             <div className="container1">
