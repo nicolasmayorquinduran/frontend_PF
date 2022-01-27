@@ -1,9 +1,14 @@
 import React from "react";
+import CreatePromo from "./CreatePromo";
+import EditPromo from "./EditPromo";
 
 const AdminPromos = () => {
   return (
     <div>
-      <h2>Crear Promo</h2>
+      <CreatePromo />
+      <EditPromo />
+      <div className="create"></div>
+      <div className="edit"></div>
     </div>
   );
 };
