@@ -6,6 +6,7 @@ const AdminPromos = () => {
   return (
     <div>
       <CreatePromo />
+      <div>hola</div>
       <EditPromo />
       <div className="create"></div>
       <div className="edit"></div>
