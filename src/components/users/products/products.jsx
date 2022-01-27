@@ -66,7 +66,7 @@ const Products = () => {
       <Filters
         filter={filter}
         setFilter={setFilter}
-        clothingType={allCategories}
+        clothingType={{allCategories}}
         price={["Mayor precio", "Menor precio"]}
         ranking={["Mayor ranking", "Menor ranking"]}
         alph={["A > z", "Z > a"]}
