@@ -1,6 +1,15 @@
 .dropdownButton {
   background: transparent;
   font-size: 5vh !important;
+  width: fit-content;
+  height: fit-content;
+  border: none;
+}
+
+.dropdownButton:hover {
+  background: whitesmoke;
+  color: #9f005d;
+  border: none;
 }
 
 .logged {

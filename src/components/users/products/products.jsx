@@ -24,8 +24,11 @@ const Products = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getCategories());
+    dispatch(getProducts());
     dispatch(getProducts());
     dispatch(getCategories());
+    setCurrentPage(1);
   }, [dispatch, search]);
 
   let allProducts = useSelector((store) =>
@@ -53,9 +56,9 @@ const Products = () => {
   };
 
   const handleSearch = (e) => setSearch(e.target.value);
-
+  console.log(allCategories);
   return (
-      <div className="products">
+    <div className="products">
       <input
         id="search"
         type="text"
@@ -71,13 +74,12 @@ const Products = () => {
         ranking={["Mayor ranking", "Menor ranking"]}
         alph={["A > z", "Z > a"]}
       />
-
       <Container>
         {currentProduct?.map((product) => {
           return (
             <Product
               id={product.id}
-              img={product.img}
+              img={product.img[0]}
               name={product.name}
               price={product.price}
               ranking={product.ranking}

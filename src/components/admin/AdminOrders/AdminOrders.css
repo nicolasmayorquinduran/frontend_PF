@@ -1,7 +1,56 @@
 .principal-container {
-  display: flex; 
-  flex-wrap:wrap ;
-  flex-direction: column;
-  
+  display: grid;
+  gap: 2em;
+  margin-left: 2em;
+  margin-bottom: 5em;
+  font-weight: 900;
+
 }
 
+.container-titulos {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: auto;
+  gap: 0.5em;
+  font-weight: bold;
+}
+
+.principal-container ul .status {
+  display: flex;
+  flex-direction: column;
+}
+
+.principal-container ul .user {
+  display: flex;
+  flex-direction: column;
+}
+
+.principal-container ul .id {
+  display: flex;
+  flex-direction: column;
+}
+
+.principal-container ul .product {
+  display: flex;
+  flex-direction: column;
+}
+
+.principal-container ul .cantidad {
+  display: flex;
+  flex-direction: column;
+}
+
+.principal-container ul .totalProduct {
+  display: flex;
+  flex-direction: column;
+}
+
+.principal-container ul .totalcompra {
+  display: flex;
+  flex-direction: column;
+}
+
+.principal-container ul .ojo {
+  display: flex;
+  flex-direction: column;
+}

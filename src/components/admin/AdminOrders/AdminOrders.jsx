@@ -14,15 +14,107 @@ const AdminOrders = () => {
   useEffect(() => dispatch(orderAdmin()), [dispatch]);
 
   const order = useSelector((state) => state.orderAdmReducer.orders);
-  console.log(order);
 
   return (
     <div className="principal-container">
-      {order != undefined || order.length ? (
+      <h4>Productos</h4>
+      <div className="container-titulos">
+        <div>Estado</div>
+        <div>Usuario:</div>
+        <div>Id:</div>
+        <div>Producto: </div>
+        <div>Cantidad: </div>
+        <div>Total x Producto:</div>
+        <div>Total Compra:</div>
+        <div>Ver Detalle:</div>
+      </div>
+      {order !== undefined || order.length ? (
         order.map((el) => {
           return (
             <div className="container1">
-              <h4>Productos</h4>
+              {el.products.map((p) => {
+                return (
+                  <div>
+                    <ul>
+                      <div className="status">
+                        <div>
+                          <br />
+                        </div>
+                        <select name="" id="">
+                          <option value="">Pendiente</option>
+                          <option value="">Cancelado</option>
+                          <option value="">Entregado</option>
+                        </select>
+                      </div>
+                      <div className="user">
+                        <br />
+                        <h6> {el.client.name}</h6>
+                      </div>
+                      <div className="id">
+                        <br />
+
+                        <ul>
+                          <li>{p.id}</li>
+                        </ul>
+                      </div>
+                      <div className="product">
+                        <br />
+                        <ul>
+                          <li>{p.name}</li>
+                        </ul>
+                      </div>
+                      <div className="cantidad">
+                        <br />
+                        <ul>
+                          <li>{p.cantidad}</li>
+                        </ul>
+                      </div>
+                      <div className="totalProduct">
+                        <br />
+                        <ul>
+                          <li>{p.price}</li>
+                        </ul>
+                      </div>
+                      <div className="totalcompra">
+                        <br />
+                        <ul>
+                          <li>${p.price}</li>
+                        </ul>
+                      </div>
+                      <div className="ojo">
+                        <br />
+                        <FontAwesomeIcon icon={faEye} />
+                      </div>
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })
+      ) : (
+        <h2>Cargando productos</h2>
+      )}
+    </div>
+  );
+};
+
+export default AdminOrders;
+/* 
+  return (
+    <div className="principal-container">
+      <h4>Productos</h4>
+
+      {order != undefined || order.length ? (
+        order.map(el => {
+          return (
+            <div>{el.products.id}</div>
+          )
+        }),
+        order.map((el) => {
+
+          return (
+            <div className="container1">
               <br />
               <ul>
                 <th>
@@ -42,7 +134,12 @@ const AdminOrders = () => {
                 <th>
                   <a>Id:</a>
                   <br />
-                  <h6> {el.products.map(el => <li>{el.id}</li>)}</h6>
+                  <h6>
+                    {" "}
+                    {el.products.map((el) => (
+                      <li>{el.id}</li>
+                    ))}
+                  </h6>
                 </th>
                 <th>
                   <a>Producto: </a>
@@ -74,7 +171,12 @@ const AdminOrders = () => {
                 <th>
                   <a>Total Compra:</a>
                   <br />
-                   <h6>${el.products.map(el => (<li>{el.price}</li>))}</h6> 
+                  <h6>
+                    $
+                    {el.products.map((el) => (
+                      <li>{el.price}</li>
+                    ))}
+                  </h6>
                 </th>
                 <th>
                   <a>Ver Detalle:</a>
@@ -92,8 +194,4 @@ const AdminOrders = () => {
       )}
     </div>
   );
-};
-
-export default AdminOrders;
-
-
+}; */

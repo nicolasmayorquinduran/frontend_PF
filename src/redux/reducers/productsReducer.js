@@ -4,8 +4,9 @@ const initialState = {
   products: [],
   allProducts: [],
   search: "",
-  productsDetails: [],
-  panelAdmin: []
+  productDetail: {},
+  panelAdmin: [],
+  newProducts: [],
 };
 
 function productsReducer(state = initialState, action) {
@@ -14,7 +15,7 @@ function productsReducer(state = initialState, action) {
       return {
         ...state,
         products: action.payload,
-        allProducts: action.payload
+        allProducts: action.payload,
       };
 
     case TYPES.GET_PRODUCTS_BY_NAME:
@@ -23,18 +24,16 @@ function productsReducer(state = initialState, action) {
         search: action.payload,
       };
 
-      case TYPES.PRODUCT_DETAILS:
-        return {
-          ...state,
-          productsDetails: action.payload
-        }
+    case TYPES.PRODUCT_DETAILS:
+      return {
+        ...state,
+        productDetail: action.payload,
+      };
 
-
-      case TYPES.POST_PRODUCTS_ADM:
-        return {
-          ...state,
-          allProducts: [...state.allProducts, action.payload]
-        }
+    case TYPES.POST_PRODUCTS_ADM:
+      return {
+        ...state,
+      };
 
     default:
       return state;

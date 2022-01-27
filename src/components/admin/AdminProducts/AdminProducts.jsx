@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { postProductsAdm } from '../../../redux/actions/products.js'
-import { getCategories } from '../../../../src/redux/actions/categories.js'
-import { getProducts } from '../../../redux/actions/products.js'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
-import EditProduct from './EditProduct.jsx'
-import NewProduct from './NewProduct.jsx'
-import './AdminProduct.css'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategories } from "../../../../src/redux/actions/categories.js";
+import { getProducts } from "../../../redux/actions/products.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenSquare, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import EditProduct from "./EditProduct.jsx";
+import NewProduct from "./NewProduct.jsx";
+import "./AdminProduct.css";
 const AdminProducts = () => {
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getProducts())
-    dispatch(getCategories())
-  }, [dispatch])
-
-  let productsAll = useSelector(state => state.productsReducer.allProducts)
+  const dispatch = useDispatch();
 
   const [selected, setSelected] = useState({
-    name: '',
-    price: '',
-    ranking: '',
-    img: '',
-    category: '',
-  })
+    name: "",
+    price: "",
+    ranking: "",
+    img: "",
+    category: "",
+  });
+
+  useEffect(() => {
+    dispatch(getCategories());
+    dispatch(getProducts());
+  }, [dispatch, selected]);
+
+  let productsAll = useSelector((state) => state.productsReducer.allProducts);
+  console.log(selected);
 
   return (
     <div>
@@ -35,19 +35,8 @@ const AdminProducts = () => {
       )}
 
       <div className="Container">
-        <div
-          className="cardAdmin"
-          onClick={() =>
-            setSelected({
-              name: '',
-              price: '',
-              ranking: '',
-              img: '',
-              category: '',
-            })
-          }
-        >
-          <div className='cardsProducts'>
+        <div className="cardAdmin">
+          <div className="cardsProducts">
             <img
               src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
               width="160px"
@@ -60,9 +49,9 @@ const AdminProducts = () => {
             </div>
           </div>
         </div>
-        {productsAll.map(product => (
+        {productsAll.map((product) => (
           <div
-            className="card"
+            className="cardsProducts"
             onClick={() =>
               setSelected({
                 name: product.name,
@@ -73,34 +62,32 @@ const AdminProducts = () => {
               })
             }
           >
-            <div className="cardsProducts">
-              <img
-                src={product.img}
-                width="160px"
-                height="240px"
-                alt="img not found"
-              />
+            <img
+              src = { product.img}
+              width="160px"
+              height="240px"
+              alt="img not found"
+            />
 
-              <div className="cardData">
-                <div>
-                  <h5>{product.name}</h5>
-                </div>
-                <div className="price">
-                  <strong>{product.price}</strong>
-                </div>
-                <div className="category">
-                  <p>{product.category}</p>
-                </div>
-                <div className="iconCard">
-                  <FontAwesomeIcon icon={faPenSquare} width="50px" />
-                </div>
+            <div className="cardData">
+              <div>
+                <h5>{product.name}</h5>
+              </div>
+              <div className="price">
+                <strong>{product.price}</strong>
+              </div>
+              <div className="category">
+                <p>{product.category}</p>
+              </div>
+              <div className="iconCard">
+                <FontAwesomeIcon icon={faPenSquare} width="50px" />
               </div>
             </div>
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminProducts
+export default AdminProducts;

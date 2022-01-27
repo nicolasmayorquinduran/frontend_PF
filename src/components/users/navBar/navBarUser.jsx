@@ -22,7 +22,7 @@ export const NavBarUser = () => {
   };
 
   return (
-    <div>
+    <>
       {isAuthenticated ? (
         <div className="logged">
           <Dropdown isOpen={dropdown} toggle={openCloseDropdown}>
@@ -35,7 +35,7 @@ export const NavBarUser = () => {
               </DropdownItem>
               <DropdownItem>Ver profile</DropdownItem>
               <DropdownItem>
-                <Link to="/admin">Ver Admin</Link>
+                <Link to="/admin/products">Ver Admin</Link>
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
@@ -45,6 +45,6 @@ export const NavBarUser = () => {
           <LoginButton />
         </div>
       )}
-    </div>
+    </>
   );
 };

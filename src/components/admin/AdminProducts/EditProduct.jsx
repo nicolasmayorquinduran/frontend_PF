@@ -1,12 +1,11 @@
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { postProductsAdm } from '../../../redux/actions/products'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenSquare,
   faPlusSquare,
   faWindowClose,
-} from '@fortawesome/free-solid-svg-icons'
+} from "@fortawesome/free-solid-svg-icons";
 
 const EditProduct = ({ product }) => {
   const [edited, setEdited] = useState({
@@ -14,19 +13,27 @@ const EditProduct = ({ product }) => {
     price: product.price,
     ranking: product.ranking,
     img: product.img,
-    categories: [product.category],
-  })
-  const categories = useSelector(state => state.categoryReducer.categories)
+    categories: [],
+  });
+  const categories = useSelector((state) => state.categoryReducer.categories);
 
-  console.log(edited)
+  useEffect(
+    () =>
+      !edited.categories.includes(product.category) &&
+      setEdited({
+        ...edited,
+        categories: [product.category],
+      }),
+    [edited]
+  );
 
-  const handleEdited = e => {
+  const handleEdited = (e) => {
     Array.isArray(edited[e.target.id])
       ? edited[e.target.id].includes(e.target.value)
         ? setEdited({
             ...edited,
             [e.target.id]: [
-              ...edited[e.target.id].filter(c => c != e.target.value),
+              ...edited[e.target.id].filter((c) => c != e.target.value),
             ],
           })
         : e.target.value.length &&
@@ -34,39 +41,39 @@ const EditProduct = ({ product }) => {
             ...edited,
             [e.target.id]: [...edited[e.target.id], e.target.value],
           })
-      : setEdited({ ...edited, [e.target.id]: e.target.value })
-    console.log(`name: ${e.target.value}`)
-  }
+      : setEdited({ ...edited, [e.target.id]: e.target.value });
+  };
+
+  console.log(edited.categories);
 
   return (
     <>
       <form className="new">
-        
-          <div>
+        <div>
           <h3> Editar Producto </h3>
-          <div className='editImage'>
-          <div className="coverImage">
-            <img src={edited.img} />
-            <FontAwesomeIcon icon={faPenSquare} />
-          </div>
-          <div className="extraImages">
-            <img
-              src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-              width="200px"
-              height="300px"
-              alt="img not found"
-            />
-            <FontAwesomeIcon icon={faPlusSquare} />
+          <div className="editImage">
+            <div className="coverImage">
+              <img src={product.img} />
+              <FontAwesomeIcon icon={faPenSquare} />
+            </div>
+            <div className="extraImages">
+              <img
+                src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
+                width="200px"
+                height="300px"
+                alt="img not found"
+              />
+              <FontAwesomeIcon icon={faPlusSquare} />
+            </div>
           </div>
         </div>
-          </div>
 
-        <div className='formNew'>
+        <div className="formNew">
           <div className="nombrePrecio">
             <h3> Nombre </h3>
             <input
               id="name"
-              value={edited.name}
+              value={product.name}
               type="text"
               name="name"
               autoComplete="off"
@@ -76,7 +83,7 @@ const EditProduct = ({ product }) => {
             <h3> Precio </h3>
             <input
               id="price"
-              value={edited.price}
+              value={product.price}
               type="Number"
               min="0"
               name="price"
@@ -85,7 +92,7 @@ const EditProduct = ({ product }) => {
               required
             />
           </div>
-          <div className='categorias'>
+          <div className="categorias">
             <select
               id="categories"
               autoComplete="off"
@@ -93,7 +100,7 @@ const EditProduct = ({ product }) => {
               onChange={handleEdited}
             >
               <option value=""> Seleccionar categorías</option>
-              {categories.map(c => (
+              {categories.map((c) => (
                 <option id={c}> {c} </option>
               ))}
             </select>
@@ -101,18 +108,18 @@ const EditProduct = ({ product }) => {
 
           <div className="categories">
             <label>Categoría(s) del producto</label>
-            {edited.categories.map(category => (
+            {edited.categories.map((category) => (
               <div>
                 <label>{category}</label>
                 <FontAwesomeIcon
                   icon={faWindowClose}
                   id="categories"
-                  onClick={e =>
+                  onClick={(e) =>
                     edited[e.target.id].includes(category)
                       ? setEdited({
                           ...edited,
                           [e.target.id]: [
-                            ...edited[e.target.id].filter(c => c != category),
+                            ...edited[e.target.id].filter((c) => c != category),
                           ],
                         })
                       : category.length &&
@@ -128,7 +135,7 @@ const EditProduct = ({ product }) => {
         </div>
       </form>
     </>
-  )
-}
+  );
+};
 
-export default EditProduct
+export default EditProduct;

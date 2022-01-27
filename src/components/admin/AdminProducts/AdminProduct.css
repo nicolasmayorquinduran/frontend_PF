@@ -28,14 +28,13 @@
   font-size: 28px;
 }
 .cardData h5 {
-  font-size: 20px;
+  font-size: 18px;
 }
 .cardData .category {
   font-size: 20px;
 }
 .iconCard {
-  width: 50px;
-  height: 50px;
+  font-size: 5vh;
 }
 .crearNuevo {
   font-size: 26px;
@@ -46,7 +45,7 @@
 
 .new {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.5fr 1fr;
   margin-top: 30px;
 }
 .new h3 {
@@ -56,51 +55,119 @@
   font-weight: 600;
 }
 
-.AddPhoto img {
+.AddPhoto {
   margin-left: 100px;
   position: relative;
 }
-.AddPhoto .icon {
+.icon {
   position: absolute;
   z-index: 10;
+  left: 0;
+  bottom: 0;
+  font-size: 2em;
 }
 
 .formNew {
   display: grid;
-  grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.5fr 0.5fr 0.5fr;
 }
 .formNew h3 {
   margin-left: 0%;
   font-size: 24px;
   font-weight: 600;
 }
-.nombrePrecio input {
-  width: 300px;
+.nombre input {
+  width: 70%;
   border-radius: 5px;
   box-shadow: 2px 2px 2px grey;
   margin-bottom: 5px;
 }
-.categorias select {
-  width: 300px;
+
+.precio input {
+  width: 70%;
   border-radius: 5px;
   box-shadow: 2px 2px 2px grey;
   margin-bottom: 5px;
+}
+
+.categorias select {
+  width: 70%;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px grey;
+  margin-bottom: 25px;
 }
 .stock {
   display: grid;
   grid-template-columns: 0.1fr 0.1fr 0.1fr;
+  grid-template-rows: auto;
+  gap: 1em;
 }
 .stock button {
-  width: auto;
+  width: 10vh;
+  border-radius: 5px;
+  box-shadow: 2px 2px 3px gray;
 }
 .stock p {
   text-align: center;
-  font-size: 24px;
+  font-size: 2em;
 }
+
+.create {
+  width: 70%;
+}
+.create button{
+  border-radius: 5px;
+  box-shadow: 2px 2px 3px gray;
+
+}
+
 .editImage {
   display: grid;
   grid-template-columns: 0.5fr 0.5fr;
   column-gap: 15px;
   padding: 5px;
   margin-left: 20px;
+  font-size: 5vh;
+}
+
+.AddPhoto {
+  position: relative;
+}
+
+.AddPhoto .icon {
+  position: absolute;
+  left: 245px;
+  bottom: -4px;
+  color: #9e005d;
+}
+
+.AddPhoto div {
+  position: absolute;
+}
+
+.icon svg {
+  font-size: 60px;
+}
+
+.Container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.cardsProducts {
+  width: 19%;
+  display: flex;
+  flex-direction: row;
+  font-size: 10px;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.cardsProducts img {
+  width: 50%;
+}
+
+.cardData {
+  width: 50%;
 }
