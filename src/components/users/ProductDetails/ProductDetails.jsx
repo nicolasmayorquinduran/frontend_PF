@@ -81,8 +81,10 @@ export default function ProductDetails() {
 
               <br></br>
               <div id="categoriesContainer">
-                <h6 id="categories"> Category: </h6>
-                {/* {product.category} */}
+                <h6 id="categories"> Categories: </h6>
+                {product.categories.map((c) => (
+                  <p>{c.name}</p>
+                ))}
               </div>
               <br></br>
               <p id="description"> {product.description} </p>
