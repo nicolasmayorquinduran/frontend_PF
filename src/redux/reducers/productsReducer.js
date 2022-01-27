@@ -33,7 +33,6 @@ function productsReducer(state = initialState, action) {
     case TYPES.POST_PRODUCTS_ADM:
       return {
         ...state,
-        newProducts: [...state.newProducts, action.payload],
       };
 
     default:
