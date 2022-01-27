@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { postProductsAdm } from "../../../redux/actions/products";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenSquare,

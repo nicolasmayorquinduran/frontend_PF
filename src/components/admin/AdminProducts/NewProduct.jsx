@@ -1,99 +1,116 @@
-import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { postProductsAdm } from '../../../redux/actions/products'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
-import './AdminProduct.css'
-const NewProduct = () => {
-  const dispatch = useDispatch()
-  const categories = useSelector(state => state.categoryReducer.categories)
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-  const [count, setCount] = useState(0)
+// Actions:
+import { postProducts } from '../../../redux/actions/products';
+import { getCategories } from '../../../redux/actions/categories';
 
-  // INITIAL STATE:
-  const [products, setProducts] = useState({
-    name: '',
-    img: 'https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_4-470x632.jpg',
-    category: [],
-    stock: count,
-    price: '',
-  })
+// Styles:
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import './AdminProduct.css';
 
-  // INPUTS:
+
+export default function NewProduct () {
+  
+  const dispatch = useDispatch();
+
+  const categories = useSelector((state) => state.categoryReducer.categories);
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
+  
+  // GUARDO EL FORMULARIO EN EL ESTADO:
+  const [product, setProduct] = useState(
+    {
+      name: '',
+      img: [],
+      price: '',
+      description: '',
+      aditionalInformation: {},
+      stock: {},
+      categories: [],
+    }
+  );
+
+  // PARA EL RENDERIZADO (INPUT DE STOCK):
+  let size = ["xs", "s", "m", "l", "xl", "xxl"];
+
+  // PARA EL RENDERIZADO (INPUT DE STOCK):
+  let infoAd = ["manufacturer", "material", "occasion", "fit", "lining_material"];
+
+  // GUARDO LO QUE EL USUARIO ESCRIBE EN INPUT:
   function handleChange(event) {
-    setProducts({
-      ...products,
-      [event.target.name]: event.target.value,
-    })
-  }
+    setProduct(
+      {
+        ...product,
+        [event.target.name]: event.target.value,
+      }
+    );
+  };
 
   function handleSubmitCategory(event) {
-    setProducts({
-      ...products,
-      category: [...products.category, event.target.value],
-    })
+    setProduct(
+      {
+        ...product,
+        categories: [...product.categories, event.target.value]
+      }
+    );
 
     event.preventDefault()
-  }
+  };
 
-  /* ---------------- COUNTER STOCK ---------------- */
-  const handleSubtractOne = (e) => {
-    e.preventDefault()
-    products.stock >= 0 &&
-      setProducts({
-        ...products,
-        stock: products.stock - 1,
-      })
-  }
-
-  const handleAddOne = (e) => {
-    e.preventDefault()
-    setProducts({
-      ...products,
-      stock: products.stock + 1,
-    })
-  }
-  /* ------------------------------------------------ */
+  function handleImage(event) {
+    setProduct(
+      {
+        ...product,
+        img: [...product.img, event.target.value]
+      }
+    );
+  };
 
   // SUBMIT:
   function handleSubmit(event) {
     event.preventDefault();
-    dispatch(postProductsAdm(products))
-    setProducts({
-      name: '',
-      img: [
-        'https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_4-470x632.jpg',
-        'https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_3-470x632.jpg',
-        'https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21_2-470x632.jpg',
-        'https://ld-wp.template-help.com/woocommerce_59038/wp-content/uploads/2016/06/21-470x632.jpg',
-      ],
-      category: [],
-      stock: '',
-      price: '',
-    })
+    dispatch(postProducts(product));
+    
+    setProduct(
+      {
+        name: '',
+        img: [],
+        price: '',
+        description: '',
+        aditionalInformation: {},
+        stock: {},
+        categories: [],
+      }
+    )
+  };
 
-  }
+
+  // PRUEBA EN LA CONSOLA:
+  console.log(product);
+
+
   return (
-    <form className="new" onSubmit={handleSubmit}>
-      <div>
-         
-         <h3> Agregar Producto </h3>
+    <form onSubmit={handleSubmit} className="new">
+ 
+      <h3> Agregar Producto </h3>
 
-        <div className="AddPhoto">
+      <div className="AddPhoto">
 
-          <img
-            src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-            width="200px"
-            height="300px"
-            alt="img not found"
+        <div className="icon">
+          <input
+            onChange={handleImage}
+            type="file" 
+            required 
           />
-
-          <div className="icon">
-            <FontAwesomeIcon icon={faPlusSquare} />
-          </div>
-
+          {/* <FontAwesomeIcon icon={faPlusSquare} /> */}
         </div>
+
       </div>
+      
 
       <div className="formNew">
 
@@ -103,61 +120,100 @@ const NewProduct = () => {
             onChange={handleChange}
             type="text"
             name="name"
-            value={products.name}
+            value={product.name}
             autoComplete="off"
             required
-          />          
+          />         
         </div>
 
+
         <div className='precio'>
-        <h3> Precio </h3>
+          <h3> Precio </h3>
           <input
             onChange={handleChange}
-            type="Number"
+            type="number"
             min="0"
             name="price"
-            value={products.price}
+            value={product.price}
             autoComplete="off"
             required
           />
         </div>
 
-        <div className="categorias">
+
+        <div>
+          <h3> Descripción: </h3>
+          <input
+            onChange={handleChange}
+            type="text"
+            name="description"
+            value={product.description}
+            autoComplete="off"
+            required
+          />         
+        </div>
+
+
+        <div >
           <h3> Categorías </h3>
           <select
             onClick={handleSubmitCategory}
-            name="category"
+            name="categories"
             autoComplete="off"
             required
           >
-            {categories.map(c => (
-              <option> {c} </option>
-            ))}
+          {
+            categories.map((c) => ( <option> {c.name} </option> ))
+          }
           </select>
         </div>
 
-        <div >
-          <h3> Stock </h3>
-        <div className="stock">
-        <div>
-            <button onClick={handleSubtractOne}>-1</button>
-          </div>
 
-          <div>
-            <p>{products.stock}</p>
-          </div>
-          <div>
-            <button onClick={handleAddOne}>+1</button>
-          </div>
-          
+        <div>
+          <h3> Stocks: </h3>
+          { 
+            size.map((sizes) => (
+              <div>
+                <label>{sizes}</label>
+                <input 
+                  type="number" 
+                  min="0" 
+                  onChange={(event) => setProduct({...product, stock: { ...product.stock, [sizes]: event.target.value} })}
+                  autoComplete="off" 
+                  required 
+                />
+              </div>
+            ))
+          }  
         </div>
+
+
+        <div>
+          <h3> Información adicional: </h3>
+          { 
+            infoAd.map((info) => (
+              <div>
+                <label>{info}</label>
+                <input 
+                  type="text" 
+                  onChange={(event) => setProduct({...product, aditionalInformation: { ...product.aditionalInformation, [info]: event.target.value} })}
+                  autoComplete="off" 
+                  required 
+                />
+              </div>
+            ))
+          }  
         </div>
+
+
         <div className='create'>
-            <button type='submit'>Create</button>
-          </div>
+          <button type='submit'> ¡Crear! </button>
+        </div>
+      
+
       </div>
+    
     </form>
   )
 }
 
-export default NewProduct
