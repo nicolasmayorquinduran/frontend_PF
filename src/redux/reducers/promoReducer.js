@@ -4,7 +4,7 @@ const initialState = {
   promos: [],
 };
 
-export default function categoryReducer(state = initialState, action) {
+export default function promoReducer(state = initialState, action) {
   switch (action.type) {
     case TYPES.GET_PROMOS:
       return {
