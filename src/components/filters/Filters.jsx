@@ -18,12 +18,15 @@ const Filters = ({ clothingType, price, ranking, alph, filter, setFilter }) => {
 
       <Children>
         <select id="sort" onChange={handleFilters}>
+
           <option value="">Ordenar por:</option>
+
           <optgroup label="precio">
             {price.map((el) => (
               <option value={el}>{el}</option>
             ))}
           </optgroup>
+          
           <optgroup label="ranking">
             {ranking.map((el) => (
               <option value={el}>{el}</option>
