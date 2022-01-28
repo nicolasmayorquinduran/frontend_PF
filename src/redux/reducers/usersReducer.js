@@ -2,6 +2,7 @@ import { TYPES } from "../actions/types.js";
 
 const initialState = {
   users: [],
+  actualUser: {}
 };
 
 function usersReducer(state = initialState, action) {
@@ -11,6 +12,11 @@ function usersReducer(state = initialState, action) {
         ...state,
         users: action.payload,
       };
+    case TYPES.GET_ACTUAL_USER:
+      return {
+        ...state,
+        actualUser: action.payload,
+      }
 
     default:
       return state;
