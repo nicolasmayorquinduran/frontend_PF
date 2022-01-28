@@ -78,7 +78,7 @@ const Products = () => {
         {currentProduct?.map((product) => {
           return (
             <Product
-              id={product.id}
+              id={product.ProductId}
               img={product.img[0]}
               name={product.name}
               price={product.price}
