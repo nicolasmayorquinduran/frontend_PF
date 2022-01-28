@@ -8,21 +8,18 @@ import "./style.css";
 
 const AdminPromos = () => {
   const [product, setProduct] = useState({
+    id: "",
     title: "",
     img: "",
     resume: "",
   });
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getPromos()), [dispatch, product]);
   const allPromos = useSelector((store) => store.promoReducer.promos);
+  useEffect(() => dispatch(getPromos()), [dispatch, allPromos]);
   return (
     <div>
       {product.title.length ? (
-        <EditPromo
-          title={product.title}
-          img={product.img}
-          resume={product.resume}
-        />
+        <EditPromo product={product} setProduct={setProduct} />
       ) : (
         <CreatePromo />
       )}
@@ -32,6 +29,7 @@ const AdminPromos = () => {
           className="create"
           onClick={() =>
             setProduct({
+              id: "",
               title: "",
               img: "",
               resume: "",
@@ -47,6 +45,7 @@ const AdminPromos = () => {
             className="miniature"
             onClick={() =>
               setProduct({
+                id: p.id,
                 title: p.title,
                 img: p.img,
                 resume: p.resume,

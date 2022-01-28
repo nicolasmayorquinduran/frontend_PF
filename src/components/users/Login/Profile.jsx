@@ -12,22 +12,19 @@ export const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const dispatch = useDispatch();
-  
-  useEffect(async() => {
-    if (isAuthenticated && noRepeat === false){
-      await dispatch(postUser(user));
-      noRepeat = true;
-      await dispatch(getActualUser(user.email));
-    }
-  }, [user, dispatch])
 
-  const actualUser = useSelector(
-    (store) => store.userReducer.actualUser
-  );
+  // useEffect(async () => {
+  //   if (isAuthenticated && noRepeat === false) {
+  //     dispatch(postUser(user));
+  //     noRepeat = true;
+  //     dispatch(getActualUser(user.email));
+  //   }
+  // }, [user, dispatch]);
+
+  const actualUser = useSelector((store) => store.userReducer.actualUser);
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
 
   /* if (isAuthenticated && noRepeat === false) {
     dispatch(postUser(user));
@@ -35,7 +32,6 @@ export const Profile = () => {
     dispatch(getActualUser(user.email));
   } */
 
-  
   //console.log(actualUser)
   return (
     isAuthenticated && (
@@ -45,4 +41,3 @@ export const Profile = () => {
     )
   );
 };
-
