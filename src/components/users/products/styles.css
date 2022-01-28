@@ -1,0 +1,71 @@
+.products {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+#search {
+  width: 50%;
+  margin: 30px auto 0;
+}
+ul.paginado {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+ul.paginado li {
+  margin: 20px 5px;
+}
+.ranking {
+  display: flex;
+  position: relative;
+  width: 30%;
+  margin: auto;
+  height: 20px;
+}
+.ranking div {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  font-size: 13px;
+}
+.path {
+  background-color: #f8f9fb;
+  z-index: 10;
+  opacity: 0.7;
+  right: 0;
+}
+
+.stars {
+  display: flex;
+  justify-content: space-between;
+}
+
+.father {
+  position: relative;
+}
+
+.eye {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0;
+  z-index: 10;
+}
+
+.eye:hover {
+  opacity: 0.8;
+  transition: ease-in 0.3s;
+}
+
+.eye .iconEye {
+  width: 100px;
+  height: 100px;
+  margin-top: 180px;
+  color: #fff;
+  background-color: #9e005d;
+  padding: 10px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}

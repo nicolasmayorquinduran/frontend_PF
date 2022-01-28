@@ -1,0 +1,178 @@
+.additionalData {
+  display: inline-flex;
+  justify-content: space-around;
+  width: 80vw;
+}
+
+/* .additionalDescription {
+  margin-left: 5vw;
+  margin-right: 5vw;
+} */
+.bigImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  margin-left: 20px;
+}
+
+.imgContainer{
+  display: flex;
+  flex-direction: row-reverse; 
+  justify-content: flex-start;
+  width: 50%;
+  height: 470px;
+}
+
+.bigImg img {
+  
+  height: 400px;
+  width: 100%;
+  border: 3px solid black;
+  border-radius: 5px;
+}
+
+#categoriesContainer {
+  font-style: italic;
+}
+
+#categories {
+  display: inline-flex;
+}
+
+
+
+#description {
+  width: 40vw;
+  font-style: italic;
+}
+
+#hr {
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+
+.imgAndDetail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 500px;
+  height: 500px;
+}
+
+.imgContainer {
+  width: 500px;
+  height: 500px;
+  margin-right: 3vw;
+}
+
+#price {
+  font-weight: bold;
+  color: #9f005d;
+}
+
+.productAbout {
+  width: 99.9vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+.productDetail {
+  width: auto;
+  height: 470px;
+  padding-left: 20px;
+  padding-bottom: 3vh;
+}
+
+.reviewContainer {
+  display: flex;
+  width: 80vw;
+  height: 11vw;
+}
+
+.reviewData {
+  padding-left: 2vw;
+}
+
+.reviewDivider {
+  display: inline-flex;
+}
+
+.reviewUser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid #9f005d;
+  border-radius: 50%;
+  width: 9vw;
+  height: 9vw;
+  font-size: 2.5vmax;
+}
+
+.selectDeploy button {
+  margin-right: 2vw;
+}
+
+.smallImg {
+  width: 90px;
+  height: 470px;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 5px;
+}
+
+.smallImg img {
+  height: 100px;
+  width: 90%;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+
+#talles {
+  display: inline-flex;
+}
+
+#talles p {
+  padding-left: 2vw;
+}
+
+#talles p:hover {
+  text-decoration-line: underline;
+  color: #9f005d;
+}
+
+#timeStamps {
+  font-style: italic;
+  color: #9f005d;
+}
+
+.stars{
+  margin-left: -180px;
+  margin-top:20px ;
+  margin-bottom:20px ;
+}
+
+.qty{
+  width: 70px;
+  height: 40px;
+
+}
+
+.add{
+  width: 130px;
+  margin-left:10px ;
+  height: 40px;
+  margin-top: 3px;
+
+}
+.size{
+  width: 130px;
+margin-left:10px ;
+height: 40px;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+}

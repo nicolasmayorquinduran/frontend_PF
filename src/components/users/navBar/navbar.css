@@ -1,0 +1,60 @@
+.dropdownButton {
+  background: transparent;
+  font-size: 5vh !important;
+  width: fit-content;
+  height: fit-content;
+  border: none;
+}
+
+.dropdownButton:hover {
+  background: whitesmoke;
+  color: #9f005d;
+  border: none;
+}
+
+.logged {
+  display: inline-flex;
+}
+
+.logged img {
+  border-radius: 50%;
+}
+
+.logoLok img {
+  height: 19vh;
+}
+
+.navbarContainer {
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw !important;
+  height: 16vh;
+  background-color: #9f005d;
+  border: solid #9f005d;
+  color: #ba0089;
+  font-size: 7vh;
+  padding-left: 2vw !important;
+  padding-right: 2vw !important;
+}
+
+#navLink {
+  color: whitesmoke;
+  font-size: 4vh;
+}
+
+.searchContainer {
+  display: inline-flex;
+}
+
+.search {
+  display: inline-flex;
+}
+
+.search input {
+  width: 10vw;
+}
+
+.vacio {
+  width: 0vw;
+}

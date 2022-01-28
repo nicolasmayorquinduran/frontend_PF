@@ -1,0 +1,62 @@
+.categoryContainer {
+  display: inline-flex;
+  justify-content: center;
+  padding-bottom: 2vh;
+}
+
+.categoriesContainer {
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: wrap; */
+  padding-left: 6vw;
+}
+
+.catCard {
+  display: flex;
+  align-items: center;
+  background-color: gray;
+  border: solid grey;
+  margin: 1vh 1vw 1vh 1vw;
+  height: 3vh;
+  color: whitesmoke;
+}
+
+.categoriesCards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.catLabel {
+  font-weight: normal;
+}
+
+#createButton {
+  font-weight: bold;
+  font-size: 3vh;
+}
+
+.deleteBtn {
+  align-self: flex-end;
+  background: none;
+  width: 2vw;
+  height: 3vh;
+  font-weight: bolder;
+  font-size: 2.8vh;
+  direction: rtl;
+}
+
+div h5 {
+  font-weight: bold;
+  padding-bottom: 1vh;
+}
+
+.newCategory {
+  display: flex;
+  flex-direction: column;
+}
+
+.newCategory input,
+button {
+  width: 25vw;
+}
