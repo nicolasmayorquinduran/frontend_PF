@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Container, Children } from "../../globalStyles";
+import { useState } from 'react'
+import { Container, Children } from '../../globalStyles'
 
 const Filters = ({ clothingType, price, ranking, alph, filter, setFilter }) => {
-  const handleFilters = (e) => {
-    setFilter({ ...filter, [e.target.id]: e.target.value });
-  };
+  const handleFilters = e => {
+    setFilter({ ...filter, [e.target.id]: e.target.value })
+  }
   return (
     <Container>
       <Children>
@@ -18,29 +18,26 @@ const Filters = ({ clothingType, price, ranking, alph, filter, setFilter }) => {
 
       <Children>
         <select id="sort" onChange={handleFilters}>
-
           <option value="">Ordenar por:</option>
-
           <optgroup label="precio">
-            {price.map((el) => (
+            {price.map(el => (
               <option value={el}>{el}</option>
             ))}
           </optgroup>
-          
           <optgroup label="ranking">
-            {ranking.map((el) => (
+            {ranking.map(el => (
               <option value={el}>{el}</option>
             ))}
           </optgroup>
           <optgroup label="orden alfabético">
-            {alph.map((el) => (
+            {alph.map(el => (
               <option value={el}>{el}</option>
             ))}
           </optgroup>
         </select>
       </Children>
     </Container>
-  );
-};
+  )
+}
 
-export default Filters;
+export default Filters
