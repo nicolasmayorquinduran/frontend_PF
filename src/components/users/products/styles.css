@@ -46,7 +46,7 @@ ul.paginado li {
 .father {
   position: relative;
 }
-.card{
+.card {
   display: flex;
   box-shadow: 2px 2px 5px grey;
   height: 90vh;
@@ -75,5 +75,3 @@ ul.paginado li {
   border-radius: 50%;
   transform: translateY(-50%);
 }
- 
- 
