@@ -18,11 +18,7 @@ const AdminPromos = () => {
   return (
     <div>
       {product.title.length ? (
-        <EditPromo
-          title={product.title}
-          img={product.img}
-          resume={product.resume}
-        />
+        <EditPromo product={product} setProduct={setProduct} />
       ) : (
         <CreatePromo />
       )}
