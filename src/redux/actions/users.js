@@ -17,7 +17,7 @@ export function getUsers() {
 
 export function postUser(payload) {
   return async function(dispatch){
-      const info = await axios.post("http://localhost:3001/postAccount", payload)
+      const info = await axios.post("http://localhost:3001/users", payload)
       return info
   }
 }
@@ -25,7 +25,7 @@ export function postUser(payload) {
 export function getActualUser(payload){
   return async function (dispatch){
       try {
-          const json = await axios.get("http://localhost:3001/actualUser/" + payload)
+          const json = await axios.get("http://localhost:3001/users/" + payload)
           return dispatch({
               type: TYPES.GET_ACTUAL_USER,
               payload: json.data
