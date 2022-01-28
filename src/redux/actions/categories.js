@@ -15,12 +15,22 @@ export function getCategories() {
   };
 }
 
-export function addCategories(data) {
+export function addCategories(payload) {
   /*aca iria la action para agregar 
     una categroia*/
-  return {
-    type: TYPES.EDIT_CATEGORIES,
-    payload: data,
+  return async function (dispatch) {
+    try {
+      const json = await axios.post(
+        "http://localhost:3001/categories",
+        payload
+      );
+      return dispatch({
+        type: TYPES.ADD_CATEGORIES,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 

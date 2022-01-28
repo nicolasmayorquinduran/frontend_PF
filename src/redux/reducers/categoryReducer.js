@@ -13,6 +13,13 @@ export default function categoryReducer(state = initialState, action) {
         categories: action.payload,
       };
 
+    case TYPES.ADD_CATEGORIES:
+      return {
+        ...state,
+        categories: [...state.categories, action.payload],
+      };
+
+    //edit categories todavía no está en uso creo
     case TYPES.EDIT_CATEGORIES:
       return {
         ...state,
