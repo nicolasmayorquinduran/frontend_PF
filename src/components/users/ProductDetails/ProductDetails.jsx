@@ -35,21 +35,26 @@ export default function ProductDetails() {
   //   e.preventDefault();
   //   setChangeInfo(e.target.value);
   // }
-
+  console.log(product);
   return (
     <div>
       <hr id="hr"></hr>
-      {product.hasOwnProperty("ProductId") ? (
-        <div className="container">
-          <div className="imgAndDetail">
-            <div className="imgContainer">
-              <div className="bigImg">
-                <img src={product.img[0]} alt="big" />
-              </div>
-              {/* <div className="smallImg">
-                {product.img.map((i) => (
-                  <img id="s" src={i} alt="small" />
-                ))}
+      {
+        product.hasOwnProperty("ProductId") ? (
+          <div className="container">
+            <div className="imgAndDetail">
+              <div className="imgContainer">
+                
+                <div className="bigImg">
+                  <img src={product.img[0]} alt="big" />
+                </div>
+              
+                <div className="smallImg">
+                  {
+                    product.img.map((i) => (
+                      <img id="s" src={i} alt="small" />
+                    ))
+                  }
               </div>
             </div>
 
@@ -59,7 +64,8 @@ export default function ProductDetails() {
                 <div
                   style={{ width: `${product.ranking}%` }}
                   className="path"
-                ></div>
+                >
+                </div>
                 <div className="stars">
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
@@ -84,12 +90,12 @@ export default function ProductDetails() {
               <div id="talles">
                 <h6>Talles:</h6>
                 <select className="size" id="size" onChange={handleAddSize}>
-                  <option value="XS">X-Small</option>
-                  <option value="S">Small</option>
-                  <option value="M">Medium</option>
-                  <option value="L">Large</option>
-                  <option value="XL">X-Large</option>
-                  <option value="XXL">XX-Large</option>
+                  <option value="xs">X-Small</option>
+                  <option value="s">Small</option>
+                  <option value="m">Medium</option>
+                  <option value="l">Large</option>
+                  <option value="xl">X-Large</option>
+                  <option value="xxl">XX-Large</option>
                 </select>
               </div>
               <br></br>
@@ -107,7 +113,8 @@ export default function ProductDetails() {
                 </button>
               </div>
             </div>
-          </div>
+          
+          
           <div className="productAbout">
             <div className="selectDeploy">
               <button value="Comentarios">
@@ -117,8 +124,8 @@ export default function ProductDetails() {
                 Información Adicional:
               </button>
             </div>
-            <hr></hr> */}
-              {/* {changeInfo === "Comentarios" ? (
+            <hr></hr>
+              {changeInfo === "Comentarios" ? (
               product.reviews.map((p) => {
                 return (
                   <div key={p.usuario} className="reviewContainer">
@@ -138,15 +145,15 @@ export default function ProductDetails() {
               <div id="additionalDescription">
                 <p> {product.description} </p>
                 <div className="additionalData">
-                  <p>Made in {product.additionalInformation[0].manufacturer}</p>
-                  <p>Fit: {product.additionalInformation[0].fit}</p>
+                  <p>Made in {product.additionalInformation.manufacturer}</p>
+                  <p>Fit: {product.additionalInformation.fit}</p>
                   <p>
-                    Material: {product.additionalInformation[0].lining_material}
+                    Material: {product.additionalInformation.lining_material}
                   </p>
-                  <p>Ocasion: {product.additionalInformation[0].Occasion}</p>
+                  <p>Ocasion: {product.additionalInformation.occasion}</p>
                 </div>
               </div>
-            )} */}
+            )}
             </div>
           </div>
         </div>
