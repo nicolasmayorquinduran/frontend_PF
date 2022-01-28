@@ -1,11 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Children } from '../../../globalStyles'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faStar } from '@fortawesome/free-solid-svg-icons'
-import './styles.css'
+import React from "react"
+import { Link } from "react-router-dom"
+import { Children } from "../../../globalStyles"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faEye, faStar } from "@fortawesome/free-solid-svg-icons"
+import "./styles.css"
 const Product = ({ id, name, price, img, ranking }) => {
-  ranking = 20 * (5 - ranking)
+  ranking = 20 * (5 - ranking);
   return (
     <Children>
       <div className="father">
