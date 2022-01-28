@@ -27,34 +27,26 @@ export default function ProductDetails() {
     product.size = e.target.value;
     console.log(product);
   };
-  const handleAddQty = (e) => {
-    if (!product.qty) {
-      product.qty = 1;
-    } else {
-      product.qty = e.target.value;
-    }
-    console.log(product);
-  };
 
   const handleAddCart = (e) => {
     setCart([...cart, product]);
   };
-  function onClick(e) {
-    e.preventDefault();
-    setChangeInfo(e.target.value);
-  }
+  // function onClick(e) {
+  //   e.preventDefault();
+  //   setChangeInfo(e.target.value);
+  // }
 
   return (
     <div>
       <hr id="hr"></hr>
-      {product.hasOwnProperty("id") ? (
+      {product.hasOwnProperty("ProductId") ? (
         <div className="container">
           <div className="imgAndDetail">
             <div className="imgContainer">
               <div className="bigImg">
                 <img src={product.img[0]} alt="big" />
               </div>
-              <div className="smallImg">
+              {/* <div className="smallImg">
                 {product.img.map((i) => (
                   <img id="s" src={i} alt="small" />
                 ))}
@@ -103,7 +95,6 @@ export default function ProductDetails() {
               <br></br>
               <div>
                 <input
-                  onChange={handleAddQty}
                   className="qty"
                   placeholder={1}
                   type="number"
@@ -119,15 +110,15 @@ export default function ProductDetails() {
           </div>
           <div className="productAbout">
             <div className="selectDeploy">
-              <button onClick={onClick} value="Comentarios">
+              <button value="Comentarios">
                 Comentarios:{" "}
               </button>
-              <button onClick={onClick} value="Adicional">
+              <button value="Adicional">
                 Información Adicional:
               </button>
             </div>
-            <hr></hr>
-            {/* {changeInfo === "Comentarios" ? (
+            <hr></hr> */}
+              {/* {changeInfo === "Comentarios" ? (
               product.reviews.map((p) => {
                 return (
                   <div key={p.usuario} className="reviewContainer">
@@ -156,6 +147,7 @@ export default function ProductDetails() {
                 </div>
               </div>
             )} */}
+            </div>
           </div>
         </div>
       ) : (

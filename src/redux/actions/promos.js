@@ -15,20 +15,16 @@ export function getPromos() {
   };
 }
 
-export function addPromo(payload) {
-  /*aca iria la action para agregar 
-    una categroia*/
-  return {
-    type: TYPES.EDIT_PROMOS,
-    payload,
-  };
-}
+export const addPromo = async (payload) => {
+  return axios
+    .post("http://localhost:3001/promos", payload)
+    .then(function (response) {})
+    .catch(function (error) {});
+};
 
-export function deletePromo(payload) {
-  /*aca iria la action para eliminar 
-    una categroia*/
-  return {
-    type: TYPES.PUT_PROMOS,
-    payload,
-  };
-}
+export const putPromo = async (payload) => {
+  return axios
+    .put("http://localhost:3001/promos", payload)
+    .then(function (response) {})
+    .catch(function (error) {});
+};
