@@ -1,0 +1,18 @@
+.miniature {
+  position: relative;
+}
+
+.create {
+  background: gainsboro;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.create h2 {
+  font-size: 18vw;
+}
+
+.create p {
+  transform: translateY(-3vw);
+}

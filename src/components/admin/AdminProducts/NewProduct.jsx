@@ -37,8 +37,8 @@ export default function NewProduct () {
   // PARA EL RENDERIZADO (INPUT DE STOCK):
   let size = ["xs", "s", "m", "l", "xl", "xxl"];
 
-  // PARA EL RENDERIZADO (INPUT DE STOCK):
-  let infoAd = ["manufacturer", "material", "occasion", "fit", "lining_material"];
+  // PARA EL RENDERIZADO (INPUT DE INFORMACION ADICIONAL):
+  let infoAd = ["Manufacturer", "Material", "occasion", "Fit", "Lining material"];
 
   // GUARDO LO QUE EL USUARIO ESCRIBE EN INPUT:
   function handleChange(event) {
@@ -96,7 +96,7 @@ export default function NewProduct () {
   return (
     <form onSubmit={handleSubmit} className="new">
  
-      <h3> Agregar Producto </h3>
+      <h2> Agregar Producto </h2>
 
       <div className="AddPhoto">
 
@@ -215,5 +215,5 @@ export default function NewProduct () {
     
     </form>
   )
-}
+};
 
