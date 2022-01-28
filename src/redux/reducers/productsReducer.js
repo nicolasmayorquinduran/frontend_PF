@@ -7,6 +7,7 @@ const initialState = {
   productDetail: {},
   panelAdmin: [],
   newProducts: [],
+  updateProduct: []
 };
 
 function productsReducer(state = initialState, action) {
@@ -34,6 +35,13 @@ function productsReducer(state = initialState, action) {
       return {
         ...state,
       };
+
+    case TYPES.UPDATE_PRODUCT_ADM:
+      return {
+        ...state,
+        updateProduct: action.payload,
+      };
+
 
     default:
       return state;
