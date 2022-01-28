@@ -21,17 +21,20 @@ function AdminCat() {
 
   //INSERTAR IMAGEN
   const [imageSelected, setImageSelected] = useState("");
-  console.log(imageSelected)
-  
+  // console.log(imageSelected)
 
-  const [newCategory, setNewCategory] = useState("");
+  const [newCategory, setNewCategory] = useState({
+    name: "",
+    active: true,
+    img: imageSelected,
+  });
 
   const dispatch = useDispatch();
   useEffect(() => dispatch(getCategories()), [dispatch, imageSelected]);
 
   const handleChange = (e) => {
     e.preventDefault();
-    dispatch(setNewCategory(e.target.value));
+    setNewCategory(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -42,7 +45,7 @@ function AdminCat() {
     } else if (categories.includes(e.target.id)) {
       alert("esta categoría ya existe");
     } else {
-      dispatch(addCategories(e.target.id));
+      dispatch(addCategories(newCategory));
     }
 
     setNewCategory("");
@@ -66,7 +69,6 @@ function AdminCat() {
       )
       .then((response) => {
         return setImageSelected(response.data.url);
-        
       });
   };
 
@@ -85,19 +87,19 @@ function AdminCat() {
                 onChange={handleChange}
                 id="inputCategory"
               ></input>
-            </div>
-            <div>
-              <button>Crear</button>
-            </div>
-            <div>
-              <input
-                type="file"
-                onChange={(event) => setImageSelected(event.target.files[0])}
-              />
-              <button onClick={uploadImage}>Upload Image</button>
-              <img src={imageSelected} alt="Imagen" />
+              <div>
+                <button>Crear</button>
+              </div>
             </div>
           </form>
+          <div>
+            <input
+              type="file"
+              onChange={(event) => setImageSelected(event.target.files[0])}
+            />
+            <button onClick={uploadImage}>Upload Image</button>
+            <img src={imageSelected} alt="Imagen" />
+          </div>
         </div>
         <div className="categoriesContainer">
           <h5>Categorías creadas: </h5>
