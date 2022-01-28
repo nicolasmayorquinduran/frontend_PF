@@ -14,11 +14,11 @@ const Home = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  const allPromos = useSelector((store) => store.promoReducer.promos);
+  const allPromos = useSelector((store) => store.promos);
   const allCategories = useSelector(
-    (store) => store.categoryReducer.categories
+    (store) => store.categories
   );
-  // const allProducts = useSelector((store) => store.productReducer.allProducts);
+  // const allProducts = useSelector((store) => store.allProducts);
   console.log(allPromos);
   return (
     <div>

@@ -15,7 +15,7 @@ const EditProduct = ({ product }) => {
 
   const dispatch = useDispatch()
 
-  const categories = useSelector((state) => state.categoryReducer.categories);
+  const categories = useSelector((state) => state.categories);
 
   useEffect(() => {
     dispatch(detailsProduct(product.id));

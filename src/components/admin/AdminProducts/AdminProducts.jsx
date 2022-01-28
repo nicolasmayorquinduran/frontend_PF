@@ -23,7 +23,7 @@ const AdminProducts = () => {
     dispatch(getProducts());
   }, [dispatch, selected]);
 
-  let productsAll = useSelector((state) => state.productsReducer.allProducts);
+  let productsAll = useSelector((state) => state.allProducts);
   console.log(selected);
 
   return (

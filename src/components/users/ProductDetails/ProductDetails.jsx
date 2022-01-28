@@ -20,7 +20,7 @@ export default function ProductDetails() {
     dispatch(detailsProduct(id));
   }, [dispatch]);
 
-  const product = useSelector((store) => store.productsReducer.productDetail);
+  const product = useSelector((store) => store.productDetail);
 
   const [changeInfo, setChangeInfo] = useState("");
   const handleAddSize = (e) => {
