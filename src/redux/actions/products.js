@@ -38,15 +38,25 @@ export function detailsProduct(id) {
   };
 }
 
-// FALTA CREAR RUTA DEL BACK:
-export function postProductsAdm(newProduct) {
-  return function (dispatch) {
-    return dispatch({
-      type: TYPES.POST_PRODUCTS_ADM,
-      payload: newProduct,
-    });
-  };
-}
+// Post new Product: Admin
+export function postProducts(payload) {
+  return async function(dispatch) {
+    try {
+      const json = await axios.post("http://localhost:3001/products", payload);
+    
+      return dispatch(
+        {
+          type: TYPES.POST_PRODUCTS_ADM,
+          payload: json.data,
+        }
+      );
+    
+    } catch (error) {
+      console.log(error)
+    }
+  }
+};
+
 
 export function getAllCarts() {
   return async function (dispatch) {
@@ -94,4 +104,22 @@ export function deleteAllCart({ cartId }) {
       payload: deleted.info,
     });
   };
+}
+
+export function updateProductAdm(payload) {
+  return async function(dispatch) {
+    try {
+      const json = await axios.put("http://localhost:3001/products", payload);
+    
+      return dispatch(
+        {
+          type: TYPES.UPDATE_PRODUCT_ADM,
+          payload: json.data,
+        }
+      );
+    
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }

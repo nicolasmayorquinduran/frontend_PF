@@ -35,7 +35,7 @@ export const NavBarUser = () => {
               </DropdownItem>
               <DropdownItem>Ver profile</DropdownItem>
               <DropdownItem>
-                <Link to="/admin">Ver Admin</Link>
+                <Link to="/admin/products">Ver Admin</Link>
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>

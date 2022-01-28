@@ -9,6 +9,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #F8F9FB;
+  text-align:center
 }
 h1, h2, h3, h4, h5, h6, p, img{
   margin:0;
@@ -78,6 +79,7 @@ a:hover {
 export const Container = styled.div`
   display: flex;
   justify-content: space-around;
+  align-items: center;
   flex-wrap: wrap;
   text-align: center;
 `
@@ -85,6 +87,8 @@ export const Container = styled.div`
 export const Children = styled.div`
   width: 23%;
   margin-top: 50px;
+  display: flex;
+  flex-direction: column;
   @media only screen and (max-width: 1100px) and (min-width: 700px) {
     width: 48%;
   }
@@ -108,17 +112,17 @@ export const SelectCategory = styled.select`
   border-radius: 5px;
   font-weight: 600;
   margin-left: 5rem;
-`
-// export const Selected = styled.button`
-//   margin: 1rem;
-//   height: 2rem;
-//   border-radius: 5px;
-//   text-align: center;
-//   padding-bottom: 2rem;
-//   box-shadow: 2px 2px 3px black;
-//   &:hover {
-//     background: grey;
-//     color: white;
-//     transition: 1s;
-//   }
-// `;
+`;
+export const Selected = styled.button`
+  margin: 1rem;
+  height: 2rem;
+  border-radius: 5px;
+  text-align: center;
+  padding-bottom: 2rem;
+  box-shadow: 2px 2px 3px black;
+  &:hover {
+    background: grey;
+    color: white;
+    transition: 1s;
+  }
+`;

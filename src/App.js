@@ -15,11 +15,11 @@ function App() {
       <GlobalStyle />
       <NavBar />
       <Routes>
+        <Route path="/admin/:menu" element={<Admin />} />
         <Route exact path="/styleRules" element={<StyleRules />} />
         <Route exact path="/" element={<Products />} />
         <Route exact path="/detail/:id" element={<ProductsDetails />} />
-        <Route exact path="/admin" element={<Admin />} />
-        <Route exact path="/cart" element={<Cart/>}/>
+        <Route exact path="/cart" element={<Cart />} />
       </Routes>
       <Footer />
     </div>

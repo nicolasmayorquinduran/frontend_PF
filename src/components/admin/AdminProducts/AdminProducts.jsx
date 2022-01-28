@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postProductsAdm } from "../../../redux/actions/products.js";
 import { getCategories } from "../../../../src/redux/actions/categories.js";
 import { getProducts } from "../../../redux/actions/products.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,8 +19,8 @@ const AdminProducts = () => {
   });
 
   useEffect(() => {
-    dispatch(getProducts());
     dispatch(getCategories());
+    dispatch(getProducts());
   }, [dispatch, selected]);
 
   let productsAll = useSelector((state) => state.productsReducer.allProducts);
@@ -64,7 +63,7 @@ const AdminProducts = () => {
             }
           >
             <img
-              src={product.img}
+              src = { product.img}
               width="160px"
               height="240px"
               alt="img not found"
