@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Container, Children } from "../../globalStyles";
+import { useState } from "react"
+import { Container, Children } from "../../globalStyles"
 
 const Filters = ({ clothingType, price, ranking, alph, filter, setFilter }) => {
   const handleFilters = (e) => {
-    setFilter({ ...filter, [e.target.id]: e.target.value });
+    setFilter({ ...filter, [e.target.id]: e.target.value })
   };
   return (
     <Container>
@@ -25,7 +25,7 @@ const Filters = ({ clothingType, price, ranking, alph, filter, setFilter }) => {
             ))}
           </optgroup>
           <optgroup label="ranking">
-            {ranking.map((el) => (
+            {ranking.map(el => (
               <option value={el}>{el}</option>
             ))}
           </optgroup>

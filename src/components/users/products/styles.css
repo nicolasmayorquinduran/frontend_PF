@@ -19,8 +19,9 @@ ul.paginado li {
   display: flex;
   position: relative;
   width: 30%;
-  margin: auto;
   height: 20px;
+  margin-left: 95%;
+  margin-bottom: 10%;
 }
 .ranking div {
   display: flex;
@@ -44,6 +45,11 @@ ul.paginado li {
 
 .father {
   position: relative;
+}
+.card {
+  display: flex;
+  box-shadow: 2px 2px 5px grey;
+  height: 90vh;
 }
 
 .eye {
