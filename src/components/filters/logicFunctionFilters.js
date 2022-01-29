@@ -1,5 +1,7 @@
 export const filterClothingType = (all, filter) =>
-  filter.length ? all.filter((product) => product.category === filter) : all;
+  filter.length
+    ? all.filter((product) => product.categories.some((c) => c.name == filter))
+    : all;
 
 export const filterSort = (all, filter) => {
   switch (filter) {
