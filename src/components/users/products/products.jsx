@@ -26,13 +26,11 @@ const Products = () => {
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getProducts());
-    dispatch(getProducts());
-    dispatch(getCategories());
     setCurrentPage(1);
   }, [dispatch, search]);
 
-  let allProducts = useSelector((store) =>
-    store.productsReducer.products.filter((p) =>
+  let allProducts = useSelector((state) =>
+    state.products.filter((p) =>
       p.name.toLowerCase().includes(search.toLowerCase())
     )
   );
@@ -42,7 +40,7 @@ const Products = () => {
     filter.sort
   );
   const allCategories = useSelector(
-    (store) => store.categoryReducer.categories
+    (state) => state.categories
   );
 
   const indexOfLastProduct = currentPage * productsPerPage;

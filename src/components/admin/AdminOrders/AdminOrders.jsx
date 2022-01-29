@@ -13,7 +13,7 @@ const AdminOrders = () => {
 
   useEffect(() => dispatch(orderAdmin()), [dispatch]);
 
-  const order = useSelector((state) => state.orderAdmReducer.orders);
+  const order = useSelector((state) => state.orders);
 
   return (
     <div className="principal-container">

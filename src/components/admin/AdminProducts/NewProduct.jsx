@@ -15,7 +15,7 @@ export default function NewProduct () {
   
   const dispatch = useDispatch();
 
-  const categories = useSelector((state) => state.categoryReducer.categories);
+  const categories = useSelector((state) => state.categories);
 
   useEffect(() => {
     dispatch(getCategories());
