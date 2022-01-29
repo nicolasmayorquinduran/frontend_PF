@@ -15,11 +15,8 @@ const Home = () => {
   }, [dispatch]);
 
   const allPromos = useSelector((store) => store.promos);
-  const allCategories = useSelector(
-    (store) => store.categories
-  );
-  // const allProducts = useSelector((store) => store.allProducts);
-  console.log(allPromos);
+  const allCategories = useSelector((store) => store.categories);
+  const allProducts = useSelector((store) => store.allProducts);
   return (
     <div>
       <Container>
@@ -40,17 +37,17 @@ const Home = () => {
           </Children>
         ))}
       </Container>
-      {/* <Container>
+      <Container>
         {allProducts.map(
           (p, i) =>
             i < 6 && (
               <Children>
-                <img src={p.img} alt={p.name} />
+                <img src={p.img[0]} alt={p.name} />
                 <strong>{p.name}</strong>
               </Children>
             )
         )}
-      </Container> */}
+      </Container>
     </div>
   );
 };
