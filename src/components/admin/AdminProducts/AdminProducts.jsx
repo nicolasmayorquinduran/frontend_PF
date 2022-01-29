@@ -35,8 +35,8 @@ const AdminProducts = () => {
   
   }, [dispatch, selected]);
 
-  let productsAll = useSelector((state) => state.productsReducer.allProducts);
-  // console.log(selected);
+  let productsAll = useSelector((state) => state.allProducts);
+  console.log(selected);
 
   return (
     <div>

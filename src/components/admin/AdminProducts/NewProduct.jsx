@@ -15,7 +15,7 @@ export default function NewProduct () {
   
   const dispatch = useDispatch();
 
-  const categories = useSelector((state) => state.categoryReducer.categories);
+  const categories = useSelector((state) => state.categories);
 
   useEffect(() => {
     
@@ -37,7 +37,7 @@ export default function NewProduct () {
   );
 
   // PARA EL RENDERIZADO (INPUT DE STOCK):
-  let size = ["xs", "s", "m", "l", "xl", "xxl"];
+  let size = ["XS", "S", "M", "L", "X-L", "XX-L"];
 
   // PARA EL RENDERIZADO (INPUT DE INFORMACION ADICIONAL):
   let infoAd = ["Manufacturer", "Material", "occasion", "Fit", "Lining material"];

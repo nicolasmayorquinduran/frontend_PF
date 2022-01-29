@@ -8,7 +8,7 @@ import "./styles.css";
 function AdminUsers() {
   const dispatch = useDispatch();
   useEffect(() => dispatch(getUsers()), [dispatch]);
-  const allUsers = useSelector((store) => store.userReducer.users);
+  const allUsers = useSelector((state) => state.users);
   console.log(allUsers);
   return (
     <div>
