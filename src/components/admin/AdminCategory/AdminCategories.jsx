@@ -12,9 +12,9 @@ import axios from "axios";
 function AdminCat() {
   const categories = useSelector(
     (state) =>
-      (state.categoryReducer.filterCategories.length &&
-        state.categoryReducer.filterCategories) ||
-      state.categoryReducer.categories
+      (state.filterCategories.length &&
+        state.filterCategories) ||
+      state.categories
   );
   // const [categories, setCategories] = useState(DBcategories);
   // console.log(categories);

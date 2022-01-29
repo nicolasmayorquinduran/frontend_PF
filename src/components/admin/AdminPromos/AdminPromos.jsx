@@ -14,8 +14,8 @@ const AdminPromos = () => {
     resume: "",
   });
   const dispatch = useDispatch();
-  const allPromos = useSelector((store) => store.promoReducer.promos);
-  useEffect(() => dispatch(getPromos()), [dispatch, allPromos]);
+  const allPromos = useSelector((state) => state.promos);
+  useEffect(() => dispatch(getPromos()), [dispatch]);
   return (
     <div>
       {product.title.length ? (

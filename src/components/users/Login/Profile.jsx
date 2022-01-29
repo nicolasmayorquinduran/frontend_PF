@@ -13,25 +13,18 @@ export const Profile = () => {
 
   const dispatch = useDispatch();
 
-  // useEffect(async () => {
-  //   if (isAuthenticated && noRepeat === false) {
-  //     dispatch(postUser(user));
-  //     noRepeat = true;
-  //     dispatch(getActualUser(user.email));
-  //   }
-  // }, [user, dispatch]);
+  useEffect(async () => {
+    if (isAuthenticated && noRepeat === false) {
+      await dispatch(postUser(user));
+      noRepeat = true;
+      await dispatch(getActualUser(user.email));
+    }
+  }, [user, dispatch]);
 
-  const actualUser = useSelector((store) => store.userReducer.actualUser);
+  const actualUser = useSelector((store) => store.actualUser);
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
-  /* if (isAuthenticated && noRepeat === false) {
-    dispatch(postUser(user));
-    noRepeat = true;
-    dispatch(getActualUser(user.email));
-  } */
-
   //console.log(actualUser)
   return (
     isAuthenticated && (
