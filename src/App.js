@@ -10,6 +10,7 @@ import Prueba from "./components/users/home/Prueba";
 import { Route, Routes } from "react-router-dom";
 import Admin from "./components/admin/Index";
 import Footer from "./components/users/Footer/Footer";
+import { Settings } from "./components/users/Login/Settings";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/" element={<Products />} />
         <Route exact path="/detail/:id" element={<ProductsDetails />} />
         <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/user/settings" element={<Settings />} />
       </Routes>
       <Footer />
     </div>
