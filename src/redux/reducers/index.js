@@ -69,12 +69,7 @@ function rootReducer (state= initialState, action) {
         return {
           ...state,
         };
-  
-      case TYPES.UPDATE_PRODUCT_ADM:
-        return {
-          ...state,
-          updateProduct: action.payload,
-        };
+
       case TYPES.GET_PROMOS:
         return {
           ...state,

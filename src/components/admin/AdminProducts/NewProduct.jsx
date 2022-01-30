@@ -30,7 +30,7 @@ export default function NewProduct () {
       img: [],
       price: '',
       description: '',
-      aditionalInformation: {},
+      additionalInformation: {},
       stock: {},
       categories: [],
     }
@@ -40,7 +40,7 @@ export default function NewProduct () {
   let size = ["XS", "S", "M", "L", "X-L", "XX-L"];
 
   // PARA EL RENDERIZADO (INPUT DE INFORMACION ADICIONAL):
-  let infoAd = ["Manufacturer", "Material", "occasion", "Fit", "Lining material"];
+  let infoAd = ["Fabricante", "Material", "Ocasión", "Fit", "Material de revestimiento"];
 
   // GUARDO LO QUE EL USUARIO ESCRIBE EN INPUT:
   function handleChange(event) {
@@ -82,7 +82,7 @@ export default function NewProduct () {
         img: [],
         price: '',
         description: '',
-        aditionalInformation: {},
+        additionalInformation: {},
         stock: {},
         categories: [],
       }
@@ -123,6 +123,7 @@ export default function NewProduct () {
             onChange={handleChange}
             type="text"
             name="name"
+            placeholder="de tu producto"
             value={product.name}
             autoComplete="off"
             required
@@ -137,6 +138,7 @@ export default function NewProduct () {
             type="number"
             min="0"
             name="price"
+            placeholder="$"
             value={product.price}
             autoComplete="off"
             required
@@ -199,7 +201,7 @@ export default function NewProduct () {
                 <label>{info}:</label>
                 <input 
                   type="text" 
-                  onChange={(event) => setProduct({...product, aditionalInformation: { ...product.aditionalInformation, [info]: event.target.value} })}
+                  onChange={(event) => setProduct({...product, additionalInformation: { ...product.additionalInformation, [info]: event.target.value} })}
                   autoComplete="off" 
                   required 
                 />

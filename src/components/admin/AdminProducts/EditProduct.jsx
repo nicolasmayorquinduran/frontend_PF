@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 // Actions:
-import { updateProductAdm } from '../../../redux/actions/products';
 import { detailsProduct } from '../../../redux/actions/products';
 import { getCategories } from '../../../redux/actions/categories';
 
@@ -25,18 +25,17 @@ const EditProduct = ({ product }) => {
   // ESTADO QUE MODIFICA EL PRODUCTO:
   const [edited, setEdited] = useState(
     {
-      id: product.id,
+      ProductId: product.ProductId,
       name: product.name,
       price: product.price,
       description: product.description,
       img: product.img,
-      aditionalInformation: product.aditionalInformation,
+      additionalInformation: product.additionalInformation,
       stock: product.stock,
-      categories: [],
+      categories: product.categories,
     }
   );
 
-  console.log(edited);
 
   const handleEdited = (event) => {
     Array.isArray(edited[event.target.id])
@@ -58,17 +57,12 @@ const EditProduct = ({ product }) => {
   
   };
 
-
-  // SUBMIT:
-  function handleSubmit(event) {
-    event.preventDefault();
-    dispatch(updateProductAdm(edited));
-  };
+  console.log(edited)
 
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="new">
+      <form className="new">
         
         <div>
           
@@ -78,7 +72,7 @@ const EditProduct = ({ product }) => {
             
             <div className="coverImage">
               <h3> Imagen: </h3>
-              <img src={product.img} />
+              <img src={product.img[0]} />
               <FontAwesomeIcon icon={faPenSquare} />
             </div>
             
@@ -104,7 +98,7 @@ const EditProduct = ({ product }) => {
             <h3> Nombre: </h3>
             <input
               id="name"
-              value={product.name}
+              defaultValue={product.name}
               type="text"
               name="name"
               autoComplete="off"
@@ -115,7 +109,7 @@ const EditProduct = ({ product }) => {
             <h3> Precio </h3>
             <input
               id="price"
-              value={product.price}
+              defaultValue={product.price}
               type="Number"
               min="0"
               name="price"
@@ -149,7 +143,7 @@ const EditProduct = ({ product }) => {
             {
               edited.categories.map((category) => (
                 <div>
-                  <label>{category}</label>
+                  <label>{category.name}</label>
                   <FontAwesomeIcon
                     icon={faWindowClose}
                     id="categories"
@@ -176,11 +170,12 @@ const EditProduct = ({ product }) => {
 
         </div>
       
+        <div>
+          <button type='submit' onClick={async () => await axios.put("/products", edited)} > ¡Terminar edición! </button>
+        </div>
+      
       </form>
 
-      <div>
-        <button type='submit'> ¡Terminar edición! </button>
-      </div>
 
     </>
   );
