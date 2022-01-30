@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Container, Children } from "../../../globalStyles";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const CreatePromo = () => {
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     title: "",
     img: "https://image.freepik.com/foto-gratis/feliz-sonriente-adolescente-pelo-rosa-suena-convertirse-estrella-rock-tocar-musica-guitarra-acustica-usa-jakcet-naranja-muestra-mini-gesto-corazon-o-letrero-coreano-como-poses-contra-pared-graffiti_273609-50835.jpg",
@@ -10,6 +12,8 @@ const CreatePromo = () => {
   });
   const postProduct = async (product) => {
     await axios.post("http://localhost:3001/promos", inputs);
+    navigate("/admin");
+    navigate("/admin/promos");
   };
   useEffect(() => {}, [postProduct]);
   const handleProduct = (e) =>
