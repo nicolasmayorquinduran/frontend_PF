@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 // Actions:
-import { postProducts } from '../../../redux/actions/products';
 import { getCategories } from '../../../redux/actions/categories';
 
 // Styles:
@@ -18,7 +18,9 @@ export default function NewProduct () {
   const categories = useSelector((state) => state.categories);
 
   useEffect(() => {
+    
     dispatch(getCategories());
+  
   }, [dispatch]);
   
   // GUARDO EL FORMULARIO EN EL ESTADO:
@@ -35,7 +37,7 @@ export default function NewProduct () {
   );
 
   // PARA EL RENDERIZADO (INPUT DE STOCK):
-  let size = ["xs", "s", "m", "l", "xl", "xxl"];
+  let size = ["XS", "S", "M", "L", "X-L", "XX-L"];
 
   // PARA EL RENDERIZADO (INPUT DE INFORMACION ADICIONAL):
   let infoAd = ["Manufacturer", "Material", "occasion", "Fit", "Lining material"];
@@ -71,10 +73,9 @@ export default function NewProduct () {
   };
 
   // SUBMIT:
-  function handleSubmit(event) {
-    event.preventDefault();
-    dispatch(postProducts(product));
-    
+  async function handleSubmit(event) {
+    event.preventDefault()
+
     setProduct(
       {
         name: '',
@@ -88,18 +89,20 @@ export default function NewProduct () {
     )
   };
 
+  const updateProduct = async () => {
+    await axios.post("http://localhost:3001/products", product);
+  }
 
-  // PRUEBA EN LA CONSOLA:
-  console.log(product);
-
+  //console.log(product);
 
   return (
     <form onSubmit={handleSubmit} className="new">
  
-      <h2> Agregar Producto </h2>
+      <h2> Agregá un nuevo Producto </h2>
 
       <div className="AddPhoto">
 
+        <label> Imagen: </label>
         <div className="icon">
           <input
             onChange={handleImage}
@@ -115,7 +118,7 @@ export default function NewProduct () {
       <div className="formNew">
 
         <div className="nombre">
-          <h3> Nombre </h3>
+          <label> Nombre: </label>
           <input
             onChange={handleChange}
             type="text"
@@ -128,7 +131,7 @@ export default function NewProduct () {
 
 
         <div className='precio'>
-          <h3> Precio </h3>
+          <label> Precio: </label>
           <input
             onChange={handleChange}
             type="number"
@@ -142,7 +145,7 @@ export default function NewProduct () {
 
 
         <div>
-          <h3> Descripción: </h3>
+          <label> Descripción: </label>
           <input
             onChange={handleChange}
             type="text"
@@ -155,7 +158,7 @@ export default function NewProduct () {
 
 
         <div >
-          <h3> Categorías </h3>
+          <label> Categorías: </label>
           <select
             onClick={handleSubmitCategory}
             name="categories"
@@ -170,11 +173,11 @@ export default function NewProduct () {
 
 
         <div>
-          <h3> Stocks: </h3>
+          <label> Stocks: </label>
           { 
             size.map((sizes) => (
               <div>
-                <label>{sizes}</label>
+                <label>{sizes}:</label>
                 <input 
                   type="number" 
                   min="0" 
@@ -189,11 +192,11 @@ export default function NewProduct () {
 
 
         <div>
-          <h3> Información adicional: </h3>
+          <label> Información adicional: </label>
           { 
             infoAd.map((info) => (
               <div>
-                <label>{info}</label>
+                <label>{info}:</label>
                 <input 
                   type="text" 
                   onChange={(event) => setProduct({...product, aditionalInformation: { ...product.aditionalInformation, [info]: event.target.value} })}
@@ -207,7 +210,7 @@ export default function NewProduct () {
 
 
         <div className='create'>
-          <button type='submit'> ¡Crear! </button>
+          <button type='submit' onClick={() => updateProduct(product)}> ¡Crear! </button>
         </div>
       
 

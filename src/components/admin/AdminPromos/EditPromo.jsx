@@ -1,17 +1,19 @@
 import { useEffect } from "react";
 import axios from "axios";
 import { Container, Children } from "../../../globalStyles";
-import { getPromos } from "../../../redux/actions/promos";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const EditPromo = ({ product, setProduct }) => {
-  const putProduct = async (product) => {
+  const navigate = useNavigate();
+  const putProduct = async () => {
     await axios.put("http://localhost:3001/promos", product);
+    navigate("/admin");
+    navigate("/admin/promos");
   };
-  useEffect(() => {}, [putProduct]);
+
   const handleProduct = (e) =>
     setProduct({ ...product, [e.target.id]: e.target.value });
-
+  console.log(product);
   return (
     <>
       <h2>Editar Promo</h2>
@@ -38,7 +40,7 @@ const EditPromo = ({ product, setProduct }) => {
           />
         </Children>
       </Container>
-      <button onClick={() => putProduct(product)}>Guardar</button>
+      <button onClick={putProduct}>Guardar</button>
     </>
   );
 };

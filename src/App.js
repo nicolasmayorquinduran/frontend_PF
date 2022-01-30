@@ -6,6 +6,7 @@ import StyleRules from "./components/styleRules/Index";
 import NavBar from "./components/users/navBar/navBar";
 import Cart from "./components/users/Cart/Cart";
 import Home from "./components/users/home/Home";
+import Prueba from "./components/users/home/Prueba";
 import { Route, Routes } from "react-router-dom";
 import Admin from "./components/admin/Index";
 import Footer from "./components/users/Footer/Footer";

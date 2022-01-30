@@ -8,7 +8,7 @@ import "./style.css";
 
 const AdminPromos = () => {
   const [product, setProduct] = useState({
-    id: "",
+    PromosId: "",
     title: "",
     img: "",
     resume: "",
@@ -29,7 +29,7 @@ const AdminPromos = () => {
           className="create"
           onClick={() =>
             setProduct({
-              id: "",
+              PromosId: "",
               title: "",
               img: "",
               resume: "",
@@ -45,7 +45,7 @@ const AdminPromos = () => {
             className="miniature"
             onClick={() =>
               setProduct({
-                id: p.id,
+                PromosId: p.PromosId,
                 title: p.title,
                 img: p.img,
                 resume: p.resume,
