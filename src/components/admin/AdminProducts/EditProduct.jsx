@@ -41,20 +41,19 @@ const EditProduct = ({ product }) => {
   const handleEdited = (event) => {
     Array.isArray(edited[event.target.id])
     ? edited[event.target.id].includes(event.target.value)
-    ? setEdited(
-        {
-          ...edited,
-          [event.target.id]: [...edited[event.target.id].filter((c) => c != event.target.value)]
-        }
-      )
+      ? setEdited(
+          {
+            ...edited,
+            [event.target.id]: [...edited[event.target.id].filter((c) => c != event.target.value)]
+          }
+        )
       
-    : event.target.value.length && setEdited(
+      : event.target.value.length && setEdited(
         {
           ...edited,
           [event.target.id]: [...edited[event.target.id], event.target.value]
         }
-      )
-      
+      ) 
     : setEdited({ ...edited, [event.target.id]: event.target.value });
   
   };
