@@ -8,14 +8,14 @@ import "./style.css";
 
 const AdminPromos = () => {
   const [product, setProduct] = useState({
-    id: "",
+    PromosId: "",
     title: "",
     img: "",
     resume: "",
   });
   const dispatch = useDispatch();
-  const allPromos = useSelector((store) => store.promoReducer.promos);
-  useEffect(() => dispatch(getPromos()), [dispatch, allPromos]);
+  const allPromos = useSelector((state) => state.promos);
+  useEffect(() => dispatch(getPromos()), [dispatch]);
   return (
     <div>
       {product.title.length ? (
@@ -29,7 +29,7 @@ const AdminPromos = () => {
           className="create"
           onClick={() =>
             setProduct({
-              id: "",
+              PromosId: "",
               title: "",
               img: "",
               resume: "",
@@ -45,7 +45,7 @@ const AdminPromos = () => {
             className="miniature"
             onClick={() =>
               setProduct({
-                id: p.id,
+                PromosId: p.PromosId,
                 title: p.title,
                 img: p.img,
                 resume: p.resume,
