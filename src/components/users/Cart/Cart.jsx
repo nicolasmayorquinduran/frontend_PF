@@ -13,7 +13,7 @@ import s from './Cart.module.css'
         
 
 export default function Cart() {
-    const [cart, setCart] = UseLocalStorage('products', [])
+    const [cart, setCart] = UseLocalStorage('cart', [])
     console.log(cart)
     const User = JSON.parse(localStorage.getItem("user"));
     const idUser = !User?null:User.idUser;

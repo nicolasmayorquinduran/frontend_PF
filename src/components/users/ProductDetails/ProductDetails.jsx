@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { detailsProduct, getProducts } from "../../../redux/actions/products";
+import { detailsProduct, getProducts, getUserCart ,addToCart } from "../../../redux/actions/products";
 import "./productdetails.css";
 import Cart from "../Cart/Cart";
 import { useParams } from "react-router-dom";
@@ -11,16 +11,21 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 
 export default function ProductDetails() {
-  const [cart, setCart] = UseLocalStorage("products", []);
+  const [cart, setCart] = UseLocalStorage("cart", []);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const user = useSelector((store)=>store.actualUser);
+  const email = user.email
 
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
+    dispatch(getUserCart(email));
   }, [dispatch]);
 
   const product = useSelector((store) => store.productDetail);
+  const UserId = user.UsersId
+  console.log(UserId)
 
   const [changeInfo, setChangeInfo] = useState("");
   const handleAddSize = (e) => {
