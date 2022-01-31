@@ -43,11 +43,14 @@
 }
 /* ////////NEW PRODUCT////////// */
 
-.new {
-  display: grid;
-  grid-template-columns: 0.5fr 1fr;
-  margin-top: 30px;
+.partsNew {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 10px auto;
+  width: 60%;
 }
+
 .new h3 {
   margin-left: 100px;
   margin-bottom: 10px;
@@ -55,9 +58,18 @@
   font-weight: 600;
 }
 
+.nombre {
+  display: flex;
+  flex-direction: column;
+}
+
 .AddPhoto {
   margin-left: 100px;
   position: relative;
+}
+.precio {
+  display: flex;
+  flex-direction: column;
 }
 .icon {
   position: absolute;
@@ -68,7 +80,6 @@
 }
 
 .formNew {
-  display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 0.5fr 0.5fr 0.5fr;
 }
@@ -154,19 +165,37 @@
   justify-content: space-around;
   flex-wrap: wrap;
 }
+
 .cardsProducts {
-  width: 19%;
   display: flex;
-  flex-direction: row;
-  font-size: 10px;
-  text-align: center;
-  margin-left: 5px;
+  flex-direction: inherit;
+  height: "180px";
 }
 
-.cardsProducts img {
+.cardParts {
   width: 50%;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-size: cover;
+  background-position: 50%;
 }
 
-.cardData {
+.cardProductos {
+  flex-direction: initial !important;
+  background-color: #eee;
+}
+
+.editImage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.nombrePrecio input {
+  margin: 10px 0;
+  width: 90%;
+}
+.partsEdit {
   width: 50%;
 }
