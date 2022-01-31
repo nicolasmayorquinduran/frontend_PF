@@ -32,7 +32,7 @@ const SectionProducts = ({ allProducts }) => {
               backgroundImage: `url(${allProducts[0].img[0]})`,
             }}
           >
-            <Link to={`/detail/${allProducts[0].ProductId}`} className="path">
+            <Link to={`/products/${allProducts[0].ProductId}`} className="path">
               <FontAwesomeIcon icon={faEye} />
               {allProducts[0].name}
             </Link>
@@ -45,7 +45,7 @@ const SectionProducts = ({ allProducts }) => {
               backgroundImage: `url(${allProducts[1].img[0]})`,
             }}
           >
-            <Link to={`/detail/${allProducts[1].ProductId}`} className="path">
+            <Link to={`/products/${allProducts[1].ProductId}`} className="path">
               <FontAwesomeIcon icon={faEye} />
               {allProducts[1].name}
             </Link>
@@ -61,7 +61,7 @@ const SectionProducts = ({ allProducts }) => {
               backgroundImage: `url(${allProducts[2].img[0]})`,
             }}
           >
-            <Link to={`/detail/${allProducts[2].ProductId}`} className="path">
+            <Link to={`/products/${allProducts[2].ProductId}`} className="path">
               <FontAwesomeIcon icon={faEye} />
               {allProducts[2].name}
             </Link>
@@ -77,7 +77,7 @@ const SectionProducts = ({ allProducts }) => {
               backgroundImage: `url(${allProducts[3].img[0]})`,
             }}
           >
-            <Link to={`/detail/${allProducts[3].ProductId}`} className="path">
+            <Link to={`/products/${allProducts[3].ProductId}`} className="path">
               <FontAwesomeIcon icon={faEye} />
               {allProducts[3].name}
             </Link>
@@ -90,7 +90,7 @@ const SectionProducts = ({ allProducts }) => {
               backgroundImage: `url(${allProducts[4].img[0]})`,
             }}
           >
-            <Link to={`/detail/${allProducts[4].ProductId}`} className="path">
+            <Link to={`/products/${allProducts[4].ProductId}`} className="path">
               <FontAwesomeIcon icon={faEye} />
               {allProducts[4].name}
             </Link>
