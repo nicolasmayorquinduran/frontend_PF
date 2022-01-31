@@ -24,9 +24,7 @@ export default function Cart() {
     // }, [dispatch]);  
 
 
-    const handleCheckout = async(e)=>{
-        await axios.get('localhost:3001/checkout?title=producto0&unit_price=10000&quantity=5')
-    }
+  
 
     const handleDeleteItem= (e)=>{
         cart.map(e=>e.id !== "3")
@@ -163,15 +161,11 @@ export default function Cart() {
             <div className={s.btn_container}>
                 <button className={s.btn}><Link to='/'><span>GO SHOP MORE</span></Link></button>
             {/* {idUser?  */}
-                <button className={s.btn} onClick={deleteAllCart}>CLEAR ALL CART</button>  
-{/*                <button className={s.btn}><Link to='/checkout'><span>GO TO CHECKOUT</span></Link></button>
-*/}                {/* : null} */}
-            <form>
-                 <input type="hidden" name="title" value="Baheera’s Winter Jacket " />
-                 <input type="hidden" name="price" value="20000" /> 
-                 <input type="hidden" name="quantity" value="5" /> 
-                <input type="submit" value="GO TO CHECKOUT" className={s.btn} onClick={e=>handleCheckout()}/>
-            </form>
+                <button className={s.btn} onClick={deleteAllCart}>CLEAR ALL CART</button>              
+                    <Link to="/checkout">
+                    <input type="submit" value="GO TO CHECKOUT" className={s.btn} />
+                </Link>
+            
             </div>                         
     </>
     )

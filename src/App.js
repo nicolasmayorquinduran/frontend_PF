@@ -12,6 +12,7 @@ import Admin from "./components/admin/Index";
 import Footer from "./components/users/Footer/Footer";
 import Page404 from "./components/Page404";
 import { Settings } from "./components/users/Login/Settings";
+import Checkout from "./components/users/Checkout/Checkout.jsx";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/cart" element={<Cart />} />
         <Route path={"/:route"} element={<Page404 />} />
         <Route exact path="/user/settings" element={<Settings />} />
+        <Route exact path="/checkout" element={<Checkout />} />
       </Routes>
       <Footer />
     </div>
