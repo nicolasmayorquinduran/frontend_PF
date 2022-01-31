@@ -20,9 +20,9 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/admin/:menu" element={<Admin />} />
-        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
         <Route exact path="/styleRules" element={<StyleRules />} />
-        <Route exact path="/" element={<Products />} />
+        <Route exact path="/products" element={<Products />} />
         <Route exact path="/detail/:id" element={<ProductsDetails />} />
         <Route exact path="/cart" element={<Cart />} />
         <Route path={"/:route"} element={<Page404 />} />
