@@ -36,7 +36,7 @@ const AdminProducts = () => {
   }, [dispatch, selected]);
 
   let productsAll = useSelector((state) => state.allProducts);
-  console.log(selected);
+  console.log(productsAll);
 
   return (
     <div>
@@ -74,11 +74,15 @@ const AdminProducts = () => {
               className="cardsProducts"
               onClick={() => setSelected(
                 {
+                  ProductId: product.ProductId,
                   name: product.name,
                   price: product.price,
                   ranking: product.ranking,
                   img: product.img,
-                  category: product.category,
+                  categories: product.categories,
+                  additionalInformation: product.additionalInformation,
+                  description: product.description,
+                  stock: product.stock,
                 }
               )}
             >

@@ -11,25 +11,15 @@ import s from "./Cart.module.css";
 import axios from "axios";
 
 export default function Cart() {
-  const [payUrl, setPayUrl] = useState("");
   const [cart, setCart] = UseLocalStorage("products", []);
-  useEffect(
-    () =>
-      axios
-        .post("http://localhost:3001/checkout", {
-          title: "title",
-          unit_price: "300",
-          quantity: "3",
-        })
-        .then((res) => setPayUrl(res.data)),
-    []
-  );
-  console.log(payUrl);
+  console.log(cart);
   const User = JSON.parse(localStorage.getItem("user"));
   const idUser = !User ? null : User.idUser;
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
+  // useEffect(() => {
+  //     dispatch(getProductsCartUser(idUser));
+  // }, [dispatch]);
 
   const handleDeleteItem = (e) => {
     cart.map((e) => e.id !== "3");
@@ -163,7 +153,6 @@ export default function Cart() {
     <>
       <div className={s.container}>
         <h1>Shopping Cart</h1>
-        <a href={payUrl}>checkout</a>
         <DataTable
           className={s.table}
           columns={columns}
@@ -189,15 +178,9 @@ export default function Cart() {
         <button className={s.btn} onClick={deleteAllCart}>
           CLEAR ALL CART
         </button>
-        {/*                <button className={s.btn}><Link to='/checkout'><span>GO TO CHECKOUT</span></Link></button>
-         */}{" "}
-        {/* : null} */}
-        <form>
-          <input type="hidden" name="title" value="Baheera’s Winter Jacket " />
-          <input type="hidden" name="price" value="20000" />
-          <input type="hidden" name="quantity" value="5" />
+        <Link to="/checkout">
           <input type="submit" value="GO TO CHECKOUT" className={s.btn} />
-        </form>
+        </Link>
       </div>
     </>
   );

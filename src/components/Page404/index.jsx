@@ -1,16 +1,10 @@
-import { useState, useEffect } from "react";
+import React from "react";
 
 const Page404 = () => {
-  let [counter, setCounter] = useState(0);
-  const handler = (e) => {
-    e.target.value == "-" ? setCounter(counter--) : setCounter(counter++);
-  };
-  useEffect(() => handler(), [handler]);
+
   return (
     <div>
-      <button onClick={handler}>-</button>
-      <div>{counter}</div>
-      <button onClick={handler}>+</button>
+      Page not found
     </div>
   );
 };

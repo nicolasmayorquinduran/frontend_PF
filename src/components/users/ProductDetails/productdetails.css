@@ -16,19 +16,18 @@
   margin-left: 20px;
 }
 
-.imgContainer{
+.imgContainer {
   display: flex;
-  flex-direction: row-reverse; 
+  flex-direction: row-reverse;
   justify-content: flex-start;
   width: 50%;
   height: 470px;
 }
 
 .bigImg img {
-  
   height: 400px;
   width: 100%;
-  border: 3px solid black;
+  border: 1px solid black;
   border-radius: 5px;
 }
 
@@ -39,8 +38,6 @@
 #categories {
   display: inline-flex;
 }
-
-
 
 #description {
   width: 40vw;
@@ -75,6 +72,16 @@
   width: 99.9vw;
   padding-left: 5vw;
   padding-right: 5vw;
+  margin-top: 5vh;
+}
+.productAbout button {
+  background-color: white;
+  box-shadow: none;
+  color: #9f005d;
+}
+.productAbout button:hover {
+  border-top: 2px solid #9f005d;
+  font-weight: bold;
 }
 
 .productDetail {
@@ -116,7 +123,7 @@
 .smallImg {
   width: 90px;
   height: 470px;
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin: 5px;
@@ -125,10 +132,9 @@
 .smallImg img {
   height: 100px;
   width: 90%;
-  border: 2px solid black;
+  border: 1px solid black;
   border-radius: 5px;
 }
-
 
 #talles {
   display: inline-flex;
@@ -148,31 +154,29 @@
   color: #9f005d;
 }
 
-.stars{
+.stars {
   margin-left: -180px;
-  margin-top:20px ;
-  margin-bottom:20px ;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.qty{
+.qty {
   width: 70px;
   height: 40px;
-
 }
 
-.add{
-  width: 130px;
-  margin-left:10px ;
+.add {
+  width: 30vh;
+  margin-left: 10px;
   height: 40px;
   margin-top: 3px;
-
 }
-.size{
+.size {
   width: 130px;
-margin-left:10px ;
-height: 40px;
+  margin-left: 10px;
+  height: 40px;
 }
-.container{
+.container {
   display: flex;
   flex-direction: column;
 }
