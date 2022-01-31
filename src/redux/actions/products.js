@@ -68,27 +68,66 @@ export function getAllCarts() {
   };
 }
 
-export function postProductCart({ product }) {
-  // return async function(dispatch){
-  //   let cart = await axios.get('http://localhost:3000/userId/cart')
-  //   return dispatch({
-  //     type: TYPES.POST_PRODUCT_CART,
-  //     payload: cart.info
-  //   })
-  // }
-  return function (dispatch) {
+export function getUserCart (email){
+  return async function (dispatch){
+    let cart = await axios.get('http://localhost:3000/cart',email)
     return dispatch({
-      type: TYPES.POST_PRODUCT_CART,
-      payload: product,
-    });
+      type:TYPES.GET_USER_CART,
+      payload:cart.data
+    })
+  }
+}
+
+export function addToCart(product, UsersId, CartId, ProductId) {
+  return async function (dispatch) {
+    if (!UsersId) {
+      let products = JSON.parse(localStorage.getItem("cart")) || [];
+      let productFind = false;
+      products = products.map((p) => {
+      //ESTO ES PARA MANEJAR EL STOCK 
+        if (p.ProductId === product.ProductId) {
+          productFind = true;
+          // return {
+          //   ...p,
+          //   //qty: Number(p.qty) + 1,
+          //   amount: Number(p.amount) + product.amount <= p.stock ? Number(p.amount) + product.amount : p.amount,
+          // };
+        }
+        return p;
+      });
+
+      if (productFind === false) {
+        products.push(product);
+        //console.log(products)
+      }
+
+      // products = products.filter(p => p.amount > 0)
+      localStorage.setItem("cart", JSON.stringify(products));
+      return dispatch({
+        type: TYPES.ADD_TO_CART,
+        payload: products
+      }); /* */
+    }
+    if (UsersId) {
+      return axios
+        .put(`http://localhost:3000/cart/${CartId}`, ProductId) //fatlta autenci usuario
+        .then((response) => {
+
+          //console.log("putproductadd",response)
+          // localStorage.setItem("cart", JSON.stringify(response.data.cart));
+          dispatch({
+            type: TYPES.ADD_TO_CART_DB,
+            payload: response.data.cart
+          });
+        })
+        .catch((error) => console.error(error));
+    }
   };
 }
 
-export function deleteProductCart({ cartId, productId }) {
+export function deleteProductCart({ CartId, ProductId }) {
   return async function (dispatch) {
-    let deleted = await axios.delete(
-      `http://localhost:3000/${cartId}/${productId}`
-    );
+    let deleted = await axios.delete(`http://localhost:3000/cart/${CartId}`,ProductId);
     return dispatch({
       type: TYPES.DELETE_PRODUCT_CART,
       payload: deleted.info,
@@ -96,9 +135,9 @@ export function deleteProductCart({ cartId, productId }) {
   };
 }
 
-export function deleteAllCart({ cartId }) {
+export function deleteAllCart({ CartId }) {
   return async function (dispatch) {
-    let deleted = await axios.delete(`http://localhost:3000/${cartId}`);
+    let deleted = await axios.delete(`http://localhost:3000/cart/${CartId}`);
     return dispatch({
       type: TYPES.DELETE_ALL_CART,
       payload: deleted.info,
@@ -106,3 +145,20 @@ export function deleteAllCart({ cartId }) {
   };
 }
 
+export function updateProductAdm(payload) {
+  return async function(dispatch) {
+    try {
+      const json = await axios.put("http://localhost:3001/products", payload);
+    
+      return dispatch(
+        {
+          type: TYPES.UPDATE_PRODUCT_ADM,
+          payload: json.data,
+        }
+      );
+    
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

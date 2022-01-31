@@ -13,7 +13,8 @@ const initialState = {
   updateProduct: [],
   promos: [],
   users: [],
-  actualUser: {}
+  actualUser: {},
+  cart:[]
 }
 
 function rootReducer (state= initialState, action) {
@@ -84,6 +85,26 @@ function rootReducer (state= initialState, action) {
         return {
           ...state,
           actualUser: action.payload,
+        }
+      case TYPES.GET_USER_CART:
+        return{
+          ...state,
+          cart:action.payload
+        }
+      case TYPES.ADD_TO_CART:
+        return{
+          ...state,
+          cart:action.payload
+        }
+      case TYPES.DELETE_PRODUCT_CART:
+        return{
+          ...state,
+          cart:action.payload
+        }
+      case TYPES.DELETE_ALL_CART:
+        return{
+          ...state,
+          cart:action.payload
         }
       default: return state
   }
