@@ -51,7 +51,6 @@ export const Settings = () => {
         e.preventDefault();
         let choose = window.confirm("Está seguro que desea eliminar la cuenta?")
         if (choose){
-            
             logout({ returnTo: window.location.origin })
             dispatch(putUser({email: actualUser.email, del: true}));
         }
@@ -71,7 +70,9 @@ export const Settings = () => {
                 <h3>Código Postal</h3>
                 <input type="text" defaultValue={actualUser.cp} name="cp" onChange={e => handleChange(e)} />
                 <h3>Ciudad</h3>
-                <input type="text" defaultValue={actualUser.state} name="state" onChange={e => handleChange(e)} />
+                <div>
+                    <input type="text" defaultValue={actualUser.state} name="state" onChange={e => handleChange(e)} />
+                </div>
                 <button type='submit' >Guardar</button>
             </form>
                 <button onClick={(e) => handleDelete(e)} >Eliminar cuenta</button>
