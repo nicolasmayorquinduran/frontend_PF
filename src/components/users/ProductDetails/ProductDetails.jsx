@@ -20,40 +20,33 @@ export default function ProductDetails() {
     dispatch(detailsProduct(id));
   }, [dispatch]);
 
-  const product = useSelector((store) => store.productsReducer.productDetail);
+  const product = useSelector((store) => store.productDetail);
 
   const [changeInfo, setChangeInfo] = useState("");
   const handleAddSize = (e) => {
     product.size = e.target.value;
     console.log(product);
   };
-  const handleAddQty = (e) => {
-    if (!product.qty) {
-      product.qty = 1;
-    } else {
-      product.qty = e.target.value;
-    }
-    console.log(product);
-  };
 
   const handleAddCart = (e) => {
     setCart([...cart, product]);
   };
-  function onClick(e) {
-    e.preventDefault();
-    setChangeInfo(e.target.value);
-  }
-
+  // function onClick(e) {
+  //   e.preventDefault();
+  //   setChangeInfo(e.target.value);
+  // }
+  console.log(product);
   return (
     <div>
       <hr id="hr"></hr>
-      {product.hasOwnProperty("id") ? (
+      {product.hasOwnProperty("ProductId") ? (
         <div className="container">
           <div className="imgAndDetail">
             <div className="imgContainer">
               <div className="bigImg">
                 <img src={product.img[0]} alt="big" />
               </div>
+
               <div className="smallImg">
                 {product.img.map((i) => (
                   <img id="s" src={i} alt="small" />
@@ -80,30 +73,29 @@ export default function ProductDetails() {
               <h3 id="price"> {formatMoney(product.price)} </h3>
 
               <br></br>
-              <div id="categoriesContainer">
+              {/* <div id="categoriesContainer">
                 <h6 id="categories"> Categories: </h6>
                 {product.categories.map((c) => (
                   <p>{c.name}</p>
                 ))}
-              </div>
+              </div> */}
               <br></br>
               <p id="description"> {product.description} </p>
               <br></br>
               <div id="talles">
                 <h6>Talles:</h6>
                 <select className="size" id="size" onChange={handleAddSize}>
-                  <option value="XS">X-Small</option>
-                  <option value="S">Small</option>
-                  <option value="M">Medium</option>
-                  <option value="L">Large</option>
-                  <option value="XL">X-Large</option>
-                  <option value="XXL">XX-Large</option>
+                  <option value="xs">X-Small</option>
+                  <option value="s">Small</option>
+                  <option value="m">Medium</option>
+                  <option value="l">Large</option>
+                  <option value="xl">X-Large</option>
+                  <option value="xxl">XX-Large</option>
                 </select>
               </div>
               <br></br>
               <div>
                 <input
-                  onChange={handleAddQty}
                   className="qty"
                   placeholder={1}
                   type="number"
@@ -116,46 +108,44 @@ export default function ProductDetails() {
                 </button>
               </div>
             </div>
-          </div>
-          <div className="productAbout">
-            <div className="selectDeploy">
-              <button onClick={onClick} value="Comentarios">
-                Comentarios:{" "}
-              </button>
-              <button onClick={onClick} value="Adicional">
-                Información Adicional:
-              </button>
-            </div>
-            <hr></hr>
-            {/* {changeInfo === "Comentarios" ? (
-              product.reviews.map((p) => {
-                return (
-                  <div key={p.usuario} className="reviewContainer">
-                    <div className="reviewDivider">
-                      <div className="reviewUser">
-                        <p>{p.usuario}</p>
-                      </div>
-                      <div className="reviewData">
-                        <p id="timeStamps">Publicado el {p.timestamps}</p>
-                        <p>{p.comment}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })
-            ) : (
-              <div id="additionalDescription">
-                <p> {product.description} </p>
-                <div className="additionalData">
-                  <p>Made in {product.additionalInformation[0].manufacturer}</p>
-                  <p>Fit: {product.additionalInformation[0].fit}</p>
-                  <p>
-                    Material: {product.additionalInformation[0].lining_material}
-                  </p>
-                  <p>Ocasion: {product.additionalInformation[0].Occasion}</p>
-                </div>
+
+            <div className="productAbout">
+              <div className="selectDeploy">
+                <button value="Comentarios">Comentarios: </button>
+                <button value="Adicional">Información Adicional:</button>
               </div>
-            )} */}
+              <hr></hr>
+              {changeInfo === "Comentarios" ? (
+                <div>comentarios</div>
+              ) : (
+                // product.reviews.map((p) => {
+                //   return (
+                //     <div key={p.usuario} className="reviewContainer">
+                //       <div className="reviewDivider">
+                //         <div className="reviewUser">
+                //           <p>{p.usuario}</p>
+                //         </div>
+                //         <div className="reviewData">
+                //           <p id="timeStamps">Publicado el {p.timestamps}</p>
+                //           <p>{p.comment}</p>
+                //         </div>
+                //       </div>
+                //     </div>
+                //   );
+                // })
+                <div id="additionalDescription">
+                  {/* <p> {product.description} </p>
+                  <div className="additionalData">
+                    <p>Made in {product.additionalInformation.manufacturer}</p>
+                    <p>Fit: {product.additionalInformation.fit}</p>
+                    <p>
+                      Material: {product.additionalInformation.lining_material}
+                    </p>
+                    <p>Ocasion: {product.additionalInformation.occasion}</p>
+                  </div> */}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       ) : (

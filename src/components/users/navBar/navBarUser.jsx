@@ -33,7 +33,9 @@ export const NavBarUser = () => {
               <DropdownItem>
                 <LogoutButton />
               </DropdownItem>
-              <DropdownItem>Ver profile</DropdownItem>
+              <DropdownItem>
+                <Link to="/user/settings">Ver profile</Link>
+              </DropdownItem>
               <DropdownItem>
                 <Link to="/admin/products">Ver Admin</Link>
               </DropdownItem>

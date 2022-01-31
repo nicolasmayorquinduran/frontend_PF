@@ -6,15 +6,28 @@ import {
   getCategories,
 } from "../../../redux/actions/categories";
 import "./adminCategories.css";
+import axios from "axios";
+/* import { Image } from 'cloudinary-react'; */
 
 function AdminCat() {
-  const categories = useSelector((state) => state.categoryReducer.categories);
+  const categories = useSelector(
+    (state) =>
+      (state.filterCategories.length &&
+        state.filterCategories) ||
+      state.categories
+  );
   // const [categories, setCategories] = useState(DBcategories);
   // console.log(categories);
+
+  //INSERTAR IMAGEN
+  const [imageSelected, setImageSelected] = useState("");
+  console.log(imageSelected)
+  
+
   const [newCategory, setNewCategory] = useState("");
 
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getCategories()), [dispatch]);
+  useEffect(() => dispatch(getCategories()), [dispatch, imageSelected]);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -41,6 +54,22 @@ function AdminCat() {
     dispatch(deleteCategories(e.target.id));
   };
 
+  const uploadImage = () => {
+    const formData = new FormData();
+    formData.append("file", imageSelected);
+    formData.append("upload_preset", "qoc3ud7y");
+
+    axios
+      .post(
+        "https://api.cloudinary.com/v1_1/jonascript/image/upload/",
+        formData
+      )
+      .then((response) => {
+        return setImageSelected(response.data.url);
+        
+      });
+  };
+
   return (
     <>
       <div className="categoryContainer">
@@ -60,6 +89,14 @@ function AdminCat() {
             <div>
               <button>Crear</button>
             </div>
+            <div>
+              <input
+                type="file"
+                onChange={(event) => setImageSelected(event.target.files[0])}
+              />
+              <button onClick={uploadImage}>Upload Image</button>
+              <img src={imageSelected} alt="Imagen" />
+            </div>
           </form>
         </div>
         <div className="categoriesContainer">
@@ -69,13 +106,15 @@ function AdminCat() {
               return (
                 <div className="catCard">
                   <label className="catLabel">{c.name}</label>
+
                   <button
                     className="deleteBtn"
-                    id={c.name}
+                    id={c}
                     onClick={handleDeteleCategory}
                   >
                     X
                   </button>
+                  <img src={c.img} alt="" />
                 </div>
               );
             })}

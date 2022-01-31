@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import styled from "styled-components";
+import { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
 body {
@@ -74,7 +74,7 @@ a:hover {
   color: #9E005D
 }
 
-`;
+`
 
 export const Container = styled.div`
   display: flex;
@@ -82,7 +82,7 @@ export const Container = styled.div`
   align-items: center;
   flex-wrap: wrap;
   text-align: center;
-`;
+`
 
 export const Children = styled.div`
   width: 23%;
@@ -98,12 +98,15 @@ export const Children = styled.div`
   img {
     width: 100%;
   }
-`;
+  select {
+    box-shadow: 2px 2px 5px grey;
+  }
+`
 export const Category = styled.div`
   display: inline-block;
   align-contents: center;
   text-align: center;
-`;
+`
 
 export const SelectCategory = styled.select`
   border-radius: 5px;

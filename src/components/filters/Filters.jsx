@@ -10,9 +10,9 @@ const Filters = ({ clothingType, price, ranking, alph, filter, setFilter }) => {
       <Children>
         <select id="clothingType" onChange={handleFilters}>
           <option value="">Tipo de prenda</option>
-          {/* {clothingType.map((el) => (
-            <option value={el}>{el}</option>
-          ))} */}
+          {clothingType.map((el) => (
+            <option value={el.name}>{el.name}</option>
+          ))}
         </select>
       </Children>
 
