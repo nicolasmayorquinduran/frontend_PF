@@ -167,9 +167,9 @@ export default function Cart() {
 {/*                <button className={s.btn}><Link to='/checkout'><span>GO TO CHECKOUT</span></Link></button>
 */}                {/* : null} */}
             <form>
-                 <input type="hidden" name="title" value="Baheera’s Winter Jacket " />
+               {/*  <input type="hidden" name="title" value="Baheera’s Winter Jacket " />
                  <input type="hidden" name="price" value="20000" /> 
-                 <input type="hidden" name="quantity" value="5" /> 
+                 <input type="hidden" name="quantity" value="5" /> */}
                 <input type="submit" value="GO TO CHECKOUT" className={s.btn} onClick={e=>handleCheckout()}/>
             </form>
             </div>                         
