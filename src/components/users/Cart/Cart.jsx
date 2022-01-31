@@ -8,7 +8,7 @@ import {faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { formatMoney } from 'accounting';
 import s from './Cart.module.css'
-
+import axios from 'axios'
 
         
 
@@ -17,10 +17,17 @@ export default function Cart() {
     console.log(cart)
     const User = JSON.parse(localStorage.getItem("user"));
     const idUser = !User?null:User.idUser;
+    const dispatch = useDispatch();
 
     // useEffect(() => {
     //     dispatch(getProductsCartUser(idUser)); 
     // }, [dispatch]);  
+
+
+    const handleCheckout = async(e)=>{
+        await axios.get('localhost:3001/checkout?title=producto0&unit_price=10000&quantity=5')
+    }
+
     const handleDeleteItem= (e)=>{
         cart.map(e=>e.id !== "3")
         console.log("eliminado", cart)
@@ -157,9 +164,14 @@ export default function Cart() {
                 <button className={s.btn}><Link to='/'><span>GO SHOP MORE</span></Link></button>
             {/* {idUser?  */}
                 <button className={s.btn} onClick={deleteAllCart}>CLEAR ALL CART</button>  
-                <button className={s.btn}><Link to='/checkout'><span>GO TO CHECKOUT</span></Link></button>
-                {/* : null} */}
-
+{/*                <button className={s.btn}><Link to='/checkout'><span>GO TO CHECKOUT</span></Link></button>
+*/}                {/* : null} */}
+            <form>
+                 <input type="hidden" name="title" value="Baheera’s Winter Jacket " />
+                 <input type="hidden" name="price" value="20000" /> 
+                 <input type="hidden" name="quantity" value="5" /> 
+                <input type="submit" value="GO TO CHECKOUT" className={s.btn} onClick={e=>handleCheckout()}/>
+            </form>
             </div>                         
     </>
     )
