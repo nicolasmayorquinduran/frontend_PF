@@ -114,10 +114,13 @@ export default function ProductDetails() {
               </div>
             </div>
 
-            <div className="productAbout">
+           
+          </div>
+          <div className="productAbout">
               <div className="selectDeploy">
-                <button value="Comentarios">Comentarios: </button>
-                <button value="Adicional">Información Adicional:</button>
+                <button value="Comentarios">Comentarios</button>
+                <button value="Adicional">Información Adicional</button>
+                <button value="Adicional">Descripción</button>
               </div>
               <hr></hr>
               {changeInfo === "Comentarios" ? (
@@ -151,7 +154,6 @@ export default function ProductDetails() {
                 </div>
               )}
             </div>
-          </div>
         </div>
       ) : (
         <h3> Error 404 Not Found </h3>

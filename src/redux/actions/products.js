@@ -78,57 +78,39 @@ export function getUserCart (email){
   }
 }
 
-export function addToCart(product, userId, cart) {
+export function addToCart(product, UsersId, CartId, ProductId) {
   return async function (dispatch) {
-    if (!userId) {
+    if (!UsersId) {
       let products = JSON.parse(localStorage.getItem("cart")) || [];
       let productFind = false;
-      // products = products.map((p) => {
+      products = products.map((p) => {
       //ESTO ES PARA MANEJAR EL STOCK 
-      //   if (p.ProductId === product.ProductId) {
-      //     productFind = true;
-      //     return {
-      //       ...p,
-      //       //qty: Number(p.qty) + 1,
-      //       amount: Number(p.amount) + product.amount <= p.stock ? Number(p.amount) + product.amount : p.amount,
-      //     };
-      //   }
-      //   return p;
-      // });
+        if (p.ProductId === product.ProductId) {
+          productFind = true;
+          // return {
+          //   ...p,
+          //   //qty: Number(p.qty) + 1,
+          //   amount: Number(p.amount) + product.amount <= p.stock ? Number(p.amount) + product.amount : p.amount,
+          // };
+        }
+        return p;
+      });
 
       if (productFind === false) {
         products.push(product);
         //console.log(products)
       }
-      products = products.filter(p => p.amount > 0)
+
+      // products = products.filter(p => p.amount > 0)
       localStorage.setItem("cart", JSON.stringify(products));
       return dispatch({
         type: TYPES.ADD_TO_CART,
         payload: products
       }); /* */
     }
-    if (userId) {
-      let exits = false;
-      let aux = Array.isArray(cart) ? cart.map(p => {
-        if (p.idProduct === product.idProduct) {
-          exits = true;
-          return {
-            ...p,
-            amount: Number(p.amount) + Number(product.amount)
-          }
-        }
-        return p;
-      }) : []
-
-      if (!exits) aux = [...aux, product]
-
-
-      const body = {
-        productsInfo: aux
-      } //[{...product}/* id: product.idProduct, qty: 1  */]};
-      //console.log('lo',product.idProduct)
+    if (UsersId) {
       return axios
-        .put(`http://localhost:3000/users/cart/${userId}`, body) //fatlta autenci usuario
+        .put(`http://localhost:3000/cart/${CartId}`, ProductId) //fatlta autenci usuario
         .then((response) => {
 
           //console.log("putproductadd",response)
@@ -145,7 +127,7 @@ export function addToCart(product, userId, cart) {
 
 export function deleteProductCart({ CartId, ProductId }) {
   return async function (dispatch) {
-    let deleted = await axios.delete(`http://localhost:3000/${CartId}`,ProductId);
+    let deleted = await axios.delete(`http://localhost:3000/cart/${CartId}`,ProductId);
     return dispatch({
       type: TYPES.DELETE_PRODUCT_CART,
       payload: deleted.info,
@@ -155,7 +137,7 @@ export function deleteProductCart({ CartId, ProductId }) {
 
 export function deleteAllCart({ CartId }) {
   return async function (dispatch) {
-    let deleted = await axios.delete(`http://localhost:3000/${CartId}`);
+    let deleted = await axios.delete(`http://localhost:3000/cart/${CartId}`);
     return dispatch({
       type: TYPES.DELETE_ALL_CART,
       payload: deleted.info,

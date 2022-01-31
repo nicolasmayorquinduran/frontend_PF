@@ -35,13 +35,13 @@ const Products = () => {
     )
   );
 
+  console.log(allProducts, filter.clothingType);
+
   allProducts = filterSort(
     filterClothingType(allProducts, filter.clothingType),
     filter.sort
   );
-  const allCategories = useSelector(
-    (state) => state.categories
-  );
+  const allCategories = useSelector((state) => state.categories);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -54,7 +54,7 @@ const Products = () => {
   };
 
   const handleSearch = (e) => setSearch(e.target.value);
-  console.log(allCategories);
+  // console.log(filter.name);
   return (
     <div className="products">
       <input

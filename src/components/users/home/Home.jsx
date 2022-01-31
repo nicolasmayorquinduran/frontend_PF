@@ -4,50 +4,46 @@ import { Container, Children } from "../../../globalStyles";
 import { getProducts } from "../../../redux/actions/products";
 import { getCategories } from "../../../redux/actions/categories";
 import { getPromos } from "../../../redux/actions/promos";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SectionPromos from "./SectionPromos";
+import SectionCategories from "./SectionCategories";
+import SectionProducts from "./SectionProducts";
+import Loading from "../../Loading/Index";
+import {
+  faArrowAltCircleLeft,
+  faArrowAltCircleRight,
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+import "./style.css";
 
 const Home = () => {
   const dispatch = useDispatch();
 
+  const allPromos = useSelector((store) => store.promos);
+  const allCategories = useSelector((store) => store.categories);
+  const allProducts = useSelector((store) => store.allProducts);
   useEffect(() => {
     dispatch(getPromos());
     dispatch(getCategories());
     dispatch(getProducts());
   }, [dispatch]);
 
-  const allPromos = useSelector((store) => store.promos);
-  const allCategories = useSelector((store) => store.categories);
-  const allProducts = useSelector((store) => store.allProducts);
   return (
     <div>
-      <Container>
-        {allPromos.map((p) => (
-          <Children>
-            <img src={p.img} alt={p.title} />
-            <h1>{p.title}</h1>
-            <p>{p.resume}</p>
-            <button>LoOk +</button>
-          </Children>
-        ))}
-      </Container>
-      <Container>
-        {allCategories.map((c) => (
-          <Children>
-            <img src={c.name} alt={c.name} />
-            <h4>{c.name}</h4>
-          </Children>
-        ))}
-      </Container>
-      <Container>
-        {allProducts.map(
-          (p, i) =>
-            i < 6 && (
-              <Children>
-                <img src={p.img[0]} alt={p.name} />
-                <strong>{p.name}</strong>
-              </Children>
-            )
-        )}
-      </Container>
+      {allPromos.length ? <SectionPromos allPromos={allPromos} /> : <Loading />}
+
+      {allCategories.length ? (
+        <SectionCategories allCategories={allCategories} />
+      ) : (
+        <Loading />
+      )}
+
+      {allProducts.length ? (
+        <SectionProducts allProducts={allProducts} />
+      ) : (
+        <Loading />
+      )}
     </div>
   );
 };

@@ -1,16 +1,14 @@
 import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
-import React, {  useEffect } from 'react'
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Swal from 'sweetalert2';
-import { Link, useNavigate} from 'react-router-dom';
-import DataTable from 'react-data-table-component';
-import {faTrashAlt} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { formatMoney } from 'accounting';
-import s from './Cart.module.css'
-
-
-        
+import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router-dom";
+import DataTable from "react-data-table-component";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { formatMoney } from "accounting";
+import s from "./Cart.module.css";
+import axios from "axios";
 
 export default function Cart() {
     const [cart, setCart] = UseLocalStorage('cart', [])
@@ -137,31 +135,35 @@ export default function Cart() {
       <>
         <div className={s.container}>
         <h1>Shopping Cart</h1>
-        <DataTable 
-            className={s.table} 
-            columns = {columns}
-            data = {cart}
-            pagination
-            paginationComponentOptions = {optionPagination}
-            actions
-            > </DataTable>
-        </div>
-            <div>
-                    <div className={s.amount}>
-                       Total Amount: {getTotalAmount()}
-                        
-                    </div>
-            </div>
-              
-            <div className={s.btn_container}>
-                <button className={s.btn}><Link to='/'><span>GO SHOP MORE</span></Link></button>
-            {/* {idUser?  */}
-                <button className={s.btn} onClick={deleteAllCart}>CLEAR ALL CART</button>  
-                <button className={s.btn}><Link to='/checkout'><span>GO TO CHECKOUT</span></Link></button>
-                {/* : null} */}
+        <DataTable
+          className={s.table}
+          columns={columns}
+          data={cart}
+          pagination
+          paginationComponentOptions={optionPagination}
+          actions
+        >
+          {" "}
+        </DataTable>
+      </div>
+      <div>
+        <div className={s.amount}>Total Amount: {getTotalAmount()}</div>
+      </div>
 
-            </div>                         
+      <div className={s.btn_container}>
+        <button className={s.btn}>
+          <Link to="/">
+            <span>GO SHOP MORE</span>
+          </Link>
+        </button>
+        {/* {idUser?  */}
+        <button className={s.btn} onClick={deleteAllCart}>
+          CLEAR ALL CART
+        </button>
+        <Link to="/checkout">
+          <input type="submit" value="GO TO CHECKOUT" className={s.btn} />
+        </Link>
+      </div>
     </>
-    )
-
+  );
 }

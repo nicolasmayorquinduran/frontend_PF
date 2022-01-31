@@ -1,0 +1,137 @@
+.sliderPromo {
+  position: relative;
+  width: 100% !important;
+  height: 70vh;
+  margin: 0 0 20px 0 !important;
+  overflow: hidden;
+  color: #fff;
+}
+
+.sliderPromo #decremet {
+  width: auto;
+  position: absolute;
+  top: 50%;
+  left: 0vw;
+  z-index: 100;
+  color: #fff !important;
+  background: transparent;
+  font-size: 20vh;
+  transform: translateY(-50%) scalex(0.4);
+  box-shadow: none;
+}
+
+.sliderPromo #incremet {
+  width: auto;
+  position: absolute;
+  top: 50%;
+  right: 0vw;
+  z-index: 100;
+  color: #fff !important;
+  background: transparent;
+  font-size: 20vh;
+  transform: translateY(-50%) scalex(0.4);
+  box-shadow: none;
+}
+
+.promo {
+  position: relative;
+  color: #fff;
+}
+
+.data {
+  position: absolute;
+  top: 30vh;
+  left: 7vw;
+  text-align: left;
+  z-index: 95;
+}
+
+.data h1 {
+  display: inline;
+  color: #fff;
+}
+
+.path {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    0deg,
+    rgba(22, 0, 23, 0.8) 0%,
+    rgba(17, 0, 18, 0.5) 100%
+  );
+  position: absolute;
+  z-index: 90;
+  top: 0;
+  left: 0;
+}
+
+.categories {
+  position: relative;
+  height: 50vh;
+  width: 28% !important;
+  overflow: hidden;
+  background-size: cover;
+  background-position-x: 50%;
+  margin: 40px 0 10px;
+}
+
+.categories .title {
+  background-color: rgba(158, 0, 93, 0.8);
+  transform: rotate(344deg) translateX(-25%);
+  width: 200%;
+  height: 20vh;
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+}
+
+.categories .title:hover {
+  background-color: #fff;
+  height: 20vh;
+  transition: 1s ease-in;
+  color: rgba(158, 0, 93, 0.8);
+}
+
+.section2 #decremet,
+.section2 #incremet {
+  width: 5%;
+  background-color: transparent;
+  color: gray;
+  transform: scaley(3.5);
+  box-shadow: none;
+}
+
+.section3 div {
+  margin: 0 !important;
+  background-size: cover;
+  background-position-x: 50%;
+}
+
+.section3 {
+  margin: 30px 0;
+}
+
+.section3 .top {
+  margin-bottom: 5% !important;
+}
+
+.section3 .path {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  opacity: 0;
+  padding: 10px;
+  background-color: rgba(158, 0, 93, 0.6);
+  transition: 0.5s ease-in;
+}
+
+.section3 .path svg {
+  font-size: 330%;
+}
+
+.section3 .path:hover {
+  opacity: 1;
+  transition: 0.7s ease-in;
+}
