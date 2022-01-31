@@ -1,32 +1,49 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getActualUser} from '../../../redux/actions/users.js';
+import './checkout.css';
 
 export default function Checkout(){
-	const dispatch = useDispatch()
+	
 	const actualUser = useSelector(state=>state.actualUser)
-	const [user, setUser] = useState("")
+	const [user, setUser] = useState({
+		name:"",
+		adress: "",
+		state: "",
+		email: "",
+	})
 
-	useEffect(()=>{
-		dispatch(getActualUser(user))
-	}, [dispatch])
+
+	function handleChange(e){
+		setUser({
+			...user,
+			[e.target.name] : e.target.value})}
 
 	return(
-		<div>
-			<a href="/home/"><span><b>Inicio > </b></span></a><a href="/cart/"><span><b>Carrito > </b></span></a><span><b>Checkout</b></span>
-			<hr/>	
-			<br/><br/>
+		<div className="container">
+			
 
-			<span>Nombre</span>
-			<input type="text" value={actualUser.name}/>
-			<span>País</span>
-			<input type="text" value={actualUser.country}/>
-			<span>Ciudad / Provincia</span>
-			<input type="text" value={actualUser.city}/>
-			<span>Dirección</span>
-			<input type="text" value={actualUser.adress}/>
-			<span>Correo</span>
-			<input type="text" value={actualUser.mail}/>
+			<ul>
+				<span><b>Lista de Compras:</b></span>
+				<br/>
+				<li>3 Graffiti Dress</li> <li>$600</li><br/>
+				<li>2 Graffiti Dress</li> <li>$400</li><br/>
+				<li>Total: </li>	      <li>$1000</li>
+			</ul>
+
+				
+			<span><b>Nombre</b></span>
+			<input type="text" value={actualUser.name} name="name" onChange={e=>handleChange(e)} required/>
+			<span><b>Dirección</b></span>
+			<input type="text" value={actualUser.address} name="address" onChange={e=>handleChange(e)} required/>
+			<span><b>País</b></span>
+			<input type="text" value={actualUser.country} name="country" onChange={e=>handleChange(e)} required/>
+			<span><b>Ciudad</b></span>
+			<input type="text" value={actualUser.state} name="state" onChange={e=>handleChange(e)} required/>
+			<span><b>Correo</b></span>
+			<input type="text" value={actualUser.email} name="email" onChange={e=>handleChange(e)} required/>
+			<button type='submit'><b>Comprar</b></button>
+			
 		</div>
 	)
 }

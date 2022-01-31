@@ -1,0 +1,32 @@
+.container{
+	width: 100%;
+	max-width: 1200px;
+	height: 530px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 20px 0 0 0;
+	background-color: #dcdde1;
+	border-radius: 20px;
+
+}
+
+.container ul{
+	margin-top: 7px;
+}
+
+.container li{
+	list-style: none;
+	display: inline;
+	padding-left: 3px;
+	padding-right:3px;	
+}	
+
+.container button{
+	display: flex;
+	flex-direction: column;
+	margin-left: 370px;
+	margin-top: 8px;
+	border-radius: 10px;
+}
+
