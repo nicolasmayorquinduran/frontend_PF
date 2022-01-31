@@ -106,20 +106,3 @@ export function deleteAllCart({ cartId }) {
   };
 }
 
-export function updateProductAdm(payload) {
-  return async function(dispatch) {
-    try {
-      const json = await axios.put("http://localhost:3001/products", payload);
-    
-      return dispatch(
-        {
-          type: TYPES.UPDATE_PRODUCT_ADM,
-          payload: json.data,
-        }
-      );
-    
-    } catch (error) {
-      console.log(error)
-    }
-  }
-}
