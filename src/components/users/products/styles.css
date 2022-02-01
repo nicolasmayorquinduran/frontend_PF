@@ -15,22 +15,6 @@ ul.paginado {
 ul.paginado li {
   margin: 20px 5px;
 }
-.ranking {
-  display: flex;
-  position: relative;
-  width: 30%;
-  height: 20px;
-  margin-left: 95%;
-  margin-bottom: 10%;
-}
-.ranking div {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  font-size: 13px;
-}
 .path {
   background-color: #f8f9fb;
   z-index: 10;
@@ -47,9 +31,18 @@ ul.paginado li {
   position: relative;
 }
 .card {
+  height: 60vh;
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.Card {
   display: flex;
-  box-shadow: 2px 2px 5px grey;
-  height: 90vh;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  box-shadow: 2px 2px 5px #bbb;
 }
 
 .eye {
@@ -74,4 +67,8 @@ ul.paginado li {
   padding: 10px;
   border-radius: 50%;
   transform: translateY(-50%);
+}
+
+.ranking {
+  padding-bottom: 10px;
 }
