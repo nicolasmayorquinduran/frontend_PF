@@ -20,7 +20,6 @@ function App() {
     <div className="App">
       <GlobalStyle />
       <NavBar />
-      <MigadePan />
       <Routes>
         <Route path="/admin/:menu" element={<Admin />} />
         <Route exact path="/" element={<Home />} />

@@ -5,30 +5,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faStar } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
 const Product = ({ id, name, price, img, ranking }) => {
-  ranking = 20 * (5 - ranking);
+  ranking = [Number(ranking)];
+  while (ranking.length < ranking[ranking.length - 1]) {
+    ranking = [...ranking, ranking[ranking.length - 1]];
+  }
   return (
     <Children>
       <div className="father">
-        <div className="card">
+        <Link
+          to={`/products/${id}`}
+          className="card"
+          style={{ backgroundImage: `url(${img})` }}
+        >
           <Link to={`/products/${id}`}>
             <div className="eye">
               <FontAwesomeIcon className="iconEye" icon={faEye} />{" "}
             </div>
           </Link>
-          <Link to={`/products/${id}`}>
-            <img src={img} alt={name} />
-            <h5>{name}</h5>
-          </Link>
+        </Link>
+
+        <div className="Card">
+          <Link to={`/products/${id}`}>{name}</Link>
           <strong>{`$${price}`}</strong>
-        </div>
-        <div className="ranking">
-          <div style={{ width: `${ranking}%` }} className="path"></div>
-          <div className="stars">
-            <FontAwesomeIcon icon={faStar} />
-            <FontAwesomeIcon icon={faStar} />
-            <FontAwesomeIcon icon={faStar} />
-            <FontAwesomeIcon icon={faStar} />
-            <FontAwesomeIcon icon={faStar} />
+          <div className="ranking">
+            {ranking.map((star) => (
+              <FontAwesomeIcon icon={faStar} />
+            ))}
           </div>
         </div>
       </div>
