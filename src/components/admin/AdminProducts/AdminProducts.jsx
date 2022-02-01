@@ -13,26 +13,22 @@ import NewProduct from "./NewProduct.jsx";
 import "./AdminProduct.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenSquare, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import { Container, Children } from "../../../globalStyles";
 
 const AdminProducts = () => {
-  
   const dispatch = useDispatch();
 
-  const [selected, setSelected] = useState(
-    {
-      name: "",
-      price: "",
-      ranking: "",
-      img: "",
-      category: "",
-    }
-  );
+  const [selected, setSelected] = useState({
+    name: "",
+    price: "",
+    ranking: "",
+    img: "",
+    category: "",
+  });
 
   useEffect(() => {
-    
     dispatch(getCategories());
     dispatch(getProducts());
-  
   }, [dispatch, selected]);
 
   let productsAll = useSelector((state) => state.allProducts);
@@ -40,40 +36,39 @@ const AdminProducts = () => {
 
   return (
     <div>
-      
-      {
-        selected.name.length 
-        ? ( <EditProduct product={selected} /> ) 
-        : ( <NewProduct /> )
-      }
+      {selected.name.length ? (
+        <EditProduct product={selected} />
+      ) : (
+        <NewProduct />
+      )}
 
       <div className="Container">
-        
-        <div className="cardAdmin">
-          
-          <div className="cardsProducts">
-            
-            <img
-              src="https://img.archiexpo.es/images_ae/photo-g/49577-12858130.webp"
-              width="160px"
-              height="240px"
-              alt="img not found"
-            />
-            <div className="crearNuevo">
-              <strong>Crear Nuevo</strong>
-              <FontAwesomeIcon icon={faPlusSquare} />
-            </div>
-          
-          </div>
-        
-        </div>
-        
-        {
-          productsAll.map((product) => (
-            <div
-              className="cardsProducts"
-              onClick={() => setSelected(
-                {
+        <Container>
+          <Children
+            style={{
+              backgroundColor: "#ddd",
+              height: "180px",
+              justifyContent: "center",
+            }}
+            onClick={() =>
+              setSelected({
+                name: "",
+                price: "",
+                ranking: "",
+                img: "",
+                category: "",
+              })
+            }
+          >
+            <p></p>
+            <h2 style={{ fontSize: "100px", margin: "0" }}>+</h2>
+            <p>Crear nuevo producto</p>
+          </Children>
+          {productsAll.map((product) => (
+            <Children
+              className="cardProductos"
+              onClick={() =>
+                setSelected({
                   ProductId: product.ProductId,
                   name: product.name,
                   price: product.price,
@@ -83,46 +78,37 @@ const AdminProducts = () => {
                   additionalInformation: product.additionalInformation,
                   description: product.description,
                   stock: product.stock,
-                }
-              )}
+                })
+              }
             >
-              <img
-                src = {product.img[0]}
-                width="160px"
-                height="200px"
-                alt="img not found"
-              />
+              <div
+                className="cardParts"
+                style={{ backgroundImage: `url(${product.img[0]})` }}
+              ></div>
 
-              <div className="cardData">
-              
+              <div className="cardParts">
                 <div>
                   <h5>{product.name}</h5>
                 </div>
-              
+
                 <div className="price">
                   <strong>{product.price}</strong>
                 </div>
-              
+
                 <div className="category">
                   <p>{product.category}</p>
                 </div>
-              
+
                 <div className="iconCard">
                   <FontAwesomeIcon icon={faPenSquare} width="50px" />
                 </div>
-            
               </div>
-          
-            </div>
-          
-          ))
-        }
-      
+            </Children>
+          ))}
+        </Container>
       </div>
-    
     </div>
   );
-
 };
 
 export default AdminProducts;
