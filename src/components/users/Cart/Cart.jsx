@@ -2,6 +2,8 @@ import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import {getUserCart,deleteAllCart,deleteProductCart} from "../../../redux/actions/products";
+import {getActualUser} from "../../../redux/actions/users";
 import { Link, useNavigate } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
@@ -12,16 +14,31 @@ import axios from "axios";
 
 export default function Cart() {
     const [cart, setCart] = UseLocalStorage('cart', [])
-    console.log(cart)
-    const User = JSON.parse(localStorage.getItem("user"));
-    const idUser = !User?null:User.idUser;
-
+    const dispatch = useDispatch();
+    const email = useSelector((store)=>store.actualUser.email)
+    const User = useSelector((store)=>store.actualUser);
+    const idUser = !User?null:User.UsersId;
+    const carrito= useSelector((store)=>store.cart) 
+    const products = carrito.productCart
+    const condicional = () =>{
+        if(idUser){
+            return carrito
+        } else
+        {return cart
+        }     
+    }
+    useEffect(()=>{
+        dispatch(getUserCart(email));
+        dispatch(getUserCart(email));  
+    },[dispatch])
+    console.log("CARRITOOO",carrito.CartId)
+    const CartId = carrito.CartId
     // useEffect(() => {
     //     dispatch(getProductsCartUser(idUser)); 
     // }, [dispatch]);  
     const handleDeleteItem= (e)=>{
-        cart.map(e=>e.id !== "3")
-        console.log("eliminado", cart)
+        e.preventDefault();
+        dispatch(deleteProductCart(CartId,e.target.name))
         Swal.fire({
             icon: 'success',
             text: 'Producto eliminado!',
@@ -30,16 +47,16 @@ export default function Cart() {
           })
     }
 
-    const deleteAllCart = (e)=>{
-        e.preventDefault()
-        localStorage.clear()
+    const handleDeleteAllCart = (e)=>{
+        // localStorage.clear()
+        dispatch(deleteAllCart(CartId))
         Swal.fire({
             icon: 'success',
-            text: 'Carriro eliminado!',
+            text: 'Carriro eliminado!', 
             showConfirmButton: false,
             timer: 3000
           })
-    }
+    } 
 
     function getTotalAmount (){
         let prices=0;
@@ -89,7 +106,7 @@ export default function Cart() {
             name: "Image",   
             grow: 0,
             sortable: true,
-            cell: row => <img height="84px" width="56px" alt={row.name} src={row.img} />
+            cell: row => <img height="84px" width="56px" alt={row.name} src={row.img[0]} />
         },
         {
             name: "Name",
@@ -117,7 +134,7 @@ export default function Cart() {
 
         {
             cell: row => {
-            return <abbr title="Delete Item"><button className={s.btnDel} id={row.id} onClick={handleDeleteItem} ><FontAwesomeIcon icon={faTrashAlt}/></button></abbr>},
+            return <abbr title="Delete Item"><button name={row.ProductId} className={s.btnDel} id={row.id} onClick={handleDeleteItem} ><FontAwesomeIcon icon={faTrashAlt}/></button></abbr>},
             ignoreRowClick: true,
             allowFlow: true,
             button: true 
@@ -138,7 +155,7 @@ export default function Cart() {
         <DataTable
           className={s.table}
           columns={columns}
-          data={cart}
+          data={products}
           pagination
           paginationComponentOptions={optionPagination}
           actions
@@ -157,7 +174,7 @@ export default function Cart() {
           </Link>
         </button>
         {/* {idUser?  */}
-        <button className={s.btn} onClick={deleteAllCart}>
+        <button className={s.btn} onClick={handleDeleteAllCart}>
           CLEAR ALL CART
         </button>
         <Link to="/checkout">

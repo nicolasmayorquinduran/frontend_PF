@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { detailsProduct, getProducts, getUserCart ,addToCart } from "../../../redux/actions/products";
 import "./productdetails.css";
 import Cart from "../Cart/Cart";
+import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 import { formatMoney } from "accounting";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
@@ -15,18 +16,20 @@ export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((store)=>store.actualUser);
-  const email = user.email
+  const email =user.email
+  
 
+  console.log(getUserCart())
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
     dispatch(getUserCart(email));
   }, [dispatch]);
-
+  const CartId =useSelector((store)=>store.cart.CartId)
   const product = useSelector((store) => store.productDetail);
   const UserId = user.UsersId
   console.log(UserId)
-
+  const ProductId =product.ProductId
   const [changeInfo, setChangeInfo] = useState("");
   const handleAddSize = (e) => {
     product.size = e.target.value;
@@ -34,7 +37,15 @@ export default function ProductDetails() {
   };
 
   const handleAddCart = (e) => {
-    setCart([...cart, product]);
+    e.preventDefault()
+    dispatch(addToCart(CartId,ProductId))
+    setCart([...cart, product])
+    Swal.fire({
+      icon: 'success',
+      text: 'Producto agregado al carrito!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   };
   // function onClick(e) {
   //   e.preventDefault();
