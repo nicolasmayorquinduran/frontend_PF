@@ -3,13 +3,22 @@ import { useLocation } from "react-router-dom";
 
 const MigadePan = () => {
   let location = useLocation();
+  console.log(location);
   let lastWord = "";
   location = location.pathname
     .split("")
-    .map((letter) => (letter == "/" ? " > " : letter))
+    .map((letter) => (letter === "/" ? " > " : letter))
     .join("");
 
-  return <div>{`Home ${location}`}</div>;
+  
+
+  return(
+  <div>
+  
+  { `Home ${location}` }
+
+  </div>
+  ) 
 };
 
 export default MigadePan;
