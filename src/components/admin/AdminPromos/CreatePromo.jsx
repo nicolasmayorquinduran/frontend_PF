@@ -11,7 +11,11 @@ const CreatePromo = () => {
     resume: "",
   });
   const postProduct = async (product) => {
-    await axios.post("http://localhost:3001/promos", inputs);
+    await axios.post(
+      "https://pfbackendecommerce.herokuapp.com/promos",
+      inputs || "http://localhost:3001/promos",
+      inputs
+    );
     navigate("/admin");
     navigate("/admin/promos");
   };

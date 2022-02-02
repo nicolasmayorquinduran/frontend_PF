@@ -4,7 +4,10 @@ import { TYPES } from "./types";
 export function orderAdmin() {
   return function (dispatch) {
     return axios
-      .get("http://localhost:3001/ordersAdmin")
+      .get(
+        "https://pfbackendecommerce.herokuapp.com/ordersAdmin" ||
+          "http://localhost:3001/ordersAdmin"
+      )
       .then((response) =>
         dispatch({
           type: TYPES.ORDER_ADMIN,

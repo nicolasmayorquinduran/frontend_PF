@@ -6,7 +6,11 @@ import { useNavigate } from "react-router-dom";
 const EditPromo = ({ product, setProduct }) => {
   const navigate = useNavigate();
   const putProduct = async () => {
-    await axios.put("http://localhost:3001/promos", product);
+    await axios.put(
+      "https://pfbackendecommerce.herokuapp.com/promos",
+      product || "http://localhost:3001/promos",
+      product
+    );
     navigate("/admin");
     navigate("/admin/promos");
   };

@@ -4,7 +4,10 @@ import { TYPES } from "./types.js";
 export function getPromos() {
   return async function (dispatch) {
     try {
-      const info = await axios.get("http://localhost:3001/promos");
+      const info = await axios.get(
+        "https://pfbackendecommerce.herokuapp.com/promos" ||
+          "http://localhost:3001/promos"
+      );
       return dispatch({
         type: TYPES.GET_PROMOS,
         payload: info.data,
@@ -17,14 +20,22 @@ export function getPromos() {
 
 export const addPromo = async (payload) => {
   return axios
-    .post("http://localhost:3001/promos", payload)
+    .post(
+      "https://pfbackendecommerce.herokuapp.com/promos",
+      payload || "http://localhost:3001/promos",
+      payload
+    )
     .then(function (response) {})
     .catch(function (error) {});
 };
 
 export const putPromo = async (payload) => {
   return axios
-    .put("http://localhost:3001/promos", payload)
+    .put(
+      "https://pfbackendecommerce.herokuapp.com/promos",
+      payload || "http://localhost:3001/promos",
+      payload
+    )
     .then(function (response) {})
     .catch(function (error) {});
 };

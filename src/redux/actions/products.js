@@ -4,7 +4,10 @@ import { TYPES } from "./types.js";
 export function getProducts() {
   return function (dispatch) {
     return axios
-      .get("http://localhost:3001/products")
+      .get(
+        "https://pfbackendecommerce.herokuapp.com/products" ||
+          "http://localhost:3001/products"
+      )
       .then((response) =>
         dispatch({
           type: TYPES.GET_PRODUCTS,
@@ -27,7 +30,10 @@ export function searchProducts(search) {
 export function detailsProduct(id) {
   return function (dispatch) {
     return axios
-      .get(`http://localhost:3001/products/${id}`)
+      .get(
+        "https://pfbackendecommerce.herokuapp.com/products/" + id ||
+          `http://localhost:3001/products/${id}`
+      )
       .then((response) => {
         return dispatch({
           type: TYPES.PRODUCT_DETAILS,
@@ -40,27 +46,30 @@ export function detailsProduct(id) {
 
 // Post new Product: Admin
 export function postProducts(payload) {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
-      const json = await axios.post("http://localhost:3001/products", payload);
-    
-      return dispatch(
-        {
-          type: TYPES.POST_PRODUCTS_ADM,
-          payload: json.data,
-        }
+      const json = await axios.post(
+        "https://pfbackendecommerce.herokuapp.com/products",
+        payload || "http://localhost:3001/products",
+        payload
       );
-    
-    } catch (error) {
-      console.log(error)
-    }
-  }
-};
 
+      return dispatch({
+        type: TYPES.POST_PRODUCTS_ADM,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 
 export function getAllCarts() {
   return async function (dispatch) {
-    let deleted = await axios.get(`http://localhost:3001/carts`);
+    let deleted = await axios.get(
+      "https://pfbackendecommerce.herokuapp.com/carts" ||
+        `http://localhost:3001/carts`
+    );
     return dispatch({
       type: TYPES.GET_ALL_CARTS,
       payload: deleted.info,
@@ -68,31 +77,43 @@ export function getAllCarts() {
   };
 }
 
-export function getUserCart (email){
-  return async function (dispatch){
-    let cart = await axios.get(`http://localhost:3001/cart/${email}`)
-    console.log(cart.data)
+export function getUserCart(email) {
+  return async function (dispatch) {
+    let cart = await axios.get(
+      "https://pfbackendecommerce.herokuapp.com/cart/" + email ||
+        `http://localhost:3001/cart/${email}`
+    );
+    console.log(cart.data);
     return dispatch({
-      type:TYPES.GET_USER_CART,
-      payload:cart.data
-    })
-  }
+      type: TYPES.GET_USER_CART,
+      payload: cart.data,
+    });
+  };
 }
 
 export function addToCart(CartId, ProductId) {
   return async function (dispatch) {
-    const addProd = await axios.put(`http://localhost:3001/cart/${CartId}/${ProductId}`) //fatlta autenci usuario
-      return dispatch({
-        type: TYPES.ADD_TO_CART,
-        payload: addProd.data.productCart
-      });
-    }
+    const addProd = await axios.put(
+      "https://pfbackendecommerce.herokuapp.com/cart/" +
+        CartId +
+        "/" +
+        ProductId || `http://localhost:3001/cart/${CartId}/${ProductId}`
+    ); //fatlta autenci usuario
+    return dispatch({
+      type: TYPES.ADD_TO_CART,
+      payload: addProd.data.productCart,
+    });
   };
+}
 
-
-export function deleteProductCart( CartId, ProductId ) {
+export function deleteProductCart(CartId, ProductId) {
   return async function (dispatch) {
-    let deleted = await axios.delete(`http://localhost:3001/cart/${CartId}/${ProductId}`);
+    let deleted = await axios.delete(
+      "https://pfbackendecommerce.herokuapp.com/cart/" +
+        CartId +
+        "/" +
+        ProductId || `http://localhost:3001/cart/${CartId}/${ProductId}`
+    );
     return dispatch({
       type: TYPES.DELETE_PRODUCT_CART,
       payload: deleted.info,
@@ -100,30 +121,34 @@ export function deleteProductCart( CartId, ProductId ) {
   };
 }
 
-export function deleteAllCart( CartId ) {
+export function deleteAllCart(CartId) {
   return async function (dispatch) {
-    let deleted = await axios.delete(`http://localhost:3001/cart/${CartId}`);
+    let deleted = await axios.delete(
+      "https://pfbackendecommerce.herokuapp.com/cart/" + CartId ||
+        `http://localhost:3001/cart/${CartId}`
+    );
     return dispatch({
       type: TYPES.DELETE_ALL_CART,
-      payload: deleted.info, 
+      payload: deleted.info,
     });
-  }; 
+  };
 }
- 
+
 export function updateProductAdm(payload) {
-  return async function(dispatch) {
-    try { 
-      const json = await axios.put("http://localhost:3001/products", payload);
-    
-      return dispatch(
-        {
-          type: TYPES.UPDATE_PRODUCT_ADM,
-          payload: json.data,
-        }
+  return async function (dispatch) {
+    try {
+      const json = await axios.put(
+        "https://pfbackendecommerce.herokuapp.com/products",
+        payload || "http://localhost:3001/products",
+        payload
       );
-    
+
+      return dispatch({
+        type: TYPES.UPDATE_PRODUCT_ADM,
+        payload: json.data,
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 }
