@@ -14,7 +14,7 @@ const initialState = {
   promos: [],
   users: [],
   actualUser: {},
-  cart:[]
+  cart:{}
 }
 
 function rootReducer (state= initialState, action) {
