@@ -131,6 +131,11 @@
   font-size: 2.5vmax;
 }
 
+.selectDeploy {
+  border-bottom: solid #9e005d;
+  margin-top: 20px;
+}
+
 .selectDeploy button {
   margin-right: 2vw;
 }
@@ -190,6 +195,13 @@
 .containerDetail {
   display: flex;
   flex-direction: column;
+}
+
+.ContainerTabs {
+  background-color: #fff;
+  box-shadow: 2px 2px 5px #bbb;
+  padding: 30px;
+  margin-bottom: 30px;
 }
 
 .tabInfo {
