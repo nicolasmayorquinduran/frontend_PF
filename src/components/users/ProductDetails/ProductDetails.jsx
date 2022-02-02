@@ -11,6 +11,7 @@ import "./productdetails.css";
 import Cart from "../Cart/Cart";
 import { useParams } from "react-router-dom";
 import { formatMoney } from "accounting";
+import Swal from "sweetalert2";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -22,6 +23,11 @@ export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.actualUser);
+
+  useEffect(() => {
+    dispatch(detailsProduct(id));
+  }, [dispatch, user]);
+
   let product = useSelector((store) => store.productDetail);
 
   const email = user.email;
@@ -62,12 +68,22 @@ export default function ProductDetails() {
   const handleAddSize = (e) => {
     product.size = e.target.value;
   };
+  let idCart = user.hasOwnProperty("carts")
+    ? user.carts.find((c) => c.status == "created").CartId
+    : {};
 
   const handleAddCart = (e) => {
-    setCart([...cart, product]);
+    if(!user){
+      setCart([...cart, product]);
+    }
+    dispatch(addToCart(idCart,id))
+    Swal.fire({
+      icon: 'success',
+      text: 'Producto agregado al carrito!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   };
-
-  console.log(allProducts);
 
   return (
     <div>
