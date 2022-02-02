@@ -32,12 +32,12 @@ const AdminProducts = () => {
   }, [dispatch, selected]);
 
   let productsAll = useSelector((state) => state.allProducts);
-  console.log(productsAll);
+  // console.log(productsAll);
 
   return (
     <div>
       {selected.name.length ? (
-        <EditProduct product={selected} />
+        <EditProduct product={selected} setProduct={setSelected} />
       ) : (
         <NewProduct />
       )}

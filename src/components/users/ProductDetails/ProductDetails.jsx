@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { detailsProduct, getProducts, getUserCart ,addToCart } from "../../../redux/actions/products";
+import {
+  detailsProduct,
+  getProducts,
+  getUserCart,
+  addToCart,
+} from "../../../redux/actions/products";
 import "./productdetails.css";
 import Cart from "../Cart/Cart";
 import { useParams } from "react-router-dom";
 import { formatMoney } from "accounting";
+import Swal from "sweetalert2";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -14,38 +20,48 @@ export default function ProductDetails() {
   const [cart, setCart] = UseLocalStorage("cart", []);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const user = useSelector((store)=>store.actualUser);
-  const email = user.email
+  const user = useSelector((store) => store.actualUser);
 
   useEffect(() => {
-    dispatch(getProducts());
     dispatch(detailsProduct(id));
-    dispatch(getUserCart(email));
-  }, [dispatch]);
+  }, [dispatch, user]);
 
-  const product = useSelector((store) => store.productDetail);
-  const UserId = user.UsersId
-  console.log(UserId)
+  let product = useSelector((store) => store.productDetail);
+  let talles = [];
+  for (const prop in product.stock) {
+    if (product.stock[prop] > 0)
+      talles = [...talles, { size: prop, stock: product.stock[prop] }];
+  }
+  const UserId = user.UsersId;
 
   const [changeInfo, setChangeInfo] = useState("");
+
   const handleAddSize = (e) => {
     product.size = e.target.value;
-    console.log(product);
   };
+  let idCart = user.hasOwnProperty("carts")
+    ? user.carts.find((c) => c.status == "created").CartId
+    : {};
 
   const handleAddCart = (e) => {
-    setCart([...cart, product]);
+    if(!user){
+      setCart([...cart, product]);
+    }
+    dispatch(addToCart(idCart,id))
+    Swal.fire({
+      icon: 'success',
+      text: 'Producto agregado al carrito!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   };
-  // function onClick(e) {
-  //   e.preventDefault();
-  //   setChangeInfo(e.target.value);
-  // }
-  console.log(product);
+
+
   return (
     <div>
       <hr id="hr"></hr>
       {product.hasOwnProperty("ProductId") ? (
-        <div className="container">
+        <div className="containerDetail">
           <div className="imgAndDetail">
             <div className="imgContainer">
               <div className="bigImg">
@@ -61,88 +77,78 @@ export default function ProductDetails() {
 
             <div className="productDetail">
               <h2> {product.name} </h2>
-              <div className="ranking">
-                <div
-                  style={{ width: `${product.ranking}%` }}
-                  className="path"
-                ></div>
-                <div className="stars">
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                </div>
-              </div>
+              <div className="ranking"></div>
               <br></br>
               <h3 id="price"> {formatMoney(product.price)} </h3>
 
               <br></br>
-              {/* <div id="categoriesContainer">
+
+              <div id="categoriesContainer">
                 <h6 id="categories"> Categories: </h6>
-                {product.categories.map((c) => (
-                  <p>{c.name}</p>
-                ))}
-              </div> */}
-              <br></br>
-              <p id="description"> {product.description} </p>
-              <br></br>
+                <p> {product.categories.map((c) => c.name).join(", ")}</p>
+              </div>
+
               <div id="talles">
                 <h6>Talles:</h6>
-                <select className="size" id="size" onChange={handleAddSize}>
-                  <option value="xs">X-Small</option>
-                  <option value="s">Small</option>
-                  <option value="m">Medium</option>
-                  <option value="l">Large</option>
-                  <option value="xl">X-Large</option>
-                  <option value="xxl">XX-Large</option>
-                </select>
+                <div className="lista">
+                  {talles.map((t) => {
+                    return (
+                      t.stock > 0 && (
+                        <>
+                          <div>
+                            <label>{`${t.size}:`}</label>
+                            <input
+                              defaultValue="0"
+                              type="number"
+                              min={0}
+                              max={t.stock}
+                              onChange={(e) => {
+                                if (e.target.value == t.stock)
+                                  alert("no hay más unidades disponibles");
+                              }}
+                            />
+                          </div>
+                        </>
+                      )
+                    );
+                  })}
+                </div>
               </div>
               <br></br>
               <div>
-                <input
-                  className="qty"
-                  placeholder={1}
-                  type="number"
-                  min={1}
-                  max={20}
-                  name="qty"
-                />
                 <button className="add" onClick={handleAddCart}>
                   Add to cart
                 </button>
               </div>
             </div>
-
-           
           </div>
           <div className="productAbout">
-              <div className="selectDeploy">
-                <button value="Comentarios">Comentarios</button>
-                <button value="Adicional">Información Adicional</button>
-                <button value="Adicional">Descripción</button>
-              </div>
-              <hr></hr>
-              {changeInfo === "Comentarios" ? (
-                <div>comentarios</div>
-              ) : (
-                // product.reviews.map((p) => {
-                //   return (
-                //     <div key={p.usuario} className="reviewContainer">
-                //       <div className="reviewDivider">
-                //         <div className="reviewUser">
-                //           <p>{p.usuario}</p>
-                //         </div>
-                //         <div className="reviewData">
-                //           <p id="timeStamps">Publicado el {p.timestamps}</p>
-                //           <p>{p.comment}</p>
-                //         </div>
-                //       </div>
-                //     </div>
-                //   );
-                // })
-                <div id="additionalDescription">
-                  {/* <p> {product.description} </p>
+            <div className="selectDeploy">
+              <button value="Comentarios">Comentarios</button>
+              <button value="Adicional">Información Adicional</button>
+              <button value="Adicional">Descripción</button>
+            </div>
+            <hr></hr>
+            {changeInfo === "Comentarios" ? (
+              <div>comentarios</div>
+            ) : (
+              // product.reviews.map((p) => {
+              //   return (
+              //     <div key={p.usuario} className="reviewContainer">
+              //       <div className="reviewDivider">
+              //         <div className="reviewUser">
+              //           <p>{p.usuario}</p>
+              //         </div>
+              //         <div className="reviewData">
+              //           <p id="timeStamps">Publicado el {p.timestamps}</p>
+              //           <p>{p.comment}</p>
+              //         </div>
+              //       </div>
+              //     </div>
+              //   );
+              // })
+              <div id="additionalDescription">
+                {/* <p> {product.description} </p>
                   <div className="additionalData">
                     <p>Made in {product.additionalInformation.manufacturer}</p>
                     <p>Fit: {product.additionalInformation.fit}</p>
@@ -151,9 +157,9 @@ export default function ProductDetails() {
                     </p>
                     <p>Ocasion: {product.additionalInformation.occasion}</p>
                   </div> */}
-                </div>
-              )}
-            </div>
+              </div>
+            )}
+          </div>
         </div>
       ) : (
         <h3> Error 404 Not Found </h3>

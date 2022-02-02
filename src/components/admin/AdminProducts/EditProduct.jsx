@@ -8,73 +8,84 @@ import { getCategories } from "../../../redux/actions/categories";
 
 // Styles:
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPenSquare,
-  faPlusSquare,
-  faWindowClose,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPenSquare, faPlusSquare, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
-const EditProduct = ({ product }) => {
+
+const EditProduct = ({ product, setProduct }) => {
+
+  // console.log(product)
+
   const dispatch = useDispatch();
 
   const categories = useSelector((state) => state.categories);
 
-  useEffect(() => {
-    dispatch(detailsProduct(product.id));
-    dispatch(getCategories());
-  }, [dispatch, product.id]);
 
-  // ESTADO QUE MODIFICA EL PRODUCTO:
-  const [edited, setEdited] = useState({
-    ProductId: product.ProductId,
-    name: product.name,
-    price: product.price,
-    description: product.description,
-    img: product.img,
-    additionalInformation: product.additionalInformation,
-    stock: product.stock,
-    categories: product.categories,
-  });
+  // PARA EL RENDERIZADO (INPUT DE INFORMACION ADICIONAL):
+  let infoAdditional = [];
+  
+  for(const prop in product.additionalInformation) {
+    infoAdditional = [ ...infoAdditional, {title: prop, data: product.additionalInformation[prop]} ]
+  };
+  // console.log(infoAd)
+
+  // PARA EL RENDERIZADO (INPUT DE STOCK):
+  let stocksAll = []
+
+  for(const prop in product.stock) {
+    stocksAll = [ ...stocksAll, {size: prop, stock: product.stock[prop]} ]
+  };
+  // console.log(stocksAll)
+
+
+  useEffect(() => {
+    dispatch(detailsProduct(product.ProductId));
+    dispatch(getCategories());
+  }, [dispatch, product, setProduct]);
+  
 
   const handleEdited = (event) => {
-    Array.isArray(edited[event.target.id])
-      ? edited[event.target.id].includes(event.target.value)
-        ? setEdited({
-            ...edited,
-            [event.target.id]: [
-              ...edited[event.target.id].filter((c) => c != event.target.value),
-            ],
-          })
-        : event.target.value.length &&
-          setEdited({
-            ...edited,
-            [event.target.id]: [...edited[event.target.id], event.target.value],
-          })
-      : setEdited({ ...edited, [event.target.id]: event.target.value });
+    Array.isArray(product[event.target.id])
+    ? product[event.target.id].includes(event.target.value)
+      ? setProduct(
+        {
+          ...product,
+          [event.target.id]: [...product[event.target.id].filter((c) => c != event.target.value)],
+        }
+      )
+      : event.target.value.length && setProduct(
+        {
+          ...product,
+          [event.target.id]: [...product[event.target.id], event.target.value],
+        }
+      )
+    : setProduct({ ...product, [event.target.id]: event.target.value });
   };
 
-  console.log(edited);
 
   return (
     <>
       <h2> Editar datos del Producto </h2>
       <form className="new">
+        
         <div className="partsEdit">
           <div className=" editImage">
+            
             <div className="coverImage">
-              <h3> Imagen: </h3>
+              <h4> Imagen </h4>
               <img src={product.img[0]} />
             </div>
+            
             {/* <FontAwesomeIcon className="icon" icon={faPenSquare} /> */}
+          
           </div>
         </div>
 
         <div className="partsEdit formNew">
           <div className="nombrePrecio">
-            <h3> Nombre: </h3>
+            <h4> Nombre </h4>
             <input
               id="name"
-              defaultValue={product.name}
+              value={product.name}
               type="text"
               name="name"
               autoComplete="off"
@@ -82,10 +93,10 @@ const EditProduct = ({ product }) => {
               required
             />
 
-            <h3> Precio </h3>
+            <h4> Precio </h4>
             <input
               id="price"
-              defaultValue={product.price}
+              value={product.price}
               type="Number"
               min="0"
               name="price"
@@ -96,7 +107,7 @@ const EditProduct = ({ product }) => {
           </div>
 
           <div className="categorias">
-            <h3> Selecciona una Categoría </h3>
+            <h4> Selecciona una Categoría </h4>
 
             <select
               id="categories"
@@ -104,10 +115,12 @@ const EditProduct = ({ product }) => {
               required
               onChange={handleEdited}
             >
-              <option value=""> Seleccionar categorías</option>
-              {categories.map((category) => (
-                <option id={category}> {category.name} </option>
-              ))}
+              
+              {
+                categories.map((category) => (
+                  <option value={category.name} id={category.CategoriesId}> {category.name} </option>
+                ))
+              }
             </select>
           </div>
 
@@ -121,7 +134,7 @@ const EditProduct = ({ product }) => {
                   id="categories"
                   onClick={(event) =>
                     edited[event.target.id].includes(category)
-                      ? setEdited({
+                      ? setProduct({
                           ...edited,
                           [event.target.id]: [
                             ...edited[event.target.id].filter(
@@ -130,7 +143,7 @@ const EditProduct = ({ product }) => {
                           ],
                         })
                       : category.length &&
-                        setEdited({
+                        setProduct({
                           ...edited,
                           [event.target.id]: [
                             ...edited[event.target.id],
@@ -143,15 +156,53 @@ const EditProduct = ({ product }) => {
             ))}
 
           </div> */}
-          <button
-            type="submit"
-            onClick={async () => await axios.put("/products", edited)}
-          >
-            ¡Terminar edición!
-          </button>
+
+
+          <h4> Descripción </h4>
+          <textarea
+            onChange={handleEdited}
+            type="resume"
+            name="description"
+            value={product.description}
+            autoComplete="off"
+            required
+          />
+
+
+          <div className="stocksNewProduct">
+            
+            <h4> Stocks </h4>
+              {
+                stocksAll.map((props) => (
+                  <div>
+                    
+                    <label>{props.size}:</label>
+                    <input value={props.stock} type="number" min="0"/>
+
+                  </div>
+                ))
+              }
+          </div> {/* {...product.stock, [props.size]: event.target.value } */}
+
+          
+          <h4> Información addicional </h4>
+          {
+            infoAdditional.map((props) => (
+              <div>
+                    
+                <label> {props.title}: </label>
+                <input value={props.data} type="text"/>
+
+              </div>
+            ))
+          }
+
+
+          <button type="submit" onClick={async () => await axios.put("/products", product)}> ¡Terminar edición! </button>
+        
         </div>
 
-        <div></div>
+      
       </form>
     </>
   );
