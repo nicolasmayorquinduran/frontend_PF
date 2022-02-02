@@ -1,5 +1,6 @@
 import React from "react";
 import { GlobalStyle } from "./globalStyles";
+import { useLocation } from "react-router-dom";
 import Products from "./components/users/products/products";
 import ProductsDetails from "./components/users/ProductDetails/ProductDetails";
 import StyleRules from "./components/styleRules/Index";
@@ -16,10 +17,12 @@ import { Settings } from "./components/users/Login/Settings";
 import Checkout from "./components/users/Checkout/Checkout.jsx";
 
 function App() {
+  let location = useLocation();
   return (
     <div className="App">
       <GlobalStyle />
       <NavBar />
+      {location.pathname != '/' && <MigadePan/>} 
       <Routes>
         <Route path="/admin/:menu" element={<Admin />} />
         <Route exact path="/" element={<Home />} />
