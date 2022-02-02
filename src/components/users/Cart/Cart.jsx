@@ -13,35 +13,32 @@ import s from "./Cart.module.css";
 import axios from "axios";
 
 export default function Cart() {
+  const navigate = useNavigate()
     const [cart, setCart] = UseLocalStorage('cart', [])
     const dispatch = useDispatch();
     const User = useSelector((store) => store.actualUser);
     const idUser = !User ? null : User.UsersId;
-    const carrito = useSelector((store) => store.cart)
+    let carrito = User.hasOwnProperty("carts")
+    ? User.carts.find((c) => c.status == "created")
+    : {};
+    console.log(carrito)
     
-    const [user, setUser] = useState({
-      email: "",
-      name: "",
-      address: "",
-      carts: []
-    })
-
-    useEffect(() => {
-      setUser({
-        email: User.email,
-        name: User.name,
-        carts: User.carts
-      })
-      dispatch(getUserCart(User.email));
+    // const [Carrito, setCarrito] = useState=>({
       
-    }, [User, dispatch])
+    // })
     
-    // useEffect(() => {
-    //     dispatch(getProductsCartUser(idUser)); 
-    // }, [dispatch]);  
+    
+    useEffect(() => {
+      User.hasOwnProperty("carts") &&
+      dispatch(getActualUser(User.email))
+    }, [dispatch])
+
+
     const handleDeleteItem = (e) => {
-      // e.preventDefault();
-      dispatch(deleteProductCart(carrito.CartId, e.target.name))
+      e.preventDefault()
+      dispatch(deleteProductCart(carrito.CartId, e.target.value))
+      // navigate(`/products/${e.target.value}`);
+      // navigate('/cart')
       Swal.fire({
         icon: 'success',
         text: 'Producto eliminado!',
@@ -97,10 +94,6 @@ export default function Cart() {
   //     }
   // }
 
-  // function handleClearCart(e){
-  //     e.preventDefault()
-  //     dispatch(function que limpia el carrito)
-  // }
 
   const columns = [
     {
@@ -132,7 +125,7 @@ export default function Cart() {
           min={1}
           max={100}
           // value={row.qty}
-          onChange={console.log("handlerChangeAmount")}
+          // onChange={console.log("handlerChangeAmount")}
         ></input>
       ), //row.amount,
       //sortable: true
@@ -146,9 +139,10 @@ export default function Cart() {
 
     {
       cell: (row) => {
+        console.log("rowwwww",row.ProductId)
         return (
           <abbr title="Delete Item">
-            <button className={s.btnDel} name={row.ProductId} onClick={handleDeleteItem}>
+            <button className={s.btnDel} value={row.ProductId} onClick={handleDeleteItem}>
               <FontAwesomeIcon icon={faTrashAlt} />
             </button>
           </abbr>
