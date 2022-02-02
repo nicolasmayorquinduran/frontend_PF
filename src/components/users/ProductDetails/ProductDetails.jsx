@@ -23,13 +23,8 @@ export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.actualUser);
-
-  useEffect(() => {
-    dispatch(detailsProduct(id));
-  }, [dispatch, user]);
-
+  let allProducts = useSelector((store) => store.allProducts);
   let product = useSelector((store) => store.productDetail);
-
   const email = user.email;
   const UserId = user.UsersId;
   let talles = [];
@@ -57,10 +52,6 @@ export default function ProductDetails() {
     dispatch(detailsProduct(id));
   }, [dispatch, user]);
 
-  const allProducts = useSelector((store) =>
-    filterClothingType(store.allProducts, product.categories[0].name)
-  );
-
   const handleAddSize = (e) => {
     product.size = e.target.value;
   };
@@ -69,16 +60,16 @@ export default function ProductDetails() {
     : {};
 
   const handleAddCart = (e) => {
-    if(!user){
+    if (!user) {
       setCart([...cart, product]);
     }
-    dispatch(addToCart(idCart,id))
+    dispatch(addToCart(idCart, id));
     Swal.fire({
-      icon: 'success',
-      text: 'Producto agregado al carrito!',
+      icon: "success",
+      text: "Producto agregado al carrito!",
       showConfirmButton: false,
-      timer: 3000
-    })
+      timer: 3000,
+    });
   };
 
   return (
