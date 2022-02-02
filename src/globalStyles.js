@@ -48,6 +48,7 @@ button {
     padding: 10px 16px;
     -webkit-box-shadow: 5px 4px 6px -7px #000000; 
     box-shadow: 5px 4px 6px -7px #000000; 
+    border-radius: 5px;
 }
 button:hover {
     color: #9E005D;
@@ -60,6 +61,8 @@ select, input, textarea {
     font-family: 'Work Sans',sans-serif;
     padding: 10px 16px;
     border: solid 0.1px #bbb;
+    border-radius: 5px;
+  box-shadow: 2px 2px 2px grey;
 }
 label {
     font-size: 20px;
