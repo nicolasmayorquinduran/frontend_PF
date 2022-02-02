@@ -19,7 +19,7 @@ import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 
 export default function ProductDetails() {
   const [cart, setCart] = UseLocalStorage("cart", []);
-  const [changeTab, setChangeTab] = useState("");
+  const [changeTab, setChangeTab] = useState("Comentarios");
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.actualUser);
@@ -144,17 +144,35 @@ export default function ProductDetails() {
             <div className="selectDeploy">
               <button
                 id="Comentarios"
-                onClick={(e) => setChangeTab(e.target.id)}
+                onClick={(e) => {
+                  setChangeTab(e.target.id);
+                }}
+                style={{
+                  fontWeight: changeTab == "Comentarios" ? "bold" : "initial",
+                }}
               >
                 Comentarios
               </button>
               <button
                 id="descripcion"
-                onClick={(e) => setChangeTab(e.target.id)}
+                onClick={(e) => {
+                  setChangeTab(e.target.id);
+                }}
+                style={{
+                  fontWeight: changeTab == "descripcion" ? "bold" : "initial",
+                }}
               >
                 Descripción
               </button>
-              <button id="Adicional" onClick={(e) => setChangeTab(e.target.id)}>
+              <button
+                id="Adicional"
+                onClick={(e) => {
+                  setChangeTab(e.target.id);
+                }}
+                style={{
+                  fontWeight: changeTab == "Adicional" ? "bold" : "initial",
+                }}
+              >
                 Información Adicional
               </button>
             </div>
