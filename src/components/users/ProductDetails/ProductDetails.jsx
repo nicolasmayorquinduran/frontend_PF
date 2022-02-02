@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { detailsProduct, getProducts, getUserCart ,addToCart } from "../../../redux/actions/products";
+import{getActualUser} from "../../../redux/actions/users";
 import "./productdetails.css";
 import Cart from "../Cart/Cart";
 import Swal from "sweetalert2";
@@ -15,31 +16,34 @@ export default function ProductDetails() {
   const [cart, setCart] = UseLocalStorage("cart", []);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const user = useSelector((store)=>store.actualUser);
-  const email =user.email
+  const actualUser = useSelector((store)=>store.actualUser);
   
-
-  console.log(getUserCart())
-  useEffect(() => {
-    dispatch(getProducts());
-    dispatch(detailsProduct(id));
-    dispatch(getUserCart(email));
-  }, [dispatch]);
-  const CartId =useSelector((store)=>store.cart.CartId)
   const product = useSelector((store) => store.productDetail);
-  const UserId = user.UsersId
-  console.log(UserId)
   const ProductId =product.ProductId
   const [changeInfo, setChangeInfo] = useState("");
+ 
+useEffect (() => { 
+      dispatch(detailsProduct(id));
+}, [ dispatch, actualUser])
+
+
+if(actualUser.carts.length){var actualCart= actualUser.carts.find(e=>e.status === "created")}
+console.log(actualCart)
+  // useEffect(() => {
+  //   // dispatch(getActualUser());
+  // }, [dispatch]);
+
   const handleAddSize = (e) => {
     product.size = e.target.value;
-    console.log(product);
+   
   };
 
   const handleAddCart = (e) => {
     e.preventDefault()
-    dispatch(addToCart(CartId,ProductId))
-    setCart([...cart, product])
+    if(!actualUser.email){
+      setCart([...cart, product])
+    }
+    dispatch(addToCart(actualCart.CartId,ProductId))
     Swal.fire({
       icon: 'success',
       text: 'Producto agregado al carrito!',
@@ -51,7 +55,7 @@ export default function ProductDetails() {
   //   e.preventDefault();
   //   setChangeInfo(e.target.value);
   // }
-  console.log(product);
+ 
   return (
     <div>
       <hr id="hr"></hr>

@@ -15,58 +15,61 @@ import axios from "axios";
 export default function Cart() {
     const [cart, setCart] = UseLocalStorage('cart', [])
     const dispatch = useDispatch();
-    const email = useSelector((store)=>store.actualUser.email)
-    const User = useSelector((store)=>store.actualUser);
-    const idUser = !User?null:User.UsersId;
-    const carrito= useSelector((store)=>store.cart) 
-    const products = carrito.productCart
-    const condicional = () =>{
-        if(idUser){
-            return carrito
-        } else
-        {return cart
-        }     
-    }
-    useEffect(()=>{
-        dispatch(getUserCart(email));
-        dispatch(getUserCart(email));  
-    },[dispatch])
-    console.log("CARRITOOO",carrito.CartId)
-    const CartId = carrito.CartId
+    const User = useSelector((store) => store.actualUser);
+    const idUser = !User ? null : User.UsersId;
+    const carrito = useSelector((store) => store.cart)
+    
+    const [user, setUser] = useState({
+      email: "",
+      name: "",
+      address: "",
+      carts: []
+    })
+
+    useEffect(() => {
+      setUser({
+        email: User.email,
+        name: User.name,
+        carts: User.carts
+      })
+      dispatch(getUserCart(User.email));
+      
+    }, [User, dispatch])
+    
     // useEffect(() => {
     //     dispatch(getProductsCartUser(idUser)); 
     // }, [dispatch]);  
-    const handleDeleteItem= (e)=>{
-        e.preventDefault();
-        dispatch(deleteProductCart(CartId,e.target.name))
-        Swal.fire({
-            icon: 'success',
-            text: 'Producto eliminado!',
-            showConfirmButton: false,
-            timer: 3000
-          })
+    const handleDeleteItem = (e) => {
+      // e.preventDefault();
+      dispatch(deleteProductCart(carrito.CartId, e.target.name))
+      Swal.fire({
+        icon: 'success',
+        text: 'Producto eliminado!',
+        showConfirmButton: false,
+        timer: 3000
+      })
     }
 
-    const handleDeleteAllCart = (e)=>{
-        // localStorage.clear()
-        dispatch(deleteAllCart(CartId))
-        Swal.fire({
-            icon: 'success',
-            text: 'Carriro eliminado!', 
-            showConfirmButton: false,
-            timer: 3000
-          })
-    } 
+    const handleDeleteAllCart = (e) => {
+      // localStorage.clear()
+      dispatch(deleteAllCart(carrito.CartId))
+      Swal.fire({
+        icon: 'success',
+        text: 'Carriro eliminado!',
+        showConfirmButton: false,
+        timer: 3000
+      })
+    }
 
-  function getTotalAmount() {
-    let prices = 0;
-    let qtys = 0;
-    prices += Number(cart.map((e) => e.price));
-    console.log(prices);
-    qtys += Number(cart.map((e) => e.price));
-    let total = prices * qtys;
-    return total;
-  }
+  // function getTotalAmount() {
+  //   let prices = 0;
+  //   let qtys = 0;
+  //   prices += Number(cart.map((e) => e.price));
+  //   console.log(prices);
+  //   qtys += Number(cart.map((e) => e.price));
+  //   let total = prices * qtys;
+  //   return total;
+  // }
 
   // const handlerChangeAmount = (product,idUser,e) => {
   //     e.preventDefault()
@@ -105,7 +108,7 @@ export default function Cart() {
       grow: 0,
       sortable: true,
       cell: (row) => (
-        <img height="84px" width="56px" alt={row.name} src={row.img} />
+        <img height="84px" width="56px" alt={row.name} src={row.img[0]} />
       ),
     },
     {
@@ -128,24 +131,24 @@ export default function Cart() {
           type="number"
           min={1}
           max={100}
-          value={row.qty}
+          // value={row.qty}
           onChange={console.log("handlerChangeAmount")}
         ></input>
       ), //row.amount,
       //sortable: true
     },
 
-    {
-      name: "Amount",
-      selector: (row) => formatMoney(row.price * row.qty),
-      sortable: true,
-    },
+    // {
+    //   name: "Amount",
+    //   selector: (row) => formatMoney(row.price * row.qty),
+    //   sortable: true,
+    // },
 
     {
       cell: (row) => {
         return (
           <abbr title="Delete Item">
-            <button className={s.btnDel} id={row.id} onClick={handleDeleteItem}>
+            <button className={s.btnDel} name={row.ProductId} onClick={handleDeleteItem}>
               <FontAwesomeIcon icon={faTrashAlt} />
             </button>
           </abbr>
@@ -171,8 +174,8 @@ export default function Cart() {
         <h1>Shopping Cart</h1>
         <DataTable
           className={s.table}
-          columns={columns}
-          data={products}
+          columns={columns} 
+          data={carrito.productCart} 
           pagination
           paginationComponentOptions={optionPagination}
           actions
@@ -181,7 +184,7 @@ export default function Cart() {
         </DataTable>
       </div>
       <div>
-        <div className={s.amount}>Total Amount: {getTotalAmount()}</div>
+        <div className={s.amount}>Total Amount: </div>
       </div>
 
       <div className={s.btn_container}>
@@ -191,7 +194,7 @@ export default function Cart() {
           </Link>
         </button>
         {/* {idUser?  */}
-        <button className={s.btn} onClick={handleDeleteAllCart}>
+        <button className={s.btn} name={carrito.CartId} onClick={handleDeleteAllCart}>
           CLEAR ALL CART
         </button>
         <Link to="/checkout">
