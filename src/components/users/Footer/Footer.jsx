@@ -25,8 +25,9 @@ const Footer = () => {
           <AiOutlineLinkedin className="iconsSM" />
         </Link>
       </div>
-      <hr></hr> <hr></hr>
+      <hr></hr>
       <h5>Desarrollado por FraternidadJS</h5>
+      <hr></hr>
     </div>
   );
 };
