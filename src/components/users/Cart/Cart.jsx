@@ -14,54 +14,49 @@ import axios from "axios";
 
 export default function Cart() {
   const navigate = useNavigate()
-    const [cart, setCart] = UseLocalStorage('cart', [])
-    const dispatch = useDispatch();
-    const User = useSelector((store) => store.actualUser);
-    const idUser = !User ? null : User.UsersId;
+  const email = window.localStorage.getItem("userEmail")
+  const carrito = useSelector((store) => store.cart)
+
+  const dispatch = useDispatch();
+  const User = useSelector((store) => store.actualUser);
+  const idUser = !User ? null : User.UsersId;
+  console.log("cart", carrito)
+  console.log("user", email)
+
+  let products = carrito?.hasOwnProperty("productCart") ?
+     carrito.productCart : []
+
+  useEffect( () => {
+     dispatch(getUserCart(email))
+  }, [dispatch])
+
+  const [usuario, setUsuario] = useState({
+    cart: []
+  })
+
+
+  const handleDeleteItem = (e, ProductId) => {
+    e.preventDefault()
+    dispatch(deleteProductCart(carrito.CartId, ProductId))
     
-    
-    const [usuario, setUsuario] = useState({
-      cart:[]
+    Swal.fire({
+      icon: 'success',
+      text: 'Producto eliminado!',
+      showConfirmButton: false,
+      timer: 3000
     })
-    useEffect(() => {
-      setUsuario({
-        cart: User.hasOwnProperty("carts")
-        ? User.carts.find((c) => c.status == "open").CartId
-        : {}
-      })
-    }, [User])
-    
-    let carrito = User.hasOwnProperty("carts")
-    ? User.carts.find((c) => c.status == "open")
-    : {};
-    
-    console.log("estado",User)
-    console.log(carrito)
+  }
 
-    const handleDeleteItem = (e) => {
-      e.preventDefault()
-      console.log("infooo",e.target.currentValue)
-      dispatch(deleteProductCart(carrito.CartId, e.target.currentValue))
-      // navigate(`/products/${e.target.value}`);
-      // navigate('/cart')
-      Swal.fire({
-        icon: 'success',
-        text: 'Producto eliminado!',
-        showConfirmButton: false,
-        timer: 3000
-      }) 
-    }
-
-    const handleDeleteAllCart = (e) => {
-      // localStorage.clear()
-      dispatch(deleteAllCart(carrito.CartId))
-      Swal.fire({
-        icon: 'success',
-        text: 'Carriro eliminado!',
-        showConfirmButton: false,
-        timer: 3000
-      })
-    }
+  const handleDeleteAllCart = (e) => {
+    // localStorage.clear()
+    dispatch(deleteAllCart(carrito.CartId))
+    Swal.fire({
+      icon: 'success',
+      text: 'Carrito eliminado!',
+      showConfirmButton: true,
+      timer: 3000
+    })
+  }
 
   // function getTotalAmount() {
   //   let prices = 0;
@@ -144,10 +139,9 @@ export default function Cart() {
 
     {
       cell: (row) => {
-        console.log("rowwwww",row.ProductId)
         return (
           <abbr title="Delete Item">
-            <button className={s.btnDel} currentValue={row.ProductId} onClick={(e)=> handleDeleteItem(e)}>
+            <button className={s.btnDel} value={row.ProductId} onClick={(e)=>handleDeleteItem(e,row.ProductId)}>
               <FontAwesomeIcon icon={faTrashAlt} />
             </button>
           </abbr>
@@ -171,16 +165,16 @@ export default function Cart() {
       <>
         <div className={s.container}>
         <h1>Shopping Cart</h1>
-        <DataTable
+        {products.length && <DataTable
           className={s.table}
           columns={columns} 
-          data={carrito.productCart} 
+          data={products} 
           pagination
           paginationComponentOptions={optionPagination}
           actions
         >
           {" "}
-        </DataTable>
+        </DataTable>}
       </div>
       <div>
         <div className={s.amount}>Total Amount: </div>
@@ -193,7 +187,7 @@ export default function Cart() {
           </Link>
         </button>
         {/* {idUser?  */}
-        <button className={s.btn} name={carrito.CartId} onClick={handleDeleteAllCart}>
+        <button className={s.btn} name={carrito?.CartId} onClick={handleDeleteAllCart}>
           CLEAR ALL CART
         </button>
         <Link to="/checkout">

@@ -21,7 +21,7 @@ function App() {
   return (
     <div className="App">
       <GlobalStyle />
-      <NavBar />
+      {location.pathname != '/cart' && <NavBar />}
       {location.pathname != '/' && <MigadePan/>} 
       <Routes>
         <Route path="/admin/:menu" element={<Admin />} />
