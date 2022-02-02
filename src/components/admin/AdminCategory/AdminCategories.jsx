@@ -117,7 +117,7 @@ function AdminCat() {
                       X
                     </button>
                   </div>
-                  <img src={c.img} alt="" />
+                  <div  className='imagenCard'  style={{ backgroundImage: `url(${c.img})` }}></div>
                 </div>
               )
             })}
