@@ -23,10 +23,8 @@ export default function ProductDetails() {
   const email = user.email;
 
   useEffect(() => {
-    dispatch(getProducts());
     dispatch(detailsProduct(id));
-    dispatch(getUserCart(email));
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   let product = useSelector((store) => store.productDetail);
   let talles = [];
@@ -40,17 +38,16 @@ export default function ProductDetails() {
 
   const handleAddSize = (e) => {
     product.size = e.target.value;
-    console.log(product);
   };
 
   const handleAddCart = (e) => {
     setCart([...cart, product]);
   };
-  // function onClick(e) {
-  //   e.preventDefault();
-  //   setChangeInfo(e.target.value);
-  // }
-  console.log(product, talles);
+
+  let idCart = user.hasOwnProperty("carts")
+    ? user.carts.find((c) => c.status == "created").CartId
+    : {};
+
   return (
     <div>
       <hr id="hr"></hr>
