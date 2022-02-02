@@ -4,8 +4,9 @@ import {getActualUser} from '../../../redux/actions/users.js';
 import './checkout.css';
 
 export default function Checkout(){
-	
+	const dispatch = useDispatch()
 	const actualUser = useSelector(state=>state.actualUser)
+	const cart = useSelector(state=>state.cart)
 	const [user, setUser] = useState({
 		name:"",
 		adress: "",
@@ -25,11 +26,25 @@ export default function Checkout(){
 
 			<ul>
 				<span><b>Lista de Compras:</b></span>
-				<br/>
+			{/*	<br/>
 				<li>3 Graffiti Dress</li> <li>$600</li><br/>
 				<li>2 Graffiti Dress</li> <li>$400</li><br/>
-				<li>Total: </li>	      <li>$1000</li>
+				<li>Total: </li>	      <li>$1000</li>*/}
+				<p>{cart.productCart}</p>
+			 	<p>{cart.amount}</p>
 			</ul>
+
+			{
+			 	cart?.map(c=>{
+			 		return(
+			 			<div>
+			 				<p>{cart.productCart}</p>
+			 				<p>{cart.amount}</p>
+			 			</div>
+			 		)
+			 	})	
+			}
+
 
 				
 			<span><b>Nombre</b></span>
