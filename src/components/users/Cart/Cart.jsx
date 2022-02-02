@@ -18,25 +18,30 @@ export default function Cart() {
     const dispatch = useDispatch();
     const User = useSelector((store) => store.actualUser);
     const idUser = !User ? null : User.UsersId;
-    let carrito = User.hasOwnProperty("carts")
-    ? User.carts.find((c) => c.status == "created")
-    : {};
-    console.log(carrito)
-    
-    // const [Carrito, setCarrito] = useState=>({
-      
-    // })
     
     
+    const [usuario, setUsuario] = useState({
+      cart:[]
+    })
     useEffect(() => {
-      User.hasOwnProperty("carts") &&
-      dispatch(getActualUser(User.email))
-    }, [dispatch])
-
+      setUsuario({
+        cart: User.hasOwnProperty("carts")
+        ? User.carts.find((c) => c.status == "open").CartId
+        : {}
+      })
+    }, [User])
+    
+    let carrito = User.hasOwnProperty("carts")
+    ? User.carts.find((c) => c.status == "open")
+    : {};
+    
+    console.log("estado",User)
+    console.log(carrito)
 
     const handleDeleteItem = (e) => {
       e.preventDefault()
-      dispatch(deleteProductCart(carrito.CartId, e.target.value))
+      console.log("infooo",e.target.currentValue)
+      dispatch(deleteProductCart(carrito.CartId, e.target.currentValue))
       // navigate(`/products/${e.target.value}`);
       // navigate('/cart')
       Swal.fire({
@@ -44,7 +49,7 @@ export default function Cart() {
         text: 'Producto eliminado!',
         showConfirmButton: false,
         timer: 3000
-      })
+      }) 
     }
 
     const handleDeleteAllCart = (e) => {
@@ -142,7 +147,7 @@ export default function Cart() {
         console.log("rowwwww",row.ProductId)
         return (
           <abbr title="Delete Item">
-            <button className={s.btnDel} value={row.ProductId} onClick={handleDeleteItem}>
+            <button className={s.btnDel} currentValue={row.ProductId} onClick={(e)=> handleDeleteItem(e)}>
               <FontAwesomeIcon icon={faTrashAlt} />
             </button>
           </abbr>
