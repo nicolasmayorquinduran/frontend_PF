@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 
@@ -14,10 +15,19 @@ import { faPenSquare, faPlusSquare, faWindowClose } from "@fortawesome/free-soli
 const EditProduct = ({ product, setProduct }) => {
 
   // console.log(product)
-
+  
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+ 
   const categories = useSelector((state) => state.categories);
+  
+
+  const updateProduct = async () => { await axios.put("http://localhost:3001/products", product);
+    
+    navigate("/admin");
+    navigate("/admin/products");
+  
+  };
 
 
   // PARA EL RENDERIZADO (INPUT DE INFORMACION ADICIONAL):
@@ -26,7 +36,7 @@ const EditProduct = ({ product, setProduct }) => {
   for(const prop in product.additionalInformation) {
     infoAdditional = [ ...infoAdditional, {title: prop, data: product.additionalInformation[prop]} ]
   };
-  // console.log(infoAd)
+  // console.log("INFORMACION ADICIONAL", infoAdditional)
 
   // PARA EL RENDERIZADO (INPUT DE STOCK):
   let stocksAll = []
@@ -34,7 +44,7 @@ const EditProduct = ({ product, setProduct }) => {
   for(const prop in product.stock) {
     stocksAll = [ ...stocksAll, {size: prop, stock: product.stock[prop]} ]
   };
-  // console.log(stocksAll)
+  // console.log("TODOS LOS STOCKS", stocksAll)
 
 
   useEffect(() => {
@@ -43,7 +53,7 @@ const EditProduct = ({ product, setProduct }) => {
   }, [dispatch, product, setProduct]);
   
 
-  const handleEdited = (event) => {
+  const handleProduct = (event) => {
     Array.isArray(product[event.target.id])
     ? product[event.target.id].includes(event.target.value)
       ? setProduct(
@@ -61,6 +71,21 @@ const EditProduct = ({ product, setProduct }) => {
     : setProduct({ ...product, [event.target.id]: event.target.value });
   };
 
+  // console.log(product)
+
+  const handleObjects = (event) => {
+    setProduct(
+      {
+        ...product, 
+        [event.target.id]: {
+          ...product[event.target.id],
+          [event.target.className]: event.target.value 
+        }
+      },
+    )
+    // console.log("CLASSNAME", event.target.className, "VALUE",event.target.value)
+  };
+    
 
   return (
     <>
@@ -89,7 +114,7 @@ const EditProduct = ({ product, setProduct }) => {
               type="text"
               name="name"
               autoComplete="off"
-              onChange={handleEdited}
+              onChange={handleProduct}
               required
             />
 
@@ -97,70 +122,20 @@ const EditProduct = ({ product, setProduct }) => {
             <input
               id="price"
               value={product.price}
-              type="Number"
+              type="number"
               min="0"
               name="price"
               autoComplete="off"
-              onChange={handleEdited}
+              onChange={handleProduct}
               required
             />
           </div>
 
-          <div className="categorias">
-            <h4> Selecciona una Categoría </h4>
-
-            <select
-              id="categories"
-              autoComplete="off"
-              required
-              onChange={handleEdited}
-            >
-              
-              {
-                categories.map((category) => (
-                  <option value={category.name} id={category.CategoriesId}> {category.name} </option>
-                ))
-              }
-            </select>
-          </div>
-
-          {/* <div>
-            <label> Categorías del producto: </label>
-            {edited.categories.map((category) => (
-              <div style={{ marginBottom: "20px" }}>
-                <label>{category.name}</label>
-                <FontAwesomeIcon
-                  icon={faWindowClose}
-                  id="categories"
-                  onClick={(event) =>
-                    edited[event.target.id].includes(category)
-                      ? setProduct({
-                          ...edited,
-                          [event.target.id]: [
-                            ...edited[event.target.id].filter(
-                              (c) => c != category
-                            ),
-                          ],
-                        })
-                      : category.length &&
-                        setProduct({
-                          ...edited,
-                          [event.target.id]: [
-                            ...edited[event.target.id],
-                            category,
-                          ],
-                        })
-                  }
-                />
-              </div>
-            ))}
-
-          </div> */}
-
 
           <h4> Descripción </h4>
           <textarea
-            onChange={handleEdited}
+            id="description"
+            onChange={handleProduct}
             type="resume"
             name="description"
             value={product.description}
@@ -169,20 +144,38 @@ const EditProduct = ({ product, setProduct }) => {
           />
 
 
+          <div className="categorias">
+            <h4> Selecciona una Categoría </h4>
+
+            <select
+              id="categories"
+              autoComplete="off"
+              required
+              onChange={handleProduct}
+            >
+              {
+                categories.map((category) => (
+                  <option value={category.name} id={category.CategoriesId}> {category.name} </option>
+                ))
+              }
+            </select>
+          </div>
+
+
           <div className="stocksNewProduct">
             
             <h4> Stocks </h4>
-              {
-                stocksAll.map((props) => (
-                  <div>
+            {
+              stocksAll.map((props) => (
+                <div>
                     
-                    <label>{props.size}:</label>
-                    <input value={props.stock} type="number" min="0"/>
+                  <label>{props.size}:</label>
+                  <input value={props.stock} type="number" min="0" onChange={handleObjects} id="stock" className={props.size}/>
 
-                  </div>
-                ))
-              }
-          </div> {/* {...product.stock, [props.size]: event.target.value } */}
+                </div>
+              ))
+            }
+          </div>
 
           
           <h4> Información addicional </h4>
@@ -191,14 +184,13 @@ const EditProduct = ({ product, setProduct }) => {
               <div>
                     
                 <label> {props.title}: </label>
-                <input value={props.data} type="text"/>
+                <input value={props.data} type="text" onChange={handleObjects} id="additionalInformation" className={props.title}/>
 
               </div>
             ))
           }
 
-
-          <button type="submit" onClick={async () => await axios.put("/products", product)}> ¡Terminar edición! </button>
+          <button type="submit" onClick={updateProduct}> ¡Terminar edición! </button>
         
         </div>
 

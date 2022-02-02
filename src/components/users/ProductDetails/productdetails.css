@@ -8,13 +8,6 @@
   margin-left: 5vw;
   margin-right: 5vw;
 } */
-.bigImg {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  margin-left: 20px;
-}
 
 .imgContainer {
   display: flex;
@@ -22,13 +15,6 @@
   justify-content: flex-start;
   width: 50%;
   height: 470px;
-}
-
-.bigImg img {
-  height: 400px;
-  width: 100%;
-  border: 1px solid black;
-  border-radius: 5px;
 }
 
 #categoriesContainer {
@@ -53,10 +39,49 @@
   display: flex;
 }
 
-.imgContainer {
-  width: 500px;
-  height: 500px;
-  margin-right: 3vw;
+.imgAndDetail .section {
+  display: flex;
+  height: auto;
+  width: 50%;
+}
+
+.imgAndDetail #data {
+  display: flex;
+  flex-direction: column;
+}
+
+.imgAndDetail #images {
+  display: flex;
+  height: 70vh;
+  margin: auto;
+}
+
+.bigImg {
+  height: 100%;
+  width: 70%;
+  background-size: cover;
+  background-position: 50%;
+}
+
+.bigImg img {
+  height: 400px;
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.smallImg {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 0 0 10%;
+}
+
+.smallImg img {
+  height: 20%;
+  border: 1px solid #555;
+  border-radius: 5px;
 }
 
 #price {
@@ -108,22 +133,6 @@
 
 .selectDeploy button {
   margin-right: 2vw;
-}
-
-.smallImg {
-  width: 90px;
-  height: 470px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 5px;
-}
-
-.smallImg img {
-  height: 100px;
-  width: 90%;
-  border: 1px solid black;
-  border-radius: 5px;
 }
 
 #talles {
@@ -181,4 +190,10 @@
 .containerDetail {
   display: flex;
   flex-direction: column;
+}
+
+.tabInfo {
+  width: 80%;
+  list-style: none;
+  margin: auto;
 }
