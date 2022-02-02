@@ -31,11 +31,13 @@ export default function ProductDetails() {
   const handleAddCart = (e) => {
     setCart([...cart, product]);
   };
-  // function onClick(e) {
-  //   e.preventDefault();
-  //   setChangeInfo(e.target.value);
-  // }
+
+  function handleClick(e) {
+    e.preventDefault();
+    setChangeInfo(e.target.value);
+  }
   console.log(product);
+
   return (
     <div>
       <hr id="hr"></hr>
@@ -113,39 +115,34 @@ export default function ProductDetails() {
           </div>
           <div className="productAbout">
               <div className="selectDeploy">
-                <button value="Comentarios">Comentarios</button>
-                <button value="Adicional">Información Adicional</button>
-                <button value="Adicional">Descripción</button>
-              </div>
+                <button value="Comentarios" onClick={ (e) => {handleClick(e)}}>Comentarios</button>
+                <button value="Adicional" onClick= { (e) => {handleClick(e)}}>Información Adicional</button>
+                <button value="Descripcion" onClick={ (e) => {handleClick(e)}}>Descripción</button>
+              </div>  
               <hr></hr>
               {changeInfo === "Comentarios" ? (
                 <div>comentarios</div>
               ) : (
-                // product.reviews.map((p) => {
-                //   return (
-                //     <div key={p.usuario} className="reviewContainer">
-                //       <div className="reviewDivider">
-                //         <div className="reviewUser">
-                //           <p>{p.usuario}</p>
-                //         </div>
-                //         <div className="reviewData">
-                //           <p id="timeStamps">Publicado el {p.timestamps}</p>
-                //           <p>{p.comment}</p>
-                //         </div>
-                //       </div>
-                //     </div>
-                //   );
-                // })
+                product.reviews?.map((p) => {
+                  return (
+                    <div key={p.usuario} className="reviewContainer">
+                      <div className="reviewDivider">
+                        <div className="reviewUser">
+                          <p>{p.usuario}</p>
+                        </div>
+                        <div className="reviewData">
+                          <p id="timeStamps">Publicado el {p.timestamps}</p>
+                          <p>{p.comment}</p>
+
+                          
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }),
                 <div id="additionalDescription">
-                  {/* <p> {product.description} </p>
-                  <div className="additionalData">
-                    <p>Made in {product.additionalInformation.manufacturer}</p>
-                    <p>Fit: {product.additionalInformation.fit}</p>
-                    <p>
-                      Material: {product.additionalInformation.lining_material}
-                    </p>
-                    <p>Ocasion: {product.additionalInformation.occasion}</p>
-                  </div> */}
+                  <p> {product.description} </p>
+                  
                 </div>
               )}
             </div>
