@@ -127,6 +127,8 @@ export const Selected = styled.button`
     background: grey;
     color: white;
     transition: 1s;
+
+    
   }
 `;
 
