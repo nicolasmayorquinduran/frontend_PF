@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 0.5fr 1fr;
   gap: 1vh;
-  margin-bottom: 240vh;
+  margin-bottom: 300vh;
 }
 
 .newCategory {
@@ -22,9 +22,9 @@
   box-shadow: 2px 2px 2px grey;
 }
 .newCategory button {
-  width: 40vh;
+  width: 50vh;
   margin-top: 1vh;
-  margin-left: 12vh;
+  margin-left: 5vh;
 }
 .uploadImage {
   display: flex;
@@ -57,23 +57,25 @@
   /* border: .3px  solid grey; */
   margin: 1vh 1vw 1vh 1vw;
   width: 30vh;
-  height: 30vh;
+  height: 32vh;
   color: whitesmoke;
-  border-radius: 0 0 2vh 2vh;
   box-shadow: 2px 2px 5px gray;
 }
-.catCard img {
-  display: grid;
-  width: 25vh;
-  height: 25vh;
-  padding: 1vh;
-  margin-left: 2.5vh;
+.imagenCard {
+  display: flex;
+  width: 100%;
+  height: 80%;
+  background-size: cover;
+  background-position: 80%;
+  justify-content: center;
+  
+
 }
 .labelAndDelete {
   display: inline-block;
   position: relative;
   width: 30vh;
-  height: 7vh;
+  height: 20%;
   font-size: 1em;
   background-color: gray;
 }
