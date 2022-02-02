@@ -52,10 +52,6 @@ export default function ProductDetails() {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
 
-  let idCart = user.hasOwnProperty("carts")
-    ? user.carts.find((c) => c.status == "created").CartId
-    : {};
-
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
