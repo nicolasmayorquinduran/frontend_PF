@@ -52,10 +52,6 @@ export default function ProductDetails() {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
 
-  let idCart = user.hasOwnProperty("carts")
-    ? user.carts.find((c) => c.status == "created").CartId
-    : {};
-
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
@@ -65,6 +61,8 @@ export default function ProductDetails() {
     filterClothingType(store.allProducts, product.categories[0].name)
   );
 
+  console.log(allProducts)
+
   const handleAddSize = (e) => {
     product.size = e.target.value;
   };
@@ -73,16 +71,16 @@ export default function ProductDetails() {
     : {};
 
   const handleAddCart = (e) => {
-    if(!user){
+    if (!user) {
       setCart([...cart, product]);
     }
-    dispatch(addToCart(idCart,id))
+    dispatch(addToCart(idCart, id));
     Swal.fire({
-      icon: 'success',
-      text: 'Producto agregado al carrito!',
+      icon: "success",
+      text: "Producto agregado al carrito!",
       showConfirmButton: false,
-      timer: 3000
-    })
+      timer: 3000,
+    });
   };
 
   return (

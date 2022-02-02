@@ -1,41 +1,66 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   addCategories,
   deleteCategories,
   getCategories,
 } from "../../../redux/actions/categories";
+
 import "./adminCategories.css";
 import axios from "axios";
 /* import { Image } from 'cloudinary-react'; */
 
 function AdminCat() {
-  const categories = useSelector(
-    (state) =>
-      (state.filterCategories.length &&
-        state.filterCategories) ||
-      state.categories
-  );
-  // const [categories, setCategories] = useState(DBcategories);
-  // console.log(categories);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const categories = useSelector((state) => state.categories);
+  console.log(categories);
 
   //INSERTAR IMAGEN
   const [imageSelected, setImageSelected] = useState("");
-  // console.log(imageSelected)
+
+  //Formulario para cargar imagen hacia el server de cloudinary
+  const uploadImage = () => {
+    const formData = new FormData();
+    formData.append("file", imageSelected);
+    formData.append("upload_preset", "qoc3ud7y");
+
+    axios
+      .post(
+        "https://api.cloudinary.com/v1_1/jonascript/image/upload/",
+        formData
+      )
+      .then((response) => {
+        return setImageSelected(response.data.url);
+      });
+  };
+
+  //Envio la imagen hacia mi estado actual
+  const postCategories = () => {
+    axios.post("http://localhost:3001/categories", newCategory);
+    navigate("/admin");
+    navigate("/admin/categorias");
+  };
 
   const [newCategory, setNewCategory] = useState({
     name: "",
     active: true,
-    img: imageSelected,
+    img: [],
   });
 
-  const dispatch = useDispatch();
-  useEffect(() => dispatch(getCategories()), [dispatch, imageSelected]);
+  console.log(newCategory);
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    setNewCategory(e.target.value);
-  };
+  useEffect(() => {
+    if (typeof imageSelected === "string") {
+      setNewCategory({
+        ...newCategory,
+        img: imageSelected,
+      });
+    }
+    dispatch(getCategories());
+  }, [dispatch, imageSelected]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,26 +77,6 @@ function AdminCat() {
     document.getElementById("inputCategory").value = "";
   };
 
-  const handleDeteleCategory = (e) => {
-    e.preventDefault();
-    dispatch(deleteCategories(e.target.id));
-  };
-
-  const uploadImage = () => {
-    const formData = new FormData();
-    formData.append("file", imageSelected);
-    formData.append("upload_preset", "qoc3ud7y");
-
-    axios
-      .post(
-        "https://api.cloudinary.com/v1_1/jonascript/image/upload/",
-        formData
-      )
-      .then((response) => {
-        return setImageSelected(response.data.url);
-      });
-  };
-
   return (
     <>
       <div className="categoryContainer">
@@ -84,11 +89,15 @@ function AdminCat() {
               <input
                 type="text"
                 placeholder="Nombre..."
-                onChange={handleChange}
+                onChange={(e) =>
+                  setNewCategory({ ...newCategory, name: e.target.value })
+                }
                 id="inputCategory"
               ></input>
               <div>
-                <button>Crear</button>
+                <button onClick={() => postCategories(newCategory)}>
+                  Crear
+                </button>
               </div>
             </div>
           </form>
@@ -98,7 +107,7 @@ function AdminCat() {
               onChange={(event) => setImageSelected(event.target.files[0])}
             />
             <button onClick={uploadImage}>Upload Image</button>
-            <img src={imageSelected} alt="Imagen" />
+            {/* <img src={imageSelected} alt="Imagen" height="300px" width="300" /> */}
           </div>
         </div>
         <div className="categoriesContainer">
@@ -109,14 +118,7 @@ function AdminCat() {
                 <div className="catCard">
                   <label className="catLabel">{c.name}</label>
 
-                  <button
-                    className="deleteBtn"
-                    id={c}
-                    onClick={handleDeteleCategory}
-                  >
-                    X
-                  </button>
-                  <img src={c.img} alt="" />
+                  <img src={c.img} alt="" width="300px" height="300px" />
                 </div>
               );
             })}
