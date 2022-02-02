@@ -1,5 +1,6 @@
 .categoryContainer {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: .5fr 1fr;
   justify-content: center;
   padding-bottom: 2vh;
 }
@@ -13,19 +14,24 @@
 }
 
 .catCard {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   background-color: gray;
   border: solid grey;
   margin: 1vh 1vw 1vh 1vw;
+  width: 10vh;
   height: 3vh;
   color: whitesmoke;
 }
 
 .categoriesCards {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  /* flex-wrap: wrap; */
+grid-template-columns: 1fr 1fr 1fr;
+grid-template-rows: 1fr 1fr;
 }
+
 
 .catLabel {
   font-weight: normal;
