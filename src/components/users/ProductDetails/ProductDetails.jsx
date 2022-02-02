@@ -6,6 +6,7 @@ import {
   getUserCart,
   addToCart,
 } from "../../../redux/actions/products";
+import { filterClothingType } from "../../filters/logicFunctionFilters";
 import "./productdetails.css";
 import Cart from "../Cart/Cart";
 import { useParams } from "react-router-dom";
@@ -17,24 +18,46 @@ import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 
 export default function ProductDetails() {
   const [cart, setCart] = UseLocalStorage("cart", []);
+  const [changeTab, setChangeTab] = useState("");
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.actualUser);
-  const email = user.email;
-
-  useEffect(() => {
-    dispatch(detailsProduct(id));
-  }, [dispatch, user]);
-
   let product = useSelector((store) => store.productDetail);
+
+  const email = user.email;
+  const UserId = user.UsersId;
   let talles = [];
   for (const prop in product.stock) {
     if (product.stock[prop] > 0)
       talles = [...talles, { size: prop, stock: product.stock[prop] }];
   }
-  const UserId = user.UsersId;
+  let aditional = [];
+  for (const prop in product.additionalInformation) {
+    aditional = [
+      ...aditional,
+      {
+        item: prop,
+        value: product.additionalInformation[prop],
+      },
+    ];
+  }
+  let ranking = [Number(product.ranking)];
+  while (ranking.length < ranking[ranking.length - 1]) {
+    ranking = [...ranking, ranking[ranking.length - 1]];
+  }
 
-  const [changeInfo, setChangeInfo] = useState("");
+  let idCart = user.hasOwnProperty("carts")
+    ? user.carts.find((c) => c.status == "created").CartId
+    : {};
+
+  useEffect(() => {
+    dispatch(getProducts());
+    dispatch(detailsProduct(id));
+  }, [dispatch, user]);
+
+  const allProducts = useSelector((store) =>
+    filterClothingType(store.allProducts, product.categories[0].name)
+  );
 
   const handleAddSize = (e) => {
     product.size = e.target.value;
@@ -44,9 +67,7 @@ export default function ProductDetails() {
     setCart([...cart, product]);
   };
 
-  let idCart = user.hasOwnProperty("carts")
-    ? user.carts.find((c) => c.status == "created").CartId
-    : {};
+  console.log(allProducts);
 
   return (
     <div>
@@ -54,21 +75,24 @@ export default function ProductDetails() {
       {product.hasOwnProperty("ProductId") ? (
         <div className="containerDetail">
           <div className="imgAndDetail">
-            <div className="imgContainer">
-              <div className="bigImg">
-                <img src={product.img[0]} alt="big" />
-              </div>
-
+            <div id="images" className="section">
               <div className="smallImg">
                 {product.img.map((i) => (
                   <img id="s" src={i} alt="small" />
                 ))}
               </div>
+              <div
+                className="bigImg"
+                style={{ backgroundImage: `url(${product.img[0]})` }}
+              ></div>
             </div>
 
-            <div className="productDetail">
+            <div id="data" className="section">
               <h2> {product.name} </h2>
-              <div className="ranking"></div>
+              <div className="ranking">
+                {ranking.length &&
+                  ranking.map((star) => <FontAwesomeIcon icon={faStar} />)}
+              </div>
               <br></br>
               <h3 id="price"> {formatMoney(product.price)} </h3>
 
@@ -115,41 +139,41 @@ export default function ProductDetails() {
           </div>
           <div className="productAbout">
             <div className="selectDeploy">
-              <button value="Comentarios">Comentarios</button>
-              <button value="Adicional">Información Adicional</button>
-              <button value="Adicional">Descripción</button>
+              <button
+                id="Comentarios"
+                onClick={(e) => setChangeTab(e.target.id)}
+              >
+                Comentarios
+              </button>
+              <button
+                id="descripcion"
+                onClick={(e) => setChangeTab(e.target.id)}
+              >
+                Descripción
+              </button>
+              <button id="Adicional" onClick={(e) => setChangeTab(e.target.id)}>
+                Información Adicional
+              </button>
             </div>
             <hr></hr>
-            {changeInfo === "Comentarios" ? (
-              <div>comentarios</div>
-            ) : (
-              // product.reviews.map((p) => {
-              //   return (
-              //     <div key={p.usuario} className="reviewContainer">
-              //       <div className="reviewDivider">
-              //         <div className="reviewUser">
-              //           <p>{p.usuario}</p>
-              //         </div>
-              //         <div className="reviewData">
-              //           <p id="timeStamps">Publicado el {p.timestamps}</p>
-              //           <p>{p.comment}</p>
-              //         </div>
-              //       </div>
-              //     </div>
-              //   );
-              // })
-              <div id="additionalDescription">
-                {/* <p> {product.description} </p>
-                  <div className="additionalData">
-                    <p>Made in {product.additionalInformation.manufacturer}</p>
-                    <p>Fit: {product.additionalInformation.fit}</p>
-                    <p>
-                      Material: {product.additionalInformation.lining_material}
-                    </p>
-                    <p>Ocasion: {product.additionalInformation.occasion}</p>
-                  </div> */}
-              </div>
-            )}
+            {(changeTab === "Comentarios" && (
+              <div className="tabInfo">Comentarios</div>
+            )) ||
+              (changeTab === "Adicional" && (
+                <ul className="tabInfo">
+                  {aditional.map((el) => {
+                    return (
+                      <li>
+                        <strong>{el.item}</strong>
+                        {`: ${el.value}`}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )) ||
+              (changeTab === "descripcion" && (
+                <p className="tabInfo">{product.description}</p>
+              ))}
           </div>
         </div>
       ) : (
