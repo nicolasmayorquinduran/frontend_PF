@@ -36,7 +36,7 @@ export default function Checkout(){
 
 			{
 			 	cart?.map(c=>{
-			 		return(
+			 		return(	
 			 			<div>
 			 				<p>{cart.productCart}</p>
 			 				<p>{cart.amount}</p>

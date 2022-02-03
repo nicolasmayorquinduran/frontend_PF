@@ -10,32 +10,30 @@ import {
   filterSort,
 } from "../../filters/logicFunctionFilters";
 import { getCategories } from "../../../../src/redux/actions/categories.js";
-import { filterByCategory } from "../../../../src/redux/actions/products.js";
+import { useLocation } from "react-router-dom";
 
 const Products = () => {
+  const location = useLocation();
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(9);
   const [filter, setFilter] = useState({
-    clothingType: "",
+    clothingType: location.state != null ? location.state.filter : "",
     sort: "",
   });
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getProducts());
     setCurrentPage(1);
-  }, [dispatch, search]);
+  }, [dispatch, search, location]);
 
   let allProducts = useSelector((state) =>
     state.products.filter((p) =>
       p.name.toLowerCase().includes(search.toLowerCase())
     )
   );
-
-  console.log(allProducts, filter.clothingType);
 
   allProducts = filterSort(
     filterClothingType(allProducts, filter.clothingType),
