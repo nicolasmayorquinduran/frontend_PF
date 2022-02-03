@@ -131,7 +131,13 @@ export default function ProductDetails() {
                               max={t.stock}
                               onChange={(e) => {
                                 if (e.target.value == t.stock)
-                                  alert("no hay más unidades disponibles");
+                                Swal.fire({
+                                  icon: "error",
+                                  title:"Ooops...",
+                                  text: "No hay mas stock de esta talla!",
+                                  showConfirmButton: true,
+                                  timer: 3000,
+                                });;
                               }}
                             />
                           </div>
