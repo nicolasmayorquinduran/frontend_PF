@@ -10,12 +10,13 @@ import {
   filterSort,
 } from "../../filters/logicFunctionFilters";
 import { getCategories } from "../../../../src/redux/actions/categories.js";
-import { filterByCategory } from "../../../../src/redux/actions/products.js";
+//import { filterByCategory } from "../../../../src/redux/actions/products.js";
 
 const Products = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(9);
+  //const [productsPerPage, setProductsPerPage] = useState(9);
+  const productsPerPage = 9;
   const [filter, setFilter] = useState({
     clothingType: "",
     sort: "",
