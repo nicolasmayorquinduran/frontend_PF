@@ -5,7 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { BrowserRouter } from "react-router-dom";
-import { Auth0Provider } from '@auth0/auth0-react'
+import { Auth0Provider } from "@auth0/auth0-react";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -13,7 +13,8 @@ ReactDOM.render(
       <Auth0Provider
         domain="dev-cruhauwh.us.auth0.com"
         clientId="swPjI3JYX1NuJi3gTpHqFlnjAZxtH5Pf"
-        redirectUri={window.location.origin}>
+        redirectUri={window.location.origin}
+      >
         <App />
       </Auth0Provider>
     </BrowserRouter>
@@ -21,7 +22,7 @@ ReactDOM.render(
 
   document.getElementById("root")
 );
-
+//...
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
