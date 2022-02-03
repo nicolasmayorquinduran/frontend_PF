@@ -58,11 +58,15 @@ export default function ProductDetails() {
     dispatch(detailsProduct(id));
   }, [dispatch, user]);
 
+  // const allProducts = useSelector((store) =>
+  //   filterClothingType(store?.allProducts, product?.categories[0].name)
+  // );
+
   const handleAddSize = (e) => {
     product.size = e.target.value;
   };
   let idCart = user.hasOwnProperty("carts")
-    ? user.carts.find((c) => c.status == "created").CartId
+    ? user.carts.find((c) => c.status == "open").CartId
     : {};
 
   const handleAddCart = (e) => {
