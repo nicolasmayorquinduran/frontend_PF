@@ -18,6 +18,7 @@ export const Profile = () => {
       await dispatch(postUser(user));
       noRepeat = true;
       await dispatch(getActualUser(user.email));
+      window.localStorage.setItem("userEmail", user.email)
     }
   }, [user, dispatch]);
 

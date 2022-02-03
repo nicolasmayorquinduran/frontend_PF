@@ -26,11 +26,13 @@ export default function ProductDetails() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
-  let allProducts = useSelector((store) =>
-    store.allProducts.filter(
-      (p) => p.categories[0].name === product.categories[0].name
-    )
-  );
+  let allProducts = useSelector((store) => store.allProducts);
+  allProducts =
+    allProducts.length && product.hasOwnProperty("ProductId")
+      ? allProducts.filter(
+          (p) => p.categories[0].name === product.categories[0].name
+        )
+      : allProducts;
   const email = user.email;
   const UserId = user.UsersId;
   let talles = [];
@@ -219,19 +221,18 @@ export default function ProductDetails() {
           </div>
 
           <Container>
-            {allProducts.length &&
-              allProducts.map(
-                (p, index) =>
-                  index < 4 && (
-                    <Product
-                      id={p.ProductId}
-                      img={p.img[0]}
-                      name={p.name}
-                      price={p.price}
-                      ranking={p.ranking}
-                    />
-                  )
-              )}
+            {allProducts.map(
+              (p, index) =>
+                index < 4 && (
+                  <Product
+                    id={p.ProductId}
+                    img={p.img[0]}
+                    name={p.name}
+                    price={p.price}
+                    ranking={p.ranking}
+                  />
+                )
+            )}
           </Container>
         </div>
       ) : (

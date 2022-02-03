@@ -71,7 +71,6 @@ export function getAllCarts() {
 export function getUserCart (email){
   return async function (dispatch){
     let cart = await axios.get(`http://localhost:3001/cart/${email}`)
-    console.log(cart.data)
     return dispatch({
       type:TYPES.GET_USER_CART,
       payload:cart.data
@@ -92,7 +91,7 @@ export function addToCart(CartId, ProductId) {
 
 export function deleteProductCart( CartId, ProductId ) {
   return async function (dispatch) {
-    let deleted = await axios.delete(`http://localhost:3001/cart/${CartId}/${ProductId}`);
+    let deleted = await axios.delete(`http://localhost:3001/cart/${CartId}`,ProductId);
     return dispatch({
       type: TYPES.DELETE_PRODUCT_CART,
       payload: deleted.info,
