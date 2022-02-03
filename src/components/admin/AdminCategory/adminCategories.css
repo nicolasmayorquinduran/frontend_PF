@@ -1,34 +1,87 @@
-.categoryContainer {
-  display: inline-flex;
-  justify-content: center;
-  padding-bottom: 2vh;
+.newCategory {
+  display: flex;
+  flex-direction: column;
+}
+.newCategory form {
+  width: 50vh;
+  margin-left: 5vh;
+}
+
+.newCategory input {
+  width: 50vh;
+  margin-left: 5vh;
+  margin-top: 3vh;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px grey;
+}
+.newCategory button {
+  width: 50vh;
+  margin-top: 1vh;
+  margin-left: 5vh;
+}
+.uploadImage {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5vh;
+}
+.uploadImage img {
+  width: 50vh;
+  margin-left: 5vh;
+  padding: 3vh;
 }
 
 .categoriesContainer {
-  /* display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex-wrap: wrap; */
-  padding-left: 6vw;
+  display: inline-table;
 }
-
-.catCard {
-  display: flex;
-  align-items: center;
-  background-color: gray;
-  border: solid grey;
-  margin: 1vh 1vw 1vh 1vw;
-  height: 3vh;
-  color: whitesmoke;
-}
-
 .categoriesCards {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 5vh;
+  margin-left: 10%;
+}
+
+.catCard {
+  display: inline-table;
+  /* border: .3px  solid grey; */
+  margin: 1vh 1vw 1vh 1vw;
+  width: 30vh;
+  height: 32vh;
+  color: whitesmoke;
+  box-shadow: 2px 2px 5px gray;
+}
+.imagenCard {
+  display: flex;
+  width: 100%;
+  height: 80%;
+  background-size: cover;
+  background-position: 80%;
+  justify-content: center;
+}
+.labelAndDelete {
+  display: inline-block;
+  position: relative;
+  width: 30vh;
+  height: 20%;
+  font-size: 1em;
+  background-color: gray;
 }
 
 .catLabel {
+  display: inline-flex;
   font-weight: normal;
+  width: 10vh;
+  font-size: 0.8em;
+}
+.deleteBtn {
+  position: absolute;
+  align-self: flex-end;
+  background: none;
+  width: 1vh;
+  height: 3vh;
+  font-weight: bolder;
+  font-size: 1vh;
+  right: 0;
+  box-shadow: none;
 }
 
 #createButton {
@@ -36,24 +89,9 @@
   font-size: 3vh;
 }
 
-.deleteBtn {
-  align-self: flex-end;
-  background: none;
-  width: 2vw;
-  height: 3vh;
-  font-weight: bolder;
-  font-size: 2.8vh;
-  direction: rtl;
-}
-
 div h5 {
   font-weight: bold;
   padding-bottom: 1vh;
-}
-
-.newCategory {
-  display: flex;
-  flex-direction: column;
 }
 
 .newCategory input,

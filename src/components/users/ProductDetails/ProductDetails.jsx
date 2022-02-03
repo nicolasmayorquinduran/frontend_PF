@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Product from "../products/product";
 import {
   detailsProduct,
   getProducts,
@@ -15,16 +16,21 @@ import Swal from "sweetalert2";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { Container } from "../../../globalStyles";
 import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 
 export default function ProductDetails() {
   const [cart, setCart] = UseLocalStorage("cart", []);
-  const [changeTab, setChangeTab] = useState("");
+  const [changeTab, setChangeTab] = useState("Comentarios");
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
-
+  let allProducts = useSelector((store) =>
+    store.allProducts?.filter(
+      (p) => p.categories[0].name === product.categories[0].name
+    )
+  );
   const email = user.email;
   const UserId = user.UsersId;
   let talles = [];
@@ -64,18 +70,17 @@ export default function ProductDetails() {
     : {};
 
   const handleAddCart = (e) => {
-    if(!user){
+    if (!user) {
       setCart([...cart, product]);
     }
-    dispatch(addToCart(idCart,id))
+    dispatch(addToCart(idCart, id));
     Swal.fire({
-      icon: 'success',
-      text: 'Producto agregado al carrito!',
+      icon: "success",
+      text: "Producto agregado al carrito!",
       showConfirmButton: false,
-      timer: 3000
-    })
+      timer: 3000,
+    });
   };
-
   return (
     <div>
       <hr id="hr"></hr>
@@ -148,40 +153,90 @@ export default function ProductDetails() {
             <div className="selectDeploy">
               <button
                 id="Comentarios"
-                onClick={(e) => setChangeTab(e.target.id)}
+                onClick={(e) => {
+                  setChangeTab(e.target.id);
+                }}
+                style={{
+                  fontWeight: changeTab == "Comentarios" ? "bold" : "initial",
+                }}
               >
                 Comentarios
               </button>
               <button
                 id="descripcion"
-                onClick={(e) => setChangeTab(e.target.id)}
+                onClick={(e) => {
+                  setChangeTab(e.target.id);
+                }}
+                style={{
+                  fontWeight: changeTab == "descripcion" ? "bold" : "initial",
+                }}
               >
                 Descripción
               </button>
-              <button id="Adicional" onClick={(e) => setChangeTab(e.target.id)}>
+              <button
+                id="Adicional"
+                onClick={(e) => {
+                  setChangeTab(e.target.id);
+                }}
+                style={{
+                  fontWeight: changeTab == "Adicional" ? "bold" : "initial",
+                }}
+              >
                 Información Adicional
               </button>
             </div>
-            <hr></hr>
-            {(changeTab === "Comentarios" && (
-              <div className="tabInfo">Comentarios</div>
-            )) ||
-              (changeTab === "Adicional" && (
-                <ul className="tabInfo">
-                  {aditional.map((el) => {
-                    return (
-                      <li>
-                        <strong>{el.item}</strong>
-                        {`: ${el.value}`}
-                      </li>
-                    );
-                  })}
-                </ul>
+
+            <div className="ContainerTabs">
+              {(changeTab === "Comentarios" && (
+                <div className="tabInfo">Comentarios</div>
               )) ||
-              (changeTab === "descripcion" && (
-                <p className="tabInfo">{product.description}</p>
-              ))}
+                (changeTab === "Adicional" && (
+                  <ul className="tabInfo">
+                    {aditional.map((el) => {
+                      return (
+                        <li>
+                          <strong>{el.item}</strong>
+                          {`: ${el.value}`}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )) ||
+                (changeTab === "descripcion" && (
+                  <p className="tabInfo">{product.description}</p>
+                ))}
+            </div>
           </div>
+
+          <div>
+            <hr
+              style={{
+                width: "100px",
+                height: "7px",
+                margin: "10px auto",
+                color: "#9E005D",
+                opacity: 1,
+              }}
+            ></hr>
+            <h3>productos</h3>
+            <h3 style={{ fontWeight: "bold" }}>relaciOnados</h3>
+          </div>
+
+          <Container>
+            {allProducts.length &&
+              allProducts.map(
+                (p, index) =>
+                  index < 4 && (
+                    <Product
+                      id={p.ProductId}
+                      img={p.img[0]}
+                      name={p.name}
+                      price={p.price}
+                      ranking={p.ranking}
+                    />
+                  )
+              )}
+          </Container>
         </div>
       ) : (
         <h3> Error 404 Not Found </h3>
