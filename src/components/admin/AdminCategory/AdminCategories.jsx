@@ -33,7 +33,7 @@ function AdminCat() {
       <div className="categoriesCards">
         {categories?.map((c) => {
           return (
-            <div className="catCard">
+            <div key={c.CategoriesId} className="catCard">
               <div className="labelAndDelete">
                 <label className="catLabel">{c.name}</label>
 
