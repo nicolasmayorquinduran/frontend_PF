@@ -26,11 +26,13 @@ export default function ProductDetails() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
-  let allProducts = useSelector((store) =>
-    store.allProducts.filter(
-      (p) => p.categories[0].name === product.categories[0].name
-    )
-  );
+  let allProducts = useSelector((store) => store.allProducts);
+  allProducts =
+    allProducts.length && product.hasOwnProperty("ProductId")
+      ? allProducts.filter(
+          (p) => p.categories[0].name === product.categories[0].name
+        )
+      : allProducts;  
   const email = user.email;
   const UserId = user.UsersId;
   let talles = [];
@@ -56,13 +58,17 @@ export default function ProductDetails() {
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
-  }, [dispatch, user]);
+  }, [dispatch, user, id]);
+
+  // const allProducts = useSelector((store) =>
+  //   filterClothingType(store?.allProducts, product?.categories[0].name)
+  // );
 
   const handleAddSize = (e) => {
     product.size = e.target.value;
   };
   let idCart = user.hasOwnProperty("carts")
-    ? user.carts.find((c) => c.status == "created").CartId
+    ? user.carts.find((c) => c.status == "open").CartId
     : {};
 
   const handleAddCart = (e) => {
@@ -127,7 +133,13 @@ export default function ProductDetails() {
                               max={t.stock}
                               onChange={(e) => {
                                 if (e.target.value == t.stock)
-                                  alert("no hay más unidades disponibles");
+                                Swal.fire({
+                                  icon: "error",
+                                  title:"Ooops...",
+                                  text: "No hay mas stock de esta talla!",
+                                  showConfirmButton: true,
+                                  timer: 3000,
+                                });;
                               }}
                             />
                           </div>
@@ -219,19 +231,18 @@ export default function ProductDetails() {
           </div>
 
           <Container>
-            {allProducts.length &&
-              allProducts.map(
-                (p, index) =>
-                  index < 4 && (
-                    <Product
-                      id={p.ProductId}
-                      img={p.img[0]}
-                      name={p.name}
-                      price={p.price}
-                      ranking={p.ranking}
-                    />
-                  )
-              )}
+            {allProducts.map(
+              (p, index) =>
+                index < 4 && (
+                  <Product
+                    id={p.ProductId}
+                    img={p.img[0]}
+                    name={p.name}
+                    price={p.price}
+                    ranking={p.ranking}
+                  />
+                )
+            )}
           </Container>
         </div>
       ) : (

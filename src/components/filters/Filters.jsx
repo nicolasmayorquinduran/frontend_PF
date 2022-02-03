@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { Container, Children } from "../../globalStyles";
 
 const Filters = ({ clothingType, price, ranking, alph, filter, setFilter }) => {
+  let ref = useRef();
+  if (ref.current != undefined && filter.clothingType.length) {
+    ref.current.value = filter.clothingType;
+  }
+  useEffect(() => {}, [ref, filter]);
   const handleFilters = (e) => {
     setFilter({ ...filter, [e.target.id]: e.target.value });
   };
   return (
     <Container>
       <Children>
-        <select id="clothingType" onChange={handleFilters}>
+        <select id="clothingType" onChange={handleFilters} ref={ref}>
           <option value="">Tipo de prenda</option>
           {clothingType.map((el) => (
             <option value={el.name}>{el.name}</option>
