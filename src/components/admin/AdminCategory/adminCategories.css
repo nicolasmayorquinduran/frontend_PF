@@ -1,10 +1,16 @@
+.categoryContainer{
+  margin-top: 2%;
+}
 .newCategory {
   display: flex;
-  flex-direction: column;
 }
-.newCategory form {
-  width: 50vh;
-  margin-left: 5vh;
+.newCategory {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 5vh;
+  width: 90vh;
+  margin-left: 45vh;
+  align-items: center;
 }
 
 .newCategory input {
@@ -32,6 +38,7 @@
 
 .categoriesContainer {
   display: inline-table;
+  margin-top: 2%;
 }
 .categoriesCards {
   display: flex;
@@ -43,7 +50,7 @@
 .catCard {
   display: inline-table;
   /* border: .3px  solid grey; */
-  margin: 1vh 1vw 1vh 1vw;
+  margin: 0vh 1vw 1vh 1vw;
   width: 30vh;
   height: 32vh;
   color: whitesmoke;

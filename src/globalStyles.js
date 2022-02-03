@@ -127,9 +127,7 @@ export const Selected = styled.button`
   &:hover {
     background: grey;
     color: white;
-    transition: 1s;
-
-    
+    transition: 1s;    
   }
 `;
 
