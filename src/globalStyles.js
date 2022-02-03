@@ -115,6 +115,7 @@ export const SelectCategory = styled.select`
   border-radius: 5px;
   font-weight: 600;
   margin-left: 5rem;
+  
 `;
 export const Selected = styled.button`
   margin: 1rem;
@@ -126,6 +127,7 @@ export const Selected = styled.button`
   &:hover {
     background: grey;
     color: white;
-    transition: 1s;
+    transition: 1s;    
   }
 `;
+
