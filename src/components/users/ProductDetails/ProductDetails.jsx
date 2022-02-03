@@ -32,9 +32,12 @@ export default function ProductDetails() {
       ? allProducts.filter(
           (p) => p.categories[0].name === product.categories[0].name
         )
-      : allProducts;  
+      : allProducts;
   const email = user.email;
   const UserId = user.UsersId;
+  let idCart = user.hasOwnProperty("carts")
+    ? user.carts.find((c) => c.status == "open")
+    : {};
   let talles = [];
   for (const prop in product.stock) {
     if (product.stock[prop] > 0)
@@ -60,22 +63,15 @@ export default function ProductDetails() {
     dispatch(detailsProduct(id));
   }, [dispatch, user, id]);
 
-  // const allProducts = useSelector((store) =>
-  //   filterClothingType(store?.allProducts, product?.categories[0].name)
-  // );
-
   const handleAddSize = (e) => {
     product.size = e.target.value;
   };
-  let idCart = user.hasOwnProperty("carts")
-    ? user.carts.find((c) => c.status == "open").CartId
-    : {};
 
   const handleAddCart = (e) => {
     if (!user) {
       setCart([...cart, product]);
     }
-    dispatch(addToCart(idCart, id));
+    dispatch(addToCart(idCart.CartId, id));
     Swal.fire({
       icon: "success",
       text: "Producto agregado al carrito!",
@@ -133,13 +129,13 @@ export default function ProductDetails() {
                               max={t.stock}
                               onChange={(e) => {
                                 if (e.target.value == t.stock)
-                                Swal.fire({
-                                  icon: "error",
-                                  title:"Ooops...",
-                                  text: "No hay mas stock de esta talla!",
-                                  showConfirmButton: true,
-                                  timer: 3000,
-                                });;
+                                  Swal.fire({
+                                    icon: "error",
+                                    title: "Ooops...",
+                                    text: "No hay mas stock de esta talla!",
+                                    showConfirmButton: true,
+                                    timer: 3000,
+                                  });
                               }}
                             />
                           </div>
