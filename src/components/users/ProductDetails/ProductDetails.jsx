@@ -32,7 +32,7 @@ export default function ProductDetails() {
       ? allProducts.filter(
           (p) => p.categories[0].name === product.categories[0].name
         )
-      : allProducts;
+      : allProducts;  
   const email = user.email;
   const UserId = user.UsersId;
   let talles = [];
@@ -60,11 +60,15 @@ export default function ProductDetails() {
     dispatch(detailsProduct(id));
   }, [dispatch, user, id]);
 
+  // const allProducts = useSelector((store) =>
+  //   filterClothingType(store?.allProducts, product?.categories[0].name)
+  // );
+
   const handleAddSize = (e) => {
     product.size = e.target.value;
   };
   let idCart = user.hasOwnProperty("carts")
-    ? user.carts.find((c) => c.status == "created").CartId
+    ? user.carts.find((c) => c.status == "open").CartId
     : {};
 
   const handleAddCart = (e) => {
@@ -129,7 +133,13 @@ export default function ProductDetails() {
                               max={t.stock}
                               onChange={(e) => {
                                 if (e.target.value == t.stock)
-                                  alert("no hay más unidades disponibles");
+                                Swal.fire({
+                                  icon: "error",
+                                  title:"Ooops...",
+                                  text: "No hay mas stock de esta talla!",
+                                  showConfirmButton: true,
+                                  timer: 3000,
+                                });;
                               }}
                             />
                           </div>
