@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Actions:
-import { getCategories } from "../../../../src/redux/actions/categories.js";
+import { getCategories } from "../../../redux/actions/categories.js";
 import { getProducts } from "../../../redux/actions/products.js";
 
 // Components:
