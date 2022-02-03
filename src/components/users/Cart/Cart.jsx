@@ -2,8 +2,12 @@ import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import {getUserCart,deleteAllCart,deleteProductCart} from "../../../redux/actions/products";
-import {getActualUser} from "../../../redux/actions/users";
+import {
+  getUserCart,
+  deleteAllCart,
+  deleteProductCart,
+} from "../../../redux/actions/products";
+import { getActualUser } from "../../../redux/actions/users";
 import { Link, useNavigate } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
@@ -13,50 +17,50 @@ import s from "./Cart.module.css";
 import axios from "axios";
 
 export default function Cart() {
-  const navigate = useNavigate()
-  const email = window.localStorage.getItem("userEmail")
-  const carrito = useSelector((store) => store.cart)
+  const navigate = useNavigate();
+  const email = window.localStorage.getItem("userEmail");
+  const carrito = useSelector((store) => store.cart);
 
   const dispatch = useDispatch();
   const User = useSelector((store) => store.actualUser);
   const idUser = !User ? null : User.UsersId;
-  console.log("cart", carrito)
-  console.log("user", email)
+  console.log("cart", carrito);
+  console.log("user", email);
 
-  let products = carrito?.hasOwnProperty("productCart") ?
-     carrito.productCart : []
+  let products = carrito?.hasOwnProperty("productCart")
+    ? carrito.productCart
+    : [];
 
-  useEffect( () => {
-     dispatch(getUserCart(email))
-  }, [dispatch])
+  useEffect(() => {
+    dispatch(getUserCart(email));
+  }, [dispatch]);
 
   const [usuario, setUsuario] = useState({
-    cart: []
-  })
-
+    cart: [],
+  });
 
   const handleDeleteItem = (e, ProductId) => {
-    e.preventDefault()
-    dispatch(deleteProductCart(carrito.CartId, ProductId))
-    
+    e.preventDefault();
+    dispatch(deleteProductCart(carrito.CartId, ProductId));
+
     Swal.fire({
-      icon: 'success',
-      text: 'Producto eliminado!',
+      icon: "success",
+      text: "Producto eliminado!",
       showConfirmButton: false,
-      timer: 3000
-    })
-  }
+      timer: 3000,
+    });
+  };
 
   const handleDeleteAllCart = (e) => {
     // localStorage.clear()
-    dispatch(deleteAllCart(carrito.CartId))
+    dispatch(deleteAllCart(carrito.CartId));
     Swal.fire({
-      icon: 'success',
-      text: 'Carrito eliminado!',
+      icon: "success",
+      text: "Carrito eliminado!",
       showConfirmButton: true,
-      timer: 3000
-    })
-  }
+      timer: 3000,
+    });
+  };
 
   // function getTotalAmount() {
   //   let prices = 0;
@@ -93,7 +97,6 @@ export default function Cart() {
   //         navigate(redirige al login);
   //     }
   // }
-
 
   const columns = [
     {
@@ -141,7 +144,11 @@ export default function Cart() {
       cell: (row) => {
         return (
           <abbr title="Delete Item">
-            <button className={s.btnDel} value={row.ProductId} onClick={(e)=>handleDeleteItem(e,row.ProductId)}>
+            <button
+              className={s.btnDel}
+              value={row.ProductId}
+              onClick={(e) => handleDeleteItem(e, row.ProductId)}
+            >
               <FontAwesomeIcon icon={faTrashAlt} />
             </button>
           </abbr>
@@ -153,28 +160,29 @@ export default function Cart() {
     },
   ];
 
-    
-    const optionPagination = {
-        rowsPerPageText: "Files per Page",
-        rangesSeparatorText: "of",
-        selectAllRowsItem: true,
-        selectAllRowsItemText: "All",
-        responsive: true
-    } 
-    return (
-      <>
-        <div className={s.container}>
+  const optionPagination = {
+    rowsPerPageText: "Files per Page",
+    rangesSeparatorText: "of",
+    selectAllRowsItem: true,
+    selectAllRowsItemText: "All",
+    responsive: true,
+  };
+  return (
+    <>
+      <div className={s.container}>
         <h1>Shopping Cart</h1>
-        {products.length && <DataTable
-          className={s.table}
-          columns={columns} 
-          data={products} 
-          pagination
-          paginationComponentOptions={optionPagination}
-          actions
-        >
-          {" "}
-        </DataTable>}
+        {products.length && (
+          <DataTable
+            className={s.table}
+            columns={columns}
+            data={products}
+            pagination
+            paginationComponentOptions={optionPagination}
+            actions
+          >
+            {" "}
+          </DataTable>
+        )}
       </div>
       <div>
         <div className={s.amount}>Total Amount: </div>
@@ -187,11 +195,24 @@ export default function Cart() {
           </Link>
         </button>
         {/* {idUser?  */}
-        <button className={s.btn} name={carrito?.CartId} onClick={handleDeleteAllCart}>
+        <button
+          className={s.btn}
+          name={carrito?.CartId}
+          onClick={handleDeleteAllCart}
+        >
           CLEAR ALL CART
         </button>
         <Link to="/checkout">
-          <input type="submit" value="GO TO CHECKOUT" className={s.btn} />
+          <input
+            type="submit"
+            value="GO TO CHECKOUT"
+            className={s.btn}
+            onClick={() =>
+              navigate(
+                "https://stackoverflow.com/questions/69868956/how-to-redirect-in-react-router-v6"
+              )
+            }
+          />
         </Link>
       </div>
     </>
