@@ -5,7 +5,7 @@ const Prueba = () => {
   let [counter, setCounter] = useState(0);
 
   useEffect(() => setTimeout(() => setCounter(counter++), 4000));
-  console.log(counter);
+  //console.log(counter);
   return <div>{counter}</div>;
 };
 
