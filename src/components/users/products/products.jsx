@@ -10,13 +10,15 @@ import {
   filterSort,
 } from "../../filters/logicFunctionFilters";
 import { getCategories } from "../../../../src/redux/actions/categories.js";
+//import { filterByCategory } from "../../../../src/redux/actions/products.js";
 import { useLocation } from "react-router-dom";
 
 const Products = () => {
   const location = useLocation();
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(9);
+  //const [productsPerPage, setProductsPerPage] = useState(9);
+  const productsPerPage = 12;
   const [filter, setFilter] = useState({
     clothingType: location.state != null ? location.state.filter : "",
     sort: "",
