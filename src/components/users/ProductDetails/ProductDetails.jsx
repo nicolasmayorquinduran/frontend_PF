@@ -58,7 +58,7 @@ export default function ProductDetails() {
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
-  }, [dispatch, user]);
+  }, [dispatch, user, id]);
 
   // const allProducts = useSelector((store) =>
   //   filterClothingType(store?.allProducts, product?.categories[0].name)
