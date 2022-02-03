@@ -27,7 +27,7 @@ export default function ProductDetails() {
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) =>
-    store.allProducts.filter(
+    store.allProducts?.filter(
       (p) => p.categories[0].name === product.categories[0].name
     )
   );

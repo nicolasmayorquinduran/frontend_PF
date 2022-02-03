@@ -12,11 +12,13 @@ const MigadePan = () => {
     .map((letter) => (letter === "/" ? " > " : letter))
     .join("");
 
+  
 
   return(
-  <div className='letters'>  
-    <Link to={ `${location}` }>
-    { `Home ${location}` }
+  <div className='letters'>
+
+    <Link to={`Home ${location}`}>
+      {`Home ${location}`}
     </Link>
   </div>
   ) 
