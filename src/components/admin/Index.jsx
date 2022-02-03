@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-import { useState } from "react";
+//import { useState } from "react";
 import AdminMenu from "./AdminMenu/AdminMenu";
 import AdminCategories from "./AdminCategory/AdminCategories";
 import AdminUsers from "./AdminUsers/AdminUsers";
@@ -19,11 +19,11 @@ function Index() {
     <div id="menu">
       <AdminMenu />
       <div>
-        {(location.pathname == "/admin/products" && <AdminProducts />) ||
-          (location.pathname == "/admin/categorias" && <AdminCategories />) ||
-          (location.pathname == "/admin/promos" && <AdminPromos />) ||
-          (location.pathname == "/admin/pedidos" && <AdminOrders />) ||
-          (location.pathname == "/admin/usuarios" && <AdminUsers />)}
+        {(location.pathname === "/admin/products" && <AdminProducts />) ||
+          (location.pathname === "/admin/categorias" && <AdminCategories />) ||
+          (location.pathname === "/admin/promos" && <AdminPromos />) ||
+          (location.pathname === "/admin/pedidos" && <AdminOrders />) ||
+          (location.pathname === "/admin/usuarios" && <AdminUsers />)}
       </div>
     </div>
   );
