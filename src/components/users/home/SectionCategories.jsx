@@ -5,7 +5,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { Container, Children } from "../../../globalStyles";
+import { Container } from "../../../globalStyles";
 import "./style.css";
 
 const SectionCategories = ({ allCategories }) => {
