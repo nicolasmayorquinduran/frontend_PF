@@ -83,7 +83,6 @@ export function getUserCart(email) {
       "https://pfbackendecommerce.herokuapp.com/cart/" + email ||
         `http://localhost:3001/cart/${email}`
     );
-    console.log(cart.data);
     return dispatch({
       type: TYPES.GET_USER_CART,
       payload: cart.data,
@@ -109,10 +108,9 @@ export function addToCart(CartId, ProductId) {
 export function deleteProductCart(CartId, ProductId) {
   return async function (dispatch) {
     let deleted = await axios.delete(
-      "https://pfbackendecommerce.herokuapp.com/cart/" +
-        CartId +
-        "/" +
-        ProductId || `http://localhost:3001/cart/${CartId}/${ProductId}`
+      "https://pfbackendecommerce.herokuapp.com/cart/" + CartId + "/",
+      ProductId || `http://localhost:3001/cart/${CartId}`,
+      ProductId
     );
     return dispatch({
       type: TYPES.DELETE_PRODUCT_CART,

@@ -1,10 +1,3 @@
-.categoryContainer {
-  display: grid;
-  grid-template-columns: 0.5fr 1fr;
-  gap: 1vh;
-  margin-bottom: 300vh;
-}
-
 .newCategory {
   display: flex;
   flex-direction: column;
@@ -41,13 +34,8 @@
   display: inline-table;
 }
 .categoriesCards {
-  display: grid;
-  /* flex-direction: row; */
-  grid-template-columns: 0.3fr 0.3fr 0.3fr;
-  width: 30vh;
-  height: 30vh;
-  padding: 0.5vh;
-  border-radius: 2vh;
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 5vh;
   margin-left: 10%;
 }
@@ -68,8 +56,6 @@
   background-size: cover;
   background-position: 80%;
   justify-content: center;
-  
-
 }
 .labelAndDelete {
   display: inline-block;
