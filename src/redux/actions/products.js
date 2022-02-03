@@ -31,7 +31,7 @@ export function detailsProduct(id) {
   return function (dispatch) {
     return axios
       .get(
-        "https://pfbackendecommerce.herokuapp.com/products/" + id ||
+        `https://pfbackendecommerce.herokuapp.com/products/${id}` ||
           `http://localhost:3001/products/${id}`
       )
       .then((response) => {
@@ -80,7 +80,7 @@ export function getAllCarts() {
 export function getUserCart(email) {
   return async function (dispatch) {
     let cart = await axios.get(
-      "https://pfbackendecommerce.herokuapp.com/cart/" + email ||
+      `https://pfbackendecommerce.herokuapp.com/cart/${email}` ||
         `http://localhost:3001/cart/${email}`
     );
     return dispatch({
@@ -93,10 +93,8 @@ export function getUserCart(email) {
 export function addToCart(CartId, ProductId) {
   return async function (dispatch) {
     const addProd = await axios.put(
-      "https://pfbackendecommerce.herokuapp.com/cart/" +
-        CartId +
-        "/" +
-        ProductId || `http://localhost:3001/cart/${CartId}/${ProductId}`
+      `https://pfbackendecommerce.herokuapp.com/cart/${CartId}/${ProductId}` ||
+        `http://localhost:3001/cart/${CartId}/${ProductId}`
     ); //fatlta autenci usuario
     return dispatch({
       type: TYPES.ADD_TO_CART,
@@ -108,7 +106,7 @@ export function addToCart(CartId, ProductId) {
 export function deleteProductCart(CartId, ProductId) {
   return async function (dispatch) {
     let deleted = await axios.delete(
-      "https://pfbackendecommerce.herokuapp.com/cart/" + CartId + "/",
+      `https://pfbackendecommerce.herokuapp.com/cart/${CartId}`,
       ProductId || `http://localhost:3001/cart/${CartId}`,
       ProductId
     );
@@ -122,7 +120,7 @@ export function deleteProductCart(CartId, ProductId) {
 export function deleteAllCart(CartId) {
   return async function (dispatch) {
     let deleted = await axios.delete(
-      "https://pfbackendecommerce.herokuapp.com/cart/" + CartId ||
+      `https://pfbackendecommerce.herokuapp.com/cart/${CartId}` ||
         `http://localhost:3001/cart/${CartId}`
     );
     return dispatch({

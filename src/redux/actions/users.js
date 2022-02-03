@@ -22,8 +22,8 @@ export function getUsers() {
 export function postUser(payload) {
   return async function (dispatch) {
     const info = await axios.post(
-      "https://pfbackendecommerce.herokuapp.com/users" ||
-        "http://localhost:3001/users",
+      "https://pfbackendecommerce.herokuapp.com/users",
+      payload || "http://localhost:3001/users",
       payload
     );
     return info;

@@ -33,7 +33,11 @@ function NewCategory() {
 
   //Envio la imagen hacia mi estado actual
   const postCategories = () => {
-    axios.post("http://localhost:3001/categories", newCategory);
+    axios.post(
+      "https://pfbackendecommerce.herokuapp.com/categories",
+      newCategory || "http://localhost:3001/categories",
+      newCategory
+    );
     navigate("/admin");
     navigate("/admin/categorias");
   };
