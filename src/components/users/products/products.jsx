@@ -18,7 +18,7 @@ const Products = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   //const [productsPerPage, setProductsPerPage] = useState(9);
-  const productsPerPage = 9;
+  const productsPerPage = 12;
   const [filter, setFilter] = useState({
     clothingType: location.state != null ? location.state.filter : "",
     sort: "",
