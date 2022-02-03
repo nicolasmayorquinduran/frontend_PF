@@ -18,10 +18,9 @@ const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(9);
   const [filter, setFilter] = useState({
-    clothingType: location.state.filter.length ? location.state.filter : "",
+    clothingType: location.state != null ? location.state.filter : "",
     sort: "",
   });
-
   const dispatch = useDispatch();
 
   useEffect(() => {
