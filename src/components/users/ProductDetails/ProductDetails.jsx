@@ -58,7 +58,7 @@ export default function ProductDetails() {
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
-  }, [dispatch, user]);
+  }, [dispatch, user, id]);
 
   const handleAddSize = (e) => {
     product.size = e.target.value;
