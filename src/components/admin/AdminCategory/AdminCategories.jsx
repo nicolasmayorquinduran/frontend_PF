@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../../redux/actions/categories";
 import "./adminCategories.css";
@@ -11,21 +11,21 @@ function AdminCat() {
       (state.filterCategories.length && state.filterCategories) ||
       state.categories
   );
-  // const [categories, setCategories] = useState(DBcategories);
+  // const [categories, setCategories] = useState(DBcategories); //hay que importarlo si lo usan
   // console.log(categories);
 
   //INSERTAR IMAGEN
-  const [imageSelected, setImageSelected] = useState("");
+  // const [imageSelected, setImageSelected] = useState("");
   // console.log(imageSelected)
 
-  const [newCategory, setNewCategory] = useState({
-    name: "",
-    active: true,
-    img: imageSelected,
-  });
+  // const [newCategory, setNewCategory] = useState({
+  //   name: "",
+  //   active: true,
+  //   img: imageSelected,
+  // });
 
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getCategories()), [dispatch, imageSelected]);
+  useEffect(() => dispatch(getCategories()), [dispatch]); //agregar imageSelected si lo usas
 
   return (
     <>
@@ -33,7 +33,7 @@ function AdminCat() {
       <div className="categoriesCards">
         {categories?.map((c) => {
           return (
-            <div className="catCard">
+            <div key={c.CategoriesId} className="catCard">
               <div className="labelAndDelete">
                 <label className="catLabel">{c.name}</label>
 
