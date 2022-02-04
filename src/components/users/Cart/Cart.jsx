@@ -7,8 +7,13 @@ import {
   deleteAllCart,
   deleteProductCart,
 } from "../../../redux/actions/products";
+<<<<<<< HEAD
 // import { getActualUser } from "../../../redux/actions/users";
 import { Link } from "react-router-dom";
+=======
+import { getActualUser } from "../../../redux/actions/users";
+import { Link, useNavigate } from "react-router-dom";
+>>>>>>> d4580b03de7e6570946d5cb522291312b9ffdf8d
 import DataTable from "react-data-table-component";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,15 +22,19 @@ import s from "./Cart.module.css";
 // import axios from "axios";
 
 export default function Cart() {
+<<<<<<< HEAD
   // const navigate = useNavigate();
+=======
+  const navigate = useNavigate();
+>>>>>>> d4580b03de7e6570946d5cb522291312b9ffdf8d
   const email = window.localStorage.getItem("userEmail");
   const carrito = useSelector((store) => store.cart);
 
   const dispatch = useDispatch();
-  // const User = useSelector((store) => store.actualUser);
-  // const idUser = !User ? null : User.UsersId;
-  //console.log("cart", carrito)
-  //console.log("user", email)
+  const User = useSelector((store) => store.actualUser);
+  const idUser = !User ? null : User.UsersId;
+  console.log("cart", carrito);
+  console.log("user", email);
 
   let products = carrito?.hasOwnProperty("productCart")
     ? carrito.productCart
@@ -35,9 +44,11 @@ export default function Cart() {
     dispatch(getUserCart(email));
   }, [dispatch, email]);
 
+
   // const [usuario, setUsuario] = useState({
   //   cart: [],
   // });
+
 
   const handleDeleteItem = (e, ProductId) => {
     e.preventDefault();
@@ -203,7 +214,16 @@ export default function Cart() {
           CLEAR ALL CART
         </button>
         <Link to="/checkout">
-          <input type="submit" value="GO TO CHECKOUT" className={s.btn} />
+          <input
+            type="submit"
+            value="GO TO CHECKOUT"
+            className={s.btn}
+            onClick={() =>
+              navigate(
+                "https://stackoverflow.com/questions/69868956/how-to-redirect-in-react-router-v6"
+              )
+            }
+          />
         </Link>
       </div>
     </>

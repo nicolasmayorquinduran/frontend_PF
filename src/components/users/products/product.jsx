@@ -10,7 +10,7 @@ const Product = ({ id, name, price, img, ranking }) => {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
   return (
-    <Children>
+    <Children pc="4" tablet="3" movil="2">
       <div className="father">
         <Link
           to={`/products/${id}`}
