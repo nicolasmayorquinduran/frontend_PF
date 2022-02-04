@@ -13,6 +13,7 @@ const NavBar = () => {
       <NavBarMenu />
 
       <div className="logoLok">
+        Esto es logo
         <Link to="/">
           <img src={logoLok} alt="LooK" />
         </Link>
