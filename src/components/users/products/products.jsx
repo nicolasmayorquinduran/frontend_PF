@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../../../redux/actions/products";
-import { Container } from "../../../globalStyles";
+import { Container, Prueba } from "../../../globalStyles";
 import Product from "./product";
 import Paginado from "../Paginado/Paginado.jsx";
 import Filters from "../../filters/Filters";

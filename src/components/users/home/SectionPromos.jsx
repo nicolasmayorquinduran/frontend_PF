@@ -18,7 +18,7 @@ const SectionPromos = ({ allPromos }) => {
 
   //   useEffect(() => handleArrowPromos(), [handleArrowPromos]); no está importado
 
-  console.log(counter);
+  // console.log(counter);
   return (
     <Container>
       {
