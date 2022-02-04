@@ -67,6 +67,7 @@ const AdminProducts = () => {
           {productsAll.map((product) => (
             <Children
               className="cardProductos"
+              key={product.ProductId}
               onClick={() =>
                 setSelected({
                   ProductId: product.ProductId,
