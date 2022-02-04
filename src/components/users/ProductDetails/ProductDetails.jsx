@@ -27,12 +27,15 @@ export default function ProductDetails() {
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
-  allProducts =
-    allProducts.length && product.hasOwnProperty("ProductId")
-      ? allProducts.filter(
-          (p) => p.categories[0].name === product.categories[0].name
-        )
-      : allProducts;
+
+  // if (product.categories != undefined && allProducts.length) {
+  //   return (allProducts = allProducts.filter(
+  //     (p) => p.categories[0].name == product.categories[0].name
+  //   ));
+
+  //   console.log(true);
+  // }
+
   const email = user.email;
   const UserId = user.UsersId;
   let idCart = user.hasOwnProperty("carts")
@@ -40,8 +43,7 @@ export default function ProductDetails() {
     : {};
   let talles = [];
   for (const prop in product.stock) {
-    if (product.stock[prop] > 0)
-      talles = [...talles, { size: prop, stock: product.stock[prop] }];
+    talles = [...talles, { size: prop, stock: product.stock[prop] }];
   }
   let aditional = [];
   for (const prop in product.additionalInformation) {
@@ -79,6 +81,7 @@ export default function ProductDetails() {
       timer: 3000,
     });
   };
+
   return (
     <div>
       <hr id="hr"></hr>
@@ -114,33 +117,40 @@ export default function ProductDetails() {
               </div>
 
               <div id="talles">
-                <h6>Talles:</h6>
+                <h6>Tallas disponibles:</h6>
                 <div className="lista">
                   {talles.map((t) => {
                     return (
-                      t.stock > 0 && (
-                        <>
-                          <div>
-                            <label>{`${t.size}:`}</label>
-                            <input
-                              defaultValue="0"
-                              type="number"
-                              min={0}
-                              max={t.stock}
-                              onChange={(e) => {
-                                if (e.target.value == t.stock)
-                                  Swal.fire({
-                                    icon: "error",
-                                    title: "Ooops...",
-                                    text: "No hay mas stock de esta talla!",
-                                    showConfirmButton: true,
-                                    timer: 3000,
-                                  });
-                              }}
-                            />
-                          </div>
-                        </>
-                      )
+                      <>
+                        <div>
+                          <label
+                            style={{
+                              color: t.stock == 0 ? "#888" : "#000",
+                            }}
+                          >{`${t.size}:`}</label>
+                          <input
+                            defaultValue="0"
+                            type="number"
+                            min={0}
+                            max={t.stock}
+                            disabled={t.stock == 0 && false}
+                            style={{
+                              background: t.stock == 0 ? "#ccc" : "#fff",
+                              color: t.stock == 0 ? "#888" : "#000",
+                            }}
+                            onChange={(e) => {
+                              if (e.target.value == t.stock)
+                                Swal.fire({
+                                  icon: "error",
+                                  title: "Ooops...",
+                                  text: "No hay mas stock de esta talla!",
+                                  showConfirmButton: true,
+                                  timer: 3000,
+                                });
+                            }}
+                          />
+                        </div>
+                      </>
                     );
                   })}
                 </div>
