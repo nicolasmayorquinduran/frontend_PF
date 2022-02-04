@@ -5,7 +5,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { Container, Children } from "../../../globalStyles";
+import { Container } from "../../../globalStyles";
 import "./style.css";
 
 const SectionCategories = ({ allCategories }) => {
@@ -49,8 +49,12 @@ const SectionCategories = ({ allCategories }) => {
             index >= group - 2 &&
             index <= group && (
               <Link
-                to=""
+                to="/products"
+                state={{
+                  filter: c.name,
+                }}
                 className="categories"
+                key={c.CategoriesId}
                 style={{
                   backgroundImage: `url(${c.img})`,
                 }}

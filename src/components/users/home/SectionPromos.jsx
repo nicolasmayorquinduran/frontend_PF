@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -16,9 +16,9 @@ const SectionPromos = ({ allPromos }) => {
       : counter < allPromos.length && setCounter(counter++);
   };
 
-  //   useEffect(() => handleArrowPromos(), [handleArrowPromos]);
+  //   useEffect(() => handleArrowPromos(), [handleArrowPromos]); no está importado
 
-  console.log(counter);
+  // console.log(counter);
   return (
     <Container>
       {

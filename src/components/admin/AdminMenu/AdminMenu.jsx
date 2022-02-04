@@ -14,10 +14,10 @@ const AdminMenu = () => {
         <li>
           <Link to="/admin/pedidos">Pedidos</Link>
         </li>
-        <li class="item-r">
+        <li className="item-r">
           <Link to="/admin/promos">Promos</Link>
         </li>
-        <li class="item-r">
+        <li className="item-r">
           <Link to="/admin/usuarios">Usuarios</Link>
         </li>
       </ul>

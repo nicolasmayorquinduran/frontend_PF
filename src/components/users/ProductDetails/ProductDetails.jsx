@@ -26,17 +26,29 @@ export default function ProductDetails() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
-  let allProducts = useSelector((store) =>
-    store.allProducts.filter(
-      (p) => p.categories[0].name === product.categories[0].name
-    )
-  );
+  let allProducts = useSelector((store) => store.allProducts);
+
+  //  product.categories != undefined && allProducts.length) {
+  //     return (allProducts = allProducts.filter(
+  //       (p) => p.categories[0].name == product.categories[0].name
+  //     ));
+  //     }
+  allProducts =
+    allProducts.length && product.hasOwnProperty("ProductId")
+      ? allProducts.filter(
+          (p) => p.categories[0].name === product.categories[0].name
+        )
+      : allProducts;
+  //   console.log(true);
+
   const email = user.email;
   const UserId = user.UsersId;
+  let idCart = user.hasOwnProperty("carts")
+    ? user.carts.find((c) => c.status == "open")
+    : {};
   let talles = [];
   for (const prop in product.stock) {
-    if (product.stock[prop] > 0)
-      talles = [...talles, { size: prop, stock: product.stock[prop] }];
+    talles = [...talles, { size: prop, stock: product.stock[prop] }];
   }
   let aditional = [];
   for (const prop in product.additionalInformation) {
@@ -48,6 +60,7 @@ export default function ProductDetails() {
       },
     ];
   }
+
   let ranking = [Number(product.ranking)];
   while (ranking.length < ranking[ranking.length - 1]) {
     ranking = [...ranking, ranking[ranking.length - 1]];
@@ -56,20 +69,17 @@ export default function ProductDetails() {
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
-  }, [dispatch, user]);
+  }, [dispatch, user, id]);
 
   const handleAddSize = (e) => {
     product.size = e.target.value;
   };
-  let idCart = user.hasOwnProperty("carts")
-    ? user.carts.find((c) => c.status == "created").CartId
-    : {};
 
   const handleAddCart = (e) => {
     if (!user) {
       setCart([...cart, product]);
     }
-    dispatch(addToCart(idCart, id));
+    dispatch(addToCart(idCart.CartId, id));
     Swal.fire({
       icon: "success",
       text: "Producto agregado al carrito!",
@@ -77,6 +87,7 @@ export default function ProductDetails() {
       timer: 3000,
     });
   };
+
   return (
     <div>
       <hr id="hr"></hr>
@@ -112,27 +123,40 @@ export default function ProductDetails() {
               </div>
 
               <div id="talles">
-                <h6>Talles:</h6>
+                <h6>Tallas disponibles:</h6>
                 <div className="lista">
                   {talles.map((t) => {
                     return (
-                      t.stock > 0 && (
-                        <>
-                          <div>
-                            <label>{`${t.size}:`}</label>
-                            <input
-                              defaultValue="0"
-                              type="number"
-                              min={0}
-                              max={t.stock}
-                              onChange={(e) => {
-                                if (e.target.value == t.stock)
-                                  alert("no hay más unidades disponibles");
-                              }}
-                            />
-                          </div>
-                        </>
-                      )
+                      <>
+                        <div>
+                          <label
+                            style={{
+                              color: t.stock == 0 ? "#888" : "#000",
+                            }}
+                          >{`${t.size}:`}</label>
+                          <input
+                            defaultValue="0"
+                            type="number"
+                            min={0}
+                            max={t.stock}
+                            disabled={t.stock == 0 && false}
+                            style={{
+                              background: t.stock == 0 ? "#ccc" : "#fff",
+                              color: t.stock == 0 ? "#888" : "#000",
+                            }}
+                            onChange={(e) => {
+                              if (e.target.value == t.stock)
+                                Swal.fire({
+                                  icon: "error",
+                                  title: "Ooops...",
+                                  text: "No hay mas stock de esta talla!",
+                                  showConfirmButton: true,
+                                  timer: 3000,
+                                });
+                            }}
+                          />
+                        </div>
+                      </>
                     );
                   })}
                 </div>
@@ -219,19 +243,18 @@ export default function ProductDetails() {
           </div>
 
           <Container>
-            {allProducts.length &&
-              allProducts.map(
-                (p, index) =>
-                  index < 4 && (
-                    <Product
-                      id={p.ProductId}
-                      img={p.img[0]}
-                      name={p.name}
-                      price={p.price}
-                      ranking={p.ranking}
-                    />
-                  )
-              )}
+            {allProducts.map(
+              (p, index) =>
+                index < 4 && (
+                  <Product
+                    id={p.ProductId}
+                    img={p.img[0]}
+                    name={p.name}
+                    price={p.price}
+                    ranking={p.ranking}
+                  />
+                )
+            )}
           </Container>
         </div>
       ) : (

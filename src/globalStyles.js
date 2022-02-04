@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components'
-import styled from 'styled-components'
+import { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 body {
@@ -77,7 +77,11 @@ a:hover {
   color: #9E005D
 }
 
-`
+`;
+// Container solo se usa donde hallan varias etiquetas div
+// que se repiten varias veces, que tienen el mismo ancho,
+// y generalmente tienen el mismo tipo de información
+//           vvvvvvvv
 
 export const Container = styled.div`
   display: flex;
@@ -85,18 +89,25 @@ export const Container = styled.div`
   align-items: center;
   flex-wrap: wrap;
   text-align: center;
-`
+`;
+
+// El componente "Children" son las etiquetas hijas que se repiten varias veces
+// tienen por defecto un responsive de 1 columna para móvil, 2 para tablet y 4 para pc
+// El componente recibe props de columnas por ancho de pantalla (props = {pc, tablet, movil})
+// por ejemplo: <Children pc="4" tablet="3" movil="1">
+// para personalizar la cantidad de columnas en determinado ancho de pantalla
+//           vvvvvvvv
 
 export const Children = styled.div`
-  width: 23%;
+  width: ${(props) => (props.pc ? 100 / props.pc - 2 + "%" : "23%")};
   margin-top: 50px;
   display: flex;
   flex-direction: column;
   @media only screen and (max-width: 1100px) and (min-width: 700px) {
-    width: 48%;
+    width: ${(props) => (props.tablet ? 100 / props.tablet - 2 + "%" : "48%")};
   }
   @media only screen and (max-width: 699px) and (min-width: 0px) {
-    width: 98%;
+    width: ${(props) => (props.movil ? 100 / props.movil - 2 + "%" : "98%")};
   }
   img {
     width: 100%;
@@ -104,12 +115,13 @@ export const Children = styled.div`
   select {
     box-shadow: 2px 2px 5px grey;
   }
-`
+`;
+
 export const Category = styled.div`
   display: inline-block;
   align-contents: center;
   text-align: center;
-`
+`;
 
 export const SelectCategory = styled.select`
   border-radius: 5px;

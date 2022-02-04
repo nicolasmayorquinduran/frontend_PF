@@ -27,7 +27,7 @@ export function postUser(payload) {
 export function getActualUser(payload){
   return async function (dispatch){
       try {
-          const json = await axios.get("http://localhost:3001/users/" + payload)
+          const json = await axios.get("http://localhost:3001/users" + payload)
           return dispatch({
               type: TYPES.GET_ACTUAL_USER,
               payload: json.data
