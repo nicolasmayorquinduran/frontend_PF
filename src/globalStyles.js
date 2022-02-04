@@ -131,3 +131,12 @@ export const Selected = styled.button`
   }
 `;
 
+export const catCard = styled.div`
+display: inline-table;
+  margin: 0vh 1vw 1vh 1vw;
+  width: 30vh;
+  height: 32vh;
+  color: whitesmoke;
+  box-shadow: 2px 2px 5px gray;  
+
+`

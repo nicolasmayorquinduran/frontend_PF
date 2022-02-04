@@ -1,12 +1,13 @@
 .categoryContainer{
   margin-top: 2%;
+  
 }
 .newCategory {
   display: flex;
 }
 .newCategory {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr ;
   margin-bottom: 5vh;
   width: 90vh;
   margin-left: 45vh;
@@ -23,16 +24,22 @@
 .newCategory button {
   width: 50vh;
   margin-top: 1vh;
-  margin-left: 5vh;
+  margin-left: vh;
 }
+
+.containerUpload{
+  display: flex;
+  flex-direction: column;
+}
+
 .uploadImage {
   display: flex;
   flex-direction: column;
-  margin-left: 5vh;
+  margin-left: 2vh;
 }
 .uploadImage img {
   width: 50vh;
-  margin-left: 5vh;
+  margin-left: 2vh;
   padding: 3vh;
 }
 
