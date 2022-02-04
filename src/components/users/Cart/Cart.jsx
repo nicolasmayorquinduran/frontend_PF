@@ -1,4 +1,5 @@
 // import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -7,6 +8,7 @@ import {
   deleteAllCart,
   deleteProductCart,
 } from "../../../redux/actions/products";
+
 // import { getActualUser } from "../../../redux/actions/users";
 import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
@@ -17,15 +19,16 @@ import s from "./Cart.module.css";
 // import axios from "axios";
 
 export default function Cart() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const email = window.localStorage.getItem("userEmail");
   const carrito = useSelector((store) => store.cart);
 
   const dispatch = useDispatch();
-  // const User = useSelector((store) => store.actualUser);
-  // const idUser = !User ? null : User.UsersId;
-  //console.log("cart", carrito)
-  //console.log("user", email)
+  const User = useSelector((store) => store.actualUser);
+  const idUser = !User ? null : User.UsersId;
+  console.log("cart", carrito);
+  console.log("user", email);
 
   let products = carrito?.hasOwnProperty("productCart")
     ? carrito.productCart
@@ -203,7 +206,16 @@ export default function Cart() {
           CLEAR ALL CART
         </button>
         <Link to="/checkout">
-          <input type="submit" value="GO TO CHECKOUT" className={s.btn} />
+          <input
+            type="submit"
+            value="GO TO CHECKOUT"
+            className={s.btn}
+            onClick={() =>
+              navigate(
+                "https://stackoverflow.com/questions/69868956/how-to-redirect-in-react-router-v6"
+              )
+            }
+          />
         </Link>
       </div>
     </>

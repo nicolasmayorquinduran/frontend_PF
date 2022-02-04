@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 const MigadePan = (props) => {
   let location = useLocation();
   let navigate = useNavigate();
-  //console.log(location);
+
   const pathnames = location.pathname.split("/").filter((x) => x);
 
   return (
