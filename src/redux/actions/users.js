@@ -34,7 +34,7 @@ export function getActualUser(payload) {
   return async function (dispatch) {
     try {
       const json = await axios.get(
-        "https://pfbackendecommerce.herokuapp.com/users" + payload ||
+        "https://pfbackendecommerce.herokuapp.com/users/" + payload ||
           "http://localhost:3001/users/" + payload
       );
       return dispatch({
