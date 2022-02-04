@@ -80,7 +80,6 @@ export function getUserCart (email){
 
 export function addToCart(CartId, productInfo) {
   return async function (dispatch) {
-    console.log(JSON.stringify(productInfo))
     const addProd = await axios.put(`http://localhost:3001/cart/${CartId}`, productInfo) //fatlta autenci usuario
       return dispatch({
         type: TYPES.ADD_TO_CART,

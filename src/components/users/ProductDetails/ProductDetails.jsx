@@ -62,28 +62,30 @@ export default function ProductDetails() {
     dispatch(detailsProduct(id));
   }, [dispatch, user, id]);
 
-  let stock = [];
-  stock.xs =0;
-  stock.s =0;
-  stock.m =0;
-  stock.l =0;
-  stock.xl =0;
-  stock.xxl =0;
-
-  const handleStockQty = (s,n)=>{
-
-    stock[s]=Number(n)
-    
-  }
-
-  // console.log(product.img)
-  const infoProduct ={
-    ProductId: id,
+  
+  let data ={
+      ProductId: id,
       name: product.name,
       img:"",
       price:product.price,
-      stock:[],
+      stock:
+        {xs: "0",
+        s:"0",
+        m: "0",
+        l: "0",
+        xl: "0",
+        xxl: "0"},
   }
+  
+  const handleStockQty = (s,n)=>{
+    console.log(data.stock[s]=String(n))
+    console.log(data.stock)
+    // stock[s]=n
+  }
+
+  
+
+  // console.log(product.img)
   const handleAddSize = (e) => {
     product.size = e.target.value;
   };
@@ -92,11 +94,11 @@ export default function ProductDetails() {
     if (!user) {
       setCart([...cart, product]);
     }
-    console.log(stock)
-    infoProduct.img = product.img[0]
-    infoProduct.stock = stock
-    console.log(JSON.stringify(infoProduct.stock))
-    // dispatch(addToCart(idCart.CartId, JSON.stringify(infoProduct)));
+    console.log(data.stock)
+    data.img = product.img[0]
+    let json =JSON.stringify(data)
+    console.log(json)
+    dispatch(addToCart(idCart.CartId, data));
     Swal.fire({
       icon: "success",
       text: "Producto agregado al carrito!",
