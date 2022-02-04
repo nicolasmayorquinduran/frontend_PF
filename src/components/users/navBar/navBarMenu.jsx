@@ -31,7 +31,7 @@ export const NavBarMenu = () => {
         </DropdownToggle>
         <DropdownMenu>
           <DropdownItem>
-            <a href="/">Ya no</a>
+            <a href="/">Home</a>
           </DropdownItem>
           <DropdownItem>
             <a href="/products">Ver todos los productos</a>
