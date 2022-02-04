@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
@@ -13,8 +13,6 @@ import { faPenSquare, faPlusSquare, faWindowClose } from "@fortawesome/free-soli
 
 
 const EditProduct = ({ product, setProduct }) => {
-
-  // console.log(product)
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,8 +20,56 @@ const EditProduct = ({ product, setProduct }) => {
   const categories = useSelector((state) => state.categories);
   
 
-  const updateProduct = async () => { await axios.put("http://localhost:3001/products", product);
+  // Imagen cloudinary:
+  const [imageSelected, setImageSelected] = useState();
+  console.log(imageSelected);
+
+  const uploadImage = () => {
+    const formData = new FormData();
+  
+    formData.append("file", imageSelected);
+    formData.append("upload_preset", "qoc3ud7y");
+  
+    axios.post("https://api.cloudinary.com/v1_1/jonascript/image/upload/",formData)
+    .then((response) => {
+      return setImageSelected(response.data.url);
+    });
+  };
+
+
+  useEffect(() => {
+
+    if (typeof imageSelected === "string") {
+      setProduct({
+        ...product,
+        img: [...product.img, imageSelected],
+      });
+    }
+
+    dispatch(detailsProduct(product.ProductId));
+    dispatch(getCategories());
+  
+  }, [dispatch, imageSelected, product, setProduct]);
+
+
+  const updateProduct = async () => { 
     
+    await axios.put("http://localhost:3001/products", 
+      {
+        name: product.name, 
+        ProductId: product.ProductId, 
+        img: product.img, 
+        price: product.price, 
+        description: product.description, 
+        additionalInformation: product.additionalInformation, 
+        stock: product.stock, 
+        categories: product.categories.map((category) => typeof category === "object" ? category.name : category ),
+
+      }
+    )
+    .then(response => {console.log(response)})
+    .catch(err => {console.log(err)})
+
     navigate("/admin");
     navigate("/admin/products");
   
@@ -45,12 +91,6 @@ const EditProduct = ({ product, setProduct }) => {
     stocksAll = [ ...stocksAll, {size: prop, stock: product.stock[prop]} ]
   };
   // console.log("TODOS LOS STOCKS", stocksAll)
-
-
-  useEffect(() => {
-    dispatch(detailsProduct(product.ProductId));
-    dispatch(getCategories());
-  }, [dispatch, product, setProduct]);
   
 
   const handleProduct = (event) => {
@@ -68,10 +108,14 @@ const EditProduct = ({ product, setProduct }) => {
           [event.target.id]: [...product[event.target.id], event.target.value],
         }
       )
-    : setProduct({ ...product, [event.target.id]: event.target.value });
+    : setProduct(
+      {
+        ...product, 
+        [event.target.id]: event.target.value 
+      }
+    );
   };
 
-  // console.log(product)
 
   const handleObjects = (event) => {
     setProduct(
@@ -83,30 +127,80 @@ const EditProduct = ({ product, setProduct }) => {
         }
       },
     )
-    // console.log("CLASSNAME", event.target.className, "VALUE",event.target.value)
+    // console.log("CLASSNAME:", event.target.className, "VALUE:", event.target.value)
   };
+
+
+  // ELIMINO CATEGORIAS: 
+  function handlerDeleteCategory(category) {
+    setProduct(
+      {
+        ...product,
+        categories: product.categories.filter((element) => element !== category)
+      }
+    )
+  };
+
+  // ELIMINO IMAGENES:
+  function handlerDeleteImage(image) {
     
+    setProduct(
+      {
+        ...product,
+        img: product.img.filter((element) => element !== image)
+      }
+    )
+  };
+
+
+  // console.log("IMAGEN:", product.img)
+  console.log("PRODUCT:", product)
+
 
   return (
     <>
+      
       <h2> Editar datos del Producto </h2>
+      
+      <div className=" editImage">
+            
+        <div className="coverImage">
+          <h4> Imagen precargadas </h4>
+          {
+            product.img.map((image, index) => {
+              return (
+                <div key={index}>
+                      
+                  <img src={image} alt="Img not found" width="150px" height="150px" value={image} />
+                  <button onClick={() => handlerDeleteImage(image)}> x </button>
+              
+                </div>
+              )
+            })
+          }
+        </div>
+            
+        {/* <FontAwesomeIcon className="icon" icon={faPenSquare} /> */}
+          
+      </div>
+     
+
       <form className="new">
         
         <div className="partsEdit">
-          <div className=" editImage">
-            
-            <div className="coverImage">
-              <h4> Imagen </h4>
-              <img src={product.img[0]} />
-            </div>
-            
-            {/* <FontAwesomeIcon className="icon" icon={faPenSquare} /> */}
+
+          <h4> Nueva imagen </h4>
+          <input type="file" onChange={(event) => setImageSelected(event.target.files)} />
+          <button onClick={uploadImage}> Cargar imagen </button>
+          <img src={imageSelected} alt="Imagen" height="300px" width="250px" />
           
-          </div>
         </div>
 
+
         <div className="partsEdit formNew">
+  
           <div className="nombrePrecio">
+            
             <h4> Nombre </h4>
             <input
               id="name"
@@ -129,6 +223,7 @@ const EditProduct = ({ product, setProduct }) => {
               onChange={handleProduct}
               required
             />
+          
           </div>
 
 
@@ -142,24 +237,6 @@ const EditProduct = ({ product, setProduct }) => {
             autoComplete="off"
             required
           />
-
-
-          <div className="categorias">
-            <h4> Selecciona una Categoría </h4>
-
-            <select
-              id="categories"
-              autoComplete="off"
-              required
-              onChange={handleProduct}
-            >
-              {
-                categories.map((category) => (
-                  <option value={category.name} id={category.CategoriesId}> {category.name} </option>
-                ))
-              }
-            </select>
-          </div>
 
 
           <div className="stocksNewProduct">
@@ -190,12 +267,49 @@ const EditProduct = ({ product, setProduct }) => {
             ))
           }
 
-          <button type="submit" onClick={updateProduct}> ¡Terminar edición! </button>
-        
-        </div>
 
+          <div className="categorias">
+            
+            <h4> Selecciona una Categoría </h4>
+
+            <select
+              id="categories"
+              autoComplete="off"
+              required
+              onChange={handleProduct}
+            >
+              {
+                categories.map((category) => (
+                  <option value={category.name} id={category.CategoriesId}> {category.name} </option>
+                ))
+              }
+            </select>
+
+          </div>
+    
+    
+        </div>
       
       </form>
+      
+
+      <div>
+        {
+          product.categories.map((category) => {
+            return (
+              <div>
+                <h5> { typeof category === "object" ? category.name : category } </h5>
+                <button onClick={() => handlerDeleteCategory(category)}> x </button>
+              </div>
+            )
+          })
+        }
+      </div> 
+
+
+      <button type="submit" onClick={updateProduct}> ¡Terminar edición! </button>
+   
+
     </>
   );
 };
