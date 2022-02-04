@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import axios from "axios";
 import { Container, Children } from "../../../globalStyles";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ const EditPromo = ({ product, setProduct }) => {
 
   const handleProduct = (e) =>
     setProduct({ ...product, [e.target.id]: e.target.value });
-  console.log(product);
+  //console.log(product);
   return (
     <>
       <h2>Editar Promo</h2>

@@ -8,17 +8,22 @@ import { detailsProduct } from "../../../redux/actions/products";
 import { getCategories } from "../../../redux/actions/categories";
 
 // Styles:
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenSquare, faPlusSquare, faWindowClose } from "@fortawesome/free-solid-svg-icons";
-
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import {
+//   faPenSquare,
+//   faPlusSquare,
+//   faWindowClose,
+// } from "@fortawesome/free-solid-svg-icons";
 
 const EditProduct = ({ product, setProduct }) => {
-  
+
+  // console.log(product)
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
- 
+
   const categories = useSelector((state) => state.categories);
-  
+
 
   // Imagen cloudinary:
   const [imageSelected, setImageSelected] = useState();
@@ -70,27 +75,33 @@ const EditProduct = ({ product, setProduct }) => {
     .then(response => {console.log(response)})
     .catch(err => {console.log(err)})
 
+  const updateProduct = async () => {
+    await axios.put("http://localhost:3001/products", product);
+
+
     navigate("/admin");
     navigate("/admin/products");
-  
   };
-
 
   // PARA EL RENDERIZADO (INPUT DE INFORMACION ADICIONAL):
   let infoAdditional = [];
-  
-  for(const prop in product.additionalInformation) {
-    infoAdditional = [ ...infoAdditional, {title: prop, data: product.additionalInformation[prop]} ]
-  };
+
+  for (const prop in product.additionalInformation) {
+    infoAdditional = [
+      ...infoAdditional,
+      { title: prop, data: product.additionalInformation[prop] },
+    ];
+  }
   // console.log("INFORMACION ADICIONAL", infoAdditional)
 
   // PARA EL RENDERIZADO (INPUT DE STOCK):
-  let stocksAll = []
+  let stocksAll = [];
 
-  for(const prop in product.stock) {
-    stocksAll = [ ...stocksAll, {size: prop, stock: product.stock[prop]} ]
-  };
+  for (const prop in product.stock) {
+    stocksAll = [...stocksAll, { size: prop, stock: product.stock[prop] }];
+  }
   // console.log("TODOS LOS STOCKS", stocksAll)
+
   
 
   const handleProduct = (event) => {
@@ -114,18 +125,45 @@ const EditProduct = ({ product, setProduct }) => {
         [event.target.id]: event.target.value 
       }
     );
+
+
+  useEffect(() => {
+    dispatch(detailsProduct(product.ProductId));
+    dispatch(getCategories());
+  }, [dispatch, product, setProduct]);
+
+  const handleProduct = (event) => {
+    Array.isArray(product[event.target.id])
+      ? product[event.target.id].includes(event.target.value)
+        ? setProduct({
+            ...product,
+            [event.target.id]: [
+              ...product[event.target.id].filter(
+                (c) => c !== event.target.value
+              ),
+            ],
+          })
+        : event.target.value.length &&
+          setProduct({
+            ...product,
+            [event.target.id]: [
+              ...product[event.target.id],
+              event.target.value,
+            ],
+          })
+      : setProduct({ ...product, [event.target.id]: event.target.value });
+
   };
 
 
   const handleObjects = (event) => {
-    setProduct(
-      {
-        ...product, 
-        [event.target.id]: {
-          ...product[event.target.id],
-          [event.target.className]: event.target.value 
-        }
+    setProduct({
+      ...product,
+      [event.target.id]: {
+        ...product[event.target.id],
+        [event.target.className]: event.target.value,
       },
+
     )
     // console.log("CLASSNAME:", event.target.className, "VALUE:", event.target.value)
   };
@@ -157,6 +195,11 @@ const EditProduct = ({ product, setProduct }) => {
   console.log("PRODUCT:", product)
 
 
+    });
+    // console.log("CLASSNAME", event.target.className, "VALUE",event.target.value)
+  };
+
+
   return (
     <>
       
@@ -186,14 +229,24 @@ const EditProduct = ({ product, setProduct }) => {
      
 
       <form className="new">
-        
         <div className="partsEdit">
+
 
           <h4> Nueva imagen </h4>
           <input type="file" onChange={(event) => setImageSelected(event.target.files)} />
           <button onClick={uploadImage}> Cargar imagen </button>
           <img src={imageSelected} alt="Imagen" height="300px" width="250px" />
           
+
+          <div className=" editImage">
+            <div className="coverImage">
+              <h4> Imagen </h4>
+              <img src={product.img[0]} alt={product.name} />
+            </div>
+
+            {/* <FontAwesomeIcon className="icon" icon={faPenSquare} /> */}
+          </div>
+
         </div>
 
 
@@ -226,7 +279,6 @@ const EditProduct = ({ product, setProduct }) => {
           
           </div>
 
-
           <h4> Descripción </h4>
           <textarea
             id="description"
@@ -239,33 +291,60 @@ const EditProduct = ({ product, setProduct }) => {
           />
 
 
-          <div className="stocksNewProduct">
-            
-            <h4> Stocks </h4>
-            {
-              stocksAll.map((props) => (
-                <div>
-                    
-                  <label>{props.size}:</label>
-                  <input value={props.stock} type="number" min="0" onChange={handleObjects} id="stock" className={props.size}/>
+          <div className="categorias">
+            <h4> Selecciona una Categoría </h4>
 
-                </div>
-              ))
-            }
+            <select
+              id="categories"
+              autoComplete="off"
+              required
+              onChange={handleProduct}
+            >
+              {categories.map((category) => (
+                <option
+                  key={category.CategoriesId}
+                  value={category.name}
+                  id={category.CategoriesId}
+                >
+                  {" "}
+                  {category.name}{" "}
+                </option>
+              ))}
+            </select>
           </div>
 
-          
-          <h4> Información addicional </h4>
-          {
-            infoAdditional.map((props) => (
-              <div>
-                    
-                <label> {props.title}: </label>
-                <input value={props.data} type="text" onChange={handleObjects} id="additionalInformation" className={props.title}/>
 
+          <div className="stocksNewProduct">
+            <h4> Stocks </h4>
+            {stocksAll.map((props) => (
+              <div key={props.size}>
+                <label>{props.size}:</label>
+                <input
+                  value={props.stock}
+                  type="number"
+                  min="0"
+                  onChange={handleObjects}
+                  id="stock"
+                  className={props.size}
+                />
               </div>
-            ))
-          }
+            ))}
+          </div>
+
+          <h4> Información addicional </h4>
+          {infoAdditional.map((props) => (
+            <div>
+              <label> {props.title}: </label>
+              <input
+                value={props.data}
+                type="text"
+                onChange={handleObjects}
+                id="additionalInformation"
+                className={props.title}
+              />
+            </div>
+          ))}
+
 
 
           <div className="categorias">
@@ -290,6 +369,13 @@ const EditProduct = ({ product, setProduct }) => {
     
         </div>
       
+
+          <button type="submit" onClick={updateProduct}>
+            {" "}
+            ¡Terminar edición!{" "}
+          </button>
+        </div>
+
       </form>
       
 
