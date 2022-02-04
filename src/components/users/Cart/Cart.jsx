@@ -1,4 +1,5 @@
 // import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -7,13 +8,9 @@ import {
   deleteAllCart,
   deleteProductCart,
 } from "../../../redux/actions/products";
-<<<<<<< HEAD
+
 // import { getActualUser } from "../../../redux/actions/users";
 import { Link } from "react-router-dom";
-=======
-import { getActualUser } from "../../../redux/actions/users";
-import { Link, useNavigate } from "react-router-dom";
->>>>>>> d4580b03de7e6570946d5cb522291312b9ffdf8d
 import DataTable from "react-data-table-component";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,11 +19,8 @@ import s from "./Cart.module.css";
 // import axios from "axios";
 
 export default function Cart() {
-<<<<<<< HEAD
-  // const navigate = useNavigate();
-=======
   const navigate = useNavigate();
->>>>>>> d4580b03de7e6570946d5cb522291312b9ffdf8d
+
   const email = window.localStorage.getItem("userEmail");
   const carrito = useSelector((store) => store.cart);
 
@@ -44,11 +38,9 @@ export default function Cart() {
     dispatch(getUserCart(email));
   }, [dispatch, email]);
 
-
   // const [usuario, setUsuario] = useState({
   //   cart: [],
   // });
-
 
   const handleDeleteItem = (e, ProductId) => {
     e.preventDefault();

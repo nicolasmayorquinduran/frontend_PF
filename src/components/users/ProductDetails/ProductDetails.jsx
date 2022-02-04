@@ -28,13 +28,18 @@ export default function ProductDetails() {
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
 
-  // if (product.categories != undefined && allProducts.length) {
-  //   return (allProducts = allProducts.filter(
-  //     (p) => p.categories[0].name == product.categories[0].name
-  //   ));
-
+  //  product.categories != undefined && allProducts.length) {
+  //     return (allProducts = allProducts.filter(
+  //       (p) => p.categories[0].name == product.categories[0].name
+  //     ));
+  //     }
+  allProducts =
+    allProducts.length && product.hasOwnProperty("ProductId")
+      ? allProducts.filter(
+          (p) => p.categories[0].name === product.categories[0].name
+        )
+      : allProducts;
   //   console.log(true);
-  // }
 
   const email = user.email;
   const UserId = user.UsersId;
@@ -55,6 +60,7 @@ export default function ProductDetails() {
       },
     ];
   }
+
   let ranking = [Number(product.ranking)];
   while (ranking.length < ranking[ranking.length - 1]) {
     ranking = [...ranking, ranking[ranking.length - 1]];
