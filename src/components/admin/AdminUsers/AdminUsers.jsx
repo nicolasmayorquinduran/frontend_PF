@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Actions:
@@ -70,9 +70,9 @@ function AdminUsers() {
 
         <tbody>
           {allUsers.map((prop) => (
-            <tr>
+            <tr key={prop.UsersId}>
               <td>
-                <img src={prop.picture} />
+                <img src={prop.picture} alt={prop.name} />
               </td>
 
               <td>{prop.email}</td>
@@ -86,7 +86,7 @@ function AdminUsers() {
               </td>
 
               <td>
-                <FontAwesomeIcon icon={faEye} onclick={(event) => event} />
+                <FontAwesomeIcon icon={faEye} onClick={(event) => event} />
               </td>
             </tr>
           ))}

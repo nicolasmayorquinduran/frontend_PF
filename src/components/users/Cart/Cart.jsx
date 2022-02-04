@@ -1,5 +1,5 @@
-import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
-import { useState, useEffect } from "react";
+// import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import {
@@ -7,22 +7,22 @@ import {
   deleteAllCart,
   deleteProductCart,
 } from "../../../redux/actions/products";
-import { getActualUser } from "../../../redux/actions/users";
-import { Link, useNavigate } from "react-router-dom";
+// import { getActualUser } from "../../../redux/actions/users";
+import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatMoney } from "accounting";
 import s from "./Cart.module.css";
-import axios from "axios";
+// import axios from "axios";
 
 export default function Cart() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const email = window.localStorage.getItem("userEmail");
   const carrito = useSelector((store) => store.cart);
 
   const dispatch = useDispatch();
-  const User = useSelector((store) => store.actualUser);
+  // const User = useSelector((store) => store.actualUser);
   // const idUser = !User ? null : User.UsersId;
   //console.log("cart", carrito)
   //console.log("user", email)
@@ -33,7 +33,7 @@ export default function Cart() {
 
   useEffect(() => {
     dispatch(getUserCart(email));
-  }, [dispatch]);
+  }, [dispatch, email]);
 
   // const [usuario, setUsuario] = useState({
   //   cart: [],
