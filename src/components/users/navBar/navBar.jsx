@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { NavBarCart } from "./navBarCart";
 import { NavBarMenu } from "./navBarMenu";
 import { NavBarUser } from "./navBarUser";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import logoLok from "./logo_LOK.png";
 import "./navbar.css";
 import { getUserCart } from "../../../redux/actions/products";
