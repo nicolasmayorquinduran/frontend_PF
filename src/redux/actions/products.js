@@ -78,9 +78,10 @@ export function getUserCart (email){
   }
 }
 
-export function addToCart(CartId, ProductId) {
+export function addToCart(CartId, productInfo) {
   return async function (dispatch) {
-    const addProd = await axios.put(`http://localhost:3001/cart/${CartId}/${ProductId}`) //fatlta autenci usuario
+    console.log(JSON.stringify(productInfo))
+    const addProd = await axios.put(`http://localhost:3001/cart/${CartId}`, productInfo) //fatlta autenci usuario
       return dispatch({
         type: TYPES.ADD_TO_CART,
         payload: addProd.data.productCart

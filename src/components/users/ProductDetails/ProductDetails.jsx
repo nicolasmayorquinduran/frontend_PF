@@ -33,8 +33,8 @@ export default function ProductDetails() {
           (p) => p.categories[0].name === product.categories[0].name
         )
       : allProducts;
-  const email = user.email;
-  const UserId = user.UsersId;
+  // const email = user.email;
+  // const UserId = user.UsersId;
   let idCart = user.hasOwnProperty("carts")
     ? user.carts.find((c) => c.status == "open")
     : {};
@@ -57,12 +57,33 @@ export default function ProductDetails() {
   while (ranking.length < ranking[ranking.length - 1]) {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
-
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
   }, [dispatch, user, id]);
 
+  let stock = [];
+  stock.xs =0;
+  stock.s =0;
+  stock.m =0;
+  stock.l =0;
+  stock.xl =0;
+  stock.xxl =0;
+
+  const handleStockQty = (s,n)=>{
+
+    stock[s]=Number(n)
+    
+  }
+
+  // console.log(product.img)
+  const infoProduct ={
+    ProductId: id,
+      name: product.name,
+      img:"",
+      price:product.price,
+      stock:[],
+  }
   const handleAddSize = (e) => {
     product.size = e.target.value;
   };
@@ -71,7 +92,11 @@ export default function ProductDetails() {
     if (!user) {
       setCart([...cart, product]);
     }
-    dispatch(addToCart(idCart.CartId, id));
+    console.log(stock)
+    infoProduct.img = product.img[0]
+    infoProduct.stock = stock
+    console.log(JSON.stringify(infoProduct.stock))
+    // dispatch(addToCart(idCart.CartId, JSON.stringify(infoProduct)));
     Swal.fire({
       icon: "success",
       text: "Producto agregado al carrito!",
@@ -125,6 +150,7 @@ export default function ProductDetails() {
                             <input
                               defaultValue="0"
                               type="number"
+                              onClick={(e)=>handleStockQty(t.size,e.target.value)}
                               min={0}
                               max={t.stock}
                               onChange={(e) => {
