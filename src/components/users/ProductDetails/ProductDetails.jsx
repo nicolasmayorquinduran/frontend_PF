@@ -84,7 +84,7 @@ export default function ProductDetails() {
   }
   
   const handleStockQty = (s,n)=>{
-    console.log(data.stock[s]=String(n))
+    data.stock[s]=String(n)
     console.log(data.stock)
     // stock[s]=n
   }
@@ -162,6 +162,7 @@ export default function ProductDetails() {
                           <input
                             defaultValue="0"
                             type="number"
+                            onClick={(e)=>handleStockQty(t.size,e.target.value)}
                             min={0}
                             max={t.stock}
                             disabled={t.stock == 0 && false}
