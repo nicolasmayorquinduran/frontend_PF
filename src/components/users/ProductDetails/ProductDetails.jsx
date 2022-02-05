@@ -33,12 +33,12 @@ export default function ProductDetails() {
   //       (p) => p.categories[0].name == product.categories[0].name
   //     ));
   //     }
-  allProducts =
+/*   allProducts =
     allProducts.length && product.hasOwnProperty("ProductId")
       ? allProducts.filter(
           (p) => p.categories[0].name === product.categories[0].name
         )
-      : allProducts;
+      : allProducts; */
   // const email = user.email;
   // const UserId = user.UsersId;
   let idCart = user.hasOwnProperty("carts")
