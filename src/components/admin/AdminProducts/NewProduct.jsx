@@ -34,7 +34,7 @@ export default function NewProduct() {
 
   // Imagen cloudinary:
   const [imageSelected, setImageSelected] = useState();
-  console.log(imageSelected);
+  //console.log(imageSelected);
 
   const uploadImage = () => {
     const formData = new FormData();
@@ -48,14 +48,14 @@ export default function NewProduct() {
       return setImageSelected(response.data.url);
     });
 
-    axios
+    /* axios
       .post(
         "https://api.cloudinary.com/v1_1/jonascript/image/upload/",
         formData
       )
       .then((response) => {
         return setImageSelected(response.data.url);
-      });
+      }); */
 
   };
 
@@ -98,11 +98,12 @@ export default function NewProduct() {
   }
 
   function handleSubmitCategory(event) {
-    setProduct({
-      ...product,
-      categories: [...product.categories, event.target.value],
-    });
-
+    if (event.target.value !== "Seleccione las categorías" && !product.categories.includes(event.target.value)){
+      setProduct({
+        ...product,
+        categories: [...product.categories, event.target.value],
+      });
+    }
     event.preventDefault();
   }
 
@@ -148,7 +149,7 @@ export default function NewProduct() {
     await axios.post("http://localhost:3001/products", product);
   };
 
-  // console.log(product);
+  console.log(product);
 
 
   return (
@@ -157,7 +158,7 @@ export default function NewProduct() {
 
 
 
-      <div className=" editImage">
+      {/* <div className=" editImage">
         
         <div className="coverImage">
         <h4> Imagen: </h4>
@@ -175,9 +176,9 @@ export default function NewProduct() {
           }
         </div>
                 
-        {/* <FontAwesomeIcon className="icon" icon={faPenSquare} /> */}
+         <FontAwesomeIcon className="icon" icon={faPenSquare} /> 
               
-      </div>
+      </div> */}
 
       
 
@@ -192,12 +193,16 @@ export default function NewProduct() {
               onChange={(event) => setImageSelected(event.target.files[0])}
             />
             <button onClick={uploadImage}> Cargar imagen </button>
-            <img
-              src={imageSelected}
-              alt="Imagen"
-              height="300px"
-              width="250px"
-            />
+          </div>
+          <div>
+            {
+              product.img?.map(e => (
+                <div>
+                  <img src={e} alt="not found" />
+                  <button onClick={() => handlerDeleteImage(e)}> x </button>
+                </div>
+              ))
+            }
           </div>
 
           <h4> Nombre: </h4>
@@ -239,11 +244,23 @@ export default function NewProduct() {
             autoComplete="off"
             required
           >
+            <option>Seleccione las categorías</option>
             {categories.map((c) => (
               <option key={c.CategoriesId}> {c.name} </option>
             ))}
           </select>
-
+          <div>
+            {
+              product.categories.map((category) => {
+                return (
+                  <div>
+                    <button onClick={() => handlerDeleteCategory(category)}> x </button>
+                    <h5>{category}</h5>
+                  </div>
+                )
+              })
+            }
+          </div>
           <div className="stocksNewProduct">
             <h4> Stocks: </h4>
             {size.map((sizes) => (
@@ -287,7 +304,7 @@ export default function NewProduct() {
           }
 
 
-          <h4> Categorías: </h4>
+          {/* <h4> Categorías: </h4>
           <select
             onClick={handleSubmitCategory}
             name="categories"
@@ -299,11 +316,11 @@ export default function NewProduct() {
               <option> {c.name} </option>
             ))
           }
-          </select>
+          </select> */}
 
           
 
-          {infoAd.map((info) => (
+         {/*  {infoAd.map((info) => (
             <div key={infoAd.indexOf(info)}>
               <h5> {info} </h5>
               <input
@@ -321,7 +338,7 @@ export default function NewProduct() {
                 }
               />
             </div>
-          ))}
+          ))} */}
 
           <button type="submit" onClick={() => updateProduct(product)}>
             {" "}
@@ -332,21 +349,10 @@ export default function NewProduct() {
       </form>
 
 
-      <div>
-        {
-          product.categories.map((category) => {
-            return (
-              <div>
-                <button onClick={() => handlerDeleteCategory(category)}> x </button>
-                <h5>{category}</h5>
-              </div>
-            )
-          })
-        }
-      </div>
+      
 
 
-      <button type="submit" onClick={() => updateProduct(product)}> ¡Crear! </button>
+      {/* <button type="submit" onClick={() => updateProduct(product)}> ¡Crear! </button> */}
 
 
     </>
