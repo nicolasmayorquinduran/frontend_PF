@@ -39,10 +39,8 @@ export default function ProductDetails() {
           (p) => p.categories[0].name === product.categories[0].name
         )
       : allProducts;
-  //   console.log(true);
-
-  const email = user.email;
-  const UserId = user.UsersId;
+  // const email = user.email;
+  // const UserId = user.UsersId;
   let idCart = user.hasOwnProperty("carts")
     ? user.carts.find((c) => c.status == "open")
     : {};
@@ -65,12 +63,35 @@ export default function ProductDetails() {
   while (ranking.length < ranking[ranking.length - 1]) {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
-
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
   }, [dispatch, user, id]);
 
+  
+  let data ={
+      ProductId: id,
+      name: product.name,
+      img:"",
+      price:product.price,
+      stock:
+        {xs: "0",
+        s:"0",
+        m: "0",
+        l: "0",
+        xl: "0",
+        xxl: "0"},
+  }
+  
+  const handleStockQty = (s,n)=>{
+    console.log(data.stock[s]=String(n))
+    console.log(data.stock)
+    // stock[s]=n
+  }
+
+  
+
+  // console.log(product.img)
   const handleAddSize = (e) => {
     product.size = e.target.value;
   };
@@ -79,7 +100,11 @@ export default function ProductDetails() {
     if (!user) {
       setCart([...cart, product]);
     }
-    dispatch(addToCart(idCart.CartId, id));
+    console.log(data.stock)
+    data.img = product.img[0]
+    let json =JSON.stringify(data)
+    console.log(json)
+    dispatch(addToCart(idCart.CartId, data));
     Swal.fire({
       icon: "success",
       text: "Producto agregado al carrito!",
