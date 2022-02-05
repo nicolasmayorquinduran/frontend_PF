@@ -91,7 +91,7 @@ export function addToCart(CartId, productInfo) {
 
 export function deleteProductCart( CartId, ProductId ) {
   return async function (dispatch) {
-    let deleted = await axios.delete(`http://localhost:3001/cart/${CartId}`,ProductId);
+    let deleted = await axios.delete(`http://localhost:3001/cart/${CartId}/${ProductId}`);
     return dispatch({
       type: TYPES.DELETE_PRODUCT_CART,
       payload: deleted.info,

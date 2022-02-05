@@ -33,29 +33,28 @@ export default function Cart() {
   let products = carrito?.hasOwnProperty("productCart")
     ? carrito.productCart
     : [];
-
+  console.log("products", products)
   useEffect(() => {
     dispatch(getUserCart(email));
   }, [dispatch, email]);
 
-  // const [usuario, setUsuario] = useState({
-  //   cart: [],
-  // });
+  
 
   const handleDeleteItem = (e, ProductId) => {
     e.preventDefault();
     dispatch(deleteProductCart(carrito.CartId, ProductId));
-
+    
     Swal.fire({
       icon: "success",
       text: "Producto eliminado!",
       showConfirmButton: false,
       timer: 3000,
     });
+    dispatch(getUserCart(email))
   };
 
   const handleDeleteAllCart = (e) => {
-    // localStorage.clear()
+    localStorage.clear()
     dispatch(deleteAllCart(carrito.CartId));
     Swal.fire({
       icon: "success",
@@ -65,15 +64,16 @@ export default function Cart() {
     });
   };
 
-  // function getTotalAmount() {
-  //   let prices = 0;
-  //   let qtys = 0;
-  //   prices += Number(cart.map((e) => e.price));
-  //   console.log(prices);
-  //   qtys += Number(cart.map((e) => e.price));
-  //   let total = prices * qtys;
-  //   return total;
-  // }
+  function getTotalAmount() {
+    let prices = 0;
+    let qtys = 0;
+    prices += (products.map((e) => e.price));
+    console.log(prices);
+    qtys += Number(Object.values(products.map(e=>e.stock)));
+    let total = prices * qtys;
+    console.log(total)
+    return total;
+  }
 
   // const handlerChangeAmount = (product,idUser,e) => {
   //     e.preventDefault()
@@ -107,7 +107,7 @@ export default function Cart() {
       grow: 0,
       sortable: true,
       cell: (row) => (
-        <img height="84px" width="56px" alt={row.name} src={row.img[0]} />
+        <img height="84px" width="56px" alt={row.name} src={row.img} />
       ),
     },
     {
@@ -123,18 +123,19 @@ export default function Cart() {
     },
 
     {
-      name: "Quantity",
+      name: "Talles",
       selector: (row) => (
-        <input
-          name="amount"
-          type="number"
-          min={1}
-          max={100}
-          // value={row.qty}
-          // onChange={console.log("handlerChangeAmount")}
-        ></input>
+        // <input
+        //   name="amount"
+        //   type="number"
+        //   min={1}
+        //   max={100}
+        //   value={Object.keys(row.stock)}
+        //   // onChange={console.log("handlerChangeAmount")}
+        // ></input>
+        <p>{Object.entries(row.stock)}</p>
       ), //row.amount,
-      //sortable: true
+      sortable: true
     },
 
     // {
@@ -174,7 +175,7 @@ export default function Cart() {
     <>
       <div className={s.container}>
         <h1>Shopping Cart</h1>
-        {products.length && (
+        {products.length? (
           <DataTable
             className={s.table}
             columns={columns}
@@ -185,10 +186,10 @@ export default function Cart() {
           >
             {" "}
           </DataTable>
-        )}
+        ): <h4>No hay ningun producto en tu carrito</h4>}
       </div>
       <div>
-        <div className={s.amount}>Total Amount: </div>
+        <div className={s.amount}>Total Amount:{getTotalAmount()} </div>
       </div>
 
       <div className={s.btn_container}>
