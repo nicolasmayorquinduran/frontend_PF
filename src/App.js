@@ -21,8 +21,9 @@ function App() {
   return (
     <div className="App">
       <GlobalStyle />
-      {location.pathname != '/cart' && <NavBar />}
-      {location.pathname != '/' && <MigadePan/>} 
+      {/* {location.pathname != '/cart' && <NavBar />} */}
+      <NavBar />
+      {location.pathname != "/" && <MigadePan />}
       <Routes>
         <Route path="/admin/:menu" element={<Admin />} />
         <Route exact path="/" element={<Home />} />
