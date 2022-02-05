@@ -78,9 +78,9 @@ export function getUserCart (email){
   }
 }
 
-export function addToCart(CartId, ProductId) {
+export function addToCart(CartId, productInfo) {
   return async function (dispatch) {
-    const addProd = await axios.put(`http://localhost:3001/cart/${CartId}/${ProductId}`) //fatlta autenci usuario
+    const addProd = await axios.put(`http://localhost:3001/cart/${CartId}`, productInfo) //fatlta autenci usuario
       return dispatch({
         type: TYPES.ADD_TO_CART,
         payload: addProd.data.productCart
@@ -91,7 +91,7 @@ export function addToCart(CartId, ProductId) {
 
 export function deleteProductCart( CartId, ProductId ) {
   return async function (dispatch) {
-    let deleted = await axios.delete(`http://localhost:3001/cart/${CartId}`,ProductId);
+    let deleted = await axios.delete(`http://localhost:3001/cart/${CartId}/${ProductId}`);
     return dispatch({
       type: TYPES.DELETE_PRODUCT_CART,
       payload: deleted.info,

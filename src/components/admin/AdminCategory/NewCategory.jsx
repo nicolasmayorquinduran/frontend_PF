@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+//import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+<<<<<<< HEAD
 import './adminCategories.css'
 import { Container } from "../../../globalStyles";
+=======
+import "./adminCategories.css";
+>>>>>>> a68e30d0803cbf83df164f9f5e5e8f262b80a42b
 /* import { Image } from 'cloudinary-react'; */
 
 function NewCategory() {
@@ -64,11 +68,10 @@ function NewCategory() {
   return (
     <>
       <div className="categoryContainer">
-      <div>
-            <h5>Nueva categoría: </h5>
-          </div>
+        <div>
+          <h5>Nueva categoría: </h5>
+        </div>
         <div className="newCategory">
-          
           <form id={newCategory}>
             <div>
               <input

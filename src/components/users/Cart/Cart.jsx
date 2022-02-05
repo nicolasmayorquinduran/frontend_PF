@@ -1,72 +1,79 @@
-import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
-import { useState, useEffect } from "react";
+// import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import {getUserCart,deleteAllCart,deleteProductCart} from "../../../redux/actions/products";
-import {getActualUser} from "../../../redux/actions/users";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  getUserCart,
+  deleteAllCart,
+  deleteProductCart,
+} from "../../../redux/actions/products";
+
+// import { getActualUser } from "../../../redux/actions/users";
+import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatMoney } from "accounting";
 import s from "./Cart.module.css";
-import axios from "axios";
+// import axios from "axios";
 
 export default function Cart() {
-  const navigate = useNavigate()
-  const email = window.localStorage.getItem("userEmail")
-  const carrito = useSelector((store) => store.cart)
+  const navigate = useNavigate();
+
+  const email = window.localStorage.getItem("userEmail");
+  const carrito = useSelector((store) => store.cart);
 
   const dispatch = useDispatch();
   const User = useSelector((store) => store.actualUser);
   const idUser = !User ? null : User.UsersId;
-  console.log("cart", carrito)
-  console.log("user", email)
+  console.log("cart", carrito);
+  console.log("user", email);
 
-  let products = carrito?.hasOwnProperty("productCart") ?
-     carrito.productCart : []
+  let products = carrito?.hasOwnProperty("productCart")
+    ? carrito.productCart
+    : [];
+  console.log("products", products)
+  useEffect(() => {
+    dispatch(getUserCart(email));
+  }, [dispatch, email]);
 
-  useEffect( () => {
-     dispatch(getUserCart(email))
-  }, [dispatch])
-
-  const [usuario, setUsuario] = useState({
-    cart: []
-  })
-
+  
 
   const handleDeleteItem = (e, ProductId) => {
-    e.preventDefault()
-    dispatch(deleteProductCart(carrito.CartId, ProductId))
+    e.preventDefault();
+    dispatch(deleteProductCart(carrito.CartId, ProductId));
     
     Swal.fire({
-      icon: 'success',
-      text: 'Producto eliminado!',
+      icon: "success",
+      text: "Producto eliminado!",
       showConfirmButton: false,
-      timer: 3000
-    })
-  }
+      timer: 3000,
+    });
+    dispatch(getUserCart(email))
+  };
 
   const handleDeleteAllCart = (e) => {
-    // localStorage.clear()
-    dispatch(deleteAllCart(carrito.CartId))
+    localStorage.clear()
+    dispatch(deleteAllCart(carrito.CartId));
     Swal.fire({
-      icon: 'success',
-      text: 'Carrito eliminado!',
+      icon: "success",
+      text: "Carrito eliminado!",
       showConfirmButton: true,
-      timer: 3000
-    })
-  }
+      timer: 3000,
+    });
+  };
 
-  // function getTotalAmount() {
-  //   let prices = 0;
-  //   let qtys = 0;
-  //   prices += Number(cart.map((e) => e.price));
-  //   console.log(prices);
-  //   qtys += Number(cart.map((e) => e.price));
-  //   let total = prices * qtys;
-  //   return total;
-  // }
+  function getTotalAmount() {
+    let prices = 0;
+    let qtys = 0;
+    prices += (products.map((e) => e.price));
+    console.log(prices);
+    qtys += Number(Object.values(products.map(e=>e.stock)));
+    let total = prices * qtys;
+    console.log(total)
+    return total;
+  }
 
   // const handlerChangeAmount = (product,idUser,e) => {
   //     e.preventDefault()
@@ -94,14 +101,13 @@ export default function Cart() {
   //     }
   // }
 
-
   const columns = [
     {
       name: "Image",
       grow: 0,
       sortable: true,
       cell: (row) => (
-        <img height="84px" width="56px" alt={row.name} src={row.img[0]} />
+        <img height="84px" width="56px" alt={row.name} src={row.img} />
       ),
     },
     {
@@ -117,18 +123,19 @@ export default function Cart() {
     },
 
     {
-      name: "Quantity",
+      name: "Talles",
       selector: (row) => (
-        <input
-          name="amount"
-          type="number"
-          min={1}
-          max={100}
-          // value={row.qty}
-          // onChange={console.log("handlerChangeAmount")}
-        ></input>
+        // <input
+        //   name="amount"
+        //   type="number"
+        //   min={1}
+        //   max={100}
+        //   value={Object.keys(row.stock)}
+        //   // onChange={console.log("handlerChangeAmount")}
+        // ></input>
+        <p>{Object.entries(row.stock)}</p>
       ), //row.amount,
-      //sortable: true
+      sortable: true
     },
 
     // {
@@ -141,7 +148,11 @@ export default function Cart() {
       cell: (row) => {
         return (
           <abbr title="Delete Item">
-            <button className={s.btnDel} value={row.ProductId} onClick={(e)=>handleDeleteItem(e,row.ProductId)}>
+            <button
+              className={s.btnDel}
+              value={row.ProductId}
+              onClick={(e) => handleDeleteItem(e, row.ProductId)}
+            >
               <FontAwesomeIcon icon={faTrashAlt} />
             </button>
           </abbr>
@@ -153,31 +164,32 @@ export default function Cart() {
     },
   ];
 
-    
-    const optionPagination = {
-        rowsPerPageText: "Files per Page",
-        rangesSeparatorText: "of",
-        selectAllRowsItem: true,
-        selectAllRowsItemText: "All",
-        responsive: true
-    } 
-    return (
-      <>
-        <div className={s.container}>
+  const optionPagination = {
+    rowsPerPageText: "Files per Page",
+    rangesSeparatorText: "of",
+    selectAllRowsItem: true,
+    selectAllRowsItemText: "All",
+    responsive: true,
+  };
+  return (
+    <>
+      <div className={s.container}>
         <h1>Shopping Cart</h1>
-        {products.length && <DataTable
-          className={s.table}
-          columns={columns} 
-          data={products} 
-          pagination
-          paginationComponentOptions={optionPagination}
-          actions
-        >
-          {" "}
-        </DataTable>}
+        {products.length? (
+          <DataTable
+            className={s.table}
+            columns={columns}
+            data={products}
+            pagination
+            paginationComponentOptions={optionPagination}
+            actions
+          >
+            {" "}
+          </DataTable>
+        ): <h4>No hay ningun producto en tu carrito</h4>}
       </div>
       <div>
-        <div className={s.amount}>Total Amount: </div>
+        <div className={s.amount}>Total Amount:{getTotalAmount()} </div>
       </div>
 
       <div className={s.btn_container}>
@@ -187,11 +199,24 @@ export default function Cart() {
           </Link>
         </button>
         {/* {idUser?  */}
-        <button className={s.btn} name={carrito?.CartId} onClick={handleDeleteAllCart}>
+        <button
+          className={s.btn}
+          name={carrito?.CartId}
+          onClick={handleDeleteAllCart}
+        >
           CLEAR ALL CART
         </button>
         <Link to="/checkout">
-          <input type="submit" value="GO TO CHECKOUT" className={s.btn} />
+          <input
+            type="submit"
+            value="GO TO CHECKOUT"
+            className={s.btn}
+            onClick={() =>
+              navigate(
+                "https://stackoverflow.com/questions/69868956/how-to-redirect-in-react-router-v6"
+              )
+            }
+          />
         </Link>
       </div>
     </>

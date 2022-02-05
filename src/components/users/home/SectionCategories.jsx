@@ -54,6 +54,7 @@ const SectionCategories = ({ allCategories }) => {
                   filter: c.name,
                 }}
                 className="categories"
+                key={c.CategoriesId}
                 style={{
                   backgroundImage: `url(${c.img})`,
                 }}
