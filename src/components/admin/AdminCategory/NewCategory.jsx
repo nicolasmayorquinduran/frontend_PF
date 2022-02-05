@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import './adminCategories.css'
+import { Container } from "../../../globalStyles";
 /* import { Image } from 'cloudinary-react'; */
 
 function NewCategory() {
