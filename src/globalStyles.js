@@ -141,16 +141,3 @@ export const Selected = styled.button`
     transition: 1s;
   }
 `;
-<<<<<<< HEAD
-
-export const catCard = styled.div`
-display: inline-table;
-  margin: 0vh 1vw 1vh 1vw;
-  width: 30vh;
-  height: 32vh;
-  color: whitesmoke;
-  box-shadow: 2px 2px 5px gray;  
-
-`
-=======
->>>>>>> a68e30d0803cbf83df164f9f5e5e8f262b80a42b
