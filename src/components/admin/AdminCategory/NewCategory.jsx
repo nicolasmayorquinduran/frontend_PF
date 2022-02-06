@@ -84,7 +84,7 @@ function NewCategory() {
               </div>
             </div>
           </form>
-          <div>
+          <div className="containerUpload">
             <input
               type="file"
               onChange={(event) => setImageSelected(event.target.files[0])}

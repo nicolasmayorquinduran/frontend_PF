@@ -50,6 +50,12 @@ body {
   background-color: grey;
 }
 
+.menuLink li .active{
+  background-color: white;
+  border-top: solid 2px #9e005d;
+  font-weight: bolder;
+}
+
 .formName,
 .formCorreo,
 .formPais,
