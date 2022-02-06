@@ -33,12 +33,12 @@ export default function ProductDetails() {
   //       (p) => p.categories[0].name == product.categories[0].name
   //     ));
   //     }
-  // allProducts =
-  //   allProducts.length && product.hasOwnProperty("ProductId")
-  //     ? allProducts.filter(
-  //         (p) => p.categories[0].name === product.categories[0].name
-  //       )
-  //     : allProducts;
+/*   allProducts =
+    allProducts.length && product.hasOwnProperty("ProductId")
+      ? allProducts.filter(
+          (p) => p.categories[0].name === product.categories[0].name
+        )
+      : allProducts; */
   // const email = user.email;
   // const UserId = user.UsersId;
   let idCart = user.hasOwnProperty("carts")
@@ -68,28 +68,19 @@ export default function ProductDetails() {
     dispatch(detailsProduct(id));
   }, [dispatch, user, id]);
 
-  
-  let data ={
-      ProductId: id,
-      name: product.name,
-      img:"",
-      price:product.price,
-      stock:
-        {xs: "0",
-        s:"0",
-        m: "0",
-        l: "0",
-        xl: "0",
-        xxl: "0"},
-  }
-  
-  const handleStockQty = (s,n)=>{
-    data.stock[s]=String(n)
-    console.log(data.stock)
-    // stock[s]=n
-  }
+  let data = {
+    ProductId: id,
+    name: product.name,
+    img: "",
+    price: product.price,
+    stock: { xs: "0", s: "0", m: "0", l: "0", xl: "0", xxl: "0" },
+  };
 
-  
+  const handleStockQty = (s, n) => {
+    data.stock[s] = String(n);
+    console.log(data.stock);
+    // stock[s]=n
+  };
 
   // console.log(product.img)
   const handleAddSize = (e) => {
@@ -100,10 +91,10 @@ export default function ProductDetails() {
     if (!user) {
       setCart([...cart, product]);
     }
-    console.log(data.stock)
-    data.img = product.img[0]
-    let json =JSON.stringify(data)
-    console.log(json)
+    console.log(data.stock);
+    data.img = product.img[0];
+    let json = JSON.stringify(data);
+    console.log(json);
     dispatch(addToCart(idCart.CartId, data));
     Swal.fire({
       icon: "success",
@@ -162,7 +153,9 @@ export default function ProductDetails() {
                           <input
                             defaultValue="0"
                             type="number"
-                            onClick={(e)=>handleStockQty(t.size,e.target.value)}
+                            onClick={(e) =>
+                              handleStockQty(t.size, e.target.value)
+                            }
                             min={0}
                             max={t.stock}
                             disabled={t.stock == 0 && false}

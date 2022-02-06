@@ -39,6 +39,7 @@ export const NavBarMenu = () => {
           <DropdownItem divider />
           <DropdownItem header>Categorías</DropdownItem>
           <DropdownItem divider />
+          {}
           <DropdownItem onClick={() => showAllProducts()}>
             Categoría 1
           </DropdownItem>
