@@ -33,7 +33,7 @@ export default function ProductDetails() {
   //       (p) => p.categories[0].name == product.categories[0].name
   //     ));
   //     }
-/*   allProducts =
+  /*   allProducts =
     allProducts.length && product.hasOwnProperty("ProductId")
       ? allProducts.filter(
           (p) => p.categories[0].name === product.categories[0].name
@@ -166,9 +166,9 @@ export default function ProductDetails() {
                             onChange={(e) => {
                               if (e.target.value == t.stock)
                                 Swal.fire({
-                                  icon: "error",
-                                  title: "Ooops...",
-                                  text: "No hay mas stock de esta talla!",
+                                  icon: "warning",
+                                  title: "Apurate!!!",
+                                  text: " Es la última de esta talla!",
                                   showConfirmButton: true,
                                   timer: 3000,
                                 });
