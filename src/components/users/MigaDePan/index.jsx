@@ -2,7 +2,7 @@ import * as React from "react";
 import { Typography, Breadcrumbs, Link } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const MigadePan = (props) => {
+export default function MigadePan (props) {
   let location = useLocation();
   let navigate = useNavigate();
 
@@ -34,4 +34,3 @@ const MigadePan = (props) => {
   );
 };
 
-export default MigadePan;
