@@ -1,6 +1,6 @@
 // import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import {
@@ -22,7 +22,9 @@ export default function Cart() {
   const navigate = useNavigate();
 
   const email = window.localStorage.getItem("userEmail");
-  const carrito = useSelector((store) => store.cart);
+  const carrito = useSelector(
+    (store) => store.actualUser.carts[store.actualUser.carts.length - 1]
+  );
 
   const dispatch = useDispatch();
   const User = useSelector((store) => store.actualUser);
@@ -33,28 +35,31 @@ export default function Cart() {
   let products = carrito?.hasOwnProperty("productCart")
     ? carrito.productCart
     : [];
-  console.log("products", products)
+  console.log("products", products);
   useEffect(() => {
     dispatch(getUserCart(email));
   }, [dispatch, email]);
 
-  
+  //esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
+  useEffect(() => {
+    return () => console.log("se desmontó");
+  }, []);
 
   const handleDeleteItem = (e, ProductId) => {
     e.preventDefault();
     dispatch(deleteProductCart(carrito.CartId, ProductId));
-    
+
     Swal.fire({
       icon: "success",
       text: "Producto eliminado!",
       showConfirmButton: false,
       timer: 3000,
     });
-    dispatch(getUserCart(email))
+    dispatch(getUserCart(email));
   };
 
   const handleDeleteAllCart = (e) => {
-    localStorage.clear()
+    localStorage.clear();
     dispatch(deleteAllCart(carrito.CartId));
     Swal.fire({
       icon: "success",
@@ -67,11 +72,11 @@ export default function Cart() {
   function getTotalAmount() {
     let prices = 0;
     let qtys = 0;
-    prices += (products.map((e) => e.price));
+    prices += products.map((e) => e.price);
     console.log(prices);
-    qtys += Number(Object.values(products.map(e=>e.stock)));
+    qtys += Number(Object.values(products.map((e) => e.stock)));
     let total = prices * qtys;
-    console.log(total)
+    console.log(total);
     return total;
   }
 
@@ -135,7 +140,7 @@ export default function Cart() {
         // ></input>
         <p>{Object.entries(row.stock)}</p>
       ), //row.amount,
-      sortable: true
+      sortable: true,
     },
 
     // {
@@ -175,7 +180,7 @@ export default function Cart() {
     <>
       <div className={s.container}>
         <h1>Shopping Cart</h1>
-        {products.length? (
+        {products.length ? (
           <DataTable
             className={s.table}
             columns={columns}
@@ -186,7 +191,9 @@ export default function Cart() {
           >
             {" "}
           </DataTable>
-        ): <h4>No hay ningun producto en tu carrito</h4>}
+        ) : (
+          <h4>No hay ningun producto en tu carrito</h4>
+        )}
       </div>
       <div>
         <div className={s.amount}>Total Amount:{getTotalAmount()} </div>

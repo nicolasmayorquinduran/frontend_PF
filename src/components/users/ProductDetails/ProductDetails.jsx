@@ -95,7 +95,12 @@ export default function ProductDetails() {
     data.img = product.img[0];
     let json = JSON.stringify(data);
     console.log(json);
-    dispatch(addToCart(idCart.CartId, data));
+    dispatch(
+      addToCart(
+        user.hasOwnProperty("UsersId") ? idCart.CartId : undefined,
+        data
+      )
+    );
     Swal.fire({
       icon: "success",
       text: "Producto agregado al carrito!",
