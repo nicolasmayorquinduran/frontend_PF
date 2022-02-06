@@ -28,12 +28,18 @@ export default function ProductDetails() {
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
 
+  const [bigImage, setBigImage] = useState(0);
+  // console.log(bigImage);
+  const handleImage = (e) => {
+    setBigImage(e.target.id);
+  };
+
   //  product.categories != undefined && allProducts.length) {
   //     return (allProducts = allProducts.filter(
   //       (p) => p.categories[0].name == product.categories[0].name
   //     ));
   //     }
-/*   allProducts =
+  /*   allProducts =
     allProducts.length && product.hasOwnProperty("ProductId")
       ? allProducts.filter(
           (p) => p.categories[0].name === product.categories[0].name
@@ -66,7 +72,7 @@ export default function ProductDetails() {
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
-  }, [dispatch, user, id]);
+  }, [dispatch, user, id, bigImage]);
 
   let data = {
     ProductId: id,
@@ -94,8 +100,13 @@ export default function ProductDetails() {
     console.log(data.stock);
     data.img = product.img[0];
     let json = JSON.stringify(data);
-    console.log(json);
-    dispatch(addToCart(idCart.CartId, data));
+    // console.log(json);
+    dispatch(
+      addToCart(
+        user.hasOwnProperty("UsersId") ? idCart.CartId : undefined,
+        data
+      )
+    );
     Swal.fire({
       icon: "success",
       text: "Producto agregado al carrito!",
@@ -112,13 +123,19 @@ export default function ProductDetails() {
           <div className="imgAndDetail">
             <div id="images" className="section">
               <div className="smallImg">
-                {product.img.map((i) => (
-                  <img id="s" src={i} alt="small" />
+                {product.img.map((i, index) => (
+                  <img
+                    key={index}
+                    id={index}
+                    src={i}
+                    alt="small"
+                    onClick={handleImage}
+                  />
                 ))}
               </div>
               <div
                 className="bigImg"
-                style={{ backgroundImage: `url(${product.img[0]})` }}
+                style={{ backgroundImage: `url(${product.img[bigImage]})` }}
               ></div>
             </div>
 
@@ -166,9 +183,9 @@ export default function ProductDetails() {
                             onChange={(e) => {
                               if (e.target.value == t.stock)
                                 Swal.fire({
-                                  icon: "error",
-                                  title: "Ooops...",
-                                  text: "No hay mas stock de esta talla!",
+                                  icon: "warning",
+                                  title: "Apurate!!!",
+                                  text: " Es la última de esta talla!",
                                   showConfirmButton: true,
                                   timer: 3000,
                                 });
