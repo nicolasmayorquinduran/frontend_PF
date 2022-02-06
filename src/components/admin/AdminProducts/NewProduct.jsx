@@ -120,6 +120,11 @@ export default function NewProduct() {
       stock: {},
       categories: [],
     });
+    document.getElementById("inputImg").value = "";
+    document.getElementById("selectCategories").value = "Seleccione las categorías";
+    size.map(e => document.getElementById(e).value = "");
+    infoAd.map(e => document.getElementById(e).value = "");
+    setImageSelected();
   };
 
   // ELIMINO CATEGORIAS:
@@ -147,6 +152,7 @@ export default function NewProduct() {
   // PARA EL BOTON DE CREAR EL PRODUCTO:
   const updateProduct = async () => {
     await axios.post("http://localhost:3001/products", product);
+    
   };
 
   console.log(product);
@@ -190,6 +196,7 @@ export default function NewProduct() {
           <div>
             <input
               type="file"
+              id="inputImg"
               onChange={(event) => setImageSelected(event.target.files[0])}
             />
             <button onClick={uploadImage}> Cargar imagen </button>
@@ -243,8 +250,9 @@ export default function NewProduct() {
             name="categories"
             autoComplete="off"
             required
+            id="selectCategories"
           >
-            <option>Seleccione las categorías</option>
+            <option value="Seleccione las categorías">Seleccione las categorías</option>
             {categories.map((c) => (
               <option key={c.CategoriesId}> {c.name} </option>
             ))}
@@ -270,6 +278,7 @@ export default function NewProduct() {
                   required
                   type="number"
                   min="0"
+                  id={sizes}
                   autoComplete="off"
                   onChange={(event) =>
                     setProduct({
@@ -291,6 +300,7 @@ export default function NewProduct() {
                 <input
                   type="text"
                   required
+                  id={info}
                   autoComplete="off"
                   onChange={(event) => setProduct(
                     {
