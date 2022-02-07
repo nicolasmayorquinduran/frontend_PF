@@ -1,6 +1,6 @@
 // import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import {
@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatMoney } from "accounting";
 import s from "./Cart.module.css";
 // import axios from "axios";
- 
+
 export default function Cart() {
   const navigate = useNavigate();
 
@@ -39,11 +39,6 @@ export default function Cart() {
   useEffect(() => {
     dispatch(getUserCart(email));
   }, [dispatch, email]);
-
-  //esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
-  useEffect(() => {
-    return () => console.log("se desmontó");
-  }, []);
 
   const handleDeleteItem = (e, ProductId) => {
     e.preventDefault();

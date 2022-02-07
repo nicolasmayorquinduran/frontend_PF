@@ -22,6 +22,8 @@ import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 export default function ProductDetails() {
   const [cart, setCart] = UseLocalStorage("cart", []);
   const [changeTab, setChangeTab] = useState("Comentarios");
+  // const [myCart, setMyCart] = useState({});
+
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.actualUser);
@@ -33,6 +35,11 @@ export default function ProductDetails() {
   const handleImage = (e) => {
     setBigImage(e.target.id);
   };
+
+  //esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
+  useEffect(() => {
+    return () => console.log("se desmontó");
+  }, []);
 
   //  product.categories != undefined && allProducts.length) {
   //     return (allProducts = allProducts.filter(
@@ -151,7 +158,7 @@ export default function ProductDetails() {
               <br></br>
 
               <div id="categoriesContainer">
-                <h6 id="categories"> Categories: </h6>
+                <h6 id="categories"> Categorías: </h6>
                 <p> {product.categories.map((c) => c.name).join(", ")}</p>
               </div>
 
@@ -200,7 +207,7 @@ export default function ProductDetails() {
               <br></br>
               <div>
                 <button className="add" onClick={handleAddCart}>
-                  Add to cart
+                  Agregar al carrito
                 </button>
               </div>
             </div>
