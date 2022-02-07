@@ -82,6 +82,7 @@ function rootReducer(state = initialState, action) {
         users: action.payload,
       };
     case TYPES.GET_ACTUAL_USER:
+      // actualUser: { carts: [{ productCart: [remera] }, { productCart2: [pantalon] }, {productCart3: [blusa] }] },
       return {
         ...state,
         actualUser: action.payload,
