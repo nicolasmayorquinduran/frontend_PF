@@ -18,7 +18,8 @@ function AdminCat() {
   const [category, setCategory] = useState({
     CategoriesId:"",
     name: "",
-    img:""   
+    img:""   ,
+    active: ""
   });
 
   
@@ -30,6 +31,9 @@ function AdminCat() {
     setShowEditCategories(true);
     console.log(c)
   };
+  const handleDesactive = (c) =>{
+    
+  }
 
   return (
     <>
@@ -44,7 +48,7 @@ function AdminCat() {
                 <div className="labelAndDelete">
                   <label className="catLabel">{c.name}</label>
 
-                  <button className="deleteBtn" id={c}>
+                  <button className="deleteBtn" id={c} onClick={()=> handleDesactive(c)}>
                     X
                   </button>
                 </div>
