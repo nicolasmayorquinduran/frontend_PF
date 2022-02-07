@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatMoney } from "accounting";
 import s from "./Cart.module.css";
 // import axios from "axios";
-
+ 
 export default function Cart() {
   const navigate = useNavigate();
 
