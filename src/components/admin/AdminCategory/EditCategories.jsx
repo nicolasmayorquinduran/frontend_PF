@@ -49,6 +49,13 @@ const EditCategories = ({ category, setCategory }) => {
         }));
       };
 
+      const handleActiveCategorie = (e) => {
+        setCategory((category) => ({
+          ...category,
+          active: true,
+        }));
+      };
+
   return (
     <>
       <div className="categoryContainer">
@@ -63,7 +70,11 @@ const EditCategories = ({ category, setCategory }) => {
               value={category.name}
               onChange={handleChange}
             ></input>
-            <button onClick={handleDelete} >Desactivar categoría</button>
+            {
+              category.active ?
+              <button onClick={handleDelete} >Desactivar categoría</button> :
+              <button onClick={handleActiveCategorie} >Activar categoría</button>
+            }
             <div>
               <button onClick={putCategories}>Guardar</button>
             </div>
