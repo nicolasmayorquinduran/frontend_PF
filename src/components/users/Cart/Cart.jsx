@@ -16,14 +16,15 @@ import DataTable from "react-data-table-component";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatMoney } from "accounting";
-import s from "./Cart.module.css";
+import "./style.css";
 // import axios from "axios";
 
 export default function Cart() {
   const navigate = useNavigate();
   const email = window.localStorage.getItem("userEmail");
   const carrito = useSelector(
-    (store) => store.actualUser.carts[store.actualUser.carts.length - 1]
+    (store) =>
+      store.actualUser.carts[store.actualUser.carts.length - 1].productCart
   );
   const [cart, setCart] = useState(carrito);
 
@@ -34,22 +35,81 @@ export default function Cart() {
     ? carrito.productCart
     : [];
   useEffect(() => {
-    dispatch(getUserCart(email));
-  }, [dispatch, email]);
-
+    setCart(carrito);
+  }, []);
   //esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
   useEffect(() => {
     return () => console.log("se desmontó");
   }, []);
-
+  //name img price stock Object.keys(stock)
   return (
     <>
       <div>
         <h1>Shopping Cart</h1>
       </div>
-      <Container>{cart.length ? <p>si hay</p> : <p>No hay</p>}</Container>
+      <Container>
+        {cart.length ? (
+          cart.map((p) => (
+            <Children>
+              <div
+                className="itemCartSection"
+                style={{ backgroundImage: `url(${p.img})` }}
+              >
+                <p>{p.name}</p>
+                <strong>{`$${
+                  Object.keys(p.stock).reduce(
+                    (acc, talla) => (acc += Number(p.stock[talla])),
+                    0
+                  ) * p.price
+                } total`}</strong>
+              </div>
+              <div className="itemCartSection">
+                <div className="amountProduct">
+                  <strong>{`${Object.keys(p.stock).reduce(
+                    (acc, talla) => (acc += Number(p.stock[talla])),
+                    0
+                  )} unidad(es)`}</strong>
+                  <strong>{`Precio unitario $${p.price}`}</strong>
+                </div>
+
+                <div className="stockProduct">
+                  {Object.keys(p.stock).map((t) => {
+                    return (
+                      <div className="sise">
+                        <label>{`$${t}:${p.stock[t]}unids`}</label>
+                        <input
+                          value={p.stock[t]}
+                          type="range"
+                          min={0}
+                          max={p.stock[t]}
+                          disabled={p.stock[t] == 0 && false}
+                          style={{
+                            background: p.stock[t] == 0 ? "#ccc" : "#fff",
+                            color: p.stock[t] == 0 ? "#888" : "#000",
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </Children>
+          ))
+        ) : (
+          <p>No hay</p>
+        )}
+      </Container>
       <div>
-        <div>Total compra: </div>
+        <h4>
+          {`Total compra: $${cart.reduce(
+            (acc, p) =>
+              (acc += Object.keys(p.stock).reduce(
+                (acc, talla) => (acc += p.stock[talla] * p.price),
+                0
+              )),
+            0
+          )}`}
+        </h4>
       </div>
 
       <div>

@@ -4,7 +4,6 @@ import Product from "../products/product";
 import {
   detailsProduct,
   getProducts,
-  getUserCart,
   addToCart,
 } from "../../../redux/actions/products";
 import { filterClothingType } from "../../filters/logicFunctionFilters";
