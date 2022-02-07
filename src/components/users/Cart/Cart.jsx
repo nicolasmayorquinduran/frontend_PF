@@ -1,6 +1,6 @@
 // import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import {
@@ -17,9 +17,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatMoney } from "accounting";
 import s from "./Cart.module.css";
 // import axios from "axios";
- 
+
 export default function Cart() {
   const navigate = useNavigate();
+  const [cart, setCart] = useState();
 
   const email = window.localStorage.getItem("userEmail");
   const carrito = useSelector(
@@ -188,9 +189,7 @@ export default function Cart() {
             pagination
             paginationComponentOptions={optionPagination}
             actions
-          >
-            {" "}
-          </DataTable>
+          ></DataTable>
         ) : (
           <h4>No hay ningun producto en tu carrito</h4>
         )}

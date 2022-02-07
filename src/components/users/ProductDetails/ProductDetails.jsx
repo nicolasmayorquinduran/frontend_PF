@@ -146,12 +146,16 @@ export default function ProductDetails() {
               <br></br>
 
               <div id="categoriesContainer">
-                <h6 id="categories"> Categories: </h6>
+                <h6 id="categories"> Categorías: </h6>
                 <p> {product.categories.map((c) => c.name).join(", ")}</p>
               </div>
 
               <div id="talles">
-                <h6>Tallas disponibles:</h6>
+                <strong>
+                  {talles.every((t) => t.stock == 0)
+                    ? "No hay stock disponible en el momento:"
+                    : "Tallas disponibles:"}
+                </strong>
                 <div className="lista">
                   {talles.map((t) => {
                     return (
@@ -194,7 +198,11 @@ export default function ProductDetails() {
               </div>
               <br></br>
               <div>
-                <button className="add" onClick={handleAddCart}>
+                <button
+                  disabled={talles.every((t) => t.stock == 0) && true}
+                  className="add"
+                  onClick={handleAddCart}
+                >
                   Add to cart
                 </button>
               </div>
