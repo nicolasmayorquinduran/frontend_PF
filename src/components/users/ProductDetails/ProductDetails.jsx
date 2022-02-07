@@ -50,7 +50,6 @@ export default function ProductDetails() {
   //     return (allProducts = allProducts.filter(
   //       (p) => p.categories[0].name == product.categories[0].name
   //     ));
-  //     }
   /*   allProducts =
     allProducts.length && product.hasOwnProperty("ProductId")
       ? allProducts.filter(
