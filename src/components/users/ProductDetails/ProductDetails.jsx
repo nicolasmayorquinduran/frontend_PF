@@ -4,9 +4,9 @@ import Product from "../products/product";
 import {
   detailsProduct,
   getProducts,
-  getUserCart,
   addToCart,
 } from "../../../redux/actions/products";
+import { getReviews } from "../../../redux/actions/reviews.js";
 import { filterClothingType } from "../../filters/logicFunctionFilters";
 import "./productdetails.css";
 import Cart from "../Cart/Cart";
@@ -22,7 +22,7 @@ import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 export default function ProductDetails() {
   const [cart, setCart] = UseLocalStorage("cart", []);
   const [changeTab, setChangeTab] = useState("Comentarios");
-  const [stock, setStock] = useState({
+  let [stock, setStock] = useState({
     xs: "0",
     s: "0",
     m: "0",
@@ -32,10 +32,14 @@ export default function ProductDetails() {
   });
   const { id } = useParams();
   const dispatch = useDispatch();
+  const review = useSelector((store)=> store.reviews);
+  console.log(review)
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
 console.log(product)
+
+
 
   const [bigImage, setBigImage] = useState(0);
   // console.log(bigImage);
@@ -47,7 +51,6 @@ console.log(product)
   //     return (allProducts = allProducts.filter(
   //       (p) => p.categories[0].name == product.categories[0].name
   //     ));
-  //     }
   /*   allProducts =
     allProducts.length && product.hasOwnProperty("ProductId")
       ? allProducts.filter(
@@ -85,6 +88,7 @@ console.log(product)
     );
     dispatch(getProducts());
     dispatch(detailsProduct(id));
+    dispatch(getReviews(id));
   }, [dispatch, user, id, bigImage]);
 
   const handleStockQty = (s, n) => {
@@ -93,7 +97,7 @@ console.log(product)
 
   const handleAddCart = (e) => {
     var guardado = localStorage.getItem("cart");
-    console.log(JSON.parse(guardado));
+    // console.log(JSON.parse(guardado));
     let { ProductId, name, img, price } = product;
     let data = { ProductId, name, img: img[0], price, stock };
     !user && setCart([...cart, JSON.stringify(data)]);
@@ -147,12 +151,16 @@ console.log(product)
               <br></br>
 
               <div id="categoriesContainer">
-                <h6 id="categories"> Categories: </h6>
+                <h6 id="categories"> Categorías: </h6>
                 <p> {product.categories.map((c) => c.name).join(", ")}</p>
               </div>
 
               <div id="talles">
-                <h6>Tallas disponibles:</h6>
+                <strong>
+                  {talles.every((t) => t.stock == 0)
+                    ? "No hay stock disponible en el momento:"
+                    : "Tallas disponibles:"}
+                </strong>
                 <div className="lista">
                   {talles.map((t) => {
                     return (
@@ -164,7 +172,7 @@ console.log(product)
                             }}
                           >{`${t.size}:`}</label>
                           <input
-                            defaultValue="0"
+                            value={stock[t.size]}
                             type="number"
                             onClick={(e) =>
                               handleStockQty(t.size, e.target.value)
@@ -177,7 +185,13 @@ console.log(product)
                               color: t.stock == 0 ? "#888" : "#000",
                             }}
                             onChange={(e) => {
-                              if (e.target.value == t.stock)
+                              // console.log(stock);
+                              handleStockQty(t.size, e.target.value);
+                              setStock({
+                                ...stock,
+                                [t.size]: Number(stock[t.size]) + 1 + "",
+                              });
+                              if (stock[t.size] == t.stock - 1)
                                 Swal.fire({
                                   icon: "warning",
                                   title: "Apurate!!!",
@@ -195,7 +209,11 @@ console.log(product)
               </div>
               <br></br>
               <div>
-                <button className="add" onClick={handleAddCart}>
+                <button
+                  disabled={talles.every((t) => stock[t.size] == 0) && true}
+                  className="add"
+                  onClick={handleAddCart}
+                >
                   Add to cart
                 </button>
               </div>
@@ -240,7 +258,7 @@ console.log(product)
 
             <div className="ContainerTabs">
               {(changeTab === "Comentarios" && (
-                <div className="tabInfo">Comentarios</div>
+                <div className="tabInfo">{review[0].description}</div>
               )) ||
                 (changeTab === "Adicional" && (
                   <ul className="tabInfo">
@@ -274,20 +292,33 @@ console.log(product)
             <h3 style={{ fontWeight: "bold" }}>relaciOnados</h3>
           </div>
 
-          <Container>
-            {allProducts.map(
-              (p, index) =>
-                index < 4 && (
-                  <Product
-                    id={p.ProductId}
-                    img={p.img[0]}
-                    name={p.name}
-                    price={p.price}
-                    ranking={p.ranking}
-                  />
-                )
-            )}
-          </Container>
+          <div
+            onClick={() =>
+              setStock({
+                xs: "0",
+                s: "0",
+                m: "0",
+                l: "0",
+                xl: "0",
+                xxl: "0",
+              })
+            }
+          >
+            <Container>
+              {allProducts.map(
+                (p, index) =>
+                  index < 4 && (
+                    <Product
+                      id={p.ProductId}
+                      img={p.img[0]}
+                      name={p.name}
+                      price={p.price}
+                      ranking={p.ranking}
+                    />
+                  )
+              )}
+            </Container>
+          </div>
         </div>
       ) : (
         <h3> Error 404 Not Found </h3>

@@ -1,0 +1,58 @@
+.productsAdded {
+  flex-direction: initial !important;
+}
+.sise {
+  display: flex;
+  flex-direction: column;
+}
+.itemCartSection {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 50%;
+  padding: 0 12px;
+  background-size: cover;
+  background-position: 50%;
+}
+
+.model {
+  flex-direction: initial !important;
+  margin: 20px 0;
+  padding: 4px;
+  border: solid 1px #ccc;
+  border-radius: 8px;
+}
+
+#close {
+  position: absolute;
+  left: 0;
+  padding: 0px 9px;
+  margin: 0;
+  width: max-content;
+}
+
+#productResume {
+  position: absolute;
+  width: 100%;
+  text-align: left;
+  bottom: 0;
+  left: 0;
+  padding-left: 8px;
+  padding-top: 20px;
+  color: #fff;
+  background: linear-gradient(
+    0deg,
+    rgba(85, 0, 50, 1) 0%,
+    rgba(158, 0, 93, 0) 100%
+  );
+}
+
+#productResume strong {
+  color: #fff;
+}
+
+#productResume p {
+  margin: 0;
+  padding: 0;
+  height: 15px;
+}
