@@ -1,0 +1,32 @@
+.productsAdded {
+  flex-direction: initial !important;
+}
+.sise {
+  display: flex;
+  flex-direction: column;
+}
+.itemCartSection {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 50%;
+  padding: 0 12px;
+  background-size: cover;
+  background-position: 50%;
+}
+
+.model {
+  flex-direction: initial !important;
+  margin: 20px 0;
+  padding: 4px;
+  border: solid 1px #ccc;
+  border-radius: 8px;
+}
+
+#close {
+  position: absolute;
+  left: 0;
+  padding: 0px 9px;
+  margin: 0;
+  width: max-content;
+}
