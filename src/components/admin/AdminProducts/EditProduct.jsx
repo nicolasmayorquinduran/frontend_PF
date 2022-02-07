@@ -268,8 +268,8 @@ const EditProduct = ({ product, setProduct }) => {
             >
               {categories.map((category) => (
                 <option value={category.name} id={category.CategoriesId}>
-                  {" "}
                   {category.name}{" "}
+                  {category.active ? " (Habilitada)" : " (Deshabilitada)"}
                 </option>
               ))}
             </select>
@@ -285,6 +285,7 @@ const EditProduct = ({ product, setProduct }) => {
                 {" "}
                 {typeof category === "object" ? category.name : category}{" "}
               </h5>
+
               <button onClick={() => handlerDeleteCategory(category)}>
                 {" "}
                 x{" "}
