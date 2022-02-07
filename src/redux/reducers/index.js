@@ -82,7 +82,11 @@ function rootReducer(state = initialState, action) {
         users: action.payload,
       };
     case TYPES.GET_ACTUAL_USER:
-      // actualUser: { carts: [{ productCart: [remera] }, { productCart2: [pantalon] }, {productCart3: [blusa] }] },
+      var guardado = localStorage.getItem("cart");
+      guardado = JSON.parse(guardado);
+      console.log(guardado);
+      action.payload.carts[action.payload.carts.length - 1].productCart =
+        guardado;
       return {
         ...state,
         actualUser: action.payload,
