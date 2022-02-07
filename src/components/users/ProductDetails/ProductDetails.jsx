@@ -6,6 +6,7 @@ import {
   getProducts,
   addToCart,
 } from "../../../redux/actions/products";
+import { getReviews } from "../../../redux/actions/reviews.js";
 import { filterClothingType } from "../../filters/logicFunctionFilters";
 import "./productdetails.css";
 import Cart from "../Cart/Cart";
@@ -31,9 +32,13 @@ export default function ProductDetails() {
   });
   const { id } = useParams();
   const dispatch = useDispatch();
+  const review = useSelector((store)=> store.reviews);
+  console.log(review)
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
+
+
 
   const [bigImage, setBigImage] = useState(0);
   // console.log(bigImage);
@@ -82,6 +87,7 @@ export default function ProductDetails() {
     );
     dispatch(getProducts());
     dispatch(detailsProduct(id));
+    dispatch(getReviews(id));
   }, [dispatch, user, id, bigImage]);
 
   const handleStockQty = (s, n) => {
@@ -90,7 +96,7 @@ export default function ProductDetails() {
 
   const handleAddCart = (e) => {
     var guardado = localStorage.getItem("cart");
-    console.log(JSON.parse(guardado));
+    // console.log(JSON.parse(guardado));
     let { ProductId, name, img, price } = product;
     let data = { ProductId, name, img: img[0], price, stock };
     !user && setCart([...cart, JSON.stringify(data)]);
@@ -178,7 +184,7 @@ export default function ProductDetails() {
                               color: t.stock == 0 ? "#888" : "#000",
                             }}
                             onChange={(e) => {
-                              console.log(stock);
+                              // console.log(stock);
                               handleStockQty(t.size, e.target.value);
                               setStock({
                                 ...stock,
@@ -251,7 +257,7 @@ export default function ProductDetails() {
 
             <div className="ContainerTabs">
               {(changeTab === "Comentarios" && (
-                <div className="tabInfo">Comentarios</div>
+                <div className="tabInfo">{review[0].description}</div>
               )) ||
                 (changeTab === "Adicional" && (
                   <ul className="tabInfo">

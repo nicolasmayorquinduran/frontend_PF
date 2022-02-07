@@ -15,6 +15,7 @@ const initialState = {
   users: [],
   actualUser: { carts: [{ productCart: [] }] },
   cart: {},
+  reviews: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -123,6 +124,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         cart: action.payload,
+      };
+    case TYPES.GET_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
       };
     default:
       return state;
