@@ -15,7 +15,7 @@ export const Profile = () => {
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    if (isAuthenticated && noRepeat === false) {
+    if (isAuthenticated) {
       await dispatch(postUser(user));
       noRepeat = true;
       await dispatch(getActualUser(user.email));

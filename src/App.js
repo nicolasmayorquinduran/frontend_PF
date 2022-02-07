@@ -13,7 +13,7 @@ import { Route, Routes } from "react-router-dom";
 import Admin from "./components/admin/Index";
 import Footer from "./components/users/Footer/Footer";
 import Page404 from "./components/Page404";
-import { Settings } from "./components/users/Login/Settings";
+import IndexUs from './components/users/Login/IndexUser'
 import Checkout from "./components/users/Checkout/Checkout.jsx";
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
         <Route exact path="/products/:id" element={<ProductsDetails />} />
         <Route exact path="/cart" element={<Cart />} />
         <Route path={"/:route"} element={<Page404 />} />
-        <Route exact path="/user/settings" element={<Settings />} />
+        <Route path="/user/:menu" element={<IndexUs />} />
         <Route exact path="/checkout" element={<Checkout />} />
       </Routes>
       <Footer />

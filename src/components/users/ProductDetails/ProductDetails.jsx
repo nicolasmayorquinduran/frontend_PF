@@ -36,6 +36,12 @@ export default function ProductDetails() {
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
 
+  const [bigImage, setBigImage] = useState(0);
+  // console.log(bigImage);
+  const handleImage = (e) => {
+    setBigImage(e.target.id);
+  };
+
   //  product.categories != undefined && allProducts.length) {
   //     return (allProducts = allProducts.filter(
   //       (p) => p.categories[0].name == product.categories[0].name
@@ -78,7 +84,7 @@ export default function ProductDetails() {
     );
     dispatch(getProducts());
     dispatch(detailsProduct(id));
-  }, [dispatch, user, id]);
+  }, [dispatch, user, id, bigImage]);
 
   const handleStockQty = (s, n) => {
     setStock({ ...stock, [s]: n });
@@ -112,13 +118,19 @@ export default function ProductDetails() {
           <div className="imgAndDetail">
             <div id="images" className="section">
               <div className="smallImg">
-                {product.img.map((i) => (
-                  <img id="s" src={i} alt="small" />
+                {product.img.map((i, index) => (
+                  <img
+                    key={index}
+                    id={index}
+                    src={i}
+                    alt="small"
+                    onClick={handleImage}
+                  />
                 ))}
               </div>
               <div
                 className="bigImg"
-                style={{ backgroundImage: `url(${product.img[0]})` }}
+                style={{ backgroundImage: `url(${product.img[bigImage]})` }}
               ></div>
             </div>
 
