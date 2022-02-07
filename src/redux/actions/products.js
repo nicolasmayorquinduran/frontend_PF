@@ -40,23 +40,19 @@ export function detailsProduct(id) {
 
 // Post new Product: Admin
 export function postProducts(payload) {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
       const json = await axios.post("http://localhost:3001/products", payload);
-    
-      return dispatch(
-        {
-          type: TYPES.POST_PRODUCTS_ADM,
-          payload: json.data,
-        }
-      );
-    
-    } catch (error) {
-      console.log(error)
-    }
-  }
-};
 
+      return dispatch({
+        type: TYPES.POST_PRODUCTS_ADM,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 
 export function getAllCarts() {
   return async function (dispatch) {
@@ -68,30 +64,53 @@ export function getAllCarts() {
   };
 }
 
-export function getUserCart (email){
-  return async function (dispatch){
-    let cart = await axios.get(`http://localhost:3001/cart/${email}`)
+export function getUserCart(email) {
+  return async function (dispatch) {
+    let cart = await axios.get(`http://localhost:3001/cart/${email}`);
     return dispatch({
-      type:TYPES.GET_USER_CART,
-      payload:cart.data
-    })
+      type: TYPES.GET_USER_CART,
+      payload: cart.data,
+    });
+  };
+}
+
+// export function addToCart(CartId, productInfo) {
+//   return async function (dispatch) {
+//     const addProd = await axios.put(`http://localhost:3001/cart/${CartId}`, productInfo) //fatlta autenci usuario
+//       return dispatch({
+//         type: TYPES.ADD_TO_CART,
+//         payload: addProd.data.productCart
+//       });
+//     }
+//   };
+
+export function addToCart(CartId, productInfo) {
+  if (CartId != undefined) {
+    return async function (dispatch) {
+      const addProd = await axios.put(
+        `http://localhost:3001/cart/${CartId}`,
+        productInfo
+      ); //fatlta autenci usuario
+      return dispatch({
+        type: TYPES.ADD_TO_CART,
+        payload: addProd.data.productCart,
+      });
+    };
+  } else {
+    return async function (dispatch) {
+      return dispatch({
+        type: TYPES.ADD_TO_CART,
+        payload: productInfo,
+      });
+    };
   }
 }
 
-export function addToCart(CartId, productInfo) {
+export function deleteProductCart(CartId, ProductId) {
   return async function (dispatch) {
-    const addProd = await axios.put(`http://localhost:3001/cart/${CartId}`, productInfo) //fatlta autenci usuario
-      return dispatch({
-        type: TYPES.ADD_TO_CART,
-        payload: addProd.data.productCart
-      });
-    }
-  };
-
-
-export function deleteProductCart( CartId, ProductId ) {
-  return async function (dispatch) {
-    let deleted = await axios.delete(`http://localhost:3001/cart/${CartId}/${ProductId}`);
+    let deleted = await axios.delete(
+      `http://localhost:3001/cart/${CartId}/${ProductId}`
+    );
     return dispatch({
       type: TYPES.DELETE_PRODUCT_CART,
       payload: deleted.info,
@@ -99,32 +118,29 @@ export function deleteProductCart( CartId, ProductId ) {
   };
 }
 
-export function deleteAllCart( CartId ) {
+export function deleteAllCart(CartId) {
   return async function (dispatch) {
     let deleted = await axios.delete(`http://localhost:3001/cart/${CartId}`);
     return dispatch({
       type: TYPES.DELETE_ALL_CART,
-      payload: deleted.info, 
+      payload: deleted.info,
     });
-  }; 
+  };
 }
- 
+
 export function updateProductAdm(payload) {
-  return async function(dispatch) {
-    try { 
+  return async function (dispatch) {
+    try {
       const json = await axios.put("http://localhost:3001/products", payload);
-    
-      return dispatch(
-        {
-          type: TYPES.UPDATE_PRODUCT_ADM,
-          payload: json.data,
-        }
-      );
-    
+
+      return dispatch({
+        type: TYPES.UPDATE_PRODUCT_ADM,
+        payload: json.data,
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 }
 
 export function cartToBuy(CartId,infoBuy,infoUser){

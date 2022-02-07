@@ -4,7 +4,6 @@ import Product from "../products/product";
 import {
   detailsProduct,
   getProducts,
-  getUserCart,
   addToCart,
 } from "../../../redux/actions/products";
 import { filterClothingType } from "../../filters/logicFunctionFilters";
@@ -22,18 +21,31 @@ import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 export default function ProductDetails() {
   const [cart, setCart] = UseLocalStorage("cart", []);
   const [changeTab, setChangeTab] = useState("Comentarios");
+  let [stock, setStock] = useState({
+    xs: "0",
+    s: "0",
+    m: "0",
+    l: "0",
+    xl: "0",
+    xxl: "0",
+  });
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
 
+  const [bigImage, setBigImage] = useState(0);
+  // console.log(bigImage);
+  const handleImage = (e) => {
+    setBigImage(e.target.id);
+  };
+
   //  product.categories != undefined && allProducts.length) {
   //     return (allProducts = allProducts.filter(
   //       (p) => p.categories[0].name == product.categories[0].name
   //     ));
-  //     }
-/*   allProducts =
+  /*   allProducts =
     allProducts.length && product.hasOwnProperty("ProductId")
       ? allProducts.filter(
           (p) => p.categories[0].name === product.categories[0].name
@@ -64,38 +76,30 @@ export default function ProductDetails() {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
   useEffect(() => {
+    window.localStorage.setItem(
+      "cart",
+      JSON.stringify(user.carts[0].productCart)
+    );
     dispatch(getProducts());
     dispatch(detailsProduct(id));
-  }, [dispatch, user, id]);
-
-  let data = {
-    ProductId: id,
-    name: product.name,
-    img: "",
-    price: product.price,
-    stock: { xs: "0", s: "0", m: "0", l: "0", xl: "0", xxl: "0" },
-  };
+  }, [dispatch, user, id, bigImage]);
 
   const handleStockQty = (s, n) => {
-    data.stock[s] = String(n);
-    console.log(data.stock);
-    // stock[s]=n
-  };
-
-  // console.log(product.img)
-  const handleAddSize = (e) => {
-    product.size = e.target.value;
+    setStock({ ...stock, [s]: n });
   };
 
   const handleAddCart = (e) => {
-    if (!user) {
-      setCart([...cart, product]);
-    }
-    console.log(data.stock);
-    data.img = product.img[0];
-    let json = JSON.stringify(data);
-    console.log(json);
-    dispatch(addToCart(idCart.CartId, data));
+    var guardado = localStorage.getItem("cart");
+    console.log(JSON.parse(guardado));
+    let { ProductId, name, img, price } = product;
+    let data = { ProductId, name, img: img[0], price, stock };
+    !user && setCart([...cart, JSON.stringify(data)]);
+    dispatch(
+      addToCart(
+        user.hasOwnProperty("UsersId") ? idCart.CartId : undefined,
+        data
+      )
+    );
     Swal.fire({
       icon: "success",
       text: "Producto agregado al carrito!",
@@ -112,13 +116,19 @@ export default function ProductDetails() {
           <div className="imgAndDetail">
             <div id="images" className="section">
               <div className="smallImg">
-                {product.img.map((i) => (
-                  <img id="s" src={i} alt="small" />
+                {product.img.map((i, index) => (
+                  <img
+                    key={index}
+                    id={index}
+                    src={i}
+                    alt="small"
+                    onClick={handleImage}
+                  />
                 ))}
               </div>
               <div
                 className="bigImg"
-                style={{ backgroundImage: `url(${product.img[0]})` }}
+                style={{ backgroundImage: `url(${product.img[bigImage]})` }}
               ></div>
             </div>
 
@@ -134,12 +144,16 @@ export default function ProductDetails() {
               <br></br>
 
               <div id="categoriesContainer">
-                <h6 id="categories"> Categories: </h6>
+                <h6 id="categories"> Categorías: </h6>
                 <p> {product.categories.map((c) => c.name).join(", ")}</p>
               </div>
 
               <div id="talles">
-                <h6>Tallas disponibles:</h6>
+                <strong>
+                  {talles.every((t) => t.stock == 0)
+                    ? "No hay stock disponible en el momento:"
+                    : "Tallas disponibles:"}
+                </strong>
                 <div className="lista">
                   {talles.map((t) => {
                     return (
@@ -151,7 +165,7 @@ export default function ProductDetails() {
                             }}
                           >{`${t.size}:`}</label>
                           <input
-                            defaultValue="0"
+                            value={stock[t.size]}
                             type="number"
                             onClick={(e) =>
                               handleStockQty(t.size, e.target.value)
@@ -164,11 +178,17 @@ export default function ProductDetails() {
                               color: t.stock == 0 ? "#888" : "#000",
                             }}
                             onChange={(e) => {
-                              if (e.target.value == t.stock)
+                              console.log(stock);
+                              handleStockQty(t.size, e.target.value);
+                              setStock({
+                                ...stock,
+                                [t.size]: Number(stock[t.size]) + 1 + "",
+                              });
+                              if (stock[t.size] == t.stock - 1)
                                 Swal.fire({
-                                  icon: "error",
-                                  title: "Ooops...",
-                                  text: "No hay mas stock de esta talla!",
+                                  icon: "warning",
+                                  title: "Apurate!!!",
+                                  text: " Es la última de esta talla!",
                                   showConfirmButton: true,
                                   timer: 3000,
                                 });
@@ -182,7 +202,11 @@ export default function ProductDetails() {
               </div>
               <br></br>
               <div>
-                <button className="add" onClick={handleAddCart}>
+                <button
+                  disabled={talles.every((t) => stock[t.size] == 0) && true}
+                  className="add"
+                  onClick={handleAddCart}
+                >
                   Add to cart
                 </button>
               </div>
@@ -261,20 +285,33 @@ export default function ProductDetails() {
             <h3 style={{ fontWeight: "bold" }}>relaciOnados</h3>
           </div>
 
-          <Container>
-            {allProducts.map(
-              (p, index) =>
-                index < 4 && (
-                  <Product
-                    id={p.ProductId}
-                    img={p.img[0]}
-                    name={p.name}
-                    price={p.price}
-                    ranking={p.ranking}
-                  />
-                )
-            )}
-          </Container>
+          <div
+            onClick={() =>
+              setStock({
+                xs: "0",
+                s: "0",
+                m: "0",
+                l: "0",
+                xl: "0",
+                xxl: "0",
+              })
+            }
+          >
+            <Container>
+              {allProducts.map(
+                (p, index) =>
+                  index < 4 && (
+                    <Product
+                      id={p.ProductId}
+                      img={p.img[0]}
+                      name={p.name}
+                      price={p.price}
+                      ranking={p.ranking}
+                    />
+                  )
+              )}
+            </Container>
+          </div>
         </div>
       ) : (
         <h3> Error 404 Not Found </h3>

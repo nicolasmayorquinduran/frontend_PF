@@ -10,27 +10,20 @@ import { getCategories } from "../../../redux/actions/categories";
 // import { faPenSquare, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import "./AdminProduct.css";
 
-
-
 export default function NewProduct() {
-  
   const dispatch = useDispatch();
-  
+
   const categories = useSelector((state) => state.categories);
 
-  
-  const [product, setProduct] = useState(
-    {
-      name: "",
-      img: [],
-      price: "",
-      description: "",
-      additionalInformation: {},
-      stock: {},
-      categories: [],
-    }
-  );
-
+  const [product, setProduct] = useState({
+    name: "",
+    img: [],
+    price: "",
+    description: "",
+    additionalInformation: {},
+    stock: {},
+    categories: [],
+  });
 
   // Imagen cloudinary:
   const [imageSelected, setImageSelected] = useState();
@@ -42,11 +35,14 @@ export default function NewProduct() {
     formData.append("file", imageSelected);
     formData.append("upload_preset", "qoc3ud7y");
 
-
-    axios.post("https://api.cloudinary.com/v1_1/jonascript/image/upload/", formData)
-    .then((response) => {
-      return setImageSelected(response.data.url);
-    });
+    axios
+      .post(
+        "https://api.cloudinary.com/v1_1/jonascript/image/upload/",
+        formData
+      )
+      .then((response) => {
+        return setImageSelected(response.data.url);
+      });
 
     /* axios
       .post(
@@ -56,25 +52,18 @@ export default function NewProduct() {
       .then((response) => {
         return setImageSelected(response.data.url);
       }); */
-
   };
 
-
   useEffect(() => {
-    
     if (typeof imageSelected === "string") {
-      setProduct(
-        {
-          ...product,
-          img: [...product.img, imageSelected],
-        }
-      );
+      setProduct({
+        ...product,
+        img: [...product.img, imageSelected],
+      });
     }
 
     dispatch(getCategories());
-  
   }, [dispatch, imageSelected]);
-
 
   // PARA EL RENDERIZADO (INPUT DE STOCK):
   let size = ["XS", "S", "M", "L", "X-L", "XX-L"];
@@ -88,7 +77,6 @@ export default function NewProduct() {
     "Lining material",
   ];
 
-
   // GUARDO LO QUE EL USUARIO ESCRIBE EN INPUT:
   function handleChange(event) {
     setProduct({
@@ -98,7 +86,10 @@ export default function NewProduct() {
   }
 
   function handleSubmitCategory(event) {
-    if (event.target.value !== "Seleccione las categorías" && !product.categories.includes(event.target.value)){
+    if (
+      event.target.value !== "Seleccione las categorías" &&
+      !product.categories.includes(event.target.value)
+    ) {
       setProduct({
         ...product,
         categories: [...product.categories, event.target.value],
@@ -121,48 +112,40 @@ export default function NewProduct() {
       categories: [],
     });
     document.getElementById("inputImg").value = "";
-    document.getElementById("selectCategories").value = "Seleccione las categorías";
-    size.map(e => document.getElementById(e).value = "");
-    infoAd.map(e => document.getElementById(e).value = "");
+    document.getElementById("selectCategories").value =
+      "Seleccione las categorías";
+    size.map((e) => (document.getElementById(e).value = ""));
+    infoAd.map((e) => (document.getElementById(e).value = ""));
     setImageSelected();
-  };
+    window.location.href = "http://localhost:3000/admin/products";
+  }
 
   // ELIMINO CATEGORIAS:
   function handlerDeleteCategory(category) {
-    setProduct(
-      {
-        ...product,
-        categories: product.categories.filter((element) => element !== category)
-      }
-    )
-  };
+    setProduct({
+      ...product,
+      categories: product.categories.filter((element) => element !== category),
+    });
+  }
 
   // ELIMINO IMAGENES:
   function handlerDeleteImage(image) {
-    
-    setProduct(
-      {
-        ...product,
-        img: product.img.filter((element) => element !== image)
-      }
-    )
-  };
-
+    setProduct({
+      ...product,
+      img: product.img.filter((element) => element !== image),
+    });
+  }
 
   // PARA EL BOTON DE CREAR EL PRODUCTO:
   const updateProduct = async () => {
     await axios.post("http://localhost:3001/products", product);
-    
   };
 
   console.log(product);
 
-
   return (
     <>
       <h2> Agregá un nuevo Producto </h2>
-
-
 
       {/* <div className=" editImage">
         
@@ -186,11 +169,8 @@ export default function NewProduct() {
               
       </div> */}
 
-      
-
       <form onSubmit={handleSubmit} className="new">
         <div className="partsNew">
-
           <h4> Imagen: </h4>
 
           <div>
@@ -202,14 +182,12 @@ export default function NewProduct() {
             <button onClick={uploadImage}> Cargar imagen </button>
           </div>
           <div>
-            {
-              product.img?.map(e => (
-                <div>
-                  <img src={e} alt="not found" />
-                  <button onClick={() => handlerDeleteImage(e)}> x </button>
-                </div>
-              ))
-            }
+            {product.img?.map((e) => (
+              <div>
+                <img src={e} alt="not found" />
+                <button onClick={() => handlerDeleteImage(e)}> x </button>
+              </div>
+            ))}
           </div>
 
           <h4> Nombre: </h4>
@@ -243,7 +221,6 @@ export default function NewProduct() {
             required
           />
 
-
           <h4> Categorías: </h4>
           <select
             onClick={handleSubmitCategory}
@@ -252,22 +229,25 @@ export default function NewProduct() {
             required
             id="selectCategories"
           >
-            <option value="Seleccione las categorías">Seleccione las categorías</option>
+            <option value="Seleccione las categorías">
+              Seleccione las categorías
+            </option>
             {categories.map((c) => (
               <option key={c.CategoriesId}> {c.name} </option>
             ))}
           </select>
           <div>
-            {
-              product.categories.map((category) => {
-                return (
-                  <div>
-                    <button onClick={() => handlerDeleteCategory(category)}> x </button>
-                    <h5>{category}</h5>
-                  </div>
-                )
-              })
-            }
+            {product.categories.map((category) => {
+              return (
+                <div>
+                  <button onClick={() => handlerDeleteCategory(category)}>
+                    {" "}
+                    x{" "}
+                  </button>
+                  <h5>{category}</h5>
+                </div>
+              );
+            })}
           </div>
           <div className="stocksNewProduct">
             <h4> Stocks: </h4>
@@ -293,26 +273,26 @@ export default function NewProduct() {
 
           <h4> Información adicional: </h4>
 
-          {
-            infoAd.map((info) => (
-              <div>
-                <h5> {info} </h5>
-                <input
-                  type="text"
-                  required
-                  id={info}
-                  autoComplete="off"
-                  onChange={(event) => setProduct(
-                    {
-                      ...product, 
-                      additionalInformation: {...product.additionalInformation, [info]: event.target.value},
-                    }
-                  )}
-                />
-              </div>
-            ))
-          }
-
+          {infoAd.map((info) => (
+            <div>
+              <h5> {info} </h5>
+              <input
+                type="text"
+                required
+                id={info}
+                autoComplete="off"
+                onChange={(event) =>
+                  setProduct({
+                    ...product,
+                    additionalInformation: {
+                      ...product.additionalInformation,
+                      [info]: event.target.value,
+                    },
+                  })
+                }
+              />
+            </div>
+          ))}
 
           {/* <h4> Categorías: </h4>
           <select
@@ -328,9 +308,7 @@ export default function NewProduct() {
           }
           </select> */}
 
-          
-
-         {/*  {infoAd.map((info) => (
+          {/*  {infoAd.map((info) => (
             <div key={infoAd.indexOf(info)}>
               <h5> {info} </h5>
               <input
@@ -354,17 +332,10 @@ export default function NewProduct() {
             {" "}
             ¡Crear!{" "}
           </button>
-
         </div>
       </form>
 
-
-      
-
-
       {/* <button type="submit" onClick={() => updateProduct(product)}> ¡Crear! </button> */}
-
-
     </>
   );
 }

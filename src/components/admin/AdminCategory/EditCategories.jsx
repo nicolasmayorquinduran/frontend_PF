@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -9,39 +8,39 @@ const EditCategories = ({ category, setCategory }) => {
   //PUT
   const putCategories = async () => {
     await axios.put(
-      `http://localhost:3001/categories/${category.CategoriesId}`,
-      category
-    );
-    navigate("/admin/");
-    navigate("/admin/categorias");
+        `http://localhost:3001/categories/${category.CategoriesId}`,
+        category
+      );
+        navigate("/admin/");
+        navigate("/admin/categorias");
   };
 
   //FORM IMAGE
-  const uploadImage = () => {
-    const formData = new FormData();
-    formData.append("file", category.img);
-    formData.append("upload_preset", "qoc3ud7y");
+    const uploadImage = () => {
+      const formData = new FormData();
+      formData.append("file", category.img);
+      formData.append("upload_preset", "qoc3ud7y");
 
-    axios
-      .post(
-        "https://api.cloudinary.com/v1_1/jonascript/image/upload/",
-        formData
-      )
-      .then((response) => {
-        return setCategory((category) => ({
+      axios
+        .post(
+          "https://api.cloudinary.com/v1_1/jonascript/image/upload/",
+          formData
+        )
+        .then((response) => {
+          return setCategory((category) => ({
+            ...category,
+            img: response.data.url,
+          }));
+        });
+    };
+
+
+      const handleChange = (e) => {
+        setCategory((category) => ({
           ...category,
-          img: response.data.url,
+          name: e.target.value,
         }));
-      });
-  };
-
-
-  const handleChange = (e) => {
-    setCategory((category) => ({
-      ...category,
-      name: e.target.value,
-    }));
-  };
+      };
 
   return (
     <>
@@ -63,6 +62,7 @@ const EditCategories = ({ category, setCategory }) => {
           </div>
 
           <div>
+          <img src={category.img} alt="Imagen" height="300px" width="300" />
             <input
               type="file"
               onChange={(event) =>
