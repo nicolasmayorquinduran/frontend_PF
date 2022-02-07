@@ -22,7 +22,7 @@ import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 export default function ProductDetails() {
   const [cart, setCart] = UseLocalStorage("cart", []);
   const [changeTab, setChangeTab] = useState("Comentarios");
-  const [stock, setStock] = useState({
+  let [stock, setStock] = useState({
     xs: "0",
     s: "0",
     m: "0",
@@ -146,12 +146,16 @@ export default function ProductDetails() {
               <br></br>
 
               <div id="categoriesContainer">
-                <h6 id="categories"> Categories: </h6>
+                <h6 id="categories"> Categorías: </h6>
                 <p> {product.categories.map((c) => c.name).join(", ")}</p>
               </div>
 
               <div id="talles">
-                <h6>Tallas disponibles:</h6>
+                <strong>
+                  {talles.every((t) => t.stock == 0)
+                    ? "No hay stock disponible en el momento:"
+                    : "Tallas disponibles:"}
+                </strong>
                 <div className="lista">
                   {talles.map((t) => {
                     return (
@@ -163,7 +167,7 @@ export default function ProductDetails() {
                             }}
                           >{`${t.size}:`}</label>
                           <input
-                            defaultValue="0"
+                            value={stock[t.size]}
                             type="number"
                             onClick={(e) =>
                               handleStockQty(t.size, e.target.value)
@@ -176,7 +180,13 @@ export default function ProductDetails() {
                               color: t.stock == 0 ? "#888" : "#000",
                             }}
                             onChange={(e) => {
-                              if (e.target.value == t.stock)
+                              console.log(stock);
+                              handleStockQty(t.size, e.target.value);
+                              setStock({
+                                ...stock,
+                                [t.size]: Number(stock[t.size]) + 1 + "",
+                              });
+                              if (stock[t.size] == t.stock - 1)
                                 Swal.fire({
                                   icon: "warning",
                                   title: "Apurate!!!",
@@ -194,7 +204,11 @@ export default function ProductDetails() {
               </div>
               <br></br>
               <div>
-                <button className="add" onClick={handleAddCart}>
+                <button
+                  disabled={talles.every((t) => stock[t.size] == 0) && true}
+                  className="add"
+                  onClick={handleAddCart}
+                >
                   Add to cart
                 </button>
               </div>
@@ -273,20 +287,33 @@ export default function ProductDetails() {
             <h3 style={{ fontWeight: "bold" }}>relaciOnados</h3>
           </div>
 
-          <Container>
-            {allProducts.map(
-              (p, index) =>
-                index < 4 && (
-                  <Product
-                    id={p.ProductId}
-                    img={p.img[0]}
-                    name={p.name}
-                    price={p.price}
-                    ranking={p.ranking}
-                  />
-                )
-            )}
-          </Container>
+          <div
+            onClick={() =>
+              setStock({
+                xs: "0",
+                s: "0",
+                m: "0",
+                l: "0",
+                xl: "0",
+                xxl: "0",
+              })
+            }
+          >
+            <Container>
+              {allProducts.map(
+                (p, index) =>
+                  index < 4 && (
+                    <Product
+                      id={p.ProductId}
+                      img={p.img[0]}
+                      name={p.name}
+                      price={p.price}
+                      ranking={p.ranking}
+                    />
+                  )
+              )}
+            </Container>
+          </div>
         </div>
       ) : (
         <h3> Error 404 Not Found </h3>
