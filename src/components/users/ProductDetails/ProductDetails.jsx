@@ -22,6 +22,14 @@ import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 export default function ProductDetails() {
   const [cart, setCart] = UseLocalStorage("cart", []);
   const [changeTab, setChangeTab] = useState("Comentarios");
+  const [stock, setStock] = useState({
+    xs: "0",
+    s: "0",
+    m: "0",
+    l: "0",
+    xl: "0",
+    xxl: "0",
+  });
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.actualUser);
@@ -70,37 +78,24 @@ export default function ProductDetails() {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
   useEffect(() => {
+    window.localStorage.setItem(
+      "cart",
+      JSON.stringify(user.carts[0].productCart)
+    );
     dispatch(getProducts());
     dispatch(detailsProduct(id));
   }, [dispatch, user, id, bigImage]);
 
-  let data = {
-    ProductId: id,
-    name: product.name,
-    img: "",
-    price: product.price,
-    stock: { xs: "0", s: "0", m: "0", l: "0", xl: "0", xxl: "0" },
-  };
-
   const handleStockQty = (s, n) => {
-    data.stock[s] = String(n);
-    console.log(data.stock);
-    // stock[s]=n
-  };
-
-  // console.log(product.img)
-  const handleAddSize = (e) => {
-    product.size = e.target.value;
+    setStock({ ...stock, [s]: n });
   };
 
   const handleAddCart = (e) => {
-    if (!user) {
-      setCart([...cart, product]);
-    }
-    console.log(data.stock);
-    data.img = product.img[0];
-    let json = JSON.stringify(data);
-    // console.log(json);
+    var guardado = localStorage.getItem("cart");
+    console.log(JSON.parse(guardado));
+    let { ProductId, name, img, price } = product;
+    let data = { ProductId, name, img: img[0], price, stock };
+    !user && setCart([...cart, JSON.stringify(data)]);
     dispatch(
       addToCart(
         user.hasOwnProperty("UsersId") ? idCart.CartId : undefined,
