@@ -42,12 +42,19 @@ const EditCategories = ({ category, setCategory }) => {
         }));
       };
 
+      const handleDelete = (e) => {
+        setCategory((category) => ({
+          ...category,
+          active: false,
+        }));
+      };
+
   return (
     <>
       <div className="categoryContainer">
         <div className="newCategory">
           <div>
-            <h5>Edita Categoría: </h5>
+            <h5>Editar Categoría: </h5>
           </div>
 
           <div>
@@ -56,6 +63,7 @@ const EditCategories = ({ category, setCategory }) => {
               value={category.name}
               onChange={handleChange}
             ></input>
+            <button onClick={handleDelete} >Desactivar categoría</button>
             <div>
               <button onClick={putCategories}>Guardar</button>
             </div>
@@ -63,6 +71,7 @@ const EditCategories = ({ category, setCategory }) => {
 
           <div>
           <img src={category.img} alt="Imagen" height="300px" width="300" />
+     
             <input
               type="file"
               onChange={(event) =>
