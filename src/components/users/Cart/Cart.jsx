@@ -47,28 +47,32 @@ export default function Cart() {
       <div>
         <h1>Shopping Cart</h1>
       </div>
-      <Container>
+      <Container className="productsAdded">
         {cart.length ? (
           cart.map((p) => (
-            <Children>
+            <Children
+              pc={cart.length > 2 ? "3" : "2"}
+              tablet="2"
+              movil="1"
+              className="model"
+            >
               <div
                 className="itemCartSection"
                 style={{ backgroundImage: `url(${p.img})` }}
               >
-                <p>{p.name}</p>
-                <strong>{`$${
-                  Object.keys(p.stock).reduce(
-                    (acc, talla) => (acc += Number(p.stock[talla])),
-                    0
-                  ) * p.price
-                } total`}</strong>
+                <div id="productResume">
+                  <p>{p.name}</p>
+                  <strong>{`$${
+                    Object.keys(p.stock).reduce(
+                      (acc, talla) => (acc += Number(p.stock[talla])),
+                      0
+                    ) * p.price
+                  } total`}</strong>
+                </div>
+                <button id="close">x</button>
               </div>
               <div className="itemCartSection">
                 <div className="amountProduct">
-                  <strong>{`${Object.keys(p.stock).reduce(
-                    (acc, talla) => (acc += Number(p.stock[talla])),
-                    0
-                  )} unidad(es)`}</strong>
                   <strong>{`Precio unitario $${p.price}`}</strong>
                 </div>
 
@@ -76,7 +80,7 @@ export default function Cart() {
                   {Object.keys(p.stock).map((t) => {
                     return (
                       <div className="sise">
-                        <label>{`$${t}:${p.stock[t]}unids`}</label>
+                        <p>{`$${t}:${p.stock[t]}unids`}</p>
                         <input
                           value={p.stock[t]}
                           type="range"
