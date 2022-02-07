@@ -37,6 +37,7 @@ export default function ProductDetails() {
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
+console.log(product)
 
 
 
