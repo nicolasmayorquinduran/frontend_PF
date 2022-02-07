@@ -80,7 +80,7 @@ export default function Cart() {
                   {Object.keys(p.stock).map((t) => {
                     return (
                       <div className="sise">
-                        <p>{`$${t}:${p.stock[t]}unids`}</p>
+                        <p>{`$${t}: ${p.stock[t]} unids`}</p>
                         <input
                           value={p.stock[t]}
                           type="range"
