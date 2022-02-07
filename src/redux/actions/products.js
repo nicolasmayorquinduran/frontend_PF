@@ -126,3 +126,17 @@ export function updateProductAdm(payload) {
     }
   }
 }
+
+export function cartToBuy(CartId,infoBuy,infoUser){
+  return async function(dispatch){
+    try {
+      const buy = await axios.post(`http://localhost:3001/order/${CartId}`,{infoBuy,infoUser})
+    return dispatch({
+      type:TYPES.CART_TO_BUY,
+      payload: buy.data
+    })
+    } catch (error) {
+      
+    }
+  }
+}
