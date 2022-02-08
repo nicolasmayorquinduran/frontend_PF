@@ -10,12 +10,8 @@ import {
   deleteProductCart,
 } from "../../../redux/actions/products";
 
-// import { getActualUser } from "../../../redux/actions/users";
+import { getActualUser } from "../../../redux/actions/users";
 import { Link } from "react-router-dom";
-import DataTable from "react-data-table-component";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { formatMoney } from "accounting";
 import { Button, Modal, ModalBody } from "reactstrap";
 import Checkout from "../Checkout/Checkout.jsx";
 import axios from "axios";
@@ -52,8 +48,7 @@ export default function Cart() {
   useEffect(() => {
     return () => console.log("se desmontó");
   }, []);
-  //name img price stock Object.keys(stock)
-  console.log(carrito);
+  //name img price stockSelected Object.keys(stockSelected)
   return (
     <>
       <div>
@@ -70,38 +65,56 @@ export default function Cart() {
             >
               <div
                 className="itemCartSection"
-                style={{ backgroundImage: `url(${p.img})` }}
+                style={{
+                  backgroundImage: `url(${p.img})`,
+                }}
               >
                 <div id="productResume">
                   <p>{p.name}</p>
                   <strong>{`$${
-                    Object.keys(p.stock)?.reduce(
-                      (acc, talla) => (acc += Number(p.stock[talla])),
+                    Object.keys(p.stockSelected)?.reduce(
+                      (acc, talla) => (acc += Number(p.stockSelected[talla])),
                       0
                     ) * p.price
                   } total`}</strong>
                 </div>
-                <button id="close">x</button>
+                <button
+                  onClick={() => {
+                    let productsFiltered = cart?.filter(
+                      (actualProduct) => actualProduct.ProductId !== p.ProductId
+                    );
+                    setCart(productsFiltered);
+                    dispatch(deleteProductCart(User?.CartId, p.ProductId));
+                    window.localStorage.setItem(
+                      "cart",
+                      JSON.stringify(productsFiltered)
+                    );
+                  }}
+                  id="close"
+                >
+                  x
+                </button>
               </div>
               <div className="itemCartSection">
                 <div className="amountProduct">
                   <strong>{`Precio unitario $${p.price}`}</strong>
                 </div>
 
-                <div className="stockProduct">
-                  {Object.keys(p.stock)?.map((t) => {
+                <div className="stockSelectedProduct">
+                  {Object.keys(p.stockSelected)?.map((t) => {
                     return (
                       <div className="sise">
-                        <p>{`$${t}: ${p.stock[t]} unids`}</p>
+                        <p>{`$${t}: ${p.stockSelected[t]} unids`}</p>
                         <input
-                          value={p.stock[t]}
+                          value={p.stockSelected[t]}
                           type="range"
                           min={0}
                           max={p.stock[t]}
-                          disabled={p.stock[t] == 0 && false}
+                          disabled={p.stockSelected[t] == 0 && false}
                           style={{
-                            background: p.stock[t] == 0 ? "#ccc" : "#fff",
-                            color: p.stock[t] == 0 ? "#888" : "#000",
+                            background:
+                              p.stockSelected[t] == 0 ? "#ccc" : "#fff",
+                            color: p.stockSelected[t] == 0 ? "#888" : "#000",
                           }}
                         />
                       </div>
@@ -119,8 +132,8 @@ export default function Cart() {
         <h4>
           {`Total compra: $${cart?.reduce(
             (acc, p) =>
-              (acc += Object.keys(p.stock)?.reduce(
-                (acc, talla) => (acc += p.stock[talla] * p.price),
+              (acc += Object.keys(p.stockSelected)?.reduce(
+                (acc, talla) => (acc += p.stockSelected[talla] * p.price),
                 0
               )),
             0
@@ -133,7 +146,14 @@ export default function Cart() {
           <button>Seguir comprandO</button>
         </Link>
 
-        <button>limpiar carritO</button>
+        <button
+          onClick={() => {
+            dispatch(deleteProductCart(User?.CartId));
+            window.localStorage.setItem("cart", JSON.stringify([]));
+          }}
+        >
+          limpiar carritO
+        </button>
 
         <Button onClick={toggle}>GO TO CHECKOUT</Button>
         <Modal isOpen={modal} toggle={toggle}>
@@ -141,8 +161,8 @@ export default function Cart() {
             <Checkout
               total={`Comprar $${cart.reduce(
                 (acc, p) =>
-                  (acc += Object.keys(p.stock)?.reduce(
-                    (acc, talla) => (acc += p.stock[talla] * p.price),
+                  (acc += Object.keys(p.stockSelected)?.reduce(
+                    (acc, talla) => (acc += p.stockSelected[talla] * p.price),
                     0
                   )),
                 0
