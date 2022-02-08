@@ -105,6 +105,12 @@ export default function ProductDetails() {
     });
   };
 
+  // console.log(allProducts);
+  let similarProducts = allProducts.filter(
+    (p) => p.categories[0].name === product.categories[0].name
+  );
+  // console.log(similarProducts);
+
   return (
     <div>
       <hr id="hr"></hr>
@@ -297,7 +303,7 @@ export default function ProductDetails() {
             }
           >
             <Container>
-              {allProducts.map(
+              {similarProducts.map(
                 (p, index) =>
                   index < 4 && (
                     <Product
