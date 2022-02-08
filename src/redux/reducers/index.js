@@ -83,10 +83,15 @@ function rootReducer(state = initialState, action) {
         users: action.payload,
       };
     case TYPES.GET_ACTUAL_USER:
-      var guardado = localStorage.getItem("cart");
-      guardado = JSON.parse(guardado);
-      action.payload.carts[action.payload.carts.length - 1].productCart =
-        guardado;
+      if (
+        !state.actualUser.carts[state.actualUser.carts.length - 1].productCart
+          .length
+      ) {
+        var guardado = localStorage.getItem("cart");
+        guardado = JSON.parse(guardado);
+        action.payload.carts[action.payload.carts.length - 1].productCart =
+          guardado;
+      }
       return {
         ...state,
         actualUser: action.payload,
@@ -105,7 +110,7 @@ function rootReducer(state = initialState, action) {
           carts: [
             ...state.actualUser.carts.map((e, index) => {
               if (index === state.actualUser.carts.length - 1) {
-                e.productCart = [...e.productCart, action.payload];
+                e.productCart = [...e.productCart, ...action.payload];
                 return e;
               } else {
                 return e;
