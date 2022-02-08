@@ -22,8 +22,10 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const allPromos = useSelector((store) => store.promos);
-  const allCategories = useSelector((store) => store.categories);
   const allProducts = useSelector((store) => store.allProducts);
+  let allCategories = useSelector((store) => store.categories);
+  allCategories = allCategories.filter((c) => c.active === true);
+
   useEffect(() => {
     dispatch(getPromos());
     dispatch(getCategories());
