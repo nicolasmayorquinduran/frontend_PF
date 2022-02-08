@@ -46,6 +46,7 @@ const SectionCategories = ({ allCategories }) => {
         </button>
         {allCategories.map(
           (c, index) =>
+          c.active &&
             index >= group - 2 &&
             index <= group && (
               <Link
