@@ -19,10 +19,10 @@ function Index() {
     <div id="menu">
       <AdminMenu />
       <div>
-        {(location.pathname === "/admin/products" && <AdminProducts />) ||
+        {(location.pathname === "/admin/pedidos" && <AdminOrders />) ||
+          (location.pathname === "/admin/products" && <AdminProducts />) ||
           (location.pathname === "/admin/categorias" && <AdminCategories />) ||
           (location.pathname === "/admin/promos" && <AdminPromos />) ||
-          (location.pathname === "/admin/pedidos" && <AdminOrders />) ||
           (location.pathname === "/admin/usuarios" && <AdminUsers />)}
       </div>
     </div>
