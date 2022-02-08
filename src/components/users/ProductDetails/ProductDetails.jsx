@@ -56,7 +56,7 @@ export default function ProductDetails() {
   // const UserId = user.UsersId;
 
   let actualCart = user.hasOwnProperty("carts")
-    ? user.carts.find((c) => c.status == "open")
+    ? user.carts.find((c) => c.status === "open")
     : {};
   let talles = [];
   for (const prop in product.stock) {
@@ -107,9 +107,9 @@ export default function ProductDetails() {
   };
 
   // console.log(allProducts);
-  let similarProducts = allProducts.filter(
-    (p) => p.categories[0].name === product.categories[0].name
-  );
+  // let similarProducts = allProducts.filter(
+  //   (p) => p.categories[0].name === product.categories[0].name
+  // );
   // console.log(similarProducts);
 
   return (
@@ -189,7 +189,7 @@ export default function ProductDetails() {
                                 [t.size]: e.target.value,
                               });
 
-                              if (stockSelected[t.size] == t.stock - 1)
+                              if (stockSelected[t.size] === t.stock - 1)
                                 Swal.fire({
                                   icon: "warning",
                                   title: "Apurate!!!",
@@ -209,7 +209,7 @@ export default function ProductDetails() {
               <div>
                 <button
                   disabled={
-                    talles.every((t) => stockSelected[t.size] == 0) && true
+                    talles.every((t) => stockSelected[t.size] === 0) && true
                   }
                   className="add"
                   onClick={handleAddCart}
@@ -259,7 +259,7 @@ export default function ProductDetails() {
             <div className="ContainerTabs">
               {(changeTab === "Comentarios" && (
                 <div className="tabInfo">
-                <p>{user.name}</p>
+                
                 <p>{review[0].score}</p>
                 <p>{review[0].description}</p>
 
@@ -310,18 +310,8 @@ export default function ProductDetails() {
             }
           >
             <Container>
-              {similarProducts.map(
-                (p, index) =>
-                  index < 4 && (
-                    <Product
-                      id={p.ProductId}
-                      img={p.img[0]}
-                      name={p.name}
-                      price={p.price}
-                      ranking={p.ranking}
-                    />
-                  )
-              )}
+
+
             </Container>
           </div>
         </div>
