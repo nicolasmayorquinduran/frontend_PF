@@ -103,9 +103,14 @@ export default function ProductDetails() {
     });
   };
 
-  // console.log(allProducts);
-  // let similarProducts = allProducts?.filter(
-  //   (p) => p.categories[0].name === product.categories[0].name
+  // console.log(product.categories[0].name);
+  // product = useSelector((store) => store.productDetail);
+  // allProducts = useSelector((store) => store.allProducts);
+  let similarProducts = allProducts?.filter(
+    async (p) =>
+      (await p.categories[0].name) === (await product.categories[0].name)
+  );
+  //   async (p) => p.categories[0].name === product.categories[0].name
   // );
   // console.log(similarProducts);
 
@@ -301,7 +306,7 @@ export default function ProductDetails() {
             }
           >
             <Container>
-              {/* {similarProducts.map(
+              {similarProducts.map(
                 (p, index) =>
                   index < 4 && (
                     <Product
@@ -312,7 +317,7 @@ export default function ProductDetails() {
                       ranking={p.ranking}
                     />
                   )
-              )} */}
+              )}
             </Container>
           </div>
         </div>
