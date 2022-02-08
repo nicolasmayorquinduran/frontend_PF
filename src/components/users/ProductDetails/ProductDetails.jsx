@@ -60,7 +60,7 @@ console.log(product)
   // const email = user.email;
   // const UserId = user.UsersId;
   let idCart = user.hasOwnProperty("carts")
-    ? user.carts.find((c) => c.status == "open")
+    ? user.carts.find((c) => c.status === "open")
     : {};
   let talles = [];
   for (const prop in product.stock) {
@@ -157,7 +157,7 @@ console.log(product)
 
               <div id="talles">
                 <strong>
-                  {talles.every((t) => t.stock == 0)
+                  {talles.every((t) => t.stock === 0)
                     ? "No hay stock disponible en el momento:"
                     : "Tallas disponibles:"}
                 </strong>
@@ -168,7 +168,7 @@ console.log(product)
                         <div>
                           <label
                             style={{
-                              color: t.stock == 0 ? "#888" : "#000",
+                              color: t.stock === 0 ? "#888" : "#000",
                             }}
                           >{`${t.size}:`}</label>
                           <input
@@ -179,10 +179,10 @@ console.log(product)
                             }
                             min={0}
                             max={t.stock}
-                            disabled={t.stock == 0 && false}
+                            disabled={t.stock === 0 && false}
                             style={{
-                              background: t.stock == 0 ? "#ccc" : "#fff",
-                              color: t.stock == 0 ? "#888" : "#000",
+                              background: t.stock === 0 ? "#ccc" : "#fff",
+                              color: t.stock === 0 ? "#888" : "#000",
                             }}
                             onChange={(e) => {
                               // console.log(stock);
@@ -191,7 +191,7 @@ console.log(product)
                                 ...stock,
                                 [t.size]: Number(stock[t.size]) + 1 + "",
                               });
-                              if (stock[t.size] == t.stock - 1)
+                              if (stock[t.size] === t.stock - 1)
                                 Swal.fire({
                                   icon: "warning",
                                   title: "Apurate!!!",
@@ -210,7 +210,7 @@ console.log(product)
               <br></br>
               <div>
                 <button
-                  disabled={talles.every((t) => stock[t.size] == 0) && true}
+                  disabled={talles.every((t) => stock[t.size] === 0) && true}
                   className="add"
                   onClick={handleAddCart}
                 >
@@ -227,7 +227,7 @@ console.log(product)
                   setChangeTab(e.target.id);
                 }}
                 style={{
-                  fontWeight: changeTab == "Comentarios" ? "bold" : "initial",
+                  fontWeight: changeTab === "Comentarios" ? "bold" : "initial",
                 }}
               >
                 Comentarios
@@ -238,7 +238,7 @@ console.log(product)
                   setChangeTab(e.target.id);
                 }}
                 style={{
-                  fontWeight: changeTab == "descripcion" ? "bold" : "initial",
+                  fontWeight: changeTab === "descripcion" ? "bold" : "initial",
                 }}
               >
                 Descripción
@@ -249,7 +249,7 @@ console.log(product)
                   setChangeTab(e.target.id);
                 }}
                 style={{
-                  fontWeight: changeTab == "Adicional" ? "bold" : "initial",
+                  fontWeight: changeTab === "Adicional" ? "bold" : "initial",
                 }}
               >
                 Información Adicional
@@ -258,7 +258,13 @@ console.log(product)
 
             <div className="ContainerTabs">
               {(changeTab === "Comentarios" && (
-                <div className="tabInfo">{review[0].description}</div>
+                <div className="tabInfo">
+                <p>{user.name}</p>
+                <p>{review[0].score}</p>
+                <p>{review[0].description}</p>
+
+                </div>
+                
               )) ||
                 (changeTab === "Adicional" && (
                   <ul className="tabInfo">

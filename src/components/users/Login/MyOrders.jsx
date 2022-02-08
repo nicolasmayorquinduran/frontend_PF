@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Button, Modal, ModalBody } from "reactstrap";
+import Review from "../ProductDetails/Reviews.jsx";
 
 export const MyOrders = () => {
 
-    
+    const [modal, setModal] = useState(false);
+    const toggle = () => setModal(!modal);
     const actualUser = useSelector((store) => store.actualUser);
 
     return (
@@ -28,6 +31,12 @@ export const MyOrders = () => {
                                         ))
                                     }
                                 </ul>
+                                <Button onClick={toggle}>Add Comment</Button>
+                                <Modal isOpen={modal} toggle={toggle}>                                    
+                                <ModalBody>
+                                    <Review />
+                                </ModalBody>
+                                </Modal>
                             </div>
                         </li>
                     ))
