@@ -12,28 +12,29 @@ const SectionPromos = ({ allPromos }) => {
 
   const handleArrowPromos = (e) => {
     e.target.className.includes("decrement")
-      ? counter > 0 && setCounter(counter--)
-      : counter < allPromos.length && setCounter(counter++);
+      ? counter >= 0 && setCounter(counter--)
+      : counter <= allPromos.length - 1 && setCounter(counter++);
   };
 
   //   useEffect(() => handleArrowPromos(), [handleArrowPromos]); no está importado
 
-  // console.log(counter);
   return (
     <Container>
       {
         <Children className="sliderPromo">
           <div className="path"></div>
-          <button
-            id="decremet"
-            onClick={(e) => {
-              handleArrowPromos(e);
-              handleArrowPromos(e);
-            }}
-          >
-            <div className="path decrement" style={{ opacity: "0" }}></div>
-            <FontAwesomeIcon value="decremet" icon={faChevronLeft} />
-          </button>
+          {counter !== 0 && (
+            <button
+              id="decremet"
+              onClick={(e) => {
+                handleArrowPromos(e);
+                handleArrowPromos(e);
+              }}
+            >
+              <div className="path decrement" style={{ opacity: "0" }}></div>
+              <FontAwesomeIcon value="decremet" icon={faChevronLeft} />
+            </button>
+          )}
           <div className="promo">
             <img src={allPromos[counter].img} alt={allPromos[counter].title} />
             <div className="data">
@@ -42,16 +43,18 @@ const SectionPromos = ({ allPromos }) => {
               <button>LoOk +</button>
             </div>
           </div>
-          <button
-            id="incremet"
-            onClick={(e) => {
-              handleArrowPromos(e);
-              handleArrowPromos(e);
-            }}
-          >
-            <div className="path increment" style={{ opacity: "0" }}></div>
-            <FontAwesomeIcon icon={faChevronRight} />
-          </button>
+          {counter !== allPromos.length - 1 && (
+            <button
+              id="incremet"
+              onClick={(e) => {
+                handleArrowPromos(e);
+                handleArrowPromos(e);
+              }}
+            >
+              <div className="path increment" style={{ opacity: "0" }}></div>
+              <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+          )}
         </Children>
       }
     </Container>
