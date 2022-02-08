@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 import { postUser, getActualUser } from "../../../redux/actions/users";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -10,18 +11,18 @@ let noRepeat = false;
 
 export const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-
+  const [cart, setCart] = UseLocalStorage("cart", []);
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    if (isAuthenticated && noRepeat === false) {
+    if (isAuthenticated) {
       await dispatch(postUser(user));
       noRepeat = true;
       await dispatch(getActualUser(user.email));
-      window.localStorage.setItem("userEmail", user.email)
+      window.localStorage.setItem("userEmail", user.email);
     }
   }, [user, dispatch]);
-
+  console.log(cart);
   const actualUser = useSelector((store) => store.actualUser);
   if (isLoading) {
     return <div>Loading...</div>;

@@ -77,6 +77,11 @@ a:hover {
   color: #9E005D
 }
 
+input[type="range"] {
+    box-shadow: none;
+    padding: 0;
+}
+
 `;
 // Container solo se usa donde hallan varias etiquetas div
 // que se repiten varias veces, que tienen el mismo ancho,

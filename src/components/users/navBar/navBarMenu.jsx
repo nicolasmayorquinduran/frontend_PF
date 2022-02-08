@@ -1,5 +1,6 @@
-import React from "react";
-// import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Dropdown,
@@ -10,47 +11,60 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import "./navbar.css";
-import { useState } from "react";
 
 export const NavBarMenu = () => {
+  let location = useLocation();
+
   const [dropdown, setDropdown] = useState(false);
+
+  const categoriesState = useSelector(
+    (state) => state.categories && state.categories
+  );
 
   const openCloseDropdown = () => {
     setDropdown(!dropdown);
   };
 
-  const showAllProducts = () => {
-    alert("hacer función para ir a ver los productos filtrados");
-  };
-
   return (
     <>
-      <Dropdown isOpen={dropdown} toggle={openCloseDropdown} size="lg">
-        <DropdownToggle className="dropdownButton">
-          <FontAwesomeIcon icon={faBars} />
-        </DropdownToggle>
-        <DropdownMenu>
-          <DropdownItem>
-            <a href="/">Home</a>
-          </DropdownItem>
-          <DropdownItem>
-            <a href="/products">Ver todos los productos</a>
-          </DropdownItem>
-          <DropdownItem divider />
-          <DropdownItem header>Categorías</DropdownItem>
-          <DropdownItem divider />
-          {}
-          <DropdownItem onClick={() => showAllProducts()}>
-            Categoría 1
-          </DropdownItem>
-          <DropdownItem onClick={() => showAllProducts()}>
-            Categoría 2
-          </DropdownItem>
-          <DropdownItem onClick={() => showAllProducts()}>
-            Categoría 3
-          </DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
+      {location.pathname != "/products" ? (
+        <Dropdown isOpen={dropdown} toggle={openCloseDropdown} size="lg">
+          <DropdownToggle className="dropdownButton">
+            <FontAwesomeIcon icon={faBars} />
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem>
+              <a href="/">Home</a>
+            </DropdownItem>
+            <DropdownItem>
+              <a href="/products">Ver todos los productos</a>
+            </DropdownItem>
+            <DropdownItem divider />
+            <DropdownItem header>Categorías</DropdownItem>
+            <DropdownItem divider />
+            {categoriesState.map((categorie) => {
+              return (
+                <DropdownItem key={categorie.CategoriesId}>
+                  <Link to="/products" state={{ filter: categorie.name }}>
+                    {categorie.name}
+                  </Link>
+                </DropdownItem>
+              );
+            })}
+          </DropdownMenu>
+        </Dropdown>
+      ) : (
+        <Dropdown isOpen={dropdown} toggle={openCloseDropdown} size="lg">
+          <DropdownToggle className="dropdownButton">
+            <FontAwesomeIcon icon={faBars} />
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem>
+              <a href="/">Home</a>
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      )}
     </>
   );
 };
