@@ -17,7 +17,6 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Container } from "../../../globalStyles";
-import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 
 export default function ProductDetails() {
   const [changeTab, setChangeTab] = useState("Comentarios");
@@ -209,7 +208,7 @@ export default function ProductDetails() {
                     talles?.every((t) => stockSelected[t.size] === 0) && true
                   }
                   className="add"
-                  onClick={handleAddCart}
+                  onClick={(e) => handleAddCart(e)}
                 >
                   Add to cart
                 </button>
