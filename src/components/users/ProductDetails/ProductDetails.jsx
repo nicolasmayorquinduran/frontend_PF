@@ -32,13 +32,10 @@ export default function ProductDetails() {
   });
   const { id } = useParams();
   const dispatch = useDispatch();
-  const review = useSelector((store)=> store.reviews);
-  console.log(review)
+  const review = useSelector((store) => store.reviews);
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
-
-
 
   const [bigImage, setBigImage] = useState(0);
   // console.log(bigImage);
@@ -188,7 +185,7 @@ export default function ProductDetails() {
                               handleStockQty(t.size, e.target.value);
                               setStock({
                                 ...stock,
-                                [t.size]: Number(stock[t.size]) + 1 + "",
+                                [t.size]: e.target.value,
                               });
                               if (stock[t.size] == t.stock - 1)
                                 Swal.fire({
