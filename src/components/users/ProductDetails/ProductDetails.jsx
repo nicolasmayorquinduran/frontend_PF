@@ -56,6 +56,7 @@ export default function ProductDetails() {
   let idCart = user.hasOwnProperty("carts")
     ? user.carts.find((c) => c.status == "open")
     : {};
+    console.log(user)
   let talles = [];
   for (const prop in product.stock) {
     talles = [...talles, { size: prop, stock: product.stock[prop] }];
