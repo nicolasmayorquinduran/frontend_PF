@@ -21,7 +21,7 @@ import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 
 export default function ProductDetails() {
   const [changeTab, setChangeTab] = useState("Comentarios");
-  let [stock, setStock] = useState({
+  let [stockSelected, setStockSelected] = useState({
     xs: "0",
     s: "0",
     m: "0",
@@ -83,17 +83,17 @@ export default function ProductDetails() {
   }, [dispatch, user, id, bigImage]);
 
   const handleStockQty = (s, n) => {
-    setStock({ ...stock, [s]: n });
+    setStockSelected({ ...stockSelected, [s]: n });
   };
 
   const handleAddCart = (e) => {
+    let { ProductId, name, img, price, stock } = product;
+    let data = { ProductId, name, img: img[0], price, stock, stockSelected };
     let guardado = JSON.parse(localStorage.getItem("cart"));
-    let { ProductId, name, img, price } = product;
     if (!guardado.find((p) => p.ProductId === ProductId)) {
-      guardado.push(product);
+      guardado.push(data);
       localStorage.setItem("cart", JSON.stringify(guardado));
     }
-    let data = { ProductId, name, img: img[0], price, stock };
 
     user.hasOwnProperty("UsersId") &&
       dispatch(addToCart(actualCart.CartId, data));
@@ -162,7 +162,7 @@ export default function ProductDetails() {
                             }}
                           >{`${t.size}:`}</label>
                           <input
-                            value={stock[t.size]}
+                            value={stockSelected[t.size]}
                             type="number"
                             onClick={(e) =>
                               handleStockQty(t.size, e.target.value)
@@ -177,11 +177,11 @@ export default function ProductDetails() {
                             onChange={(e) => {
                               // console.log(stock);
                               handleStockQty(t.size, e.target.value);
-                              setStock({
-                                ...stock,
+                              setStockSelected({
+                                ...stockSelected,
                                 [t.size]: e.target.value,
                               });
-                              if (stock[t.size] == t.stock - 1)
+                              if (stockSelected[t.size] == t.stock - 1)
                                 Swal.fire({
                                   icon: "warning",
                                   title: "Apurate!!!",
@@ -200,7 +200,9 @@ export default function ProductDetails() {
               <br></br>
               <div>
                 <button
-                  disabled={talles.every((t) => stock[t.size] == 0) && true}
+                  disabled={
+                    talles.every((t) => stockSelected[t.size] == 0) && true
+                  }
                   className="add"
                   onClick={handleAddCart}
                 >
@@ -284,7 +286,7 @@ export default function ProductDetails() {
 
           <div
             onClick={() =>
-              setStock({
+              setStockSelected({
                 xs: "0",
                 s: "0",
                 m: "0",

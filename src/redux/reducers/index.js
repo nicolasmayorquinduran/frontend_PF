@@ -89,6 +89,16 @@ function rootReducer(state = initialState, action) {
       ) {
         var guardado = localStorage.getItem("cart");
         guardado = JSON.parse(guardado);
+        guardado = guardado.filter((ProductStorage) =>
+          action.payload.carts[
+            action.payload.carts.length - 1
+          ].productCart.every(
+            (ProductUser) => ProductStorage.ProductId !== ProductUser.ProductId
+          )
+        );
+        guardado = guardado.concat(
+          action.payload.carts[action.payload.carts.length - 1].productCart
+        );
         action.payload.carts[action.payload.carts.length - 1].productCart =
           guardado;
       }
