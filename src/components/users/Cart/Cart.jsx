@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Children } from "../../../globalStyles";
+import { useAuth0 } from "@auth0/auth0-react";
+
 import Swal from "sweetalert2";
 import {
   getUserCart,
@@ -22,6 +24,7 @@ import "./style.css";
 export default function Cart() {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
+  const { loginWithRedirect } = useAuth0();
 
   const navigate = useNavigate();
   const email = window.localStorage.getItem("userEmail");
@@ -154,8 +157,14 @@ export default function Cart() {
         >
           limpiar carritO
         </button>
+        {User.hasOwnProperty("UsersId") ? (
+          <Button onClick={toggle}>GO TO CHECKOUT</Button>
+        ) : (
+          <Button onClick={() => loginWithRedirect()}>
+            Finalizar tu compra!
+          </Button>
+        )}
 
-        <Button onClick={toggle}>GO TO CHECKOUT</Button>
         <Modal isOpen={modal} toggle={toggle}>
           <ModalBody>
             <Checkout
