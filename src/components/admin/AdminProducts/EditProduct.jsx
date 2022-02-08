@@ -51,7 +51,7 @@ const EditProduct = ({ product, setProduct }) => {
 
     dispatch(detailsProduct(product.ProductId));
     dispatch(getCategories());
-  }, [dispatch, imageSelected, product, setProduct]);
+  }, [dispatch, imageSelected, product.ProductId/* , setProduct */]);
 
   const updateProduct = async () => {
     await axios
@@ -149,13 +149,17 @@ const EditProduct = ({ product, setProduct }) => {
     });
   }
 
+  function handleSubmit(e){
+    e.preventDefault()
+  }
+
   // console.log("IMAGEN:", product.img)
   console.log("PRODUCT:", product);
 
   return (
     <>
       <h2> Editar datos del Producto </h2>
-
+      <form onSubmit={handleSubmit} className="new">
       <div className=" editImage">
         <div className="coverImage">
           <h4> Imagen precargadas </h4>
@@ -178,15 +182,14 @@ const EditProduct = ({ product, setProduct }) => {
         {/* <FontAwesomeIcon className="icon" icon={faPenSquare} /> */}
       </div>
 
-      <form className="new">
+      
         <div className="partsEdit">
           <h4> Nueva imagen </h4>
           <input
             type="file"
-            onChange={(event) => setImageSelected(event.target.files)}
+            onChange={(event) => setImageSelected(event.target.files[0])}
           />
           <button onClick={uploadImage}> Cargar imagen </button>
-          <img src={imageSelected} alt="Imagen" height="300px" width="250px" />
         </div>
 
         <div className="partsEdit formNew">
@@ -275,7 +278,7 @@ const EditProduct = ({ product, setProduct }) => {
             </select>
           </div>
         </div>
-      </form>
+      
 
       <div>
         {product.categories.map((category) => {
@@ -298,6 +301,7 @@ const EditProduct = ({ product, setProduct }) => {
         {" "}
         ¡Terminar edición!{" "}
       </button>
+      </form>
     </>
   );
 };
