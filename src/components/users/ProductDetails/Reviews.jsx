@@ -43,7 +43,7 @@ export default function Review(){
 		 cols="30"
 		 rows="10"
 		 placeholder="comenta aquí.."
-		 maxlength="130"
+		 maxLength="130"
 		 required />
          <button>Edit Comment</button>
 		 <button type="submit" 

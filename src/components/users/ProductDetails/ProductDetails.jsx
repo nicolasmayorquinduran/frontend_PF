@@ -35,7 +35,7 @@ export default function ProductDetails() {
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
-
+  console.log(review)
   const [bigImage, setBigImage] = useState(0);
   // console.log(bigImage);
   const handleImage = (e) => {
@@ -59,11 +59,11 @@ export default function ProductDetails() {
     ? user.carts.find((c) => c.status === "open")
     : {};
   let talles = [];
-  for (const prop in product.stock) {
+  for (const prop in product?.stock) {
     talles = [...talles, { size: prop, stock: product.stock[prop] }];
   }
   let aditional = [];
-  for (const prop in product.additionalInformation) {
+  for (const prop in product?.additionalInformation) {
     aditional = [
       ...aditional,
       {
@@ -73,7 +73,7 @@ export default function ProductDetails() {
     ];
   }
 
-  let ranking = [Number(product.ranking)];
+  let ranking = [Number(product?.ranking)];
   while (ranking.length < ranking[ranking.length - 1]) {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
@@ -95,7 +95,6 @@ export default function ProductDetails() {
       guardado.push(data);
       localStorage.setItem("cart", JSON.stringify(guardado));
     }
-
     user.hasOwnProperty("UsersId") &&
       dispatch(addToCart(actualCart.CartId, data));
     Swal.fire({
@@ -108,6 +107,7 @@ export default function ProductDetails() {
 
   // console.log(allProducts);
   // let similarProducts = allProducts.filter(
+  // let similarProducts = allProducts?.filter(
   //   (p) => p.categories[0].name === product.categories[0].name
   // );
   // console.log(similarProducts);
@@ -115,7 +115,7 @@ export default function ProductDetails() {
   return (
     <div>
       <hr id="hr"></hr>
-      {product.hasOwnProperty("ProductId") ? (
+      {product?.hasOwnProperty("ProductId") ? (
         <div className="containerDetail">
           <div className="imgAndDetail">
             <div id="images" className="section">
@@ -209,7 +209,7 @@ export default function ProductDetails() {
               <div>
                 <button
                   disabled={
-                    talles.every((t) => stockSelected[t.size] === 0) && true
+                    talles?.every((t) => stockSelected[t.size] === 0) && true
                   }
                   className="add"
                   onClick={handleAddCart}
@@ -260,8 +260,8 @@ export default function ProductDetails() {
               {(changeTab === "Comentarios" && (
                 <div className="tabInfo">
                 
-                <p>{review[0].score}</p>
-                <p>{review[0].description}</p>
+                 <p>{review[0].score}</p>
+                 <p>{review[0].description}</p>
 
                 </div>
               )) ||
@@ -312,6 +312,18 @@ export default function ProductDetails() {
             <Container>
 
 
+              {/* {similarProducts.map(
+                (p, index) =>
+                  index < 4 && (
+                    <Product
+                      id={p.ProductId}
+                      img={p.img[0]}
+                      name={p.name}
+                      price={p.price}
+                      ranking={p.ranking}
+                    />
+                  )
+              )} */}
             </Container>
           </div>
         </div>
