@@ -83,10 +83,20 @@ function rootReducer(state = initialState, action) {
         users: action.payload,
       };
     case TYPES.GET_ACTUAL_USER:
-      if (
-        !state.actualUser.carts[state.actualUser.carts.length - 1].productCart
-          .length
-      ) {
+      let productsUser =
+        action.payload.carts[action.payload.carts.length - 1].productCart;
+      productsUser = productsUser.map(
+        (p) =>
+          (p.stockSelected = {
+            xs: "0",
+            s: "0",
+            m: "0",
+            l: "0",
+            xl: "0",
+            xxl: "0",
+          })
+      );
+      if (!productsUser.length) {
         var guardado = localStorage.getItem("cart");
         guardado = JSON.parse(guardado);
         guardado = guardado.filter((ProductStorage) =>
@@ -96,11 +106,8 @@ function rootReducer(state = initialState, action) {
             (ProductUser) => ProductStorage.ProductId !== ProductUser.ProductId
           )
         );
-        guardado = guardado.concat(
-          action.payload.carts[action.payload.carts.length - 1].productCart
-        );
-        action.payload.carts[action.payload.carts.length - 1].productCart =
-          guardado;
+        guardado = guardado.concat(productsUser);
+        productsUser = guardado;
       }
       return {
         ...state,
