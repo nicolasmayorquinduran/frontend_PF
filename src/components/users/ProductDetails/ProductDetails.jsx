@@ -20,7 +20,6 @@ import { Container } from "../../../globalStyles";
 import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 
 export default function ProductDetails() {
-  const [cart, setCart] = UseLocalStorage("cart", []);
   const [changeTab, setChangeTab] = useState("Comentarios");
   let [stock, setStock] = useState({
     xs: "0",
@@ -36,7 +35,6 @@ export default function ProductDetails() {
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
-console.log(product)
 
   const [bigImage, setBigImage] = useState(0);
   // console.log(bigImage);
@@ -56,7 +54,7 @@ console.log(product)
       : allProducts; */
   // const email = user.email;
   // const UserId = user.UsersId;
-  let idCart = user.hasOwnProperty("carts")
+  let actualCart = user.hasOwnProperty("carts")
     ? user.carts.find((c) => c.status == "open")
     : {};
   let talles = [];
@@ -79,10 +77,6 @@ console.log(product)
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
   useEffect(() => {
-    window.localStorage.setItem(
-      "cart",
-      JSON.stringify(user.carts[0].productCart)
-    );
     dispatch(getProducts());
     dispatch(detailsProduct(id));
     dispatch(getReviews(id));
@@ -93,17 +87,16 @@ console.log(product)
   };
 
   const handleAddCart = (e) => {
-    var guardado = localStorage.getItem("cart");
-    // console.log(JSON.parse(guardado));
+    let guardado = JSON.parse(localStorage.getItem("cart"));
     let { ProductId, name, img, price } = product;
+    if (!guardado.find((p) => p.ProductId === ProductId)) {
+      guardado.push(product);
+      localStorage.setItem("cart", JSON.stringify(guardado));
+    }
     let data = { ProductId, name, img: img[0], price, stock };
-    !user && setCart([...cart, JSON.stringify(data)]);
-    dispatch(
-      addToCart(
-        user.hasOwnProperty("UsersId") ? idCart.CartId : undefined,
-        data
-      )
-    );
+
+    user.hasOwnProperty("UsersId") &&
+      dispatch(addToCart(actualCart.CartId, data));
     Swal.fire({
       icon: "success",
       text: "Producto agregado al carrito!",
@@ -255,7 +248,7 @@ console.log(product)
 
             <div className="ContainerTabs">
               {(changeTab === "Comentarios" && (
-                <div className="tabInfo">{review[0].description}</div>
+                <div className="tabInfo">{review[0]?.description}</div>
               )) ||
                 (changeTab === "Adicional" && (
                   <ul className="tabInfo">

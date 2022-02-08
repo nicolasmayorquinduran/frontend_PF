@@ -16,7 +16,8 @@ import Loading from "../../Loading/Index";
 //   faChevronRight,
 // } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
-
+// !window.localStorage.getItem("cart") &&
+//   window.localStorage.setItem("cart", JSON.stringify([]));
 const Home = () => {
   const dispatch = useDispatch();
 

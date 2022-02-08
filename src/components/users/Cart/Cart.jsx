@@ -29,34 +29,39 @@ export default function Cart() {
 
   const navigate = useNavigate();
   const email = window.localStorage.getItem("userEmail");
+  const User = useSelector((store) => store.actualUser);
   const carrito = useSelector(
     (store) =>
-      store.actualUser.carts[store.actualUser.carts.length - 1].productCart
+      store.actualUser.carts[store.actualUser.carts.length - 1]?.productCart
   );
-  const [cart, setCart] = useState(carrito);
+  const [cart, setCart] = useState(
+    User.hasOwnProperty("UsersId")
+      ? carrito
+      : JSON.parse(window.localStorage.getItem("cart"))
+  );
 
   const dispatch = useDispatch();
-  const User = useSelector((store) => store.actualUser);
   const idUser = !User ? null : User.UsersId;
   let products = carrito?.hasOwnProperty("productCart")
     ? carrito.productCart
     : [];
-  useEffect(() => {
-    setCart(carrito);
-  }, []);
+  // useEffect(() => {
+  //   setCart(carrito);
+  // }, []);
   //esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
   useEffect(() => {
     return () => console.log("se desmontó");
   }, []);
   //name img price stock Object.keys(stock)
+  console.log(carrito);
   return (
     <>
       <div>
         <h1>Shopping Cart</h1>
       </div>
       <Container className="productsAdded">
-        {cart.length ? (
-          cart.map((p) => (
+        {cart?.length ? (
+          cart?.map((p) => (
             <Children
               pc={cart.length > 2 ? "3" : "2"}
               tablet="2"
@@ -70,7 +75,7 @@ export default function Cart() {
                 <div id="productResume">
                   <p>{p.name}</p>
                   <strong>{`$${
-                    Object.keys(p.stock).reduce(
+                    Object.keys(p.stock)?.reduce(
                       (acc, talla) => (acc += Number(p.stock[talla])),
                       0
                     ) * p.price
@@ -84,7 +89,7 @@ export default function Cart() {
                 </div>
 
                 <div className="stockProduct">
-                  {Object.keys(p.stock).map((t) => {
+                  {Object.keys(p.stock)?.map((t) => {
                     return (
                       <div className="sise">
                         <p>{`$${t}: ${p.stock[t]} unids`}</p>
@@ -112,9 +117,9 @@ export default function Cart() {
       </Container>
       <div>
         <h4>
-          {`Total compra: $${cart.reduce(
+          {`Total compra: $${cart?.reduce(
             (acc, p) =>
-              (acc += Object.keys(p.stock).reduce(
+              (acc += Object.keys(p.stock)?.reduce(
                 (acc, talla) => (acc += p.stock[talla] * p.price),
                 0
               )),
@@ -136,7 +141,7 @@ export default function Cart() {
             <Checkout
               total={`Comprar $${cart.reduce(
                 (acc, p) =>
-                  (acc += Object.keys(p.stock).reduce(
+                  (acc += Object.keys(p.stock)?.reduce(
                     (acc, talla) => (acc += p.stock[talla] * p.price),
                     0
                   )),

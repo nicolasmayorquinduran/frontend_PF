@@ -74,36 +74,17 @@ export function getUserCart(email) {
   };
 }
 
-// export function addToCart(CartId, productInfo) {
-//   return async function (dispatch) {
-//     const addProd = await axios.put(`http://localhost:3001/cart/${CartId}`, productInfo) //fatlta autenci usuario
-//       return dispatch({
-//         type: TYPES.ADD_TO_CART,
-//         payload: addProd.data.productCart
-//       });
-//     }
-//   };
-
 export function addToCart(CartId, productInfo) {
-  if (CartId != undefined) {
-    return async function (dispatch) {
-      const addProd = await axios.put(
-        `http://localhost:3001/cart/${CartId}`,
-        productInfo
-      ); //fatlta autenci usuario
-      return dispatch({
-        type: TYPES.ADD_TO_CART,
-        payload: addProd.data.productCart,
-      });
-    };
-  } else {
-    return async function (dispatch) {
-      return dispatch({
-        type: TYPES.ADD_TO_CART,
-        payload: productInfo,
-      });
-    };
-  }
+  return async function (dispatch) {
+    const addProd = await axios.put(
+      `http://localhost:3001/cart/${CartId}`,
+      productInfo
+    ); //fatlta autenci usuario
+    return dispatch({
+      type: TYPES.ADD_TO_CART,
+      payload: addProd.data.productCart,
+    });
+  };
 }
 
 export function deleteProductCart(CartId, ProductId) {
@@ -143,17 +124,17 @@ export function updateProductAdm(payload) {
   };
 }
 
-
-export function cartToBuy(CartId,infoBuy,infoUser){
-  return async function(dispatch){
+export function cartToBuy(CartId, infoBuy, infoUser) {
+  return async function (dispatch) {
     try {
-      const buy = await axios.post(`http://localhost:3001/order/${CartId}`,{infoBuy,infoUser})
-    return dispatch({
-      type:TYPES.CART_TO_BUY,
-      payload: buy.data
-    })
-    } catch (error) {
-      
-    }
-  }
+      const buy = await axios.post(`http://localhost:3001/order/${CartId}`, {
+        infoBuy,
+        infoUser,
+      });
+      return dispatch({
+        type: TYPES.CART_TO_BUY,
+        payload: buy.data,
+      });
+    } catch (error) {}
+  };
 }
