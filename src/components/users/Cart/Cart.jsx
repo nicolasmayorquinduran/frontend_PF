@@ -16,10 +16,17 @@ import DataTable from "react-data-table-component";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatMoney } from "accounting";
+import { Button, Modal, ModalBody } from "reactstrap";
+import Checkout from "../Checkout/Checkout.jsx";
+
 import "./style.css";
 // import axios from "axios";
 
 export default function Cart() {
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  var LSorage = localStorage.getItem("cart");
+  LSorage = JSON.parse(LSorage);
   const navigate = useNavigate();
   const email = window.localStorage.getItem("userEmail");
   const carrito = useSelector(
@@ -35,6 +42,7 @@ export default function Cart() {
     ? carrito.productCart
     : [];
   useEffect(() => {
+    !cart.hasOwnProperty("UsersId") && setCart(LSorage);
     setCart(carrito);
   }, []);
   //esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
@@ -62,12 +70,15 @@ export default function Cart() {
               >
                 <div id="productResume">
                   <p>{p.name}</p>
-                  <strong>{`$${
-                    Object.keys(p.stock).reduce(
-                      (acc, talla) => (acc += Number(p.stock[talla])),
-                      0
-                    ) * p.price
-                  } total`}</strong>
+                  <strong>
+                    {p.stock &&
+                      `$${
+                        Object.keys(p.stock).reduce(
+                          (acc, talla) => (acc += Number(p.stock[talla])),
+                          0
+                        ) * p.price
+                      } total`}
+                  </strong>
                 </div>
                 <button id="close">x</button>
               </div>
@@ -77,24 +88,25 @@ export default function Cart() {
                 </div>
 
                 <div className="stockProduct">
-                  {Object.keys(p.stock).map((t) => {
-                    return (
-                      <div className="sise">
-                        <p>{`$${t}: ${p.stock[t]} unids`}</p>
-                        <input
-                          value={p.stock[t]}
-                          type="range"
-                          min={0}
-                          max={p.stock[t]}
-                          disabled={p.stock[t] == 0 && false}
-                          style={{
-                            background: p.stock[t] == 0 ? "#ccc" : "#fff",
-                            color: p.stock[t] == 0 ? "#888" : "#000",
-                          }}
-                        />
-                      </div>
-                    );
-                  })}
+                  {p.stock &&
+                    Object.keys(p.stock).map((t) => {
+                      return (
+                        <div className="sise">
+                          <p>{`$${t}: ${p.stock[t]} unids`}</p>
+                          <input
+                            value={p.stock[t]}
+                            type="range"
+                            min={0}
+                            max={p.stock[t]}
+                            disabled={p.stock[t] == 0 && false}
+                            style={{
+                              background: p.stock[t] == 0 ? "#ccc" : "#fff",
+                              color: p.stock[t] == 0 ? "#888" : "#000",
+                            }}
+                          />
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             </Children>
@@ -105,14 +117,15 @@ export default function Cart() {
       </Container>
       <div>
         <h4>
-          {`Total compra: $${cart.reduce(
-            (acc, p) =>
-              (acc += Object.keys(p.stock).reduce(
-                (acc, talla) => (acc += p.stock[talla] * p.price),
-                0
-              )),
-            0
-          )}`}
+          {cart.length &&
+            `Total compra: $${cart.reduce(
+              (acc, p) =>
+                (acc += Object.keys(p.stock).reduce(
+                  (acc, talla) => (acc += p.stock[talla] * p.price),
+                  0
+                )),
+              0
+            )}`}
         </h4>
       </div>
 
@@ -123,7 +136,25 @@ export default function Cart() {
 
         <button>limpiar carritO</button>
 
-        <input type="submit" value="COMPRAR!" />
+        <Button onClick={toggle}>GO TO CHECKOUT</Button>
+        <Modal isOpen={modal} toggle={toggle}>
+          <ModalBody>
+            <Checkout
+              total={
+                cart.length &&
+                `Comprar $${cart.reduce(
+                  (acc, p) =>
+                    (acc += Object.keys(p.stock).reduce(
+                      (acc, talla) => (acc += p.stock[talla] * p.price),
+                      0
+                    )),
+                  0
+                )}`
+              }
+              productos={cart}
+            />
+          </ModalBody>
+        </Modal>
       </div>
     </>
   );
