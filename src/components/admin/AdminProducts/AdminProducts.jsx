@@ -101,6 +101,7 @@ const AdminProducts = () => {
                   additionalInformation: product.additionalInformation,
                   description: product.description,
                   stock: product.stock,
+                  active: product.active,
                 })
               }
             >
