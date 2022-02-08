@@ -232,8 +232,9 @@ export default function NewProduct() {
             <option value="Seleccione las categorías">
               Seleccione las categorías
             </option>
-            {categories.map((c) => (
-              <option key={c.CategoriesId}> {c.name} </option>
+            {categories.map((c) => (c.active ?
+              <option key={c.CategoriesId}> {c.name} (Categoría habilitada)</option> : 
+              <option key={c.CategoriesId}> {c.name} (Categoría no habilitada)</option>
             ))}
           </select>
           <div>

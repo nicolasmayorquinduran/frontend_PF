@@ -6,6 +6,7 @@ import {
   getProducts,
   addToCart,
 } from "../../../redux/actions/products";
+import { getReviews } from "../../../redux/actions/reviews.js";
 import { filterClothingType } from "../../filters/logicFunctionFilters";
 import "./productdetails.css";
 import Cart from "../Cart/Cart";
@@ -19,9 +20,8 @@ import { Container } from "../../../globalStyles";
 import { UseLocalStorage } from "../UseLocalStorage/UseLocalStorage";
 
 export default function ProductDetails() {
-  const [cart, setCart] = UseLocalStorage("cart", []);
   const [changeTab, setChangeTab] = useState("Comentarios");
-  let [stock, setStock] = useState({
+  let [stockSelected, setStockSelected] = useState({
     xs: "0",
     s: "0",
     m: "0",
@@ -31,6 +31,7 @@ export default function ProductDetails() {
   });
   const { id } = useParams();
   const dispatch = useDispatch();
+  const review = useSelector((store) => store.reviews);
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
@@ -45,7 +46,6 @@ export default function ProductDetails() {
   //     return (allProducts = allProducts.filter(
   //       (p) => p.categories[0].name == product.categories[0].name
   //     ));
-  //     }
   /*   allProducts =
     allProducts.length && product.hasOwnProperty("ProductId")
       ? allProducts.filter(
@@ -54,7 +54,7 @@ export default function ProductDetails() {
       : allProducts; */
   // const email = user.email;
   // const UserId = user.UsersId;
-  let idCart = user.hasOwnProperty("carts")
+  let actualCart = user.hasOwnProperty("carts")
     ? user.carts.find((c) => c.status == "open")
     : {};
   let talles = [];
@@ -77,30 +77,26 @@ export default function ProductDetails() {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
   useEffect(() => {
-    window.localStorage.setItem(
-      "cart",
-      JSON.stringify(user.carts[0].productCart)
-    );
     dispatch(getProducts());
     dispatch(detailsProduct(id));
+    dispatch(getReviews(id));
   }, [dispatch, user, id, bigImage]);
 
   const handleStockQty = (s, n) => {
-    setStock({ ...stock, [s]: n });
+    setStockSelected({ ...stockSelected, [s]: n });
   };
 
   const handleAddCart = (e) => {
-    var guardado = localStorage.getItem("cart");
-    console.log(JSON.parse(guardado));
-    let { ProductId, name, img, price } = product;
-    let data = { ProductId, name, img: img[0], price, stock };
-    !user && setCart([...cart, JSON.stringify(data)]);
-    dispatch(
-      addToCart(
-        user.hasOwnProperty("UsersId") ? idCart.CartId : undefined,
-        data
-      )
-    );
+    let { ProductId, name, img, price, stock } = product;
+    let data = { ProductId, name, img: img[0], price, stock, stockSelected };
+    let guardado = JSON.parse(localStorage.getItem("cart"));
+    if (!guardado.find((p) => p.ProductId === ProductId)) {
+      guardado.push(data);
+      localStorage.setItem("cart", JSON.stringify(guardado));
+    }
+
+    user.hasOwnProperty("UsersId") &&
+      dispatch(addToCart(actualCart.CartId, data));
     Swal.fire({
       icon: "success",
       text: "Producto agregado al carrito!",
@@ -166,7 +162,7 @@ export default function ProductDetails() {
                             }}
                           >{`${t.size}:`}</label>
                           <input
-                            value={stock[t.size]}
+                            value={stockSelected[t.size]}
                             type="number"
                             onClick={(e) =>
                               handleStockQty(t.size, e.target.value)
@@ -179,13 +175,13 @@ export default function ProductDetails() {
                               color: t.stock == 0 ? "#888" : "#000",
                             }}
                             onChange={(e) => {
-                              console.log(stock);
+                              // console.log(stock);
                               handleStockQty(t.size, e.target.value);
-                              setStock({
-                                ...stock,
-                                [t.size]: Number(stock[t.size]) + 1 + "",
+                              setStockSelected({
+                                ...stockSelected,
+                                [t.size]: e.target.value,
                               });
-                              if (stock[t.size] == t.stock - 1)
+                              if (stockSelected[t.size] == t.stock - 1)
                                 Swal.fire({
                                   icon: "warning",
                                   title: "Apurate!!!",
@@ -204,7 +200,9 @@ export default function ProductDetails() {
               <br></br>
               <div>
                 <button
-                  disabled={talles.every((t) => stock[t.size] == 0) && true}
+                  disabled={
+                    talles.every((t) => stockSelected[t.size] == 0) && true
+                  }
                   className="add"
                   onClick={handleAddCart}
                 >
@@ -252,7 +250,7 @@ export default function ProductDetails() {
 
             <div className="ContainerTabs">
               {(changeTab === "Comentarios" && (
-                <div className="tabInfo">Comentarios</div>
+                <div className="tabInfo">{review[0]?.description}</div>
               )) ||
                 (changeTab === "Adicional" && (
                   <ul className="tabInfo">
@@ -288,7 +286,7 @@ export default function ProductDetails() {
 
           <div
             onClick={() =>
-              setStock({
+              setStockSelected({
                 xs: "0",
                 s: "0",
                 m: "0",

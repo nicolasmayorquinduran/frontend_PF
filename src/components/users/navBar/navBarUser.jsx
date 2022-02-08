@@ -11,11 +11,13 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
+import { useSelector } from "react-redux";
 
 export const NavBarUser = () => {
   const { isAuthenticated } = useAuth0();
 
   const [dropdown, setDropdown] = useState(false);
+  const actualUser = useSelector((store) => store.actualUser);
 
   const openCloseDropdown = () => {
     setDropdown(!dropdown);
@@ -36,9 +38,17 @@ export const NavBarUser = () => {
               <DropdownItem>
                 <Link to="/user/settings">Ver profile</Link>
               </DropdownItem>
+              {/* Activar esto para que solo el admin pueda ver el menu admin */}
+              {/* {actualUser.admin && (
+                <DropdownItem>
+                  <Link to="/admin/pedidos">Ver Admin</Link>
+                </DropdownItem>
+              )} */}
+              {/* Desactivar esta parte */}
               <DropdownItem>
-                <Link to="/admin/products">Ver Admin</Link>
+                <Link to="/admin/pedidos">Ver Admin</Link>
               </DropdownItem>
+              {/* *********************** */}
             </DropdownMenu>
           </Dropdown>
         </div>

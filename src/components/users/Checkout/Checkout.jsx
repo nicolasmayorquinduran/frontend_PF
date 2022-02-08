@@ -1,65 +1,96 @@
-import React, {useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {getActualUser} from '../../../redux/actions/users.js';
-import './checkout.css';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getActualUser } from "../../../redux/actions/users.js";
+import axios from "axios";
+import "./checkout.css";
 
-export default function Checkout(){
-	const dispatch = useDispatch()
-	const actualUser = useSelector(state=>state.actualUser)
-	const cart = useSelector(state=>state.cart)
-	const [user, setUser] = useState({
-		name:"",
-		adress: "",
-		state: "",
-		email: "",
-	})
+export default function Checkout({ total, productos }) {
+  const dispatch = useDispatch();
+  const [url, setUrl] = useState("");
+  const actualUser = useSelector((state) => state.actualUser);
+  const [user, setUser] = useState({
+    name: "",
+    adress: "",
+    state: "",
+    email: "",
+  });
 
+  const handlePost = () =>
+    axios
+      .post("http://localhost:3001/checkout", productos)
+      .then((res) => setUrl(res.data));
 
-	function handleChange(e){
-		setUser({
-			...user,
-			[e.target.name] : e.target.value})}
+  useEffect(() => {
+    handlePost();
+  }, []);
 
-	return(
-		<div className="container">
-			
+  console.log(url);
 
-			<ul>
-				<span><b>Lista de Compras:</b></span>
-			{/*	<br/>
-				<li>3 Graffiti Dress</li> <li>$600</li><br/>
-				<li>2 Graffiti Dress</li> <li>$400</li><br/>
-				<li>Total: </li>	      <li>$1000</li>*/}
-				<p>{cart.productCart}</p>
-			 	<p>{cart.amount}</p>
-			</ul>
+  function handleChange(e) {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  }
 
-			{
-			 	cart?.map(c=>{
-			 		return(	
-			 			<div>
-			 				<p>{cart.productCart}</p>
-			 				<p>{cart.amount}</p>
-			 			</div>
-			 		)
-			 	})	
-			}
-
-
-				
-			<span><b>Nombre</b></span>
-			<input type="text" value={actualUser.name} name="name" onChange={e=>handleChange(e)} required/>
-			<span><b>Dirección</b></span>
-			<input type="text" value={actualUser.address} name="address" onChange={e=>handleChange(e)} required/>
-			<span><b>País</b></span>
-			<input type="text" value={actualUser.country} name="country" onChange={e=>handleChange(e)} required/>
-			<span><b>Ciudad</b></span>
-			<input type="text" value={actualUser.state} name="state" onChange={e=>handleChange(e)} required/>
-			<span><b>Correo</b></span>
-			<input type="text" value={actualUser.email} name="email" onChange={e=>handleChange(e)} required/>
-			<button type='submit'><b>Comprar</b></button>
-			
-		</div>
-	)
+  return (
+    <div className="container">
+      <h4>Confirmar datos de envío</h4>
+      <span>
+        <b>Nombre</b>
+      </span>
+      <input
+        type="text"
+        value={actualUser.name}
+        name="name"
+        onChange={(e) => handleChange(e)}
+        required
+      />
+      <span>
+        <b>Dirección</b>
+      </span>
+      <input
+        type="text"
+        value={actualUser.address}
+        name="address"
+        onChange={(e) => handleChange(e)}
+        required
+      />
+      <span>
+        <b>País</b>
+      </span>
+      <input
+        type="text"
+        value={actualUser.country}
+        name="country"
+        onChange={(e) => handleChange(e)}
+        required
+      />
+      <span>
+        <b>Ciudad</b>
+      </span>
+      <input
+        type="text"
+        value={actualUser.state}
+        name="state"
+        onChange={(e) => handleChange(e)}
+        required
+      />
+      <span>
+        <b>Correo</b>
+      </span>
+      <input
+        type="text"
+        value={actualUser.email}
+        name="email"
+        onChange={(e) => handleChange(e)}
+        required
+      />
+      <a href={url} target="_blank">
+        <button type="submit">
+          <b>{total}</b>
+        </button>
+      </a>
+    </div>
+  );
 }
-

@@ -74,42 +74,23 @@ export function getUserCart(email) {
   };
 }
 
-// export function addToCart(CartId, productInfo) {
-//   return async function (dispatch) {
-//     const addProd = await axios.put(`http://localhost:3001/cart/${CartId}`, productInfo) //fatlta autenci usuario
-//       return dispatch({
-//         type: TYPES.ADD_TO_CART,
-//         payload: addProd.data.productCart
-//       });
-//     }
-//   };
-
 export function addToCart(CartId, productInfo) {
-  if (CartId != undefined) {
-    return async function (dispatch) {
-      const addProd = await axios.put(
-        `http://localhost:3001/cart/${CartId}`,
-        productInfo
-      ); //fatlta autenci usuario
-      return dispatch({
-        type: TYPES.ADD_TO_CART,
-        payload: addProd.data.productCart,
-      });
-    };
-  } else {
-    return async function (dispatch) {
-      return dispatch({
-        type: TYPES.ADD_TO_CART,
-        payload: productInfo,
-      });
-    };
-  }
+  return async function (dispatch) {
+    const addProd = await axios.put(
+      `http://localhost:3001/cart/${CartId}`,
+      productInfo
+    ); //fatlta autenci usuario
+    return dispatch({
+      type: TYPES.ADD_TO_CART,
+      payload: addProd.data.productCart,
+    });
+  };
 }
 
 export function deleteProductCart(CartId, ProductId) {
   return async function (dispatch) {
     let deleted = await axios.delete(
-      `http://localhost:3001/cart/${CartId}/${ProductId}`
+      `http://localhost:3001/cart?CartId=${CartId}&ProductId=${ProductId}`
     );
     return dispatch({
       type: TYPES.DELETE_PRODUCT_CART,
@@ -140,5 +121,20 @@ export function updateProductAdm(payload) {
     } catch (error) {
       console.log(error);
     }
+  };
+}
+
+export function cartToBuy(CartId, infoBuy, infoUser) {
+  return async function (dispatch) {
+    try {
+      const buy = await axios.post(`http://localhost:3001/order/${CartId}`, {
+        infoBuy,
+        infoUser,
+      });
+      return dispatch({
+        type: TYPES.CART_TO_BUY,
+        payload: buy.data,
+      });
+    } catch (error) {}
   };
 }

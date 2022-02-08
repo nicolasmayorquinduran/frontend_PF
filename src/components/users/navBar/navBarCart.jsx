@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 export const NavBarCart = () => {
   const cartItems = useSelector(
     (state) =>
-      state.cart.hasOwnProperty("productCart") && state.cart.productCart
+      state.cart?.hasOwnProperty("productCart") && state.cart.productCart
   );
 
   return (

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../../redux/actions/categories";
 import "./adminCategories.css";
 import { Container, Children } from "../../../globalStyles";
+import { putCategories } from "./EditCategories";
 
 //COMPONENTS
 import NewCategory from "./NewCategory";
@@ -11,6 +12,7 @@ import EditCategories from "./EditCategories";
 function AdminCat() {
   const categories = useSelector((state) => state.categories);
 
+  console.log(categories);
   //INSERTAR IMAGEN
   /* const [imageSelected, setImageSelected] = useState(""); */
   // console.log(imageSelected)
@@ -20,7 +22,7 @@ function AdminCat() {
     CategoriesId: "",
     name: "",
     img: "",
-    active: "true"
+    active: "",
   });
 
   const dispatch = useDispatch();
@@ -31,17 +33,16 @@ function AdminCat() {
     setShowEditCategories(true);
     console.log(c);
   };
-  const handleDelete = (name, CategoriesId) =>{
-    let isDelete = window.confirm(`Deseas eliminar la categoria: '${name}'?`);
-
-    if(isDelete){
-      let newCategories = categories.category.filter(c => c.CategoriesId !== CategoriesId);
-      setCategory(newCategories)      
-//setCategory({ ...categories, category.active=== true? category.active = false })
-
-    }
-    }
   
+  
+
+  const handleDelete = (el) => {
+    setCategory({
+      ...category,
+      categories: category.CategoriesId.filter((cat) => cat !== el),
+    });
+  };
+  console.log(category);
 
   return (
     <>
@@ -56,40 +57,44 @@ function AdminCat() {
       )}
 
       <div>
-      <Container className="edit">
-        <Children
-          className="create"
-          onClick={() =>
-            setCategory({
-              name: "",
-              img: "",
-            })
-          }
-        >
-          <p></p>
-          <h2>+</h2>
-          <p>Crear nueva Promo</p>
+        <Container className="edit">
+          <Children
+            className="create"
+            onClick={() =>
+              setCategory({
+                name: "",
+                img: "",
+                active: "",
+              })
+            }
+          >
+            <p></p>
+            <h2>+</h2>
+            <p>Crear nueva Promo</p>
           </Children>
-        <div className="categoriesCards">
-          {categories?.map((c, i) => {
-            return (
-              <div className="catCard" key={i}>
-                <div className="labelAndDelete">
-                  <label className="catLabel">{c.name}</label>
+          <div className="categoriesCards">
+            {categories?.map((c, i) => {
+              return (
+                <div className="catCard" key={i}>
+                  <div>
+                    <div className="labelAndDelete">
+                      <label className="catLabel">{c.name}</label>
 
-                  <button className="deleteBtn" id={c} onClick={()=> handleDelete(c.name, c.CategoriesId)}>
-                    X
-                  </button>
+                      {c.active ? <p>Habilitado</p> : <p>Inhablitado</p>}
+                      <div>
+                        <p>Click para editar</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="imagenCard"
+                    onClick={() => handleImageClick(c)}
+                    style={{ backgroundImage: `url(${c.img})` }}
+                  ></div>
                 </div>
-                <div
-                  className="imagenCard"
-                  onClick={() => handleImageClick(c)}
-                  style={{ backgroundImage: `url(${c.img})` }}
-                ></div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
         </Container>
       </div>
     </>
