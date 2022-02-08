@@ -42,6 +42,7 @@ const Products = () => {
     filter.sort
   );
   const allCategories = useSelector((state) => state.categories);
+  
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -67,7 +68,7 @@ const Products = () => {
       <Filters
         filter={filter}
         setFilter={setFilter}
-        clothingType={allCategories}
+        clothingType={allCategories.filter(el => el.active === true)}
         price={["Mayor precio", "Menor precio"]}
         ranking={["Mayor ranking", "Menor ranking"]}
         alph={["A > z", "Z > a"]}

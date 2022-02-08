@@ -51,7 +51,7 @@ const EditProduct = ({ product, setProduct }) => {
 
     dispatch(detailsProduct(product.ProductId));
     dispatch(getCategories());
-  }, [dispatch, imageSelected, product, setProduct]);
+  }, [dispatch, imageSelected, product.ProductId/* , setProduct */]);
 
   const updateProduct = async () => {
     await axios
@@ -122,6 +122,22 @@ const EditProduct = ({ product, setProduct }) => {
         });
   };
 
+  function handleSubmitCategory(event) {
+    let auxiliarCategories = product.categories.map((e) => {
+      return typeof e === "object" ? e.name : e
+    })
+    if (
+      event.target.value !== "Seleccione las categorías" &&
+      !auxiliarCategories.includes(event.target.value)
+    ) {
+      setProduct({
+        ...product,
+        categories: [...product.categories, event.target.value],
+      });
+    }
+    event.preventDefault();
+  }
+
   const handleObjects = (event) => {
     setProduct({
       ...product,
@@ -149,13 +165,74 @@ const EditProduct = ({ product, setProduct }) => {
     });
   }
 
+  function handleSubmit(e){
+    e.preventDefault()
+  }
+
+  async function handleDelete(e){
+    e.preventDefault();
+    let choose = window.confirm("Está seguro que desea eliminar el producto?")
+    if (choose){
+      await axios
+      .put("http://localhost:3001/products", {
+        name: product.name,
+        ProductId: product.ProductId,
+        img: product.img,
+        price: product.price,
+        description: product.description,
+        additionalInformation: product.additionalInformation,
+        stock: product.stock,
+        categories: product.categories.map((category) =>
+          typeof category === "object" ? category.name : category
+        ),
+        del: true,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      navigate("/admin");
+      navigate("/admin/products");
+    }
+  }
+async function handleActive(e){
+  e.preventDefault();
+      await axios
+      .put("http://localhost:3001/products", {
+        name: product.name,
+        ProductId: product.ProductId,
+        img: product.img,
+        price: product.price,
+        description: product.description,
+        additionalInformation: product.additionalInformation,
+        stock: product.stock,
+        categories: product.categories.map((category) =>
+          typeof category === "object" ? category.name : category
+        ),
+        del: false,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      navigate("/admin");
+      navigate("/admin/products");
+    
+  }
+
   // console.log("IMAGEN:", product.img)
   console.log("PRODUCT:", product);
 
   return (
     <>
       <h2> Editar datos del Producto </h2>
-
+      <form onSubmit={handleSubmit} className="new">
       <div className=" editImage">
         <div className="coverImage">
           <h4> Imagen precargadas </h4>
@@ -178,15 +255,14 @@ const EditProduct = ({ product, setProduct }) => {
         {/* <FontAwesomeIcon className="icon" icon={faPenSquare} /> */}
       </div>
 
-      <form className="new">
+      
         <div className="partsEdit">
           <h4> Nueva imagen </h4>
           <input
             type="file"
-            onChange={(event) => setImageSelected(event.target.files)}
+            onChange={(event) => setImageSelected(event.target.files[0])}
           />
           <button onClick={uploadImage}> Cargar imagen </button>
-          <img src={imageSelected} alt="Imagen" height="300px" width="250px" />
         </div>
 
         <div className="partsEdit formNew">
@@ -264,18 +340,21 @@ const EditProduct = ({ product, setProduct }) => {
               id="categories"
               autoComplete="off"
               required
-              onChange={handleProduct}
+              onClick={handleSubmitCategory}
             >
+              <option value="Seleccione las categorías">
+              Seleccione las categorías
+            </option>
               {categories.map((category) => (
                 <option value={category.name} id={category.CategoriesId}>
-                  {" "}
                   {category.name}{" "}
+                  {category.active ? " (Habilitada)" : " (Deshabilitada)"}
                 </option>
               ))}
             </select>
           </div>
         </div>
-      </form>
+      
 
       <div>
         {product.categories.map((category) => {
@@ -285,6 +364,7 @@ const EditProduct = ({ product, setProduct }) => {
                 {" "}
                 {typeof category === "object" ? category.name : category}{" "}
               </h5>
+
               <button onClick={() => handlerDeleteCategory(category)}>
                 {" "}
                 x{" "}
@@ -298,6 +378,14 @@ const EditProduct = ({ product, setProduct }) => {
         {" "}
         ¡Terminar edición!{" "}
       </button>
+      <div>
+      {
+        product.active ?
+        <button onClick={(e) => handleDelete(e)} >Desactivar producto</button> :
+        <button onClick={(e) => handleActive(e)} >Activar producto</button>
+      }
+      </div>
+      </form>
     </>
   );
 };

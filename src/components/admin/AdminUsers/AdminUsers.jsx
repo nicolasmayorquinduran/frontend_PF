@@ -1,97 +1,322 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+
 
 // Actions:
 import { getUsers } from "../../../redux/actions/users";
+import { putUser } from "../../../redux/actions/users";
+
 
 // Styles:
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
 
+
 function AdminUsers() {
+  
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(getUsers()), [dispatch]);
+  const allUsers = useSelector((state) => state.users)
+  // console.log(allUsers);
 
-  const allUsers = useSelector((state) => state.users);
-  //console.log(allUsers);
 
-  // const handleDetailUser = (event) => {
+  const [user, setUser] = useState(
+    {
+      name: "",
+      email: "",
+      address: "",
+      cp: "",
+      state: "",
+      country: "",
+      picture: "",
+      active: "",
+      activeUser: "",
+      inactiveUser: "",
+      // admin: "",
+      activeAdmin: "",
+      inactiveAdmin: ""
+    }
+  );
 
-  // }
 
+  useEffect(() => {
+      
+    dispatch(getUsers());
+    
+  }, [dispatch]);
+  
+  
+  const handleChange = (event) => setUser((user) => (
+    {
+      ...user,
+      [event.target.id]: event.target.value 
+    }
+  ));
+
+
+  const handleActiveUser = (event) => {
+    event.preventDefault();
+      
+    setUser(
+      {
+        ...user,
+        activeUser: true
+      }
+    );
+    
+    dispatch(putUser({email: user.email, activeUser: true}));
+
+  };
+
+    
+  const handleInactiveUser = (event) => {
+    event.preventDefault();
+      
+    setUser(
+      {
+        ...user,
+        inactiveUser: true
+      }
+    );
+
+    dispatch(putUser({email: user.email, inactiveUser: true}));
+  
+  };
+
+
+  const handleActiveAdmin = (event) => {
+    event.preventDefault();
+      
+    setUser(
+      {
+        ...user,
+        activeAdmin: true
+      }
+    );
+    
+    dispatch(putUser({email: user.email, activeAdmin: true}));
+
+  };
+
+    
+  const handleInactiveAdmin = (event) => {
+    event.preventDefault();
+      
+    setUser(
+      {
+        ...user,
+        inactiveAdmin: true
+      }
+    );
+
+    dispatch(putUser({email: user.email, inactiveAdmin: true}));
+  
+  };
+
+
+  const handleDetailClick = async (prop) => {
+    
+    const usuario = await axios.get("http://localhost:3001/users/" + prop)
+    setUser(
+      {
+        name: usuario.data.name,
+        email: usuario.data.email,
+        address: usuario.data.address,
+        cp: usuario.data.cp,
+        state: usuario.data.state,
+        picture: usuario.data.picture,
+        country: usuario.data.country,
+        active: usuario.data.active,
+        activeUser: usuario.data.activeUser,
+        inactiveUser: usuario.data.inactiveUser,
+        admin: usuario.data.admin,
+        activeAdmin: usuario.data.activeAdmin,
+        inactiveAdmin: usuario.data.inactiveAdmin
+      }
+    )
+  };  
+
+ 
+
+
+  const updateUser = async (event) => {
+
+    event.preventDefault();
+
+    dispatch(putUser(user))
+    
+    setUser(
+      {
+        name: "",
+        email: "",
+        address: "",
+        cp: "",
+        state: "",
+        country: "",
+        picture: "",
+        active: "",
+        activeUser: "",
+        inactiveUser: "",
+        // admin: "",
+        activeAdmin: "",
+        inactiveAdmin: ""
+      }
+    );
+
+  }
+
+  console.log(user)
+  
+  
   return (
     <div>
-      <div>
-        <form className="formUser">
-          <div className="imageUser"></div>
 
-          <div className="formName">
-            <label htmlFor="name">Nombre</label>
-            <input id="" type="text" />
-          </div>
+      {
+        user.email.length ? 
+        
+        <div>
 
-          <div className="formCorreo">
-            <label htmlFor="name">Correo</label>
-            <input id="" type="email" />
-          </div>
+          <form className="formUser">
 
-          <div className="formPais">
-            <label htmlFor="name">Pais</label>
-            <input id="" type="text" />
-          </div>
 
-          <div className="formCiudad">
-            <label htmlFor="name">Ciudad/ Provincia</label>
-            <input id="" type="text" />
-          </div>
+            <div>
+              <img src={user.picture} alt={user.name} width="200px" height="200px"/>
+            </div>
 
-          <div className="formDireccion">
-            <label htmlFor="name">Dirección</label>
-            <input id="" type="text" />
-          </div>
 
-          <div className="formBoton">
-            <button>Guardar</button>
-          </div>
-        </form>
-      </div>
+            <div className="formName">
+              <label htmlFor="name"> Nombre </label>
+              <input id="name" type="text" onChange={handleChange} placeholder={user.name}/>
+            </div>
 
+
+            <div className="formCorreo">
+              <label htmlFor="name">Correo</label>
+              <input id="email" type="email" onChange={handleChange} placeholder={user.email}/>
+            </div>
+
+
+            <div className="formPais">
+              <label htmlFor="name"> Pais </label>
+              <input id="country" type="text" onChange={handleChange} placeholder={user.country}/>
+            </div>
+
+
+            <div className="formCiudad">
+              <label htmlFor="name"> Ciudad/Provincia </label>
+              <input id="state" type="text" onChange={handleChange} placeholder={user.state}/>
+            </div>
+
+
+            <div className="formDireccion">
+              <label htmlFor="name"> Dirección </label>
+              <input id="address" type="text" onChange={handleChange} placeholder={user.address}/>
+            </div>
+
+
+            <div className="formDireccion">
+              <label htmlFor="name"> Código postal </label>
+              <input id="cp" type="text" onChange={handleChange} placeholder={user.cp}/>
+            </div>
+
+
+            <div className="formDireccion">
+              
+              {
+                user.active 
+                ? <button id="inactiveUser" onClick={handleInactiveUser}> Desactivar usuario </button>
+                : <button id="activeUser" onClick={handleActiveUser} > Activar usuario </button>
+              }
+
+              {
+                user.admin
+                ? <button id="inactiveAdmin" onClick={handleInactiveAdmin}> Quitar administrador </button>
+                : <button id="activeAdmin" onClick={handleActiveAdmin}> Activar administrador </button>
+              }
+  
+            </div>
+
+
+            <div className="formBoton">
+              <button onSubmit={updateUser}> Guardar </button>
+            </div>
+
+
+          </form>
+        
+        </div>
+
+        : 
+
+        <h4>
+          Elige un usuario para editar
+          <hr />
+        </h4>
+
+        
+      }
+      
       <table className="usersList">
+        
         <thead>
+          
           <tr>
-            <th>Foto</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th>Detalle</th>
+            <th> Foto </th>
+            <th> Email </th>
+            <th> Rol </th>
+            <th> Estado </th>
+            <th> Detalle </th>
           </tr>
+        
         </thead>
 
         <tbody>
-          {allUsers.map((prop) => (
-            <tr key={prop.UsersId}>
-              <td>
-                <img src={prop.picture} alt={prop.name} />
-              </td>
+          {
+            allUsers.map((prop) => (
+              
+              <tr key={prop.UsersId}>
+                
+                <td>
+                  <img src={prop.picture} alt={prop.name} />
+                </td>
 
-              <td>{prop.email}</td>
+                <td>{prop.email}</td>
+                
+                {
+                  prop.admin ? 
+                  
+                  <td> Administrador </td>
 
-              <td>
-                <select>
-                  <option>Guest</option>
-                  <option>User</option>
-                  <option>Admin</option>
-                </select>
-              </td>
+                  :
+                  
+                  <td> Usuario </td>
 
-              <td>
-                <FontAwesomeIcon icon={faEye} onClick={(event) => event} />
-              </td>
-            </tr>
-          ))}
+                }
+                
+                {
+                  prop.active ?
+
+                  <td> Activo </td>
+
+                  :
+
+                  <td> Inactivo </td>
+                }
+
+                <td onClick={() => handleDetailClick(prop.email)}
+                >
+                  <FontAwesomeIcon icon={faEye}/>
+                </td>
+              
+              </tr>
+            ))
+          }
         </tbody>
+      
       </table>
+    
     </div>
   );
 }
