@@ -39,8 +39,7 @@ export function getActualUser(payload){
 }
 
 export const putUser = async (payload) => {
-  return await axios
-    .put("http://localhost:3001/users", payload)
-    .then(function (response) {})
-    .catch(function (error) {});
+  return await axios.put("http://localhost:3001/users", payload)
+  .then(function (response) {})
+  .catch(function (error) {});
 };
