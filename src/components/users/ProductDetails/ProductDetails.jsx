@@ -58,11 +58,11 @@ export default function ProductDetails() {
     ? user.carts.find((c) => c.status == "open")
     : {};
   let talles = [];
-  for (const prop in product.stock) {
+  for (const prop in product?.stock) {
     talles = [...talles, { size: prop, stock: product.stock[prop] }];
   }
   let aditional = [];
-  for (const prop in product.additionalInformation) {
+  for (const prop in product?.additionalInformation) {
     aditional = [
       ...aditional,
       {
@@ -72,7 +72,7 @@ export default function ProductDetails() {
     ];
   }
 
-  let ranking = [Number(product.ranking)];
+  let ranking = [Number(product?.ranking)];
   while (ranking.length < ranking[ranking.length - 1]) {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
@@ -94,7 +94,6 @@ export default function ProductDetails() {
       guardado.push(data);
       localStorage.setItem("cart", JSON.stringify(guardado));
     }
-
     user.hasOwnProperty("UsersId") &&
       dispatch(addToCart(actualCart.CartId, data));
     Swal.fire({
@@ -106,15 +105,15 @@ export default function ProductDetails() {
   };
 
   // console.log(allProducts);
-  let similarProducts = allProducts.filter(
-    (p) => p.categories[0].name === product.categories[0].name
-  );
+  // let similarProducts = allProducts?.filter(
+  //   (p) => p.categories[0].name === product.categories[0].name
+  // );
   // console.log(similarProducts);
 
   return (
     <div>
       <hr id="hr"></hr>
-      {product.hasOwnProperty("ProductId") ? (
+      {product?.hasOwnProperty("ProductId") ? (
         <div className="containerDetail">
           <div className="imgAndDetail">
             <div id="images" className="section">
@@ -207,7 +206,7 @@ export default function ProductDetails() {
               <div>
                 <button
                   disabled={
-                    talles.every((t) => stockSelected[t.size] == 0) && true
+                    talles?.every((t) => stockSelected[t.size] === 0) && true
                   }
                   className="add"
                   onClick={handleAddCart}
@@ -303,7 +302,7 @@ export default function ProductDetails() {
             }
           >
             <Container>
-              {similarProducts.map(
+              {/* {similarProducts.map(
                 (p, index) =>
                   index < 4 && (
                     <Product
@@ -314,7 +313,7 @@ export default function ProductDetails() {
                       ranking={p.ranking}
                     />
                   )
-              )}
+              )} */}
             </Container>
           </div>
         </div>
