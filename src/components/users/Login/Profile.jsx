@@ -28,7 +28,6 @@ export const Profile = () => {
       window.localStorage.setItem("userEmail", user.email);
     }
   }, [user, dispatch]);
-  console.log(cart);
   const actualUser = useSelector((store) => store.actualUser);
   if (isLoading) {
     return <div>Loading...</div>;

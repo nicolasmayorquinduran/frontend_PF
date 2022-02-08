@@ -16,7 +16,7 @@ const SectionCategories = ({ allCategories }) => {
       ? group > 0 && setGroup(group--)
       : group < allCategories.length && setGroup(group++);
   };
-
+  console.log(group);
   return (
     <div>
       <div>
@@ -34,19 +34,20 @@ const SectionCategories = ({ allCategories }) => {
       </div>
 
       <Container className="section2">
-        <button
-          id="decremet"
-          onClick={(e) => {
-            handleArrowCategories(e);
-            handleArrowCategories(e);
-          }}
-        >
-          <div className="path decrement" style={{ opacity: "0" }}></div>
-          <FontAwesomeIcon value="decremet" icon={faChevronLeft} />
-        </button>
+        {group !== 2 && (
+          <button
+            id="decremet"
+            onClick={(e) => {
+              handleArrowCategories(e);
+              handleArrowCategories(e);
+            }}
+          >
+            <div className="path decrement" style={{ opacity: "0" }}></div>
+            <FontAwesomeIcon value="decremet" icon={faChevronLeft} />
+          </button>
+        )}
         {allCategories.map(
           (c, index) =>
-          c.active &&
             index >= group - 2 &&
             index <= group && (
               <Link
@@ -66,16 +67,18 @@ const SectionCategories = ({ allCategories }) => {
               </Link>
             )
         )}
-        <button
-          id="incremet"
-          onClick={(e) => {
-            handleArrowCategories(e);
-            handleArrowCategories(e);
-          }}
-        >
-          <div className="path increment" style={{ opacity: "0" }}></div>
-          <FontAwesomeIcon icon={faChevronRight} />
-        </button>
+        {group !== allCategories.length - 1 && (
+          <button
+            id="incremet"
+            onClick={(e) => {
+              handleArrowCategories(e);
+              handleArrowCategories(e);
+            }}
+          >
+            <div className="path increment" style={{ opacity: "0" }}></div>
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
+        )}
       </Container>
     </div>
   );
