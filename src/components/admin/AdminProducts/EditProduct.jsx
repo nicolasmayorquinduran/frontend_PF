@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Container, Children } from "../../../globalStyles";
 import axios from "axios";
 
 // Actions:
@@ -51,7 +52,7 @@ const EditProduct = ({ product, setProduct }) => {
 
     dispatch(detailsProduct(product.ProductId));
     dispatch(getCategories());
-  }, [dispatch, imageSelected, product.ProductId/* , setProduct */]);
+  }, [dispatch, imageSelected, product.ProductId /* , setProduct */]);
 
   const updateProduct = async () => {
     await axios
@@ -124,8 +125,8 @@ const EditProduct = ({ product, setProduct }) => {
 
   function handleSubmitCategory(event) {
     let auxiliarCategories = product.categories.map((e) => {
-      return typeof e === "object" ? e.name : e
-    })
+      return typeof e === "object" ? e.name : e;
+    });
     if (
       event.target.value !== "Seleccione las categorías" &&
       !auxiliarCategories.includes(event.target.value)
@@ -165,27 +166,27 @@ const EditProduct = ({ product, setProduct }) => {
     });
   }
 
-  function handleSubmit(e){
-    e.preventDefault()
+  function handleSubmit(e) {
+    e.preventDefault();
   }
 
-  async function handleDelete(e){
+  async function handleDelete(e) {
     e.preventDefault();
-    let choose = window.confirm("Está seguro que desea eliminar el producto?")
-    if (choose){
+    let choose = window.confirm("Está seguro que desea eliminar el producto?");
+    if (choose) {
       await axios
-      .put("http://localhost:3001/products", {
-        name: product.name,
-        ProductId: product.ProductId,
-        img: product.img,
-        price: product.price,
-        description: product.description,
-        additionalInformation: product.additionalInformation,
-        stock: product.stock,
-        categories: product.categories.map((category) =>
-          typeof category === "object" ? category.name : category
-        ),
-        del: true,
+        .put("http://localhost:3001/products", {
+          name: product.name,
+          ProductId: product.ProductId,
+          img: product.img,
+          price: product.price,
+          description: product.description,
+          additionalInformation: product.additionalInformation,
+          stock: product.stock,
+          categories: product.categories.map((category) =>
+            typeof category === "object" ? category.name : category
+          ),
+          del: true,
         })
         .then((response) => {
           console.log(response);
@@ -198,9 +199,9 @@ const EditProduct = ({ product, setProduct }) => {
       navigate("/admin/products");
     }
   }
-async function handleActive(e){
-  e.preventDefault();
-      await axios
+  async function handleActive(e) {
+    e.preventDefault();
+    await axios
       .put("http://localhost:3001/products", {
         name: product.name,
         ProductId: product.ProductId,
@@ -213,17 +214,16 @@ async function handleActive(e){
           typeof category === "object" ? category.name : category
         ),
         del: false,
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-      navigate("/admin");
-      navigate("/admin/products");
-    
+    navigate("/admin");
+    navigate("/admin/products");
   }
 
   // console.log("IMAGEN:", product.img)
@@ -233,108 +233,84 @@ async function handleActive(e){
     <>
       <h2> Editar datos del Producto </h2>
       <form onSubmit={handleSubmit} className="new">
-      <div className=" editImage">
-        <div className="coverImage">
-          <h4> Imagen precargadas </h4>
-          {product.img.map((image, index) => {
-            return (
-              <div key={index}>
+        <Container>
+          <Children pc="2" tablet="2" movil="1" className=" editImage">
+            <div className="coverImage partsEdit">
+              <div id="principalImage" className="imgProduct" key="0">
                 <img
-                  src={image}
+                  src={product.img[0]}
                   alt="Img not found"
-                  width="150px"
-                  height="150px"
-                  value={image}
+                  value={product.img[0]}
                 />
-                <button onClick={() => handlerDeleteImage(image)}> x </button>
+                <button onClick={() => handlerDeleteImage(product.img[0])}>
+                  x
+                </button>
               </div>
-            );
-          })}
-        </div>
-
-        {/* <FontAwesomeIcon className="icon" icon={faPenSquare} /> */}
-      </div>
-
-      
-        <div className="partsEdit">
-          <h4> Nueva imagen </h4>
-          <input
-            type="file"
-            onChange={(event) => setImageSelected(event.target.files[0])}
-          />
-          <button onClick={uploadImage}> Cargar imagen </button>
-        </div>
-
-        <div className="partsEdit formNew">
-          <div className="nombrePrecio">
-            <h4> Nombre </h4>
-            <input
-              id="name"
-              value={product.name}
-              type="text"
-              name="name"
-              autoComplete="off"
-              onChange={handleProduct}
-              required
-            />
-
-            <h4> Precio </h4>
-            <input
-              id="price"
-              value={product.price}
-              type="number"
-              min="0"
-              name="price"
-              autoComplete="off"
-              onChange={handleProduct}
-              required
-            />
-          </div>
-
-          <h4> Descripción </h4>
-          <textarea
-            id="description"
-            onChange={handleProduct}
-            type="resume"
-            name="description"
-            value={product.description}
-            autoComplete="off"
-            required
-          />
-
-          <div className="stocksNewProduct">
-            <h4> Stocks </h4>
-            {stocksAll.map((props) => (
-              <div>
-                <label>{props.size}:</label>
+            </div>
+            <div className="restImages partsEdit">
+              {product.img.map((image, index) => {
+                return (
+                  <>
+                    {index > 0 && (
+                      <div className="imgProduct" key={index}>
+                        <img src={image} alt="Img not found" value={image} />
+                        <button onClick={() => handlerDeleteImage(image)}>
+                          x
+                        </button>
+                      </div>
+                    )}
+                  </>
+                );
+              })}
+              <div className="imgProduct">
+                <h5> Nueva imagen </h5>
                 <input
-                  value={props.stock}
-                  type="number"
-                  min="0"
-                  onChange={handleObjects}
-                  id="stock"
-                  className={props.size}
+                  type="file"
+                  className="imgLoader"
+                  onChange={(event) => setImageSelected(event.target.files[0])}
                 />
+                <button onClick={uploadImage}> Cargar imagen </button>
               </div>
-            ))}
-          </div>
+            </div>
+          </Children>
 
-          <h4> Información addicional </h4>
-          {infoAdditional.map((props) => (
-            <div>
-              <label> {props.title}: </label>
+          <Children pc="2" tablet="2" movil="1" className="partsEdit formNew">
+            <div className="nombrePrecio">
+              <h5> Nombre </h5>
               <input
-                value={props.data}
+                id="name"
+                value={product.name}
                 type="text"
-                onChange={handleObjects}
-                id="additionalInformation"
-                className={props.title}
+                name="name"
+                autoComplete="off"
+                onChange={handleProduct}
+                required
+              />
+
+              <h5> Precio </h5>
+              <input
+                id="price"
+                value={product.price}
+                type="number"
+                min="0"
+                name="price"
+                autoComplete="off"
+                onChange={handleProduct}
+                required
               />
             </div>
-          ))}
 
-          <div className="categorias">
-            <h4> Selecciona una Categoría </h4>
+            <h5> Descripción </h5>
+            <textarea
+              id="description"
+              onChange={handleProduct}
+              type="resume"
+              name="description"
+              value={product.description}
+              autoComplete="off"
+              required
+            />
+            <h5> Selecciona una Categoría </h5>
 
             <select
               id="categories"
@@ -343,8 +319,8 @@ async function handleActive(e){
               onClick={handleSubmitCategory}
             >
               <option value="Seleccione las categorías">
-              Seleccione las categorías
-            </option>
+                Seleccione las categorías
+              </option>
               {categories.map((category) => (
                 <option value={category.name} id={category.CategoriesId}>
                   {category.name}{" "}
@@ -352,39 +328,71 @@ async function handleActive(e){
                 </option>
               ))}
             </select>
-          </div>
-        </div>
-      
-
-      <div>
-        {product.categories.map((category) => {
-          return (
             <div>
-              <h5>
-                {" "}
-                {typeof category === "object" ? category.name : category}{" "}
-              </h5>
+              {product.categories.map((category) => {
+                return (
+                  <div>
+                    <h5>
+                      {" "}
+                      {typeof category === "object"
+                        ? category.name
+                        : category}{" "}
+                    </h5>
 
-              <button onClick={() => handlerDeleteCategory(category)}>
-                {" "}
-                x{" "}
-              </button>
+                    <button onClick={() => handlerDeleteCategory(category)}>
+                      x
+                    </button>
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
-      </div>
-
-      <button type="submit" onClick={updateProduct}>
-        {" "}
-        ¡Terminar edición!{" "}
-      </button>
-      <div>
-      {
-        product.active ?
-        <button onClick={(e) => handleDelete(e)} >Desactivar producto</button> :
-        <button onClick={(e) => handleActive(e)} >Activar producto</button>
-      }
-      </div>
+          </Children>
+          <Children pc="2" tablet="2" movil="1">
+            <div className="stocksNewProduct">
+              <strong> Stocks </strong>
+              {stocksAll.map((props) => (
+                <div>
+                  <label>{props.size}:</label>
+                  <input
+                    value={props.stock}
+                    type="number"
+                    min="0"
+                    onChange={handleObjects}
+                    id="stock"
+                    className={props.size}
+                  />
+                </div>
+              ))}
+            </div>
+          </Children>
+          <Children pc="2" tablet="2" movil="1">
+            <strong> Información addicional </strong>
+            {infoAdditional.map((props) => (
+              <div>
+                <label> {props.title}: </label>
+                <input
+                  value={props.data}
+                  type="text"
+                  onChange={handleObjects}
+                  id="additionalInformation"
+                  className={props.title}
+                />
+              </div>
+            ))}
+          </Children>
+          <Children className="floatButtons">
+            <button type="submit" className="btnSave" onClick={updateProduct}>
+              ¡Terminar edición!
+            </button>
+            {product.active ? (
+              <button onClick={(e) => handleDelete(e)}>
+                Desactivar producto
+              </button>
+            ) : (
+              <button onClick={(e) => handleActive(e)}>Activar producto</button>
+            )}
+          </Children>
+        </Container>
       </form>
     </>
   );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import {Container, Children} from "../../../globalStyles"
 //import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import "./adminCategories.css";
@@ -47,18 +48,6 @@ function NewCategory() {
       });
     }
   }, [imageSelected]);
-
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-
-  //     if (!e.target.id) {
-  //       alert("Debes crear categoria");
-  //     } else if (categories.includes(e.target.id)) {
-  //       alert("esta categoría ya existe");
-  //     }
-  //     setNewCategory("");
-  //     document.getElementById("inputCategory").value = "";
-  //   };
 
   return (
     <>
