@@ -1,11 +1,11 @@
-import React, { useState, useEffect, Children } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {Container, Children} from "../../../globalStyles"
 //import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import "./adminCategories.css";
 /* import { Image } from 'cloudinary-react'; */
-import {Container} from "../../../globalStyles"
+
 
 function NewCategory() {
   const navigate = useNavigate();
