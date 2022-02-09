@@ -164,7 +164,10 @@ export default function Cart() {
         {User.hasOwnProperty("UsersId") ? (
           <Button onClick={toggle}>GO TO CHECKOUT</Button>
         ) : (
-          <Button onClick={() => loginWithRedirect()}>
+          <Button onClick={() => {
+            window.localStorage.setItem("url", window.location.pathname)
+            loginWithRedirect()
+        }}>
             Finalizar tu compra!
           </Button>
         )}
