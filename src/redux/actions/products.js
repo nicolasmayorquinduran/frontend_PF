@@ -90,11 +90,12 @@ export function getUserCart(email) {
   };
 }
 
-export function addToCart(CartId, ProductId) {
+export function addToCart(CartId, productInfo) {
   return async function (dispatch) {
     const addProd = await axios.put(
-      `https://pfbackendecommerce.herokuapp.com/cart/${CartId}/${ProductId}` ||
-        `http://localhost:3001/cart/${CartId}/${ProductId}`
+      `https://pfbackendecommerce.herokuapp.com/cart/${CartId}`,
+      productInfo || `http://localhost:3001/cart/${CartId}`,
+      productInfo
     ); //fatlta autenci usuario
     return dispatch({
       type: TYPES.ADD_TO_CART,
@@ -106,9 +107,8 @@ export function addToCart(CartId, ProductId) {
 export function deleteProductCart(CartId, ProductId) {
   return async function (dispatch) {
     let deleted = await axios.delete(
-      `https://pfbackendecommerce.herokuapp.com/cart/${CartId}`,
-      ProductId || `http://localhost:3001/cart/${CartId}`,
-      ProductId
+      `https://pfbackendecommerce.herokuapp.com/cart?CartId=${CartId}&ProductId=${ProductId}` ||
+        `http://localhost:3001/cart?CartId=${CartId}&ProductId=${ProductId}`
     );
     return dispatch({
       type: TYPES.DELETE_PRODUCT_CART,
@@ -146,5 +146,20 @@ export function updateProductAdm(payload) {
     } catch (error) {
       console.log(error);
     }
+  };
+}
+
+export function cartToBuy(CartId, infoBuy, infoUser) {
+  return async function (dispatch) {
+    try {
+      const buy = await axios.post(`http://localhost:3001/order/${CartId}`, {
+        infoBuy,
+        infoUser,
+      });
+      return dispatch({
+        type: TYPES.CART_TO_BUY,
+        payload: buy.data,
+      });
+    } catch (error) {}
   };
 }

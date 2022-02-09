@@ -5,11 +5,38 @@ import axios from "axios";
 
 const CreatePromo = () => {
   const navigate = useNavigate();
+  const [imageSelected, setImageSelected] = useState("");
   const [inputs, setInputs] = useState({
     title: "",
-    img: "https://image.freepik.com/foto-gratis/feliz-sonriente-adolescente-pelo-rosa-suena-convertirse-estrella-rock-tocar-musica-guitarra-acustica-usa-jakcet-naranja-muestra-mini-gesto-corazon-o-letrero-coreano-como-poses-contra-pared-graffiti_273609-50835.jpg",
+    img:[],
     resume: "",
   });
+
+  //Formulario para cargar imagen hacia el server de cloudinary
+  const uploadImage = () => {
+    const formData = new FormData();
+    formData.append("file", imageSelected);
+    formData.append("upload_preset", "qoc3ud7y");
+
+    axios
+      .post(
+        "https://api.cloudinary.com/v1_1/jonascript/image/upload/",
+        formData
+      )
+      .then((response) => {
+        return setImageSelected(response.data.url);
+      });
+  };
+
+  useEffect(() => {
+    if (typeof imageSelected === "string") {
+      setInputs({
+        ...inputs,
+        img: imageSelected,
+      });
+    }
+  }, [imageSelected]);
+
   const postProduct = async (product) => {
     await axios.post(
       "https://pfbackendecommerce.herokuapp.com/promos",
@@ -28,7 +55,8 @@ const CreatePromo = () => {
       <Container>
         <Children>
           <label>Sube una portada de categoría</label>
-          <input type="file" />
+          <input type="file" onChange={(event) => setImageSelected(event.target.files[0])} />
+          <button onClick={uploadImage}>Upload Image</button>
         </Children>
         <Children>
           <label>Título destacado de la Promo</label>

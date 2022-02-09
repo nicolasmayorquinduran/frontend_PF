@@ -1,28 +1,31 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Children } from "../../../globalStyles";
+//import { Container, Children } from "../../../globalStyles";
 import { getProducts } from "../../../redux/actions/products";
 import { getCategories } from "../../../redux/actions/categories";
 import { getPromos } from "../../../redux/actions/promos";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionPromos from "./SectionPromos";
 import SectionCategories from "./SectionCategories";
 import SectionProducts from "./SectionProducts";
 import Loading from "../../Loading/Index";
-import {
-  faArrowAltCircleLeft,
-  faArrowAltCircleRight,
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+// import {
+//   faArrowAltCircleLeft,
+//   faArrowAltCircleRight,
+//   faChevronLeft,
+//   faChevronRight,
+// } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
-
+// !window.localStorage.getItem("cart") &&
+//   window.localStorage.setItem("cart", JSON.stringify([]));
 const Home = () => {
   const dispatch = useDispatch();
 
   const allPromos = useSelector((store) => store.promos);
-  const allCategories = useSelector((store) => store.categories);
   const allProducts = useSelector((store) => store.allProducts);
+  let allCategories = useSelector((store) => store.categories);
+  allCategories = allCategories.filter((c) => c.active === true);
+
   useEffect(() => {
     dispatch(getPromos());
     dispatch(getCategories());

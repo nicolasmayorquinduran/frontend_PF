@@ -6,18 +6,28 @@ import axios from "axios";
 import { getCategories } from "../../../redux/actions/categories";
 
 // Styles:
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenSquare, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPenSquare, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import "./AdminProduct.css";
 
 export default function NewProduct() {
-  //Imagen
-  const [imageSelected, setImageSelected] = useState();
-  // PARAconsole.log(imageSelected);
-
   const dispatch = useDispatch();
 
   const categories = useSelector((state) => state.categories);
+
+  const [product, setProduct] = useState({
+    name: "",
+    img: [],
+    price: "",
+    description: "",
+    additionalInformation: {},
+    stock: {},
+    categories: [],
+  });
+
+  // Imagen cloudinary:
+  const [imageSelected, setImageSelected] = useState();
+  //console.log(imageSelected);
 
   const uploadImage = () => {
     const formData = new FormData();
@@ -33,17 +43,16 @@ export default function NewProduct() {
       .then((response) => {
         return setImageSelected(response.data.url);
       });
-  };
 
-  const [product, setProduct] = useState({
-    name: "",
-    img: [],
-    price: "",
-    description: "",
-    aditionalInformation: {},
-    stock: {},
-    categories: [],
-  });
+    /* axios
+      .post(
+        "https://api.cloudinary.com/v1_1/jonascript/image/upload/",
+        formData
+      )
+      .then((response) => {
+        return setImageSelected(response.data.url);
+      }); */
+  };
 
   useEffect(() => {
     if (typeof imageSelected === "string") {
@@ -63,7 +72,7 @@ export default function NewProduct() {
   let infoAd = [
     "Manufacturer",
     "Material",
-    "occasion",
+    "Occasion",
     "Fit",
     "Lining material",
   ];
@@ -77,11 +86,15 @@ export default function NewProduct() {
   }
 
   function handleSubmitCategory(event) {
-    setProduct({
-      ...product,
-      categories: [...product.categories, event.target.value],
-    });
-
+    if (
+      event.target.value !== "Seleccione las categorías" &&
+      !product.categories.includes(event.target.value)
+    ) {
+      setProduct({
+        ...product,
+        categories: [...product.categories, event.target.value],
+      });
+    }
     event.preventDefault();
   }
 
@@ -94,12 +107,38 @@ export default function NewProduct() {
       img: [],
       price: "",
       description: "",
-      aditionalInformation: {},
+      additionalInformation: {},
       stock: {},
       categories: [],
     });
+    document.getElementById("inputImg").value = "";
+    document.getElementById("selectCategories").value =
+      "Seleccione las categorías";
+    size.map((e) => (document.getElementById(e).value = ""));
+    infoAd.map((e) => (document.getElementById(e).value = ""));
+    setImageSelected();
+    window.location.href =
+      "https://pfbackendecommerce.herokuapp.com/admin/products" ||
+      "http://localhost:3000/admin/products";
   }
 
+  // ELIMINO CATEGORIAS:
+  function handlerDeleteCategory(category) {
+    setProduct({
+      ...product,
+      categories: product.categories.filter((element) => element !== category),
+    });
+  }
+
+  // ELIMINO IMAGENES:
+  function handlerDeleteImage(image) {
+    setProduct({
+      ...product,
+      img: product.img.filter((element) => element !== image),
+    });
+  }
+
+  // PARA EL BOTON DE CREAR EL PRODUCTO:
   const updateProduct = async () => {
     await axios.post(
       "https://pfbackendecommerce.herokuapp.com/products",
@@ -108,27 +147,53 @@ export default function NewProduct() {
     );
   };
 
-  // console.log(product);
+  console.log(product);
 
   return (
     <>
       <h2> Agregá un nuevo Producto </h2>
 
+      {/* <div className=" editImage">
+        
+        <div className="coverImage">
+        <h4> Imagen: </h4>
+          {
+            product.img.map((image, index) => {
+              return (
+                <div key={index}>
+                          
+                  <img src={image} alt="Img not found" width="150px" height="150px" value={image} />
+                  <button onClick={() => handlerDeleteImage(image)}> x </button>
+                  
+                </div>
+              )
+            })
+          }
+        </div>
+                
+         <FontAwesomeIcon className="icon" icon={faPenSquare} /> 
+              
+      </div> */}
+
       <form onSubmit={handleSubmit} className="new">
         <div className="partsNew">
           <h4> Imagen: </h4>
+
           <div>
             <input
               type="file"
+              id="inputImg"
               onChange={(event) => setImageSelected(event.target.files[0])}
             />
             <button onClick={uploadImage}> Cargar imagen </button>
-            <img
-              src={imageSelected}
-              alt="Imagen"
-              height="300px"
-              width="250px"
-            />
+          </div>
+          <div>
+            {product.img?.map((e) => (
+              <div>
+                <img src={e} alt="not found" />
+                <button onClick={() => handlerDeleteImage(e)}> x </button>
+              </div>
+            ))}
           </div>
 
           <h4> Nombre: </h4>
@@ -168,21 +233,48 @@ export default function NewProduct() {
             name="categories"
             autoComplete="off"
             required
+            id="selectCategories"
           >
-            {categories.map((c) => (
-              <option> {c.name} </option>
-            ))}
+            <option value="Seleccione las categorías">
+              Seleccione las categorías
+            </option>
+            {categories.map((c) =>
+              c.active ? (
+                <option key={c.CategoriesId}>
+                  {" "}
+                  {c.name} (Categoría habilitada)
+                </option>
+              ) : (
+                <option key={c.CategoriesId}>
+                  {" "}
+                  {c.name} (Categoría no habilitada)
+                </option>
+              )
+            )}
           </select>
-
+          <div>
+            {product.categories.map((category) => {
+              return (
+                <div>
+                  <button onClick={() => handlerDeleteCategory(category)}>
+                    {" "}
+                    x{" "}
+                  </button>
+                  <h5>{category}</h5>
+                </div>
+              );
+            })}
+          </div>
           <div className="stocksNewProduct">
             <h4> Stocks: </h4>
             {size.map((sizes) => (
-              <div>
+              <div key={size.indexOf(sizes)}>
                 <h5> {sizes} </h5>
                 <input
                   required
                   type="number"
                   min="0"
+                  id={sizes}
                   autoComplete="off"
                   onChange={(event) =>
                     setProduct({
@@ -202,6 +294,41 @@ export default function NewProduct() {
               <input
                 type="text"
                 required
+                id={info}
+                autoComplete="off"
+                onChange={(event) =>
+                  setProduct({
+                    ...product,
+                    additionalInformation: {
+                      ...product.additionalInformation,
+                      [info]: event.target.value,
+                    },
+                  })
+                }
+              />
+            </div>
+          ))}
+
+          {/* <h4> Categorías: </h4>
+          <select
+            onClick={handleSubmitCategory}
+            name="categories"
+            autoComplete="off"
+            required
+          >
+          {
+            categories.map((c) => (
+              <option> {c.name} </option>
+            ))
+          }
+          </select> */}
+
+          {/*  {infoAd.map((info) => (
+            <div key={infoAd.indexOf(info)}>
+              <h5> {info} </h5>
+              <input
+                type="text"
+                required
                 autoComplete="off"
                 onChange={(event) =>
                   setProduct({
@@ -214,7 +341,7 @@ export default function NewProduct() {
                 }
               />
             </div>
-          ))}
+          ))} */}
 
           <button type="submit" onClick={() => updateProduct(product)}>
             {" "}
@@ -222,6 +349,8 @@ export default function NewProduct() {
           </button>
         </div>
       </form>
+
+      {/* <button type="submit" onClick={() => updateProduct(product)}> ¡Crear! </button> */}
     </>
   );
 }

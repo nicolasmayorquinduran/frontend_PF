@@ -1,24 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import '../index.css'
 
 const AdminMenu = () => {
   return (
     <div>
-      <ul>
+      <ul className="menuLink">
         <li>
-          <Link to="/admin/products">Productos</Link>
+          <NavLink exact to="/admin/products" activeClassName='active-link'>Productos</NavLink>
         </li>
         <li>
-          <Link to="/admin/categorias">Categorías</Link>
+          <NavLink exact to="/admin/categorias" activeClassName='active-link'>Categorías</NavLink>
         </li>
         <li>
-          <Link to="/admin/pedidos">Pedidos</Link>
+          <NavLink exact to="/admin/pedidos" activeClassName='active-link'>Pedidos</NavLink>
         </li>
         <li class="item-r">
-          <Link to="/admin/promos">Promos</Link>
+          <NavLink exact to="/admin/promos" activeClassName='active-link'>Promos</NavLink>
         </li>
         <li class="item-r">
-          <Link to="/admin/usuarios">Usuarios</Link>
+          <NavLink exact to="/admin/usuarios" activeClassName='active-link'>Usuarios</NavLink>
         </li>
       </ul>
     </div>

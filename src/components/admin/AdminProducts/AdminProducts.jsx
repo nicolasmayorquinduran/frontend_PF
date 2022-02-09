@@ -17,6 +17,7 @@ import { Container, Children } from "../../../globalStyles";
 
 const AdminProducts = () => {
   const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(0);
 
   const [selected, setSelected] = useState({
     name: "",
@@ -34,6 +35,18 @@ const AdminProducts = () => {
   let productsAll = useSelector((state) => state.allProducts);
   // console.log(productsAll);
 
+  const nextPage = () => {
+    if (currentPage + 12 < productsAll.length - 1) {
+      setCurrentPage(currentPage + 12);
+    }
+  };
+  const prevPage = () => {
+    if (currentPage > 0) setCurrentPage(currentPage - 12);
+  };
+  const filteredProducts = () => {
+    return productsAll.slice(currentPage, currentPage + 12);
+  };
+
   return (
     <div>
       {selected.name.length ? (
@@ -44,6 +57,14 @@ const AdminProducts = () => {
 
       <div className="Container">
         <Container>
+          <div className="page" id="searchForm">
+            <button className="prev" onClick={prevPage}>
+              prev
+            </button>
+            <button className="next" onClick={nextPage}>
+              next
+            </button>
+          </div>
           <Children
             style={{
               backgroundColor: "#ddd",
@@ -62,11 +83,13 @@ const AdminProducts = () => {
           >
             <p></p>
             <h2 style={{ fontSize: "100px", margin: "0" }}>+</h2>
+
             <p>Crear nuevo producto</p>
           </Children>
-          {productsAll.map((product) => (
+          {filteredProducts().map((product) => (
             <Children
               className="cardProductos"
+              key={product.ProductId}
               onClick={() =>
                 setSelected({
                   ProductId: product.ProductId,
@@ -78,6 +101,7 @@ const AdminProducts = () => {
                   additionalInformation: product.additionalInformation,
                   description: product.description,
                   stock: product.stock,
+                  active: product.active,
                 })
               }
             >

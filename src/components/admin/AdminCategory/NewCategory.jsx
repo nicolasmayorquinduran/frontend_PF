@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+//import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import "./adminCategories.css";
 /* import { Image } from 'cloudinary-react'; */
 
 function NewCategory() {
@@ -66,10 +67,10 @@ function NewCategory() {
   return (
     <>
       <div className="categoryContainer">
+        <div>
+          <h5>Nueva categoría: </h5>
+        </div>
         <div className="newCategory">
-          <div>
-            <h5>Nueva categoría: </h5>
-          </div>
           <form id={newCategory}>
             <div>
               <input
@@ -87,13 +88,15 @@ function NewCategory() {
               </div>
             </div>
           </form>
+
           <div>
+           <img src={imageSelected} alt="Imagen" height="300px" width="300" /> 
             <input
               type="file"
               onChange={(event) => setImageSelected(event.target.files[0])}
             />
+           
             <button onClick={uploadImage}>Upload Image</button>
-            {/* <img src={imageSelected} alt="Imagen" height="300px" width="300" /> */}
           </div>
         </div>
         <div className="categoriesContainer">
