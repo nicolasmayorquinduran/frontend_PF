@@ -152,6 +152,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         reviews: action.payload,
       };
+
+    case TYPES.SEND_EMAIL:
+      return {
+        ...state,
+      }
+
     default:
       return state;
   }
