@@ -6,18 +6,12 @@ import { Container, Children } from "../../../globalStyles";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import Swal from "sweetalert2";
-import {
-  getUserCart,
-  deleteAllCart,
-  deleteProductCart,
-} from "../../../redux/actions/products";
-
+import { deleteProductCart } from "../../../redux/actions/products";
+import { addToCart } from "../../../redux/actions/products";
 import { getActualUser } from "../../../redux/actions/users";
 import { Link } from "react-router-dom";
 import { Button, Modal, ModalBody } from "reactstrap";
 import Checkout from "../Checkout/Checkout.jsx";
-import axios from "axios";
-
 import "./style.css";
 // import axios from "axios";
 
@@ -29,14 +23,14 @@ export default function Cart() {
   const navigate = useNavigate();
   const email = window.localStorage.getItem("userEmail");
   const User = useSelector((store) => store.actualUser);
-  const carrito = useSelector(
+  const cartId = User?.carts[User.carts?.length - 1].CartId;
+  let cartStorage = JSON.parse(window.localStorage.getItem("cart"));
+  let carrito = useSelector(
     (store) =>
       store.actualUser.carts[store.actualUser.carts.length - 1]?.productCart
   );
   const [cart, setCart] = useState(
-    User.hasOwnProperty("UsersId")
-      ? carrito
-      : JSON.parse(window.localStorage.getItem("cart"))
+    User.hasOwnProperty("UsersId") && carrito?.length ? carrito : cartStorage
   );
 
   const dispatch = useDispatch();
@@ -44,14 +38,16 @@ export default function Cart() {
   let products = carrito?.hasOwnProperty("productCart")
     ? carrito.productCart
     : [];
-  // useEffect(() => {
-  //   setCart(carrito);
-  // }, []);
-  //esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
+
   useEffect(() => {
-    return () => console.log("se desmontó");
-  }, []);
-  //name img price stockSelected Object.keys(stockSelected)
+    window.localStorage.setItem("cart", JSON.stringify(cart));
+    return () => {
+      dispatch(addToCart(cartId, cart));
+      window.localStorage.setItem("cart", JSON.stringify(cart));
+    };
+  }, [dispatch, User]);
+  // esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
+  console.log(cart);
   return (
     <>
       <div>
@@ -87,7 +83,7 @@ export default function Cart() {
                       (actualProduct) => actualProduct.ProductId !== p.ProductId
                     );
                     setCart(productsFiltered);
-                    dispatch(deleteProductCart(User?.CartId, p.ProductId));
+                    dispatch(deleteProductCart(cartId, p.ProductId));
                     window.localStorage.setItem(
                       "cart",
                       JSON.stringify(productsFiltered)
@@ -118,6 +114,22 @@ export default function Cart() {
                             background:
                               p.stockSelected[t] == 0 ? "#ccc" : "#fff",
                             color: p.stockSelected[t] == 0 ? "#888" : "#000",
+                          }}
+                          onChange={(e) => {
+                            setCart(
+                              cart.map((producto) => {
+                                if (producto.ProductId === p.ProductId) {
+                                  p.stockSelected[t] = e.target.value;
+                                  return producto;
+                                } else {
+                                  return producto;
+                                }
+                              })
+                            );
+                            window.localStorage.setItem(
+                              "cart",
+                              JSON.stringify(cart)
+                            );
                           }}
                         />
                       </div>
@@ -151,8 +163,10 @@ export default function Cart() {
 
         <button
           onClick={() => {
-            dispatch(deleteProductCart(User?.CartId));
+            dispatch(deleteProductCart(cartId));
             window.localStorage.setItem("cart", JSON.stringify([]));
+            setCart([]);
+            window.location.href = "http://localhost:3000/cart";
           }}
         >
           limpiar carritO
@@ -160,7 +174,10 @@ export default function Cart() {
         {User.hasOwnProperty("UsersId") ? (
           <Button onClick={toggle}>GO TO CHECKOUT</Button>
         ) : (
-          <Button onClick={() => loginWithRedirect()}>
+          <Button onClick={() => {
+            window.localStorage.setItem("url", window.location.pathname)
+            loginWithRedirect()
+        }}>
             Finalizar tu compra!
           </Button>
         )}
@@ -168,7 +185,7 @@ export default function Cart() {
         <Modal isOpen={modal} toggle={toggle}>
           <ModalBody>
             <Checkout
-              total={`Comprar $${cart.reduce(
+              total={`Comprar $${cart?.reduce(
                 (acc, p) =>
                   (acc += Object.keys(p.stockSelected)?.reduce(
                     (acc, talla) => (acc += p.stockSelected[talla] * p.price),

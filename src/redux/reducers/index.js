@@ -1,3 +1,4 @@
+import { act } from "react-dom/test-utils";
 import { TYPES } from "../actions/types.js";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   actualUser: { carts: [{ productCart: [] }] },
   cart: {},
   reviews: [],
+  allCarts: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -91,6 +93,7 @@ function rootReducer(state = initialState, action) {
         action.payload.carts[action.payload.carts.length - 1].productCart;
       productsUser = productsUser.map(
         (p) =>
+          !p?.hasOwnProperty("stockSelected") &&
           (p.stockSelected = {
             xs: "0",
             s: "0",
@@ -118,12 +121,6 @@ function rootReducer(state = initialState, action) {
         actualUser: action.payload,
       };
 
-    case TYPES.GET_USER_CART:
-      return {
-        ...state,
-        cart: action.payload,
-      };
-
     case TYPES.ADD_TO_CART:
       // actualUser: { carts: [{ productCart: [remera] }, { productCart2: [pantalon] }, {productCart3: [blusa] }] },
       return {
@@ -133,7 +130,8 @@ function rootReducer(state = initialState, action) {
           carts: [
             ...state.actualUser.carts.map((e, index) => {
               if (index === state.actualUser.carts.length - 1) {
-                e.productCart = [...e.productCart, ...action.payload];
+                e.productCart = action.payload;
+
                 return e;
               } else {
                 return e;
@@ -160,12 +158,16 @@ function rootReducer(state = initialState, action) {
         ...state,
         reviews: action.payload,
       };
-
     case TYPES.POST_REVIEWS:
       return {
         ...state
       };
 
+    case TYPES.GET_ALL_CARTS:
+      return {
+        ...state,
+        allCarts: action.payload
+      }
     default:
       return state;
   }

@@ -17,7 +17,7 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Container } from "../../../globalStyles";
-
+let similarProducts = []
 export default function ProductDetails() {
   const [changeTab, setChangeTab] = useState("Comentarios");
   let [stockSelected, setStockSelected] = useState({
@@ -34,7 +34,6 @@ export default function ProductDetails() {
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
-  console.log(review)
   const [bigImage, setBigImage] = useState(0);
   // console.log(bigImage);
   const handleImage = (e) => {
@@ -76,11 +75,19 @@ export default function ProductDetails() {
   while (ranking.length < ranking[ranking.length - 1]) {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
+  
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
     dispatch(getReviews(id));
   }, [dispatch, user, id, bigImage]);
+
+  useEffect(() => {
+    if (allProducts.length > 0 && Object.values(product).length > 0){
+      similarProducts = allProducts.filter((p) =>(p.categories[0].name === product.categories[0].name))
+      similarProducts = similarProducts.filter((p) => p.ProductId !== product.ProductId)
+    }
+    }, [allProducts, product]);
 
   const handleStockQty = (s, n) => {
     setStockSelected({ ...stockSelected, [s]: n });
@@ -90,8 +97,8 @@ export default function ProductDetails() {
     let { ProductId, name, img, price, stock } = product;
     let data = { ProductId, name, img: img[0], price, stock, stockSelected };
     let guardado = JSON.parse(localStorage.getItem("cart"));
-    if (!guardado.find((p) => p.ProductId === ProductId)) {
-      guardado.push(data);
+    if (!guardado?.find((p) => p.ProductId === ProductId)) {
+      guardado?.push(data);
       localStorage.setItem("cart", JSON.stringify(guardado));
     }
     user.hasOwnProperty("UsersId") &&
@@ -103,13 +110,6 @@ export default function ProductDetails() {
       timer: 3000,
     });
   };
-
-  // console.log(allProducts);
-  // let similarProducts = allProducts.filter(
-  // let similarProducts = allProducts?.filter(
-  //   (p) => p.categories[0].name === product.categories[0].name
-  // );
-  // console.log(similarProducts);
 
   return (
     <div>
@@ -153,7 +153,7 @@ export default function ProductDetails() {
 
               <div id="talles">
                 <strong>
-                  {talles.every((t) => t.stock === 0)
+                  {talles.every((t) => t.stockSelected === 0)
                     ? "No hay stock disponible en el momento:"
                     : "Tallas disponibles:"}
                 </strong>
@@ -175,7 +175,7 @@ export default function ProductDetails() {
                             }
                             min={0}
                             max={t.stock}
-                            disabled={t.stock === 0 && false}
+                            disabled={t.stockSelected === 0 && false}
                             style={{
                               background: t.stock === 0 ? "#ccc" : "#fff",
                               color: t.stock === 0 ? "#888" : "#000",
@@ -312,8 +312,7 @@ export default function ProductDetails() {
           >
             <Container>
 
-
-              {/* {similarProducts.map(
+              {similarProducts.map(
                 (p, index) =>
                   index < 4 && (
                     <Product
@@ -324,7 +323,7 @@ export default function ProductDetails() {
                       ranking={p.ranking}
                     />
                   )
-              )} */}
+              )}
             </Container>
           </div>
         </div>

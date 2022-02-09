@@ -5,5 +5,8 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export const LoginButton = () => {
     const { loginWithRedirect } = useAuth0();
-    return <FontAwesomeIcon onClick={() => loginWithRedirect()} icon={faUser} />;
+    return <FontAwesomeIcon onClick={() => {
+        window.localStorage.setItem("url", window.location.pathname)
+        loginWithRedirect()
+    }} icon={faUser} />;
 }
