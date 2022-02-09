@@ -24,14 +24,13 @@ export default function Cart() {
   const email = window.localStorage.getItem("userEmail");
   const User = useSelector((store) => store.actualUser);
   const cartId = User?.carts[User.carts?.length - 1].CartId;
+  let cartStorage = JSON.parse(window.localStorage.getItem("cart"));
   let carrito = useSelector(
     (store) =>
       store.actualUser.carts[store.actualUser.carts.length - 1]?.productCart
   );
   const [cart, setCart] = useState(
-    User.hasOwnProperty("UsersId")
-      ? carrito
-      : JSON.parse(window.localStorage.getItem("cart"))
+    User.hasOwnProperty("UsersId") && carrito.length ? carrito : cartStorage
   );
 
   const dispatch = useDispatch();
@@ -42,12 +41,15 @@ export default function Cart() {
 
   useEffect(() => {
     dispatch(getActualUser(User?.UsersId));
+    dispatch(addToCart(cartId, cart));
+    window.localStorage.setItem("cart", JSON.stringify(cart));
     return () => {
       dispatch(addToCart(cartId, cart));
+      window.localStorage.setItem("cart", JSON.stringify(cart));
     };
   }, [dispatch, User]);
   // esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
-  console.log(User.carts[User.carts?.length - 1].CartId);
+  console.log(cart);
   return (
     <>
       <div>
@@ -83,8 +85,7 @@ export default function Cart() {
                       (actualProduct) => actualProduct.ProductId !== p.ProductId
                     );
                     setCart(productsFiltered);
-                    dispatch(deleteProductCart(cartId));
-
+                    dispatch(deleteProductCart(cartId, p.ProductId));
                     window.localStorage.setItem(
                       "cart",
                       JSON.stringify(productsFiltered)
@@ -116,7 +117,7 @@ export default function Cart() {
                               p.stockSelected[t] == 0 ? "#ccc" : "#fff",
                             color: p.stockSelected[t] == 0 ? "#888" : "#000",
                           }}
-                          onChange={(e) =>
+                          onChange={(e) => {
                             setCart(
                               cart.map((producto) => {
                                 if (producto.ProductId === p.ProductId) {
@@ -126,8 +127,12 @@ export default function Cart() {
                                   return producto;
                                 }
                               })
-                            )
-                          }
+                            );
+                            window.localStorage.setItem(
+                              "cart",
+                              JSON.stringify(cart)
+                            );
+                          }}
                         />
                       </div>
                     );
@@ -160,8 +165,10 @@ export default function Cart() {
 
         <button
           onClick={() => {
-            dispatch(deleteProductCart(User?.CartId));
+            dispatch(deleteProductCart(cartId));
             window.localStorage.setItem("cart", JSON.stringify([]));
+            setCart([]);
+            window.location.href = "http://localhost:3000/cart";
           }}
         >
           limpiar carritO
