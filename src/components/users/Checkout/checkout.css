@@ -11,6 +11,10 @@
 
 }
 
+.cp{
+	visibility: hidden;
+}
+
 .container ul{
 	margin-top: 7px;
 }

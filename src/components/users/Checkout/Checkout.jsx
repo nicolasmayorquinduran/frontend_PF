@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getActualUser } from "../../../redux/actions/users.js";
+import { cartToBuy } from "../../../redux/actions/products";
 import axios from "axios";
 import "./checkout.css";
 
@@ -9,28 +9,38 @@ export default function Checkout({ total, productos }) {
   const [url, setUrl] = useState("");
   const actualUser = useSelector((state) => state.actualUser);
   const [user, setUser] = useState({
-    name: "",
-    adress: "",
-    state: "",
-    email: "",
+    name: actualUser.name,
+    address: actualUser.address,
+    state: actualUser.state,
+    email: actualUser.email,
+    cp:actualUser.cp,
+    country: actualUser.country
   });
-
-  const handlePost = () =>
+  const [acept,setAcept] = useState({name:"noAceptado"})
+  // console.log("userrrr",actualUser)
+  const handlePost = () =>{
+    // console.log(user)
     axios
       .post("http://localhost:3001/checkout", productos)
       .then((res) => setUrl(res.data));
-
+}
   useEffect(() => {
     handlePost();
-  }, []);
+  }, [user]);
 
-  console.log(url);
+  // console.log(url);
+  const handleCartToBuy=(infoBuy,infoUser)=>{
+    console.log("BUUUYYY", infoBuy)
+    console.log("USERRRR", infoUser)
 
-  function handleChange(e) {
+    // dispatch(cartToBuy(infoBuy,infoUser))
+  }
+  function handleChange(name,value) {
     setUser({
-      ...user,
-      [e.target.name]: e.target.value,
+      ...user, 
+      [name]: value,
     });
+    console.log("userrr",user)
   }
 
   return (
@@ -43,7 +53,7 @@ export default function Checkout({ total, productos }) {
         type="text"
         value={actualUser.name}
         name="name"
-        onChange={(e) => handleChange(e)}
+        onChange={(e) => handleChange(e.target.name,e.target.value)}
         required
       />
       <span>
@@ -53,7 +63,7 @@ export default function Checkout({ total, productos }) {
         type="text"
         value={actualUser.address}
         name="address"
-        onChange={(e) => handleChange(e)}
+        onChange={(e) => handleChange(e.target.name,e.target.value)}
         required
       />
       <span>
@@ -63,7 +73,7 @@ export default function Checkout({ total, productos }) {
         type="text"
         value={actualUser.country}
         name="country"
-        onChange={(e) => handleChange(e)}
+        onChange={(e) => handleChange(e.target.name,e.target.value)}
         required
       />
       <span>
@@ -73,7 +83,7 @@ export default function Checkout({ total, productos }) {
         type="text"
         value={actualUser.state}
         name="state"
-        onChange={(e) => handleChange(e)}
+        onChange={(e) => handleChange(e.target.name,e.target.value)}
         required
       />
       <span>
@@ -83,14 +93,25 @@ export default function Checkout({ total, productos }) {
         type="text"
         value={actualUser.email}
         name="email"
-        onChange={(e) => handleChange(e)}
+        onChange={(e) => handleChange(e.target.name,e.target.value)}
         required
       />
-      <a href={url} target="_blank">
-        <button type="submit">
+      <input
+      className="cp"
+        type="text"
+        value={actualUser.cp}
+        name="cp"
+        onChange={(e) => handleChange(e.target.name,e.target.value)}
+        required
+      />
+      
+      
+      <a >
+        <button type="submit" onSubmit={()=>handleCartToBuy(productos,user)}>
           <b>{total}</b>
         </button>
       </a>
+      
     </div>
   );
 }
