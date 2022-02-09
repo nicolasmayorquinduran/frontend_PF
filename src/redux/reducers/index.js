@@ -16,6 +16,7 @@ const initialState = {
   actualUser: { carts: [{ productCart: [] }] },
   cart: {},
   reviews: [],
+  allCarts: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -82,60 +83,60 @@ function rootReducer(state = initialState, action) {
         ...state,
         users: action.payload,
       };
-    case TYPES.GET_ACTUAL_USER:
-      let productsUser =
-        action.payload.carts[action.payload.carts.length - 1].productCart;
-      productsUser = productsUser.map(
-        (p) =>
-          (p.stockSelected = {
-            xs: "0",
-            s: "0",
-            m: "0",
-            l: "0",
-            xl: "0",
-            xxl: "0",
-          })
-      );
-      if (!productsUser.length) {
-        var guardado = localStorage.getItem("cart");
-        guardado = JSON.parse(guardado);
-        guardado = guardado.filter((ProductStorage) =>
-          action.payload.carts[
-            action.payload.carts.length - 1
-          ].productCart.every(
-            (ProductUser) => ProductStorage.ProductId !== ProductUser.ProductId
-          )
+      case TYPES.GET_ACTUAL_USER:
+        let productsUser =
+          action.payload?.carts[action.payload.carts.length - 1].productCart;
+        productsUser = productsUser?.map(
+          (p) =>
+            (p.stockSelected = {
+              xs: "0",
+              s: "0",
+              m: "0",
+              l: "0",
+              xl: "0",
+              xxl: "0",
+            })
         );
-        guardado = guardado.concat(productsUser);
-        productsUser = guardado;
-      }
-      return {
-        ...state,
-        actualUser: action.payload,
-      };
+        if (!productsUser?.length) {
+          var guardado = localStorage.getItem("cart");
+          guardado = JSON.parse(guardado);
+          guardado = guardado?.filter((ProductStorage) =>
+            action.payload.carts[
+              action.payload.carts.length - 1
+            ].productCart?.every(
+              (ProductUser) => ProductStorage.ProductId !== ProductUser.ProductId
+            )
+          );
+          guardado = guardado?.concat(productsUser);
+          productsUser = guardado;
+        }
+        return {
+          ...state,
+          actualUser: action.payload,
+        };
     case TYPES.GET_USER_CART:
       return {
         ...state,
         cart: action.payload,
       };
-    case TYPES.ADD_TO_CART:
-      // actualUser: { carts: [{ productCart: [remera] }, { productCart2: [pantalon] }, {productCart3: [blusa] }] },
-      return {
-        ...state,
-        actualUser: {
-          ...state.actualUser,
-          carts: [
-            ...state.actualUser.carts.map((e, index) => {
-              if (index === state.actualUser.carts.length - 1) {
-                e.productCart = [...e.productCart, ...action.payload];
-                return e;
-              } else {
-                return e;
-              }
-            }),
-          ],
-        },
-      };
+      case TYPES.ADD_TO_CART:
+        // actualUser: { carts: [{ productCart: [remera] }, { productCart2: [pantalon] }, {productCart3: [blusa] }] },
+        return {
+          ...state,
+          actualUser: {
+            ...state.actualUser,
+            carts: [
+              ...state.actualUser.carts.map((e, index) => {
+                if (index === state.actualUser.carts.length - 1) {
+                  e.productCart = [...e.productCart, ...action.payload];
+                  return e;
+                } else {
+                  return e;
+                }
+              }),
+            ],
+          },
+        };
 
     case TYPES.DELETE_PRODUCT_CART:
       return {
@@ -152,6 +153,13 @@ function rootReducer(state = initialState, action) {
         ...state,
         reviews: action.payload,
       };
+
+    case TYPES.GET_ALL_CARTS:
+      return {
+        ...state,
+        allCarts: action.payload
+      }
+
     default:
       return state;
   }

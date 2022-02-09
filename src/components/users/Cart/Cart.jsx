@@ -172,7 +172,7 @@ export default function Cart() {
         <Modal isOpen={modal} toggle={toggle}>
           <ModalBody>
             <Checkout
-              total={`Comprar $${cart.reduce(
+              total={`Comprar $${cart?.reduce(
                 (acc, p) =>
                   (acc += Object.keys(p.stockSelected)?.reduce(
                     (acc, talla) => (acc += p.stockSelected[talla] * p.price),

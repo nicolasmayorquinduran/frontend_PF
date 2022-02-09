@@ -89,8 +89,8 @@ export default function ProductDetails() {
     let { ProductId, name, img, price, stock } = product;
     let data = { ProductId, name, img: img[0], price, stock, stockSelected };
     let guardado = JSON.parse(localStorage.getItem("cart"));
-    if (!guardado.find((p) => p.ProductId === ProductId)) {
-      guardado.push(data);
+    if (!guardado?.find((p) => p.ProductId === ProductId)) {
+      guardado?.push(data);
       localStorage.setItem("cart", JSON.stringify(guardado));
     }
     user.hasOwnProperty("UsersId") &&
