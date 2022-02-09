@@ -29,7 +29,7 @@ export default function Cart() {
   const navigate = useNavigate();
   const email = window.localStorage.getItem("userEmail");
   const User = useSelector((store) => store.actualUser);
-  const carrito = useSelector(
+  let carrito = useSelector(
     (store) =>
       store.actualUser.carts[store.actualUser.carts.length - 1]?.productCart
   );
@@ -44,14 +44,11 @@ export default function Cart() {
   let products = carrito?.hasOwnProperty("productCart")
     ? carrito.productCart
     : [];
-  // useEffect(() => {
-  //   setCart(carrito);
-  // }, []);
-  //esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
   useEffect(() => {
-    return () => console.log("se desmontó");
-  }, []);
-  //name img price stockSelected Object.keys(stockSelected)
+    dispatch(getActualUser(User?.UsersId));
+  }, [dispatch, User]);
+  // esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
+
   return (
     <>
       <div>
@@ -87,7 +84,13 @@ export default function Cart() {
                       (actualProduct) => actualProduct.ProductId !== p.ProductId
                     );
                     setCart(productsFiltered);
-                    dispatch(deleteProductCart(User?.CartId, p.ProductId));
+                    dispatch(
+                      deleteProductCart(
+                        User?.carts[User.carts?.length - 1].CartId,
+                        p.ProductId
+                      )
+                    );
+
                     window.localStorage.setItem(
                       "cart",
                       JSON.stringify(productsFiltered)
@@ -119,6 +122,7 @@ export default function Cart() {
                               p.stockSelected[t] == 0 ? "#ccc" : "#fff",
                             color: p.stockSelected[t] == 0 ? "#888" : "#000",
                           }}
+                          onChange={(e) => setCart()}
                         />
                       </div>
                     );
