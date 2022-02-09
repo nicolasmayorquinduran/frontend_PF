@@ -41,6 +41,7 @@ const Products = () => {
     filterClothingType(allProducts, filter.clothingType),
     filter.sort
   );
+  allProducts = allProducts.filter((p) => p.active)
   const allCategories = useSelector((state) => state.categories);
   
 
