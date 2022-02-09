@@ -1,3 +1,4 @@
+import { act } from "react-dom/test-utils";
 import { TYPES } from "../actions/types.js";
 
 const initialState = {
@@ -83,19 +84,30 @@ function rootReducer(state = initialState, action) {
         ...state,
         users: action.payload,
       };
-      case TYPES.GET_ACTUAL_USER:
-        let productsUser =
-          action.payload?.carts[action.payload.carts.length - 1].productCart;
-        productsUser = productsUser?.map(
-          (p) =>
-            (p.stockSelected = {
-              xs: "0",
-              s: "0",
-              m: "0",
-              l: "0",
-              xl: "0",
-              xxl: "0",
-            })
+    case TYPES.GET_ACTUAL_USER:
+      let productsUser =
+        action.payload.carts[action.payload.carts.length - 1].productCart;
+      productsUser = productsUser.map(
+        (p) =>
+          !p?.hasOwnProperty("stockSelected") &&
+          (p.stockSelected = {
+            xs: "0",
+            s: "0",
+            m: "0",
+            l: "0",
+            xl: "0",
+            xxl: "0",
+          })
+      );
+      if (!productsUser.length) {
+        var guardado = localStorage.getItem("cart");
+        guardado = JSON.parse(guardado);
+        guardado = guardado.filter((ProductStorage) =>
+          action.payload.carts[
+            action.payload.carts.length - 1
+          ].productCart.every(
+            (ProductUser) => ProductStorage.ProductId !== ProductUser.ProductId
+          )
         );
         if (!productsUser?.length) {
           var guardado = localStorage.getItem("cart");
@@ -119,24 +131,25 @@ function rootReducer(state = initialState, action) {
         ...state,
         cart: action.payload,
       };
-      case TYPES.ADD_TO_CART:
-        // actualUser: { carts: [{ productCart: [remera] }, { productCart2: [pantalon] }, {productCart3: [blusa] }] },
-        return {
-          ...state,
-          actualUser: {
-            ...state.actualUser,
-            carts: [
-              ...state.actualUser.carts.map((e, index) => {
-                if (index === state.actualUser.carts.length - 1) {
-                  e.productCart = [...e.productCart, ...action.payload];
-                  return e;
-                } else {
-                  return e;
-                }
-              }),
-            ],
-          },
-        };
+    case TYPES.ADD_TO_CART:
+      // actualUser: { carts: [{ productCart: [remera] }, { productCart2: [pantalon] }, {productCart3: [blusa] }] },
+      return {
+        ...state,
+        actualUser: {
+          ...state.actualUser,
+          carts: [
+            ...state.actualUser.carts.map((e, index) => {
+              if (index === state.actualUser.carts.length - 1) {
+                e.productCart = action.payload;
+
+                return e;
+              } else {
+                return e;
+              }
+            }),
+          ],
+        },
+      };
 
     case TYPES.DELETE_PRODUCT_CART:
       return {
