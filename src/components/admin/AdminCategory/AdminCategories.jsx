@@ -70,7 +70,7 @@ function AdminCat() {
           >
             <p></p>
             <h2>+</h2>
-            <p>Crear nueva Promo</p>
+            <p>Crear nueva Categoria</p>
           </Children>
           <div className="categoriesCards">
             {categories?.map((c, i) => {
