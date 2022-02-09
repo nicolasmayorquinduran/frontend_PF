@@ -33,6 +33,7 @@ export const Settings = () => {
             ...userEdited,
             [e.target.name]: e.target.value
         })
+        console.log(userEdited)
     }
 
     function handleSubmit(e){
