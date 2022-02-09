@@ -30,7 +30,7 @@ const SectionCategories = ({ allCategories }) => {
           }}
         ></hr>
         <h3>nuestras</h3>
-        <h3 style={{ fontWeight: "bold" }}>CategOrías</h3>
+        <h3 style={{ fontWeight: "bold" }}>CateGOrías</h3>
       </div>
 
       <Container className="section2">
