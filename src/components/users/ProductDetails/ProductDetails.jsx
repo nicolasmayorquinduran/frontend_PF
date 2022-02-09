@@ -17,7 +17,7 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Container } from "../../../globalStyles";
-
+let similarProducts = []
 export default function ProductDetails() {
   const [changeTab, setChangeTab] = useState("Comentarios");
   let [stockSelected, setStockSelected] = useState({
@@ -33,7 +33,7 @@ export default function ProductDetails() {
   const review = useSelector((store) => store.reviews);
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
-  let allProducts = useSelector((store) => store.allProducts);
+  let allProducts = useSelector((store) =>  store.allProducts);
 
   const [bigImage, setBigImage] = useState(0);
   // console.log(bigImage);
@@ -75,11 +75,19 @@ export default function ProductDetails() {
   while (ranking.length < ranking[ranking.length - 1]) {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
+  
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
     dispatch(getReviews(id));
   }, [dispatch, user, id, bigImage]);
+
+  useEffect(() => {
+    if (allProducts.length > 0 && Object.values(product).length > 0){
+      similarProducts = allProducts.filter((p) =>(p.categories[0].name === product.categories[0].name))
+      similarProducts = similarProducts.filter((p) => p.ProductId !== product.ProductId)
+    }
+    }, [allProducts, product]);
 
   const handleStockQty = (s, n) => {
     setStockSelected({ ...stockSelected, [s]: n });
@@ -106,14 +114,16 @@ export default function ProductDetails() {
   // console.log(product.categories[0].name);
   // product = useSelector((store) => store.productDetail);
   // allProducts = useSelector((store) => store.allProducts);
-  let similarProducts = allProducts?.filter(
-    async (p) =>
-      (await p.categories[0].name) === (await product.categories[0].name)
-  );
+  
+   /* allProducts.length > 0 ? 
+     allProducts.filter(async(p) =>(await p.categories[0].name) === (await product.categories[0].name)) 
+     :
+    [] 
+  similarProducts = similarProducts.length === 21 ? allProducts.filter((p) =>(p.categories[0].name) === (product.categories[0].name)) 
+    :
+   []  */
   //   async (p) => p.categories[0].name === product.categories[0].name
   // );
-  // console.log(similarProducts);
-
   return (
     <div>
       <hr id="hr"></hr>
