@@ -258,13 +258,12 @@ export default function ProductDetails() {
             <div className="ContainerTabs">
               {(changeTab === "Comentarios" && (
                 <div className="tabInfo">
-                
-                
-                <p>{review[0].score}</p>
-                <p>{review[0].description}</p>
-
-                
-
+                {review?.map(ele=> (
+                  <div>
+                  <p>{ele.score}</p>
+                  <p>{ele.description}</p>             
+                  </div>
+                  ))}   
                 </div>
               )) ||
                 (changeTab === "Adicional" && (
