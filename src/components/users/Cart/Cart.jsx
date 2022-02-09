@@ -166,7 +166,9 @@ export default function Cart() {
             dispatch(deleteProductCart(cartId));
             window.localStorage.setItem("cart", JSON.stringify([]));
             setCart([]);
-            window.location.href = "http://localhost:3000/cart";
+            window.location.href = "https://pffrontend-fafd3.web.app/cart";
+            // ||
+            // "http://localhost:3000/cart";
           }}
         >
           limpiar carritO

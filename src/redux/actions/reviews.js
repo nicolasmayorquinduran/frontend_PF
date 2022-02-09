@@ -4,7 +4,10 @@ import { TYPES } from "./types.js";
 export function getReviews(id) {
   return function (dispatch) {
     return axios
-      .get(`http://localhost:3001/reviews/${id}`)
+      .get(
+        `https://pfbackendecommerce.herokuapp.com/reviews/${id}` ||
+          `http://localhost:3001/reviews/${id}`
+      )
       .then((response) => {
         return dispatch({
           type: TYPES.GET_REVIEWS,

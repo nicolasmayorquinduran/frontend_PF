@@ -118,7 +118,7 @@ export default function NewProduct() {
     infoAd.map((e) => (document.getElementById(e).value = ""));
     setImageSelected();
     window.location.href =
-      "https://pfbackendecommerce.herokuapp.com/admin/products" ||
+      "https://pffrontend-fafd3.web.app/admin/products" ||
       "http://localhost:3000/admin/products";
   }
 

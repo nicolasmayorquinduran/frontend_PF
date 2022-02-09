@@ -17,7 +17,11 @@ export default function Checkout({ total, productos }) {
 
   const handlePost = () =>
     axios
-      .post("http://localhost:3001/checkout", productos)
+      .post(
+        "https://pfbackendecommerce.herokuapp.com/checkout",
+        productos || "http://localhost:3001/checkout",
+        productos
+      )
       .then((res) => setUrl(res.data));
 
   useEffect(() => {
