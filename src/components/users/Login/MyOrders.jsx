@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Button, Modal, ModalBody } from "reactstrap";
+import Review from "../ProductDetails/Reviews.jsx";
 
 export const MyOrders = () => {
 
-    
+    const [modal, setModal] = useState(false);
+    const toggle = () => setModal(!modal);
     const actualUser = useSelector((store) => store.actualUser);
 
     return (
@@ -20,11 +23,22 @@ export const MyOrders = () => {
                                 <p>Productos: </p>
                                 <ul>
                                     {
-                                        e.productCart.map((e) => (
+                                        e.productCart.map((el) => (
+                                            <div>
+                                                
                                             <li>
-                                                <img src={e.img} alt="not found" width="100px" />
-                                                <p>{e.name}</p>
+                                                <img src={el.img} alt="not found" width="100px" />
+                                                <p>{el.name}</p>
                                             </li>
+                                                <Button onClick={toggle}>Add Comment</Button>
+                                                <Modal isOpen={modal} toggle={toggle}>                                    
+                                                <ModalBody>
+                                                    <Review 
+                                                    productProductId={el.ProductId}
+                                                    />
+                                                </ModalBody>
+                                                </Modal>    
+                                            </div>
                                         ))
                                     }
                                 </ul>
