@@ -6,18 +6,12 @@ import { Container, Children } from "../../../globalStyles";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import Swal from "sweetalert2";
-import {
-  getUserCart,
-  deleteAllCart,
-  deleteProductCart,
-} from "../../../redux/actions/products";
-
+import { deleteProductCart } from "../../../redux/actions/products";
+import { addToCart } from "../../../redux/actions/products";
 import { getActualUser } from "../../../redux/actions/users";
 import { Link } from "react-router-dom";
 import { Button, Modal, ModalBody } from "reactstrap";
 import Checkout from "../Checkout/Checkout.jsx";
-import axios from "axios";
-
 import "./style.css";
 // import axios from "axios";
 
@@ -29,6 +23,7 @@ export default function Cart() {
   const navigate = useNavigate();
   const email = window.localStorage.getItem("userEmail");
   const User = useSelector((store) => store.actualUser);
+  const cartId = User?.carts[User.carts?.length - 1].CartId;
   let carrito = useSelector(
     (store) =>
       store.actualUser.carts[store.actualUser.carts.length - 1]?.productCart
@@ -44,11 +39,15 @@ export default function Cart() {
   let products = carrito?.hasOwnProperty("productCart")
     ? carrito.productCart
     : [];
+
   useEffect(() => {
     dispatch(getActualUser(User?.UsersId));
+    return () => {
+      dispatch(addToCart(cartId, cart));
+    };
   }, [dispatch, User]);
   // esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
-
+  console.log(User.carts[User.carts?.length - 1].CartId);
   return (
     <>
       <div>
@@ -84,12 +83,7 @@ export default function Cart() {
                       (actualProduct) => actualProduct.ProductId !== p.ProductId
                     );
                     setCart(productsFiltered);
-                    dispatch(
-                      deleteProductCart(
-                        User?.carts[User.carts?.length - 1].CartId,
-                        p.ProductId
-                      )
-                    );
+                    dispatch(deleteProductCart(cartId));
 
                     window.localStorage.setItem(
                       "cart",
@@ -122,7 +116,18 @@ export default function Cart() {
                               p.stockSelected[t] == 0 ? "#ccc" : "#fff",
                             color: p.stockSelected[t] == 0 ? "#888" : "#000",
                           }}
-                          onChange={(e) => setCart()}
+                          onChange={(e) =>
+                            setCart(
+                              cart.map((producto) => {
+                                if (producto.ProductId === p.ProductId) {
+                                  p.stockSelected[t] = e.target.value;
+                                  return producto;
+                                } else {
+                                  return producto;
+                                }
+                              })
+                            )
+                          }
                         />
                       </div>
                     );

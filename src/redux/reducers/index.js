@@ -87,6 +87,7 @@ function rootReducer(state = initialState, action) {
         action.payload.carts[action.payload.carts.length - 1].productCart;
       productsUser = productsUser.map(
         (p) =>
+          !p?.hasOwnProperty("stockSelected") &&
           (p.stockSelected = {
             xs: "0",
             s: "0",
