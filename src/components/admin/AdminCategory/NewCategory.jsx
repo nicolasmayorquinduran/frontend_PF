@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Children } from "react";
 import { useNavigate } from "react-router-dom";
 import {Container, Children} from "../../../globalStyles"
 //import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import "./adminCategories.css";
 /* import { Image } from 'cloudinary-react'; */
+import {Container} from "../../../globalStyles"
 
 function NewCategory() {
   const navigate = useNavigate();
@@ -74,14 +75,14 @@ function NewCategory() {
             </div>
           </form>
 
-          <div>
-           <img src={imageSelected} alt="Imagen" height="300px" width="300" /> 
+          <div className="uploadImage">
+           <div><img src={imageSelected} alt="Imagen" height="300px" width="300" /></div> 
             <input
               type="file"
               onChange={(event) => setImageSelected(event.target.files[0])}
             />
            
-            <button onClick={uploadImage}>Upload Image</button>
+           <div> <button onClick={uploadImage}>Upload Image</button></div>
           </div>
         </div>
         <div className="categoriesContainer">

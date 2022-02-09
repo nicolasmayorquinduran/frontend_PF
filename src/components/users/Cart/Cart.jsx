@@ -23,12 +23,15 @@ export default function Cart() {
   const navigate = useNavigate();
   const email = window.localStorage.getItem("userEmail");
   const User = useSelector((store) => store.actualUser);
-  const cartId = User?.carts[User.carts?.length - 1].CartId;
-  let cartStorage = JSON.parse(window.localStorage.getItem("cart"));
+  const cartId = User?.carts.find(c=>c.status === "open")?.CartId
+  console.log(cartId)
+  localStorage.setItem("idCart",cartId)
+  let cartStorage = JSON.parse(window.localStorage.getItem("cart")|| "[]") ;
   let carrito = useSelector(
     (store) =>
-      store.actualUser.carts[store.actualUser.carts.length - 1]?.productCart
+      store.actualUser?.carts?.find(c=>c.status === "open"?c.productCart:[])
   );
+  console.log(carrito)
   const [cart, setCart] = useState(
     User.hasOwnProperty("UsersId") && carrito?.length ? carrito : cartStorage
   );
@@ -47,7 +50,7 @@ export default function Cart() {
     };
   }, [dispatch]);
   // esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
-  console.log(cart);
+  
   return (
     <>
       <div>
