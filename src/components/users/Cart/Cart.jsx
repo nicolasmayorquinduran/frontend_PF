@@ -45,7 +45,7 @@ export default function Cart() {
       dispatch(addToCart(cartId, cart));
       window.localStorage.setItem("cart", JSON.stringify(cart));
     };
-  }, [dispatch, User]);
+  }, [dispatch]);
   // esto se va a usar para cargar a la base de datos lo que guardabas local al desmontar el componente
   console.log(cart);
   return (
@@ -83,7 +83,7 @@ export default function Cart() {
                       (actualProduct) => actualProduct.ProductId !== p.ProductId
                     );
                     setCart(productsFiltered);
-                    dispatch(deleteProductCart(cartId, p.ProductId));
+                    // dispatch(deleteProductCart(cartId, p.ProductId));
                     window.localStorage.setItem(
                       "cart",
                       JSON.stringify(productsFiltered)
@@ -130,6 +130,7 @@ export default function Cart() {
                               "cart",
                               JSON.stringify(cart)
                             );
+                            console.log(cart);
                           }}
                         />
                       </div>
