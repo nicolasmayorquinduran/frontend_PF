@@ -7,9 +7,11 @@ import { useSelector } from "react-redux";
 export const NavBarCart = () => {
   const cartItems = useSelector(
     (state) =>
-      state.cart?.hasOwnProperty("productCart") && state.cart.productCart
+      state.actualUser?.hasOwnProperty("carts") &&
+      state.actualUser.carts[state.actualUser.carts.length - 1].productCart
+        .length
   );
-
+  console.log(cartItems);
   return (
     <>
       <div className="logged">
