@@ -17,7 +17,8 @@ export default function Checkout({ total, productos }) {
     country: actualUser.country
   });
   const [acept,setAcept] = useState({name:"noAceptado"})
-  // console.log("userrrr",actualUser)
+  let cartId = window.localStorage.getItem("idCart")
+  let buy = window.localStorage.getItem("cart")
   const handlePost = () =>{
     // console.log(user)
     axios
@@ -29,11 +30,11 @@ export default function Checkout({ total, productos }) {
   }, [user]);
 
   // console.log(url);
-  const handleCartToBuy=(infoBuy,infoUser)=>{
-    console.log("BUUUYYY", infoBuy)
-    console.log("USERRRR", infoUser)
-
-    // dispatch(cartToBuy(infoBuy,infoUser))
+  const handleCartToBuy=()=>{
+    console.log("BUUUYYY", productos)
+    console.log("USERRRR", user)
+    window.localStorage.setItem("cart","[]")
+    dispatch(cartToBuy(cartId,JSON.parse(buy),user))
   }
   function handleChange(name,value) {
     setUser({
@@ -96,6 +97,9 @@ export default function Checkout({ total, productos }) {
         onChange={(e) => handleChange(e.target.name,e.target.value)}
         required
       />
+      <span>
+        <b>Codigo Postal</b>
+      </span>
       <input
       className="cp"
         type="text"
@@ -105,12 +109,12 @@ export default function Checkout({ total, productos }) {
         required
       />
       
-      
-      <a >
-        <button type="submit" onSubmit={()=>handleCartToBuy(productos,user)}>
+      <button type="submit"  onClick={handleCartToBuy}>
+        <a href={url}>
           <b>{total}</b>
-        </button>
-      </a>
+        </a>
+      </button>
+      
       
     </div>
   );
