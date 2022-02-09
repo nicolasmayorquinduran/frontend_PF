@@ -259,8 +259,11 @@ export default function ProductDetails() {
               {(changeTab === "Comentarios" && (
                 <div className="tabInfo">
                 
-                 <p>{review[0].score}</p>
-                 <p>{review[0].description}</p>
+                
+                <p>{review[0].score}</p>
+                <p>{review[0].description}</p>
+
+                
 
                 </div>
               )) ||

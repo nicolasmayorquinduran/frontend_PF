@@ -5,27 +5,42 @@ import Swal from "sweetalert2";
 
 //----------------------------------------------------------------
 
-export default function Review(){
+export default function Review({ productProductId }){
+	const user = useSelector((store) => store.actualUser?.UsersId)
 	const dispatch = useDispatch();
 	const [review, setReview] = useState({
-		productProductId: "",
-      	score: "",
-      	description: "",
+		score: "",
+      	description: ""
 	})
 
 	function handleSubmit(e){
-		e.preventDefault();
-		dispatch(postReviews(review))
+		
+		console.log(productProductId)
+		console.log(review.score)
+		console.log(review.description)
+		console.log(user)
+		dispatch(postReviews({
+			productProductId,
+			score: review.score,
+			description: review.description,
+			userUsersId: user
+		}))
+		setReview({
+      		score: "",
+      		description: "",
+		})
 		Swal.fire({
 	      icon: "success",
 	      text: "Comentario agregado!",
 	      showConfirmButton: false,
 	      timer: 3000,
 	    });
+	}
+
+	function handleChange(e){
 		setReview({
-			productProductId: "",
-      		score: "",
-      		description: ""
+			...review,
+			[e.target.id] : e.target.value
 		})
 	}
 
@@ -33,23 +48,23 @@ export default function Review(){
 	return(
 		<div className="container">
 		<h4>Deja aquí tu comentario</h4>
-		<input type="number" 
+		<input type="number"
+		id="score" 
 		placeholder="califica el producto" 
 		min="1"
 		max="5"
+		onChange={handleChange}
 		required/>
 		<textarea name="review"
-		 id="review"
+		 id="description"
 		 cols="30"
 		 rows="10"
 		 placeholder="comenta aquí.."
 		 maxLength="130"
+		 onChange={handleChange}
 		 required />
-         <button>Edit Comment</button>
 		 <button type="submit" 
-		 onSubmit={e=> handleSubmit(e)}>Add Comment</button>
+		 onClick={e=> handleSubmit(e)}>Add Comment</button>
 		</div>
-
-
 	)
 }
