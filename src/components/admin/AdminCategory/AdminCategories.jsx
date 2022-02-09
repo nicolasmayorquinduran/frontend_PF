@@ -33,6 +33,8 @@ function AdminCat() {
     setShowEditCategories(true);
     console.log(c);
   };
+  
+  
 
   const handleDelete = (el) => {
     setCategory({
@@ -48,7 +50,7 @@ function AdminCat() {
 
       {!showEditCategories ? <NewCategory /> : null} */}
 
-      {category.name.length ? (
+      {category?.name?.length ? (
         <EditCategories category={category} setCategory={setCategory} />
       ) : (
         <NewCategory />
@@ -68,7 +70,7 @@ function AdminCat() {
           >
             <p></p>
             <h2>+</h2>
-            <p>Crear nueva Promo</p>
+            <p>Crear nueva Categoria</p>
           </Children>
           <div className="categoriesCards">
             {categories?.map((c, i) => {

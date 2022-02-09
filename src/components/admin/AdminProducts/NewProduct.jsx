@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Container, Children } from "../../../globalStyles";
 import axios from "axios";
 
 // Actions:
@@ -150,7 +151,7 @@ export default function NewProduct() {
       {/* <div className=" editImage">
         
         <div className="coverImage">
-        <h4> Imagen: </h4>
+        <strong> Imagen: </strong>
           {
             product.img.map((image, index) => {
               return (
@@ -170,74 +171,84 @@ export default function NewProduct() {
       </div> */}
 
       <form onSubmit={handleSubmit} className="new">
-        <div className="partsNew">
-          <h4> Imagen: </h4>
+        <Container className="partsNew">
+          <Children pc="1" tablet="1" movil="1">
+            <strong> Imagen: </strong>
 
-          <div>
+            <div>
+              <input
+                type="file"
+                id="inputImg"
+                onChange={(event) => setImageSelected(event.target.files[0])}
+              />
+              <button onClick={uploadImage}> Cargar imagen </button>
+            </div>
+            <div>
+              {product.img?.map((e) => (
+                <div>
+                  <img src={e} alt="not found" />
+                  <button onClick={() => handlerDeleteImage(e)}> x </button>
+                </div>
+              ))}
+            </div>
+          </Children>
+
+          <Children pc="3" tablet="3" movil="2">
+            <h5> Nombre: </h5>
             <input
-              type="file"
-              id="inputImg"
-              onChange={(event) => setImageSelected(event.target.files[0])}
+              onChange={handleChange}
+              type="text"
+              name="name"
+              value={product.name}
+              autoComplete="off"
+              required
             />
-            <button onClick={uploadImage}> Cargar imagen </button>
-          </div>
-          <div>
-            {product.img?.map((e) => (
-              <div>
-                <img src={e} alt="not found" />
-                <button onClick={() => handlerDeleteImage(e)}> x </button>
-              </div>
-            ))}
-          </div>
 
-          <h4> Nombre: </h4>
-          <input
-            onChange={handleChange}
-            type="text"
-            name="name"
-            value={product.name}
-            autoComplete="off"
-            required
-          />
+            <h5> Precio: </h5>
+            <input
+              onChange={handleChange}
+              type="number"
+              min="0"
+              name="price"
+              value={product.price}
+              autoComplete="off"
+              required
+            />
 
-          <h4> Precio: </h4>
-          <input
-            onChange={handleChange}
-            type="number"
-            min="0"
-            name="price"
-            value={product.price}
-            autoComplete="off"
-            required
-          />
-
-          <h4> Descripción: </h4>
-          <textarea
-            onChange={handleChange}
-            type="resume"
-            name="description"
-            value={product.description}
-            autoComplete="off"
-            required
-          />
-
-          <h4> Categorías: </h4>
-          <select
-            onClick={handleSubmitCategory}
-            name="categories"
-            autoComplete="off"
-            required
-            id="selectCategories"
-          >
-            <option value="Seleccione las categorías">
-              Seleccione las categorías
-            </option>
-            {categories.map((c) => (c.active ?
-              <option key={c.CategoriesId}> {c.name} (Categoría habilitada)</option> : 
-              <option key={c.CategoriesId}> {c.name} (Categoría no habilitada)</option>
-            ))}
-          </select>
-          <div>
+            <h5> Descripción: </h5>
+            <textarea
+              onChange={handleChange}
+              type="resume"
+              name="description"
+              value={product.description}
+              autoComplete="off"
+              required
+            />
+            <h5> Categorías: </h5>
+            <select
+              onClick={handleSubmitCategory}
+              name="categories"
+              autoComplete="off"
+              required
+              id="selectCategories"
+            >
+              <option value="Seleccione las categorías">
+                Seleccione las categorías
+              </option>
+              {categories.map((c) =>
+                c.active ? (
+                  <option key={c.CategoriesId}>
+                    {" "}
+                    {c.name} (Categoría habilitada)
+                  </option>
+                ) : (
+                  <option key={c.CategoriesId}>
+                    {" "}
+                    {c.name} (Categoría no habilitada)
+                  </option>
+                )
+              )}
+            </select>
             {product.categories.map((category) => {
               return (
                 <div>
@@ -245,16 +256,16 @@ export default function NewProduct() {
                     {" "}
                     x{" "}
                   </button>
-                  <h5>{category}</h5>
+                  <p>{category}</p>
                 </div>
               );
             })}
-          </div>
-          <div className="stocksNewProduct">
-            <h4> Stocks: </h4>
+          </Children>
+          <Children className="stocksNewProduct">
+            <strong> Stocks: </strong>
             {size.map((sizes) => (
               <div key={size.indexOf(sizes)}>
-                <h5> {sizes} </h5>
+                <p> {sizes} </p>
                 <input
                   required
                   type="number"
@@ -270,73 +281,42 @@ export default function NewProduct() {
                 />
               </div>
             ))}
-          </div>
+          </Children>
 
-          <h4> Información adicional: </h4>
+          <Children>
+            <strong> Información adicional: </strong>
 
-          {infoAd.map((info) => (
-            <div>
-              <h5> {info} </h5>
-              <input
-                type="text"
-                required
-                id={info}
-                autoComplete="off"
-                onChange={(event) =>
-                  setProduct({
-                    ...product,
-                    additionalInformation: {
-                      ...product.additionalInformation,
-                      [info]: event.target.value,
-                    },
-                  })
-                }
-              />
-            </div>
-          ))}
-
-          {/* <h4> Categorías: </h4>
-          <select
-            onClick={handleSubmitCategory}
-            name="categories"
-            autoComplete="off"
-            required
-          >
-          {
-            categories.map((c) => (
-              <option> {c.name} </option>
-            ))
-          }
-          </select> */}
-
-          {/*  {infoAd.map((info) => (
-            <div key={infoAd.indexOf(info)}>
-              <h5> {info} </h5>
-              <input
-                type="text"
-                required
-                autoComplete="off"
-                onChange={(event) =>
-                  setProduct({
-                    ...product,
-                    aditionalInformation: {
-                      ...product.aditionalInformation,
-                      [info]: event.target.value,
-                    },
-                  })
-                }
-              />
-            </div>
-          ))} */}
-
-          <button type="submit" onClick={() => updateProduct(product)}>
-            {" "}
-            ¡Crear!{" "}
-          </button>
-        </div>
+            {infoAd.map((info) => (
+              <div>
+                <p> {info} </p>
+                <input
+                  type="text"
+                  required
+                  id={info}
+                  autoComplete="off"
+                  onChange={(event) =>
+                    setProduct({
+                      ...product,
+                      additionalInformation: {
+                        ...product.additionalInformation,
+                        [info]: event.target.value,
+                      },
+                    })
+                  }
+                />
+              </div>
+            ))}
+            <button
+              style={{ marginTop: "20px" }}
+              className="createNewProduct"
+              type="submit"
+              onClick={() => updateProduct(product)}
+            >
+              ¡Crear!
+            </button>
+          </Children>
+        </Container>
       </form>
-
-      {/* <button type="submit" onClick={() => updateProduct(product)}> ¡Crear! </button> */}
     </>
   );
 }
