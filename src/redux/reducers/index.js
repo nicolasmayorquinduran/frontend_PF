@@ -45,11 +45,13 @@ function rootReducer(state = initialState, action) {
             state.filterCategories.filter((c) => c !== action.payload)) ||
           state.categories.filter((c) => c !== action.payload),
       };
+      
     case TYPES.ORDER_ADMIN:
       return {
         ...state,
         orders: action.payload,
       };
+
     case TYPES.GET_PRODUCTS:
       return {
         ...state,
@@ -79,11 +81,13 @@ function rootReducer(state = initialState, action) {
         ...state,
         promos: action.payload,
       };
+
     case TYPES.GET_USERS:
       return {
         ...state,
         users: action.payload,
       };
+
     case TYPES.GET_ACTUAL_USER:
       let productsUser =
         action.payload.carts[action.payload.carts.length - 1].productCart;
@@ -109,28 +113,14 @@ function rootReducer(state = initialState, action) {
             (ProductUser) => ProductStorage.ProductId !== ProductUser.ProductId
           )
         );
-        if (!productsUser?.length) {
-          var guardado = localStorage.getItem("cart");
-          guardado = JSON.parse(guardado);
-          guardado = guardado?.filter((ProductStorage) =>
-            action.payload.carts[
-              action.payload.carts.length - 1
-            ].productCart?.every(
-              (ProductUser) => ProductStorage.ProductId !== ProductUser.ProductId
-            )
-          );
-          guardado = guardado?.concat(productsUser);
-          productsUser = guardado;
-        }
-        return {
-          ...state,
-          actualUser: action.payload,
-        };
-    case TYPES.GET_USER_CART:
+        guardado = guardado.concat(productsUser);
+        productsUser = guardado;
+      }
       return {
         ...state,
-        cart: action.payload,
+        actualUser: action.payload,
       };
+
     case TYPES.ADD_TO_CART:
       // actualUser: { carts: [{ productCart: [remera] }, { productCart2: [pantalon] }, {productCart3: [blusa] }] },
       return {
@@ -156,15 +146,21 @@ function rootReducer(state = initialState, action) {
         ...state,
         cart: action.payload,
       };
+
     case TYPES.DELETE_ALL_CART:
       return {
         ...state,
         cart: action.payload,
       };
+
     case TYPES.GET_REVIEWS:
       return {
         ...state,
         reviews: action.payload,
+      };
+    case TYPES.POST_REVIEWS:
+      return {
+        ...state
       };
 
     case TYPES.GET_ALL_CARTS:
@@ -172,7 +168,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         allCarts: action.payload
       }
-
     default:
       return state;
   }
