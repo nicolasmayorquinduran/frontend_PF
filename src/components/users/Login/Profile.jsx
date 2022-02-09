@@ -6,6 +6,7 @@ import { addToCart } from "../../../redux/actions/products";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useNavigate } from "react-router"; 
 import "./profile.css";
 
 let noRepeat = false;
@@ -14,6 +15,7 @@ export const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [cart, setCart] = UseLocalStorage("cart", []);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // else{
   //       dispatch(
   //       addToCart( "",
@@ -26,6 +28,10 @@ export const Profile = () => {
       noRepeat = true;
       await dispatch(getActualUser(user.email));
       window.localStorage.setItem("userEmail", user.email);
+      if (window.localStorage.url && window.localStorage.url !== window.location.pathname) {
+        navigate(window.localStorage.url)
+      }
+      window.localStorage.removeItem("url")
     }
   }, [user, dispatch]);
   const actualUser = useSelector((store) => store.actualUser);
