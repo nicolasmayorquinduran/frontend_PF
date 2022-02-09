@@ -30,7 +30,7 @@ export default function Cart() {
       store.actualUser.carts[store.actualUser.carts.length - 1]?.productCart
   );
   const [cart, setCart] = useState(
-    User.hasOwnProperty("UsersId") && carrito.length ? carrito : cartStorage
+    User.hasOwnProperty("UsersId") && carrito?.length ? carrito : cartStorage
   );
 
   const dispatch = useDispatch();
@@ -40,8 +40,6 @@ export default function Cart() {
     : [];
 
   useEffect(() => {
-    dispatch(getActualUser(User?.UsersId));
-    dispatch(addToCart(cartId, cart));
     window.localStorage.setItem("cart", JSON.stringify(cart));
     return () => {
       dispatch(addToCart(cartId, cart));

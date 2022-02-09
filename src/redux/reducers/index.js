@@ -1,3 +1,4 @@
+import { act } from "react-dom/test-utils";
 import { TYPES } from "../actions/types.js";
 
 const initialState = {
@@ -128,7 +129,8 @@ function rootReducer(state = initialState, action) {
           carts: [
             ...state.actualUser.carts.map((e, index) => {
               if (index === state.actualUser.carts.length - 1) {
-                e.productCart = [...e.productCart, ...action.payload];
+                e.productCart = action.payload;
+
                 return e;
               } else {
                 return e;
