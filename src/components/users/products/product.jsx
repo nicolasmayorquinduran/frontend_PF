@@ -25,15 +25,15 @@ const Product = ({ id, name, price, img, ranking, unids, amount }) => {
         </Link>
 
         <div className="Card">
-          <Link to={`/products/${id}`}>{name}</Link>
-          <strong>{`Unidades pedidas: ${unids}`}</strong>
-          <strong>{`$${price}`}</strong>
+          <Link to={`/products/${id}`}><h5>{name}</h5></Link>
+          {/* <strong>{`Unidades pedidas: ${unids}`}</strong> */}
+          <strong>{`Precio: $${price}`}</strong>
           <div className="ranking">
             {ranking.map((star) => (
               <FontAwesomeIcon icon={faStar} />
             ))}
           </div>
-          <strong>{`Precio total $${amount}`}</strong>
+          {/* <strong>{`Precio total $${amount}`}</strong> */}
         </div>
       </div>
     </Children>
