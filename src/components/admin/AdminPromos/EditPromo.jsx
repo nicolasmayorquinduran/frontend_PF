@@ -41,6 +41,7 @@ const EditPromo = ({ product, setProduct }) => {
           <img src={product.img} alt={product.title} />
           <input
             type="file"
+            className="inputFile"
             onChange={(event) =>
               setProduct((product) => ({
                 ...product,

@@ -1,7 +1,11 @@
+#containerPromo {
+  height: 100vh;
+}
+
 .sliderPromo {
   position: relative;
   width: 100% !important;
-  height: 70vh;
+  height: 100%;
   margin: 0 0 20px 0 !important;
   overflow: hidden;
   color: #fff;
@@ -36,11 +40,17 @@
 .promo {
   position: relative;
   color: #fff;
+  height: 100%;
+  overflow: hidden;
+}
+
+.promo img {
+  width: 100%;
 }
 
 .data {
   position: absolute;
-  top: 30vh;
+  top: 50%;
   left: 7vw;
   text-align: left;
   z-index: 95;

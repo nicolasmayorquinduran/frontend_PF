@@ -23,7 +23,7 @@ const SectionProducts = ({ allProducts }) => {
       </div>
 
       <Container className="section3" style={{ height: "80vh" }}>
-        <Children style={{ height: "100%" }}>
+        <Children pc="3" tablet="2" movil="1" style={{ height: "100%" }}>
           <div
             className="top"
             style={{
@@ -52,7 +52,7 @@ const SectionProducts = ({ allProducts }) => {
           </div>
         </Children>
 
-        <Children style={{ height: "100%" }}>
+        <Children pc="3" tablet="2" movil="1" style={{ height: "100%" }}>
           <div
             className="top"
             style={{
@@ -68,7 +68,7 @@ const SectionProducts = ({ allProducts }) => {
           </div>
         </Children>
 
-        <Children style={{ height: "100%" }}>
+        <Children pc="3" tablet="1" movil="1" style={{ height: "100%" }}>
           <div
             className="top"
             style={{

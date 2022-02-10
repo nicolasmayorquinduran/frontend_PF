@@ -84,6 +84,7 @@ function NewCategory() {
               />
             </div>
             <input
+              className="inputFile"
               type="file"
               onChange={(event) => setImageSelected(event.target.files[0])}
             />
