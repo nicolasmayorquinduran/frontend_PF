@@ -44,12 +44,12 @@ function AdminUsers() {
     }
   )); */
 
-  function handleChange(e) {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value,
-    });
-  }
+  //   function handleChange(e){
+  //     setUser({
+  //         ...user,
+  //         [e.target.name]: e.target.value
+  //     })
+  // }
 
   const handleChange = (event) =>
     setUser((user) => ({
