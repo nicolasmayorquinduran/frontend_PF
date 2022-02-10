@@ -36,7 +36,7 @@ export const NavBarUser = () => {
                 <LogoutButton />
               </DropdownItem>
               <DropdownItem>
-                <Link to="/user/settings">Ver profile</Link>
+                <Link to="/user/settings">Ver perfil y compras</Link>
               </DropdownItem>
               {/* Activar esto para que solo el admin pueda ver el menu admin */}
               {/* {actualUser.admin && (
@@ -46,7 +46,7 @@ export const NavBarUser = () => {
               )} */}
               {/* Desactivar esta parte */}
               <DropdownItem>
-                <Link to="/admin/pedidos">Ver Admin</Link>
+                <Link to="/admin/pedidos">Panel de Administrador</Link>
               </DropdownItem>
               {/* *********************** */}
             </DropdownMenu>
