@@ -28,8 +28,8 @@ const AdminOrders = () => {
   // console.log(productStatus)
 
   useEffect(() => {
-    dispatch(getAllCarts())
-     setSend({
+    dispatch(getAllCarts());
+    setSend({
       to: productStatus.email,
       from: "PFHenryGrupo4@gmail.com",
       subject: `Pedido ${productStatus.status} `,
@@ -45,7 +45,6 @@ const AdminOrders = () => {
       status: guardaValor,
       email: productsOrder[0].user,
     });
-    
   };
 
   const handleDetailClick = async (email, CartId) => {
@@ -86,16 +85,6 @@ const AdminOrders = () => {
               Número de orden: <p>{productsOrder[0].CartId}</p>{" "}
             </h6>
 
-            <form onSubmit={handleSubmit}>
-              <select onChange={handleStatusClick}>
-                <option>Estado de compra</option>
-                <option value="paid">paid</option>
-                <option value="dispatched">dispatched</option>
-                <option value="delivered">delivered</option>
-              </select>
-
-              <button type="submit">Actualizar estado</button>
-            </form>
             {/*    <button onClick={handleEmailClick}>Prueba envios</button> */}
           </div>
 
@@ -112,6 +101,17 @@ const AdminOrders = () => {
               <p>Talle xxl: {p.stockSelected.xxl}</p>
             </div>
           ))}
+
+          <form onSubmit={handleSubmit}>
+            <select onChange={handleStatusClick}>
+              <option>Estado de compra</option>
+              <option value="paid">paid</option>
+              <option value="dispatched">dispatched</option>
+              <option value="delivered">delivered</option>
+            </select>
+
+            <button type="submit">Actualizar estado</button>
+          </form>
         </div>
       ) : (
         <h3>

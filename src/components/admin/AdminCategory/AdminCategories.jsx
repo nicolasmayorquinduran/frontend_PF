@@ -33,8 +33,6 @@ function AdminCat() {
     setShowEditCategories(true);
     console.log(c);
   };
-  
-  
 
   const handleDelete = (el) => {
     setCategory({
@@ -55,6 +53,7 @@ function AdminCat() {
       ) : (
         <NewCategory />
       )}
+      <h5>Categorías creadas: </h5>
 
       <div>
         <Container className="edit">

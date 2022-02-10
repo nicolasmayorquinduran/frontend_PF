@@ -64,3 +64,17 @@ body {
 .formBoton {
   width: 200px;
 }
+
+.usersList svg {
+  font-size: 30px;
+  color: #9e005d;
+  cursor: pointer;
+}
+
+.usersList img {
+  border-radius: 50%;
+}
+#imageCategory {
+  width: 75%;
+  margin: auto;
+}
