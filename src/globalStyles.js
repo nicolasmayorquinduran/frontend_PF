@@ -115,9 +115,11 @@ export const Children = styled.div`
     border-right: none;
     border-bottom: solid 1px #888;
     height: 31px;
+    width: 100%;
   }
   textarea {
     box-shadow: none;
+    width: 100%;
   }
   @media only screen and (max-width: 1100px) and (min-width: 700px) {
     width: ${(props) => (props.tablet ? 100 / props.tablet - 2 + "%" : "48%")};
