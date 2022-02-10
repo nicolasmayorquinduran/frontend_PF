@@ -271,9 +271,7 @@ export default function ProductDetails() {
                       <p>User: {ele.userUsersId}</p>                     
                       <p>{ele.description}</p>
                       <div>
-                        {rank(ele.rank).map(star=> (
-                          console.log(star)
-                        <FontAwesomeIcon icon={faStar} />))}
+                       
                       </div>
                     </div>
                   ))}
