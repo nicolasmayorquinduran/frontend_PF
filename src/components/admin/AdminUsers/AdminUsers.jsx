@@ -48,12 +48,19 @@ function AdminUsers() {
   }, [dispatch]);
   
   
-  const handleChange = (event) => setUser((user) => (
+/*   const handleChange = (event) => setUser((user) => (
     {
       ...user,
       [event.target.id]: event.target.value 
     }
-  ));
+  )); */
+
+  function handleChange(e){
+    setUser({
+        ...user,
+        [e.target.name]: e.target.value
+    })
+}
 
 
   const handleActiveUser = (event) => {
@@ -138,14 +145,23 @@ function AdminUsers() {
     )
   };  
 
- 
+  function handleSubmit(e){
+    if(user.name !== ""){
+        e.preventDefault();
+        alert("Datos guardados");
+        dispatch(putUser(user));
+    } else {
+        e.preventDefault();
+        alert("Complete el nombre");
+    }
+}
 
 
-  const updateUser = async (event) => {
+/*   const updateUser = (event) => {
 
     event.preventDefault();
-
-    dispatch(putUser(user))
+    console.log("USER",user)
+    //dispatch(putUser(user))
     
     setUser(
       {
@@ -165,9 +181,8 @@ function AdminUsers() {
       }
     );
 
-  }
+  } */
 
-  console.log(user)
   
   
   return (
@@ -178,10 +193,10 @@ function AdminUsers() {
         
         <div>
 
-          <form className="formUser">
+          <form className="formUser" onSubmit={(e) => handleSubmit(e)}>
 
 
-            <div>
+            {/* <div>
               <img src={user.picture} alt={user.name} width="200px" height="200px"/>
             </div>
 
@@ -219,10 +234,34 @@ function AdminUsers() {
             <div className="formDireccion">
               <label htmlFor="name"> Código postal </label>
               <input id="cp" type="text" onChange={handleChange} placeholder={user.cp}/>
-            </div>
+            </div>*/}
+            <div className="formName">
+                <h1>Tus datos</h1>
+                <img src={user.picture} alt="not found" />
+                </div>
+              <div className="formName">
+                <h3>Email</h3>
+                <input type="text" value={user.email} disabled />
+                </div>
+                <div className="formName">
+                <h3>Nombre</h3>
+                <input type="text" defaultValue={user.name} name="name" onChange={e => handleChange(e)}/>
+                </div>
+                <div className="formName">
+                <h3>Dirección</h3>
+                <input type="text" defaultValue={user.address} name="address" onChange={e => handleChange(e)} />
+                </div>
+                <div className="formName">
+                <h3>Código Postal</h3>
+                <input type="text" defaultValue={user.cp} name="cp" onChange={e => handleChange(e)} />
+                </div>
+                <div className="formName">
+                <h3>Ciudad</h3>
+                
+                    <input type="text" defaultValue={user.state} name="state" onChange={e => handleChange(e)} />
+                </div>
 
-
-            <div className="formDireccion">
+            <div className="formDireccion"> 
               
               {
                 user.active 
@@ -240,7 +279,7 @@ function AdminUsers() {
 
 
             <div className="formBoton">
-              <button onSubmit={updateUser}> Guardar </button>
+              <button type="submit"> Guardar </button>
             </div>
 
 
