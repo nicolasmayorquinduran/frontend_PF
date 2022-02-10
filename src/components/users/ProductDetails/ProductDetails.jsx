@@ -17,7 +17,7 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Container } from "../../../globalStyles";
-
+let similarProducts = [];
 export default function ProductDetails() {
   const [changeTab, setChangeTab] = useState("Comentarios");
   let [stockSelected, setStockSelected] = useState({
@@ -34,7 +34,6 @@ export default function ProductDetails() {
   const user = useSelector((store) => store.actualUser);
   let product = useSelector((store) => store.productDetail);
   let allProducts = useSelector((store) => store.allProducts);
-
   const [bigImage, setBigImage] = useState(0);
   // console.log(bigImage);
   const handleImage = (e) => {
@@ -53,9 +52,11 @@ export default function ProductDetails() {
       : allProducts; */
   // const email = user.email;
   // const UserId = user.UsersId;
+
   let actualCart = user.hasOwnProperty("carts")
-    ? user.carts.find((c) => c.status == "open")
+    ? user.carts.find((c) => c.status === "open")
     : {};
+  console.log(user);
   let talles = [];
   for (const prop in product?.stock) {
     talles = [...talles, { size: prop, stock: product.stock[prop] }];
@@ -75,11 +76,23 @@ export default function ProductDetails() {
   while (ranking.length < ranking[ranking.length - 1]) {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
+
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
     dispatch(getReviews(id));
   }, [dispatch, user, id, bigImage]);
+
+  useEffect(() => {
+    if (allProducts.length > 0 && Object.values(product).length > 0) {
+      similarProducts = allProducts.filter(
+        (p) => p.categories[0].name === product.categories[0].name
+      );
+      similarProducts = similarProducts.filter(
+        (p) => p.ProductId !== product.ProductId
+      );
+    }
+  }, [allProducts, product]);
 
   const handleStockQty = (s, n) => {
     setStockSelected({ ...stockSelected, [s]: n });
@@ -89,8 +102,8 @@ export default function ProductDetails() {
     let { ProductId, name, img, price, stock } = product;
     let data = { ProductId, name, img: img[0], price, stock, stockSelected };
     let guardado = JSON.parse(localStorage.getItem("cart"));
-    if (!guardado.find((p) => p.ProductId === ProductId)) {
-      guardado.push(data);
+    if (!guardado?.find((p) => p.ProductId === ProductId)) {
+      guardado?.push(data);
       localStorage.setItem("cart", JSON.stringify(guardado));
     }
     user.hasOwnProperty("UsersId") &&
@@ -102,16 +115,6 @@ export default function ProductDetails() {
       timer: 3000,
     });
   };
-
-  // console.log(product.categories[0].name);
-  // product = useSelector((store) => store.productDetail);
-  // allProducts = useSelector((store) => store.allProducts);
-
-  let similarProducts = allProducts?.filter(
-    async (p) => p?.categories[0]?.name === product?.categories[0]?.name
-  );
-
-  console.log(similarProducts);
 
   return (
     <div>
@@ -155,7 +158,7 @@ export default function ProductDetails() {
 
               <div id="talles">
                 <strong>
-                  {talles.every((t) => t.stock == 0)
+                  {talles.every((t) => t.stockSelected === 0)
                     ? "No hay stock disponible en el momento:"
                     : "Tallas disponibles:"}
                 </strong>
@@ -166,7 +169,7 @@ export default function ProductDetails() {
                         <div>
                           <label
                             style={{
-                              color: t.stock == 0 ? "#888" : "#000",
+                              color: t.stock === 0 ? "#888" : "#000",
                             }}
                           >{`${t.size}:`}</label>
                           <input
@@ -177,10 +180,10 @@ export default function ProductDetails() {
                             }
                             min={0}
                             max={t.stock}
-                            disabled={t.stock == 0 && false}
+                            disabled={t.stockSelected === 0 && false}
                             style={{
-                              background: t.stock == 0 ? "#ccc" : "#fff",
-                              color: t.stock == 0 ? "#888" : "#000",
+                              background: t.stock === 0 ? "#ccc" : "#fff",
+                              color: t.stock === 0 ? "#888" : "#000",
                             }}
                             onChange={(e) => {
                               // console.log(stock);
@@ -189,7 +192,8 @@ export default function ProductDetails() {
                                 ...stockSelected,
                                 [t.size]: e.target.value,
                               });
-                              if (stockSelected[t.size] == t.stock - 1)
+
+                              if (stockSelected[t.size] === t.stock - 1)
                                 Swal.fire({
                                   icon: "warning",
                                   title: "Apurate!!!",
@@ -227,7 +231,7 @@ export default function ProductDetails() {
                   setChangeTab(e.target.id);
                 }}
                 style={{
-                  fontWeight: changeTab == "Comentarios" ? "bold" : "initial",
+                  fontWeight: changeTab === "Comentarios" ? "bold" : "initial",
                 }}
               >
                 Comentarios
@@ -238,7 +242,7 @@ export default function ProductDetails() {
                   setChangeTab(e.target.id);
                 }}
                 style={{
-                  fontWeight: changeTab == "descripcion" ? "bold" : "initial",
+                  fontWeight: changeTab === "descripcion" ? "bold" : "initial",
                 }}
               >
                 Descripción
@@ -249,7 +253,7 @@ export default function ProductDetails() {
                   setChangeTab(e.target.id);
                 }}
                 style={{
-                  fontWeight: changeTab == "Adicional" ? "bold" : "initial",
+                  fontWeight: changeTab === "Adicional" ? "bold" : "initial",
                 }}
               >
                 Información Adicional
@@ -258,7 +262,14 @@ export default function ProductDetails() {
 
             <div className="ContainerTabs">
               {(changeTab === "Comentarios" && (
-                <div className="tabInfo">{review[0]?.description}</div>
+                <div className="tabInfo">
+                  {review?.map((ele) => (
+                    <div>
+                      <p>{ele.score}</p>
+                      <p>{ele.description}</p>
+                    </div>
+                  ))}
+                </div>
               )) ||
                 (changeTab === "Adicional" && (
                   <ul className="tabInfo">
@@ -305,7 +316,7 @@ export default function ProductDetails() {
             }
           >
             <Container>
-              {similarProducts?.map(
+              {similarProducts.map(
                 (p, index) =>
                   index < 4 && (
                     <Product

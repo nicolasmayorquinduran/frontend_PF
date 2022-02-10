@@ -21,16 +21,16 @@ h1 {
     font-size: 60px;
 }
 h2 {
-    font-size: 50px;
+    font-size: 40px;
 }
 h3 {
-    font-size: 32px;
+    font-size: 28px;
 }
 h4 {
-    font-size: 30px;
+    font-size: 26px;
 }
 h5 {
-    font-size: 20px;
+    font-size: 16px;
 }
 h6 {
     font-size: 20px;
@@ -108,6 +108,17 @@ export const Children = styled.div`
   margin-top: 50px;
   display: flex;
   flex-direction: column;
+  input {
+    box-shadow: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid 1px #888;
+    height: 31px;
+  }
+  textarea {
+    box-shadow: none;
+  }
   @media only screen and (max-width: 1100px) and (min-width: 700px) {
     width: ${(props) => (props.tablet ? 100 / props.tablet - 2 + "%" : "48%")};
   }

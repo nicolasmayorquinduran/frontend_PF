@@ -66,13 +66,13 @@ export function postProducts(payload) {
 
 export function getAllCarts() {
   return async function (dispatch) {
-    let deleted = await axios.get(
-      "https://pfbackendecommerce.herokuapp.com/carts" ||
+    const json = await axios.get(
+      `https://pfbackendecommerce.herokuapp.com/carts` ||
         `http://localhost:3001/carts`
     );
     return dispatch({
       type: TYPES.GET_ALL_CARTS,
-      payload: deleted.info,
+      payload: json.data,
     });
   };
 }

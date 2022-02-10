@@ -1,9 +1,11 @@
+/* ---NewCategory---- */
+
 .categoryContainer{
   margin-top: 2%;
   
 }
 .newCategory {
-  display:flex;
+  display:block;
   flex-direction: column;
   align-items: center;
   width: 100%;
@@ -20,33 +22,49 @@
   margin-top: 1vh;
 }
 
+.uploadImage{
+  display: block;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 5vh;
+}
+.uploadImage img {
+  width: 50vh;
+  margin: 3vh;
+}
+.uploadImage button{
+  padding-right: 5vh;
+}
+
+
+/* ------ Edit Categories*/
+.editImage{
+  margin-top: 5vh;
+}
+
+/* ---AdminCategories--- */
 
 .containerUpload{
   display: flex;
   flex-direction: column;
 }
-
-
-.uploadImage {
-  display: flex;
-  flex-direction: column;
-  margin-left: 2vh;
+.containerUpload img{
+  margin-bottom: 0%;
 }
-.uploadImage img {
-  width: 50vh;
-  margin-left: 2vh;
-  padding: 3vh;
-}
+
 
 .categoriesContainer {
   display: inline-table;
   margin-top: 2%;
+  margin-bottom: 0%;
 }
 .categoriesCards {
   display: flex;
   flex-wrap: wrap;
   margin-top: 5vh;
   margin-left: 10%;
+  margin-bottom: 10vh;
 }
 
 .catCard {

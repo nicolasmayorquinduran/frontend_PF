@@ -31,9 +31,7 @@ export const Profile = () => {
       if (window.localStorage.url && window.localStorage.url !== window.location.pathname) {
         navigate(window.localStorage.url)
       }
-      console.log("antes del remove",window.localStorage.url)
       window.localStorage.removeItem("url")
-      console.log("Despues del remove",window.localStorage.url)
     }
   }, [user, dispatch]);
   const actualUser = useSelector((store) => store.actualUser);
