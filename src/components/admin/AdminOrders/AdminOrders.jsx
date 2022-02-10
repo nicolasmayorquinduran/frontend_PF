@@ -17,6 +17,9 @@ const AdminOrders = () => {
 
   const [productsOrder, setProductsOrder] = useState("");
 
+  const [send, setSend] = useState({});
+  // mail, cardId, status
+
   const [productStatus, setProductStatus] = useState({
     CartId: "",
     status: "",
@@ -26,32 +29,47 @@ const AdminOrders = () => {
 
   useEffect(() => {
     dispatch(getAllCarts());
-  }, [dispatch]);
+    setSend({
+      to: productStatus.email,
+      from: "jonascript.cpu@gmail.com",
+      subject: `Pedido ${productStatus.status} `,
+      text: `Subpedido ${productStatus.CartId} ha sido ${productStatus.status} `,
+    });
+  }, [dispatch, productStatus]);
 
   const handleStatusClick = async (event) => {
     const guardaValor = event.target.value;
 
-    setProductStatus({ CartId: productsOrder[0].CartId, status: guardaValor });
+    setProductStatus({
+      CartId: productsOrder[0].CartId,
+      status: guardaValor,
+      email: productsOrder[0].user,
+    });
   };
 
   const handleDetailClick = async (email, CartId) => {
-    const productos = await axios.get(
-      "https://pffrontend-fafd3.web.app/cart/" + email ||
-        "http://localhost:3001/cart/" + email
-    );
+    const productos = await axios.get("http://localhost:3001/cart/" + email);
     const productosData = productos.data;
     const myCartProducts = productosData.filter((p) => p.CartId === CartId);
 
     setProductsOrder(myCartProducts);
   };
 
-  const handleSubmit = async () => {
-    await axios.put(
-      "https://pffrontend-fafd3.web.app/order",
-      productStatus || "http://localhost:3001/order",
-      productStatus
-    );
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log(send);
+    await axios.put("http://localhost:3001/order", productStatus);
+    await axios.post("http://localhost:3001/sendMail", send);
+    window.location.reload(true);
   };
+
+  /* const handleEmailClick = async (e) => {
+    e.preventDefault()
+    await axios.post('http://localhost:3001/sendMail', send)
+  } */
+
+  console.log(productsOrder);
 
   return (
     <div>
@@ -77,6 +95,7 @@ const AdminOrders = () => {
 
               <button type="submit">Actualizar estado</button>
             </form>
+            {/*    <button onClick={handleEmailClick}>Prueba envios</button> */}
           </div>
 
           {productsOrder[0].productCart.map((p) => (

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { NavBarCart } from "./navBarCart";
 import { NavBarMenu } from "./navBarMenu";
 import { NavBarUser } from "./navBarUser";
@@ -9,6 +9,7 @@ import { getUserCart } from "../../../redux/actions/products";
 import { useDispatch } from "react-redux";
 
 const NavBar = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const email = window.localStorage.getItem("userEmail");
 
@@ -17,18 +18,27 @@ const NavBar = () => {
   }, [dispatch]);
 
   return (
-    <div className="navbarContainer">
-      <NavBarMenu />
-
-      <div className="logoLok">
-        <Link to="/">
-          <img src={logoLok} alt="LooK" />
-        </Link>
+    <div className={location.pathname == "/" ? "fixiMenu" : ""}>
+      <div
+        className={
+          location.pathname == "/"
+            ? "navbarContainer navTransparent"
+            : "navbarContainer"
+        }
+      >
+        <div className="sideLeft">
+          <NavBarMenu />
+          <div className="logoLok">
+            <Link to="/">
+              <img src={logoLok} alt="LooK" />
+            </Link>
+          </div>
+        </div>
+        <div className="sideRigth">
+          <NavBarUser />
+          <NavBarCart />
+        </div>
       </div>
-
-      <NavBarUser />
-
-      <NavBarCart />
     </div>
   );
 };

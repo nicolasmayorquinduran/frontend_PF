@@ -40,19 +40,6 @@ export default function ProductDetails() {
     setBigImage(e.target.id);
   };
 
-  //  product.categories != undefined && allProducts.length) {
-  //     return (allProducts = allProducts.filter(
-  //       (p) => p.categories[0].name == product.categories[0].name
-  //     ));
-  /*   allProducts =
-    allProducts.length && product.hasOwnProperty("ProductId")
-      ? allProducts.filter(
-          (p) => p.categories[0].name === product.categories[0].name
-        )
-      : allProducts; */
-  // const email = user.email;
-  // const UserId = user.UsersId;
-
   let actualCart = user.hasOwnProperty("carts")
     ? user.carts.find((c) => c.status === "open")
     : {};
@@ -86,7 +73,11 @@ export default function ProductDetails() {
   useEffect(() => {
     if (allProducts.length > 0 && Object.values(product).length > 0) {
       similarProducts = allProducts.filter(
+<<<<<<< HEAD
         (p) => p.categories[0].name === product.categories[0].name
+=======
+        (p) => p.categories[0]?.name === product.categories[0].name
+>>>>>>> 1040796692d652370d3290a0fbf8fe2ec69dd620
       );
       similarProducts = similarProducts.filter(
         (p) => p.ProductId !== product.ProductId
@@ -180,7 +171,7 @@ export default function ProductDetails() {
                             }
                             min={0}
                             max={t.stock}
-                            disabled={t.stockSelected === 0 && false}
+                            disabled={t.stock === 0 && false}
                             style={{
                               background: t.stock === 0 ? "#ccc" : "#fff",
                               color: t.stock === 0 ? "#888" : "#000",
@@ -213,7 +204,9 @@ export default function ProductDetails() {
               <div>
                 <button
                   disabled={
-                    talles?.every((t) => stockSelected[t.size] === 0) && true
+                    Object.keys(stockSelected)?.every(
+                      (t) => stockSelected[t] == 0
+                    ) && true
                   }
                   className="add"
                   onClick={(e) => handleAddCart(e)}

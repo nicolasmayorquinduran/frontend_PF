@@ -312,13 +312,40 @@ const EditProduct = ({ product, setProduct }) => {
                 );
               })}
               <div className="imgProduct">
-                <h5> Nueva imagen </h5>
-                <input
-                  type="file"
-                  className="imgLoader"
-                  onChange={(event) => setImageSelected(event.target.files[0])}
-                />
-                <button onClick={uploadImage}> Cargar imagen </button>
+                <div
+                  className="path"
+                  style={{
+                    height: "50%",
+                  }}
+                >
+                  <p></p>
+                  <h2
+                    style={{
+                      fontSize: "26px",
+                      margin: "0",
+                      color: "#fff",
+                      paddingTop: "20px",
+                    }}
+                  >
+                    subir nueva imágen
+                  </h2>
+
+                  <input
+                    type="file"
+                    className="imgLoader partsEditImg"
+                    onChange={(event) =>
+                      setImageSelected(event.target.files[0])
+                    }
+                  />
+                </div>
+
+                <button
+                  onClick={uploadImage}
+                  className="partsEditImg"
+                  style={{ height: "50%", width: "100%" }}
+                >
+                  Guardar
+                </button>
               </div>
             </div>
           </Children>

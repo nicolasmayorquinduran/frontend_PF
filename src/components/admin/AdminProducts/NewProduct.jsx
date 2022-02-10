@@ -185,6 +185,7 @@ export default function NewProduct() {
               <input
                 type="file"
                 id="inputImg"
+                className="inputFile"
                 onChange={(event) => setImageSelected(event.target.files[0])}
               />
               <button onClick={uploadImage}> Cargar imagen </button>

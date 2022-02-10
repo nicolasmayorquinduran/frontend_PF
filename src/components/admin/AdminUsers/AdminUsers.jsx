@@ -37,6 +37,20 @@ function AdminUsers() {
     dispatch(getUsers());
   }, [dispatch]);
 
+  /*   const handleChange = (event) => setUser((user) => (
+    {
+      ...user,
+      [event.target.id]: event.target.value 
+    }
+  )); */
+
+  function handleChange(e) {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  }
+
   const handleChange = (event) =>
     setUser((user) => ({
       ...user,
@@ -88,10 +102,7 @@ function AdminUsers() {
   };
 
   const handleDetailClick = async (prop) => {
-    const usuario = await axios.get(
-      "https://pfbackendecommerce.herokuapp.com/users/" + prop ||
-        "http://localhost:3001/users/" + prop
-    );
+    const usuario = await axios.get("http://localhost:3001/users/" + prop);
     setUser({
       name: usuario.data.name,
       email: usuario.data.email,
@@ -109,42 +120,50 @@ function AdminUsers() {
     });
   };
 
-  const updateUser = async (event) => {
+  function handleSubmit(e) {
+    if (user.name !== "") {
+      e.preventDefault();
+      alert("Datos guardados");
+      dispatch(putUser(user));
+    } else {
+      e.preventDefault();
+      alert("Complete el nombre");
+    }
+  }
+
+  /*   const updateUser = (event) => {
+
     event.preventDefault();
+    console.log("USER",user)
+    //dispatch(putUser(user))
+    
+    setUser(
+      {
+        name: "",
+        email: "",
+        address: "",
+        cp: "",
+        state: "",
+        country: "",
+        picture: "",
+        active: "",
+        activeUser: "",
+        inactiveUser: "",
+        // admin: "",
+        activeAdmin: "",
+        inactiveAdmin: ""
+      }
+    );
 
-    dispatch(putUser(user));
-
-    setUser({
-      name: "",
-      email: "",
-      address: "",
-      cp: "",
-      state: "",
-      country: "",
-      picture: "",
-      active: "",
-      activeUser: "",
-      inactiveUser: "",
-      // admin: "",
-      activeAdmin: "",
-      inactiveAdmin: "",
-    });
-  };
-
-  console.log(user);
+  } */
 
   return (
     <div>
       {user.email.length ? (
         <div>
-          <form className="formUser">
-            <div>
-              <img
-                src={user.picture}
-                alt={user.name}
-                width="200px"
-                height="200px"
-              />
+          <form className="formUser" onSubmit={(e) => handleSubmit(e)}>
+            {/* <div>
+              <img src={user.picture} alt={user.name} width="200px" height="200px"/>
             </div>
 
             <div className="formName">
@@ -199,11 +218,51 @@ function AdminUsers() {
 
             <div className="formDireccion">
               <label htmlFor="name"> Código postal </label>
+              <input id="cp" type="text" onChange={handleChange} placeholder={user.cp}/>
+            </div>*/}
+            <div className="formName">
+              <h1>Tus datos</h1>
+              <img src={user.picture} alt="not found" />
+            </div>
+            <div className="formName">
+              <h3>Email</h3>
+              <input type="text" value={user.email} disabled />
+            </div>
+            <div className="formName">
+              <h3>Nombre</h3>
               <input
-                id="cp"
                 type="text"
-                onChange={handleChange}
-                placeholder={user.cp}
+                defaultValue={user.name}
+                name="name"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div className="formName">
+              <h3>Dirección</h3>
+              <input
+                type="text"
+                defaultValue={user.address}
+                name="address"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div className="formName">
+              <h3>Código Postal</h3>
+              <input
+                type="text"
+                defaultValue={user.cp}
+                name="cp"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div className="formName">
+              <h3>Ciudad</h3>
+
+              <input
+                type="text"
+                defaultValue={user.state}
+                name="state"
+                onChange={(e) => handleChange(e)}
               />
             </div>
 
@@ -234,7 +293,7 @@ function AdminUsers() {
             </div>
 
             <div className="formBoton">
-              <button onSubmit={updateUser}> Guardar </button>
+              <button type="submit"> Guardar </button>
             </div>
           </form>
         </div>
