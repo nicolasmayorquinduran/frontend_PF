@@ -8,7 +8,7 @@ const CreatePromo = () => {
   const [imageSelected, setImageSelected] = useState("");
   const [inputs, setInputs] = useState({
     title: "",
-    img:[],
+    img: [],
     resume: "",
   });
 
@@ -51,7 +51,11 @@ const CreatePromo = () => {
       <Container>
         <Children>
           <label>Sube una portada de categoría</label>
-          <input type="file" onChange={(event) => setImageSelected(event.target.files[0])} />
+          <input
+            className="inputFile"
+            type="file"
+            onChange={(event) => setImageSelected(event.target.files[0])}
+          />
           <button onClick={uploadImage}>Upload Image</button>
         </Children>
         <Children>

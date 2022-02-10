@@ -57,14 +57,6 @@ const AdminProducts = () => {
 
       <div className="Container">
         <Container>
-          <div className="page" id="searchForm">
-            <button className="prev" onClick={prevPage}>
-              prev
-            </button>
-            <button className="next" onClick={nextPage}>
-              next
-            </button>
-          </div>
           <Children
             style={{
               backgroundColor: "#ddd",
@@ -88,8 +80,15 @@ const AdminProducts = () => {
           </Children>
           {filteredProducts().map((product) => (
             <Children
+              pc="6"
+              tablet="4"
+              movil="3"
               className="cardProductos"
               key={product.ProductId}
+              style={{
+                height: "180px",
+                backgroundImage: `url(${product.img[0]})`,
+              }}
               onClick={() =>
                 setSelected({
                   ProductId: product.ProductId,
@@ -105,12 +104,7 @@ const AdminProducts = () => {
                 })
               }
             >
-              <div
-                className="cardParts"
-                style={{ backgroundImage: `url(${product.img[0]})` }}
-              ></div>
-
-              <div className="cardParts">
+              <div className="info">
                 <div>
                   <h5>{product.name}</h5>
                 </div>
@@ -130,6 +124,15 @@ const AdminProducts = () => {
             </Children>
           ))}
         </Container>
+
+        <div className="page" id="searchForm">
+          <button className="prev" onClick={prevPage}>
+            prev
+          </button>
+          <button className="next" onClick={nextPage}>
+            next
+          </button>
+        </div>
       </div>
     </div>
   );
