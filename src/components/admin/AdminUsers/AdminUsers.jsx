@@ -102,7 +102,10 @@ function AdminUsers() {
   };
 
   const handleDetailClick = async (prop) => {
-    const usuario = await axios.get("http://localhost:3001/users/" + prop);
+    const usuario = await axios.get(
+      "https://pfbackendecommerce.herokuapp.com/users/" + prop ||
+        "http://localhost:3001/users/" + prop
+    );
     setUser({
       name: usuario.data.name,
       email: usuario.data.email,

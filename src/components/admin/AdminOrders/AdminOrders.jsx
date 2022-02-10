@@ -48,7 +48,10 @@ const AdminOrders = () => {
   };
 
   const handleDetailClick = async (email, CartId) => {
-    const productos = await axios.get("http://localhost:3001/cart/" + email);
+    const productos = await axios.get(
+      "https://pfbackendecommerce.herokuapp.com/cart/" + email ||
+        "http://localhost:3001/cart/" + email
+    );
     const productosData = productos.data;
     const myCartProducts = productosData.filter((p) => p.CartId === CartId);
 
@@ -59,8 +62,16 @@ const AdminOrders = () => {
     e.preventDefault();
 
     console.log(send);
-    await axios.put("http://localhost:3001/order", productStatus);
-    await axios.post("http://localhost:3001/sendMail", send);
+    await axios.put(
+      "https://pfbackendecommerce.herokuapp.com/order",
+      productStatus || "http://localhost:3001/order",
+      productStatus
+    );
+    await axios.post(
+      "https://pfbackendecommerce.herokuapp.com/sendMail",
+      send || "http://localhost:3001/sendMail",
+      send
+    );
     window.location.reload(true);
   };
 
