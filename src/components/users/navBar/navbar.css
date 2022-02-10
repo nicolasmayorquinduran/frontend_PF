@@ -57,3 +57,7 @@
 .vacio {
   width: 0vw;
 }
+.circulito{
+  background-color: red;
+  border-radius: 50%;
+}
