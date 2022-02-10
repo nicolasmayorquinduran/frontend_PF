@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Children } from "../../../globalStyles";
+import { Container } from "../../../globalStyles";
 
 //IMPORTO LOS ESTADOS Y VARIABLES QUE REQUIERO
 const EditCategories = ({ category, setCategory }) => {
@@ -57,14 +59,14 @@ const EditCategories = ({ category, setCategory }) => {
       };
 
   return (
-    <>
+    <Container>
       <div className="categoryContainer">
         <div className="newCategory">
           <div>
             <h5>Editar Categoría: </h5>
           </div>
 
-          <div>
+          <Children>
             <input
               id="inputCategory"
               value={category.name}
@@ -78,12 +80,12 @@ const EditCategories = ({ category, setCategory }) => {
             <div>
               <button onClick={putCategories}>Guardar</button>
             </div>
-          </div>
+          </Children>
 
           <div>
-          <img src={category.img} alt="Imagen" height="300px" width="300" />
+          <div className="editImage"><img src={category.img} alt="Imagen" height="300px" width="300" /></div>
      
-            <input
+            <div><input
               type="file"
               onChange={(event) =>
                 setCategory((category) => ({
@@ -91,8 +93,8 @@ const EditCategories = ({ category, setCategory }) => {
                   img:event.target.files[0],
                 }))
               }
-            />
-            <button onClick={uploadImage}>Cargar Imagen</button>
+            /></div>
+            <div><button onClick={uploadImage}>Cargar Imagen</button></div>
           </div>
         </div>
         {/*   <div className="categoriesContainer">
@@ -109,7 +111,7 @@ const EditCategories = ({ category, setCategory }) => {
           </div>
         </div> */}
       </div>
-    </>
+    </Container>
   );
 };
 

@@ -86,7 +86,7 @@ export default function Cart() {
                       (actualProduct) => actualProduct.ProductId !== p.ProductId
                     );
                     setCart(productsFiltered);
-                    dispatch(deleteProductCart(cartId, p.ProductId));
+                    // dispatch(deleteProductCart(cartId, p.ProductId));
                     window.localStorage.setItem(
                       "cart",
                       JSON.stringify(productsFiltered)
@@ -133,6 +133,7 @@ export default function Cart() {
                               "cart",
                               JSON.stringify(cart)
                             );
+                            console.log(cart);
                           }}
                         />
                       </div>

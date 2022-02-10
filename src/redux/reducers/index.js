@@ -157,7 +157,8 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         reviews: action.payload,
-      };
+      };  
+
     case TYPES.POST_REVIEWS:
       return {
         ...state
