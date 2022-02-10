@@ -19,7 +19,7 @@ const SectionPromos = ({ allPromos }) => {
   //   useEffect(() => handleArrowPromos(), [handleArrowPromos]); no está importado
 
   return (
-    <Container>
+    <Container id="containerPromo">
       {
         <Children className="sliderPromo">
           <div className="path"></div>

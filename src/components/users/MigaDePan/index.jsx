@@ -2,14 +2,14 @@ import * as React from "react";
 import { Typography, Breadcrumbs, Link } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 
-export default function MigadePan (props) {
+export default function MigadePan(props) {
   let location = useLocation();
   let navigate = useNavigate();
 
   const pathnames = location.pathname.split("/").filter((x) => x);
 
   return (
-    <div role="presentation">
+    <div role="presentation" className="presentation">
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" onClick={() => navigate("/")}>
           Home
@@ -32,5 +32,4 @@ export default function MigadePan (props) {
       </Breadcrumbs>
     </div>
   );
-};
-
+}
