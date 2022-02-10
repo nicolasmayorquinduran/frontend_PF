@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Children } from "../../../globalStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faStar } from "@fortawesome/free-solid-svg-icons";
+import NumberFormat from "react-number-format"
 import "./styles.css";
 const Product = ({ id, name, price, img, ranking, unids, amount }) => {
   ranking = [Number(ranking)];
@@ -27,7 +28,9 @@ const Product = ({ id, name, price, img, ranking, unids, amount }) => {
         <div className="Card">
           <Link to={`/products/${id}`}><h5>{name}</h5></Link>
           {/* <strong>{`Unidades pedidas: ${unids}`}</strong> */}
-          <strong>{`Precio: $${price}`}</strong>
+          <strong>
+            <NumberFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+          </strong>
           <div className="ranking">
             {ranking.map((star) => (
               <FontAwesomeIcon icon={faStar} />
