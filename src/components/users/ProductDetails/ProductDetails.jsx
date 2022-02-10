@@ -268,11 +268,10 @@ export default function ProductDetails() {
                      
                   {review?.map((ele) => (
                     <div className='review'>
+                      <p>Calificación: {ele.score}</p>
                       <p>User: {ele.userUsersId}</p>                     
                       <p>{ele.description}</p>
-                      <div>
-                       
-                      </div>
+
                     </div>
                   ))}
                 </div>
