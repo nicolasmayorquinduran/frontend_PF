@@ -12,11 +12,6 @@
   border: none;
 }
 
-#forward {
-  position: absolute;
-  z-index: 5px;
-}
-
 .logged {
   margin: 0 15px;
 }

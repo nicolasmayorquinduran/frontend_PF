@@ -105,6 +105,9 @@ input.imgLoader.partsEditImg {
   position: relative;
 }
 
+.cajitaImg {
+}
+
 .inputFile {
   border: 1px solid #ccc;
   display: inline-block;

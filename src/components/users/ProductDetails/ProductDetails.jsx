@@ -73,11 +73,7 @@ export default function ProductDetails() {
   useEffect(() => {
     if (allProducts.length > 0 && Object.values(product).length > 0) {
       similarProducts = allProducts.filter(
-<<<<<<< HEAD
-        (p) => p.categories[0].name === product.categories[0].name
-=======
         (p) => p.categories[0]?.name === product.categories[0].name
->>>>>>> 1040796692d652370d3290a0fbf8fe2ec69dd620
       );
       similarProducts = similarProducts.filter(
         (p) => p.ProductId !== product.ProductId
@@ -257,8 +253,9 @@ export default function ProductDetails() {
               {(changeTab === "Comentarios" && (
                 <div className="tabInfo">
                   {review?.map((ele) => (
-                    <div>
-                      <p>{ele.score}</p>
+                    <div className="review">
+                      <p>Calificación: {ele.score}</p>
+                      <p>User: {ele.userUsersId}</p>
                       <p>{ele.description}</p>
                     </div>
                   ))}

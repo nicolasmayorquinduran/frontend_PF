@@ -280,14 +280,15 @@ const EditProduct = ({ product, setProduct }) => {
                   >
                     subir nueva imágen
                   </h2>
-
-                  <input
-                    type="file"
-                    className="imgLoader partsEditImg"
-                    onChange={(event) =>
-                      setImageSelected(event.target.files[0])
-                    }
-                  />
+                  <div className="cajitaImg">
+                    <input
+                      type="file"
+                      className="imgLoader partsEditImg"
+                      onChange={(event) =>
+                        setImageSelected(event.target.files[0])
+                      }
+                    />
+                  </div>
                 </div>
 
                 <button
