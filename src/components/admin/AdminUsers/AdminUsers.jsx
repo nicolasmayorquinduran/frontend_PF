@@ -44,18 +44,12 @@ function AdminUsers() {
     }
   )); */
 
-  //   function handleChange(e){
-  //     setUser({
-  //         ...user,
-  //         [e.target.name]: e.target.value
-  //     })
-  // }
-
-  const handleChange = (event) =>
-    setUser((user) => ({
+  function handleChange(e) {
+    setUser({
       ...user,
-      [event.target.id]: event.target.value,
-    }));
+      [e.target.name]: e.target.value,
+    });
+  }
 
   const handleActiveUser = (event) => {
     event.preventDefault();
@@ -224,46 +218,46 @@ function AdminUsers() {
               <input id="cp" type="text" onChange={handleChange} placeholder={user.cp}/>
             </div>*/}
             <div className="formName">
-              <h1>Tus datos</h1>
+              <h3>Tus datos</h3>
               <img src={user.picture} alt="not found" />
             </div>
             <div className="formName">
-              <h3>Email</h3>
+              <h5>Email</h5>
               <input type="text" value={user.email} disabled />
             </div>
             <div className="formName">
-              <h3>Nombre</h3>
+              <h5>Nombre</h5>
               <input
                 type="text"
-                defaultValue={user.name}
+                value={user.name}
                 name="name"
                 onChange={(e) => handleChange(e)}
               />
             </div>
             <div className="formName">
-              <h3>Dirección</h3>
+              <h5>Dirección</h5>
               <input
                 type="text"
-                defaultValue={user.address}
+                value={user.address}
                 name="address"
                 onChange={(e) => handleChange(e)}
               />
             </div>
             <div className="formName">
-              <h3>Código Postal</h3>
+              <h5>Código Postal</h5>
               <input
                 type="text"
-                defaultValue={user.cp}
+                value={user.cp}
                 name="cp"
                 onChange={(e) => handleChange(e)}
               />
             </div>
             <div className="formName">
-              <h3>Ciudad</h3>
+              <h5>Ciudad</h5>
 
               <input
                 type="text"
-                defaultValue={user.state}
+                value={user.state}
                 name="state"
                 onChange={(e) => handleChange(e)}
               />

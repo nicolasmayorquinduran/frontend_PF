@@ -13,7 +13,7 @@ import "./AdminOrders.css";
 const AdminOrders = () => {
   const dispatch = useDispatch();
 
-  const carts = useSelector((state) => state.allCarts);
+  const carts = useSelector((state) => state.allCarts).filter((e) => e.status !== "open")
 
   const [productsOrder, setProductsOrder] = useState("");
 
@@ -31,9 +31,9 @@ const AdminOrders = () => {
     dispatch(getAllCarts());
     setSend({
       to: productStatus.email,
-      from: "jonascript.cpu@gmail.com",
+      from: "PFHenryGrupo4@gmail.com",
       subject: `Pedido ${productStatus.status} `,
-      text: `Subpedido ${productStatus.CartId} ha sido ${productStatus.status} `,
+      text: `Su pedido ${productStatus.CartId} ha sido ${productStatus.status} `,
     });
   }, [dispatch, productStatus]);
 
@@ -79,8 +79,8 @@ const AdminOrders = () => {
     e.preventDefault()
     await axios.post('http://localhost:3001/sendMail', send)
   } */
-
-  console.log(productsOrder);
+  
+  console.log("CARTS ",carts);
 
   return (
     <div>
@@ -96,16 +96,6 @@ const AdminOrders = () => {
               Número de orden: <p>{productsOrder[0].CartId}</p>{" "}
             </h6>
 
-            <form onSubmit={handleSubmit}>
-              <select onChange={handleStatusClick}>
-                <option>Estado de compra</option>
-                <option value="paid">paid</option>
-                <option value="dispatched">dispatched</option>
-                <option value="delivered">delivered</option>
-              </select>
-
-              <button type="submit">Actualizar estado</button>
-            </form>
             {/*    <button onClick={handleEmailClick}>Prueba envios</button> */}
           </div>
 
@@ -122,6 +112,17 @@ const AdminOrders = () => {
               <p>Talle xxl: {p.stockSelected.xxl}</p>
             </div>
           ))}
+
+          <form onSubmit={handleSubmit}>
+            <select onChange={handleStatusClick}>
+              <option>Estado de compra</option>
+              <option value="paid">paid</option>
+              <option value="dispatched">dispatched</option>
+              <option value="delivered">delivered</option>
+            </select>
+
+            <button type="submit">Actualizar estado</button>
+          </form>
         </div>
       ) : (
         <h3>

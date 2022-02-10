@@ -64,6 +64,17 @@ export default function ProductDetails() {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
 
+
+  function rank(puntuacion){
+  puntuacion = [Number(puntuacion)];
+  while (puntuacion.length < puntuacion[puntuacion.length - 1]) {
+    puntuacion = [...puntuacion, puntuacion[puntuacion.length - 1]];
+
+  }
+    return puntuacion;
+}
+
+
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
@@ -80,6 +91,8 @@ export default function ProductDetails() {
       );
     }
   }, [allProducts, product]);
+
+  
 
   const handleStockQty = (s, n) => {
     setStockSelected({ ...stockSelected, [s]: n });
@@ -252,10 +265,13 @@ export default function ProductDetails() {
             <div className="ContainerTabs">
               {(changeTab === "Comentarios" && (
                 <div className="tabInfo">
+                     
                   {review?.map((ele) => (
-                    <div>
-                      <p>{ele.score}</p>
+                    <div className='review'>
+                      <p>Calificación: {ele.score}</p>
+                      <p>User: {ele.userUsersId}</p>                     
                       <p>{ele.description}</p>
+
                     </div>
                   ))}
                 </div>
