@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Children } from "../../../globalStyles";
 import { useAuth0 } from "@auth0/auth0-react";
+import NumberFormat from "react-number-format"
 
 import Swal from "sweetalert2";
 import { deleteProductCart } from "../../../redux/actions/products";
@@ -149,14 +150,11 @@ export default function Cart() {
       </Container>
       <div>
         <h4>
-          {`Total compra: $${cart?.reduce(
-            (acc, p) =>
-              (acc += Object.keys(p.stockSelected)?.reduce(
-                (acc, talla) => (acc += p.stockSelected[talla] * p.price),
-                0
-              )),
-            0
-          )}`}
+          <NumberFormat value={cart?.reduce((acc, p) =>(acc += Object.keys(p.stockSelected)?.reduce((acc, talla) => (acc += p.stockSelected[talla] * p.price),0)),0)} 
+          displayType={'text'} 
+          thousandSeparator={true} 
+          prefix={'$'} 
+          />
         </h4>
       </div>
 
