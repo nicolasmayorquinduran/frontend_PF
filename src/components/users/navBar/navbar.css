@@ -13,6 +13,8 @@
 }
 
 #forward {
+  position: absolute;
+  z-index: 5px;
 }
 
 .logged {

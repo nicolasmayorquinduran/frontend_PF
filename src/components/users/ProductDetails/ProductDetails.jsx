@@ -64,17 +64,6 @@ export default function ProductDetails() {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
 
-
-  function rank(puntuacion){
-  puntuacion = [Number(puntuacion)];
-  while (puntuacion.length < puntuacion[puntuacion.length - 1]) {
-    puntuacion = [...puntuacion, puntuacion[puntuacion.length - 1]];
-
-  }
-    return puntuacion;
-}
-
-
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
@@ -84,15 +73,17 @@ export default function ProductDetails() {
   useEffect(() => {
     if (allProducts.length > 0 && Object.values(product).length > 0) {
       similarProducts = allProducts.filter(
+<<<<<<< HEAD
+        (p) => p.categories[0].name === product.categories[0].name
+=======
         (p) => p.categories[0]?.name === product.categories[0].name
+>>>>>>> 1040796692d652370d3290a0fbf8fe2ec69dd620
       );
       similarProducts = similarProducts.filter(
         (p) => p.ProductId !== product.ProductId
       );
     }
   }, [allProducts, product]);
-
-  
 
   const handleStockQty = (s, n) => {
     setStockSelected({ ...stockSelected, [s]: n });
@@ -265,16 +256,10 @@ export default function ProductDetails() {
             <div className="ContainerTabs">
               {(changeTab === "Comentarios" && (
                 <div className="tabInfo">
-                     
                   {review?.map((ele) => (
-                    <div className='review'>
-                      <p>User: {ele.userUsersId}</p>                     
+                    <div>
+                      <p>{ele.score}</p>
                       <p>{ele.description}</p>
-                      <div>
-                        {rank(ele.rank).map(star=> (
-                          console.log(star)
-                        <FontAwesomeIcon icon={faStar} />))}
-                      </div>
                     </div>
                   ))}
                 </div>
