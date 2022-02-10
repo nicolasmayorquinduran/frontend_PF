@@ -13,7 +13,7 @@ import "./AdminOrders.css";
 const AdminOrders = () => {
   const dispatch = useDispatch();
 
-  const carts = useSelector((state) => state.allCarts);
+  const carts = useSelector((state) => state.allCarts).filter((e) => e.status !== "open")
 
   const [productsOrder, setProductsOrder] = useState("");
 
@@ -68,8 +68,8 @@ const AdminOrders = () => {
     e.preventDefault()
     await axios.post('http://localhost:3001/sendMail', send)
   } */
-
-  console.log(productsOrder);
+  
+  console.log("CARTS ",carts);
 
   return (
     <div>
