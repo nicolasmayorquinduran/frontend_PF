@@ -32,7 +32,7 @@ export const NavBarMenu = () => {
           <DropdownToggle className="dropdownButton">
             <FontAwesomeIcon icon={faBars} />
           </DropdownToggle>
-          <DropdownMenu>
+          <DropdownMenu id="forward">
             <DropdownItem>
               <a href="/">Home</a>
             </DropdownItem>
@@ -44,12 +44,13 @@ export const NavBarMenu = () => {
             <DropdownItem divider />
             {categoriesState.map((categorie) => {
               return (
-                categorie.active && 
-                <DropdownItem key={categorie.CategoriesId}>
-                  <Link to="/products" state={{ filter: categorie.name }}>
-                    {categorie.name}
-                  </Link>
-                </DropdownItem>
+                categorie.active && (
+                  <DropdownItem key={categorie.CategoriesId}>
+                    <Link to="/products" state={{ filter: categorie.name }}>
+                      {categorie.name}
+                    </Link>
+                  </DropdownItem>
+                )
               );
             })}
           </DropdownMenu>
