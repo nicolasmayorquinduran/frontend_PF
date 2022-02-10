@@ -17,7 +17,7 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Container } from "../../../globalStyles";
-let similarProducts = []
+let similarProducts = [];
 export default function ProductDetails() {
   const [changeTab, setChangeTab] = useState("Comentarios");
   let [stockSelected, setStockSelected] = useState({
@@ -40,23 +40,10 @@ export default function ProductDetails() {
     setBigImage(e.target.id);
   };
 
-  //  product.categories != undefined && allProducts.length) {
-  //     return (allProducts = allProducts.filter(
-  //       (p) => p.categories[0].name == product.categories[0].name
-  //     ));
-  /*   allProducts =
-    allProducts.length && product.hasOwnProperty("ProductId")
-      ? allProducts.filter(
-          (p) => p.categories[0].name === product.categories[0].name
-        )
-      : allProducts; */
-  // const email = user.email;
-  // const UserId = user.UsersId;
-
   let actualCart = user.hasOwnProperty("carts")
     ? user.carts.find((c) => c.status === "open")
     : {};
-    console.log(user)
+  console.log(user);
   let talles = [];
   for (const prop in product?.stock) {
     talles = [...talles, { size: prop, stock: product.stock[prop] }];
@@ -76,7 +63,18 @@ export default function ProductDetails() {
   while (ranking.length < ranking[ranking.length - 1]) {
     ranking = [...ranking, ranking[ranking.length - 1]];
   }
-  
+
+
+  function rank(puntuacion){
+  puntuacion = [Number(puntuacion)];
+  while (puntuacion.length < puntuacion[puntuacion.length - 1]) {
+    puntuacion = [...puntuacion, puntuacion[puntuacion.length - 1]];
+
+  }
+    return puntuacion;
+}
+
+
   useEffect(() => {
     dispatch(getProducts());
     dispatch(detailsProduct(id));
@@ -84,11 +82,17 @@ export default function ProductDetails() {
   }, [dispatch, user, id, bigImage]);
 
   useEffect(() => {
-    if (allProducts.length > 0 && Object.values(product).length > 0){
-      similarProducts = allProducts.filter((p) =>(p.categories[0].name === product.categories[0].name))
-      similarProducts = similarProducts.filter((p) => p.ProductId !== product.ProductId)
+    if (allProducts.length > 0 && Object.values(product).length > 0) {
+      similarProducts = allProducts.filter(
+        (p) => p.categories[0]?.name === product.categories[0].name
+      );
+      similarProducts = similarProducts.filter(
+        (p) => p.ProductId !== product.ProductId
+      );
     }
-    }, [allProducts, product]);
+  }, [allProducts, product]);
+
+  
 
   const handleStockQty = (s, n) => {
     setStockSelected({ ...stockSelected, [s]: n });
@@ -176,7 +180,7 @@ export default function ProductDetails() {
                             }
                             min={0}
                             max={t.stock}
-                            disabled={t.stockSelected === 0 && false}
+                            disabled={t.stock === 0 && false}
                             style={{
                               background: t.stock === 0 ? "#ccc" : "#fff",
                               color: t.stock === 0 ? "#888" : "#000",
@@ -209,7 +213,9 @@ export default function ProductDetails() {
               <div>
                 <button
                   disabled={
-                    talles?.every((t) => stockSelected[t.size] === 0) && true
+                    Object.keys(stockSelected)?.every(
+                      (t) => stockSelected[t] == 0
+                    ) && true
                   }
                   className="add"
                   onClick={(e) => handleAddCart(e)}
@@ -259,12 +265,18 @@ export default function ProductDetails() {
             <div className="ContainerTabs">
               {(changeTab === "Comentarios" && (
                 <div className="tabInfo">
-                {review?.map(ele=> (
-                  <div>
-                  <p>{ele.score}</p>
-                  <p>{ele.description}</p>             
-                  </div>
-                  ))}   
+                     
+                  {review?.map((ele) => (
+                    <div className='review'>
+                      <p>User: {ele.userUsersId}</p>                     
+                      <p>{ele.description}</p>
+                      <div>
+                        {rank(ele.rank).map(star=> (
+                          console.log(star)
+                        <FontAwesomeIcon icon={faStar} />))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               )) ||
                 (changeTab === "Adicional" && (
@@ -312,7 +324,6 @@ export default function ProductDetails() {
             }
           >
             <Container>
-
               {similarProducts.map(
                 (p, index) =>
                   index < 4 && (

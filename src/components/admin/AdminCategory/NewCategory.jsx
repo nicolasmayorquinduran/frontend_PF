@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {Container, Children} from "../../../globalStyles"
+import { Container, Children } from "../../../globalStyles";
 //import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import "./adminCategories.css";
 /* import { Image } from 'cloudinary-react'; */
-
 
 function NewCategory() {
   const navigate = useNavigate();
@@ -52,11 +51,12 @@ function NewCategory() {
 
   return (
     <>
-      <div className="categoryContainer">
-        <div>
-          <h5>Nueva categoría: </h5>
-        </div>
-        <div className="newCategory">
+      <Container className="categoryContainer">
+        <Children pc="2">
+          <img id="imageCategory" src={imageSelected} alt="Imagen" />
+        </Children>
+        <Children pc="2">
+          <h5>Nombre categoría: </h5>
           <form id={newCategory}>
             <div>
               <input
@@ -74,31 +74,21 @@ function NewCategory() {
               </div>
             </div>
           </form>
-
-          <div className="uploadImage">
-           <div><img src={imageSelected} alt="Imagen" height="300px" width="300" /></div> 
-            <input
-              type="file"
-              onChange={(event) => setImageSelected(event.target.files[0])}
-            />
-           
-           <div> <button onClick={uploadImage}>Upload Image</button></div>
+          <div></div>
+          <div className="newCategory">
+            <div className="uploadImage">
+              <input
+                className="inputFile"
+                type="file"
+                onChange={(event) => setImageSelected(event.target.files[0])}
+              />
+              <div>
+                <button onClick={uploadImage}>Upload Image</button>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="categoriesContainer">
-          <h5>Categorías creadas: </h5>
-          <div className="categoriesCards">
-            {/* {categories?.map((c) => {
-              return (
-                <div className="catCard">
-                  <label className="catLabel">{c.name}</label>
-                  <img src={c.img} alt="" width="300px" height="300px" />
-                </div>
-              );
-            })} */}
-          </div>
-        </div>
-      </div>
+        </Children>
+      </Container>
     </>
   );
 }

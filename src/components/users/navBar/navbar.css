@@ -16,28 +16,44 @@
 }
 
 .logged {
-  display: inline-flex;
+  margin: 0 15px;
 }
-
 .logged img {
   border-radius: 50%;
 }
 
+.logoLok {
+  position: absolute;
+  left: 50%;
+  transform: translatex(-50%);
+  z-index: 1000;
+}
+
 .logoLok img {
-  height: 19vh;
+  height: 12vh;
 }
 
 .navbarContainer {
-  display: inline-flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100% !important;
-  height: 16vh;
+  display: flex;
+  justify-content: space-between;
   background-color: #9f005d;
   border: solid #9f005d;
   color: #ba0089;
   font-size: 7vh;
   margin: 0 !important;
+  align-items: center;
+  position: relative;
+}
+
+.sideLeft {
+  width: 50%;
+  display: flex;
+}
+
+.sideRigth {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 #navLink {
@@ -59,4 +75,19 @@
 
 .vacio {
   width: 0vw;
+}
+
+.fixiMenu {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+}
+
+.navTransparent {
+  background-color: transparent;
+  border: navajowhite;
+}
+
+.navTransparent img {
+  height: 30vh;
 }
