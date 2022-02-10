@@ -31,9 +31,9 @@ const AdminOrders = () => {
     dispatch(getAllCarts());
     setSend({
       to: productStatus.email,
-      from: "jonascript.cpu@gmail.com",
+      from: "PFHenryGrupo4@gmail.com",
       subject: `Pedido ${productStatus.status} `,
-      text: `Subpedido ${productStatus.CartId} ha sido ${productStatus.status} `,
+      text: `Su pedido ${productStatus.CartId} ha sido ${productStatus.status} `,
     });
   }, [dispatch, productStatus]);
 
