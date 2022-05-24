@@ -7,7 +7,7 @@ import logoLok from "./logo_LOK.png";
 import "./navbar.css";
 import { getUserCart } from "../../../redux/actions/products";
 import { useDispatch } from "react-redux";
-
+//esto es otro comentario
 const NavBar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
